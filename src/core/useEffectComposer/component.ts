@@ -5,13 +5,13 @@ import { DepthDownsamplingPass, EffectComposer as EffectComposerImpl, NormalPass
 import { isWebGL2Available } from 'three-stdlib'
 
 import { useCore } from '../useCore'
-// TODO remove this comment as it is only here allow me creating a pr :)
+
 export interface EffectComposerProps {
   /**
    * Whether the effect composer is enabled.
    * @default true
    * @type {boolean}
-   * @memberof EffectComposerProps
+   * @memberof EffectComposerProps // TODO why is this here?
    * @name enabled
    *
    **/
@@ -24,7 +24,7 @@ export interface EffectComposerProps {
    * @name children
    *
    **/
-  children?: Array<any>
+  children?: Array<any> // TODO remove; it is not in use
   /**
    * Whether the depth buffer is enabled.
    * @default true
@@ -33,7 +33,7 @@ export interface EffectComposerProps {
    * @name depthBuffer
    *
    **/
-  depthBuffer?: boolean
+  depthBuffer?: boolean // TODO use
   /**
    *
    * @default false
@@ -42,7 +42,7 @@ export interface EffectComposerProps {
    * @name dissableNormalPass
    *
    **/
-  dissableNormalPass?: boolean
+  dissableNormalPass?: boolean // TODO typo diSSableNormalPass  // TODO remove; it is not in use
   /**
    *
    * Stencil buffer.
@@ -52,7 +52,7 @@ export interface EffectComposerProps {
    * @name stencilBuffer
    *
    **/
-  stencilBuffer?: boolean
+  stencilBuffer?: boolean // TODO ruse!
   /**
    *
    * Whether the effect composer should clear the buffers before rendering.
@@ -62,7 +62,7 @@ export interface EffectComposerProps {
    * @name autoClear
    *
    **/
-  autoClear?: boolean
+  autoClear?: boolean // TODO remove; it is not in use
   /**
    *
    * The resolution scale.
@@ -72,7 +72,7 @@ export interface EffectComposerProps {
    * @name resolutionScale
    *
    **/
-  resolutionScale?: number
+  resolutionScale?: number // TODO remove; is not (really) in use
   /**
    *
    * The multisampling.
@@ -82,7 +82,7 @@ export interface EffectComposerProps {
    * @name multisampling
    *
    **/
-  multisampling?: number
+  multisampling?: number //TODO use
   /**
    *
    * The frame buffer type.
@@ -92,7 +92,7 @@ export interface EffectComposerProps {
    * @name frameBufferType
    *
    **/
-  frameBufferType?: number
+  frameBufferType?: number // TODO use
 
   /**
    *
@@ -103,7 +103,7 @@ export interface EffectComposerProps {
    * @name renderPriority
    *
    **/
-  renderPriority?: number
+  renderPriority?: number // TODO remove, is not in use
   /**
    *
    * A camera to use for rendering.
@@ -121,7 +121,7 @@ export interface EffectComposerProps {
    * @name scene
    *
    **/
-  scene?: Scene
+  scene?: Scene // TODO How would this be used? I could imagine, that the post processing components would not work without having a TresScene.
 }
 
 export const EffectComposer = defineComponent<EffectComposerProps>({
@@ -164,6 +164,7 @@ export const EffectComposer = defineComponent<EffectComposerProps>({
     const { width, height } = useWindowSize()
 
     function setNormalPass() {
+      // TODO there is no code that enables the normal pass and downsampling pass. I'd suggest we remove the unused parts until they are in use
       if (effectComposer.value) {
         normalPass = new NormalPass(scene as Scene, camera as Camera)
         normalPass.enabled = false
@@ -180,9 +181,13 @@ export const EffectComposer = defineComponent<EffectComposerProps>({
     }
 
     watchEffect(() => {
+      // TODO this will run way to often
+      // a new EffectComposer and RenderPass is created whenever the active camera changes.
+      // we should set camera via `renderPass.camera = ` only when it changes instead
+
       if (state.renderer && state.scene && state.camera) {
-        state.renderer.setSize(width.value, height.value)
-        state.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+        state.renderer.setSize(width.value, height.value) // TODO remove; should be the responsibility of renderer
+        state.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)) // TODO remove; should be the responsibility of renderer
         effectComposer.value = new EffectComposerImpl(state.renderer)
         effectComposer.value.addPass(new RenderPass(scene, camera))
 
