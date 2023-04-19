@@ -5,7 +5,7 @@ import { DepthDownsamplingPass, EffectComposer as EffectComposerImpl, NormalPass
 import { isWebGL2Available } from 'three-stdlib'
 
 import { useCore } from '../useCore'
-
+// TODO remove this comment as it is only here allow me creating a pr :)
 export interface EffectComposerProps {
   /**
    * Whether the effect composer is enabled.
