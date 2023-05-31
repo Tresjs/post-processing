@@ -1,4 +1,8 @@
-lockfileVersion: '6.0'
+lockfileVersion: '6.1'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
 
 importers:
 
@@ -9,13 +13,13 @@ importers:
         version: 10.1.2(vue@3.3.4)
       postprocessing:
         specifier: ^6.31.0
-        version: 6.31.0(three@0.152.2)
+        version: 6.31.0(three@0.153.0)
       three:
-        specifier: ^0.152.2
-        version: 0.152.2
+        specifier: ^0.153.0
+        version: 0.153.0
       three-stdlib:
         specifier: ^2.23.4
-        version: 2.23.4(three@0.152.2)
+        version: 2.23.4(three@0.153.0)
       vue:
         specifier: ^3.3.4
         version: 3.3.4
@@ -28,10 +32,10 @@ importers:
         version: 5.1.1(release-it@15.10.3)
       '@tresjs/cientos':
         specifier: 2.1.2
-        version: 2.1.2(@tresjs/core@2.1.2)(three@0.152.2)(vue@3.3.4)
+        version: 2.1.2(@tresjs/core@2.1.2)(three@0.153.0)(vue@3.3.4)
       '@tresjs/core':
         specifier: 2.1.2
-        version: 2.1.2(three@0.152.2)(vue@3.3.4)
+        version: 2.1.2(three@0.153.0)(vue@3.3.4)
       '@types/three':
         specifier: ^0.152.1
         version: 0.152.1
@@ -107,10 +111,10 @@ importers:
     dependencies:
       '@tresjs/cientos':
         specifier: 2.0.0
-        version: 2.0.0(@tresjs/core@2.1.1)(three@0.152.2)(vue@3.3.4)
+        version: 2.0.0(@tresjs/core@2.1.1)(three@0.153.0)(vue@3.3.4)
       '@tresjs/core':
         specifier: 2.1.1
-        version: 2.1.1(three@0.152.2)(vue@3.3.4)
+        version: 2.1.1(three@0.153.0)(vue@3.3.4)
       vue-router:
         specifier: ^4.2.1
         version: 4.2.1(vue@3.3.4)
@@ -969,39 +973,39 @@ packages:
     engines: {node: '>= 6'}
     dev: true
 
-  /@tresjs/cientos@2.0.0(@tresjs/core@2.1.1)(three@0.152.2)(vue@3.3.4):
+  /@tresjs/cientos@2.0.0(@tresjs/core@2.1.1)(three@0.153.0)(vue@3.3.4):
     resolution: {integrity: sha512-uIN5H1q93/RY/ngzLsMQ6Uqzu1gKOzNGx4ljqF2KDC8kJ+ANYQmjZr4H3hXJ0Rrc6wHtnIzk7NjIfTXqj2MgLA==}
     peerDependencies:
       '@tresjs/core': 2.0.0
       three: latest
       vue: ^3.2.47
     dependencies:
-      '@tresjs/core': 2.1.1(three@0.152.2)(vue@3.3.4)
+      '@tresjs/core': 2.1.1(three@0.153.0)(vue@3.3.4)
       '@vueuse/core': 10.1.2(vue@3.3.4)
-      three: 0.152.2
-      three-stdlib: 2.23.4(three@0.152.2)
+      three: 0.153.0
+      three-stdlib: 2.23.4(three@0.153.0)
       vue: 3.3.4
     transitivePeerDependencies:
       - '@vue/composition-api'
     dev: false
 
-  /@tresjs/cientos@2.1.2(@tresjs/core@2.1.2)(three@0.152.2)(vue@3.3.4):
+  /@tresjs/cientos@2.1.2(@tresjs/core@2.1.2)(three@0.153.0)(vue@3.3.4):
     resolution: {integrity: sha512-+q2s1bUNuwAVAgm0OQfpwrGsNDf4NyKUoIKtvPFdSiqXDxtHVW9KJv8zb1ttYF9Dsf7zBPpN22fYn/eiqPoZbA==}
     peerDependencies:
       '@tresjs/core': 2.1.1
       three: latest
       vue: ^3.3.4
     dependencies:
-      '@tresjs/core': 2.1.2(three@0.152.2)(vue@3.3.4)
+      '@tresjs/core': 2.1.2(three@0.153.0)(vue@3.3.4)
       '@vueuse/core': 10.1.2(vue@3.3.4)
-      three: 0.152.2
-      three-stdlib: 2.23.4(three@0.152.2)
+      three: 0.153.0
+      three-stdlib: 2.23.4(three@0.153.0)
       vue: 3.3.4
     transitivePeerDependencies:
       - '@vue/composition-api'
     dev: true
 
-  /@tresjs/core@2.1.1(three@0.152.2)(vue@3.3.4):
+  /@tresjs/core@2.1.1(three@0.153.0)(vue@3.3.4):
     resolution: {integrity: sha512-VSQRa0hiHTVDtjaPPmsuVZWkqJLR6Z8AFW8RXv+P3vEkom3fovt1Mq7MPbokZav+EFozw4GJNBylXJkkQJGH5A==}
     peerDependencies:
       three: latest
@@ -1009,13 +1013,13 @@ packages:
     dependencies:
       '@alvarosabu/utils': 2.3.0
       '@vueuse/core': 10.1.2(vue@3.3.4)
-      three: 0.152.2
+      three: 0.153.0
       vue: 3.3.4
     transitivePeerDependencies:
       - '@vue/composition-api'
     dev: false
 
-  /@tresjs/core@2.1.2(three@0.152.2)(vue@3.3.4):
+  /@tresjs/core@2.1.2(three@0.153.0)(vue@3.3.4):
     resolution: {integrity: sha512-dK/wR4X2NFg2VFMhw4mAUFel/tkPQtPsKkSiIn+qU5ejmRqTf2rKaVoql80CvbW+y2GVjYLUGl83oYEETH3WUA==}
     peerDependencies:
       three: latest
@@ -1023,7 +1027,7 @@ packages:
     dependencies:
       '@alvarosabu/utils': 2.3.0
       '@vueuse/core': 10.1.2(vue@3.3.4)
-      three: 0.152.2
+      three: 0.153.0
       vue: 3.3.4
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -4361,13 +4365,13 @@ packages:
       source-map-js: 1.0.2
     dev: true
 
-  /postprocessing@6.31.0(three@0.152.2):
+  /postprocessing@6.31.0(three@0.153.0):
     resolution: {integrity: sha512-h1g2KDVrTS6QB4AHP55opp8FYzq66jJHh4JIFCptaj283RUX1y/tPkv8FBB2oK4WYrdPgqvElnKrXZwgiLWeHQ==}
     engines: {node: '>= 0.13.2'}
     peerDependencies:
       three: '>= 0.138.0 < 0.153.0'
     dependencies:
-      three: 0.152.2
+      three: 0.153.0
     dev: false
 
   /potpack@1.0.2:
@@ -5116,7 +5120,7 @@ packages:
     engines: {node: '>=0.10'}
     dev: true
 
-  /three-stdlib@2.23.4(three@0.152.2):
+  /three-stdlib@2.23.4(three@0.153.0):
     resolution: {integrity: sha512-bNtKL0UsE/TeSQ30tb9qDoGEuO6hqJfLFVqIiWlVpgAs2W/aZcpSISaLP3q+L4E9NSGmpRzI3dGufmDj0AnQ7Q==}
     peerDependencies:
       three: '>=0.128.0'
@@ -5131,11 +5135,11 @@ packages:
       mmd-parser: 1.0.4
       opentype.js: 1.3.4
       potpack: 1.0.2
-      three: 0.152.2
+      three: 0.153.0
       zstddec: 0.0.2
 
-  /three@0.152.2:
-    resolution: {integrity: sha512-Ff9zIpSfkkqcBcpdiFo2f35vA9ZucO+N8TNacJOqaEE6DrB0eufItVMib8bK8Pcju/ZNT6a7blE1GhTpkdsILw==}
+  /three@0.153.0:
+    resolution: {integrity: sha512-OCP2/uQR6GcDpSLnJt/3a4mdS0kNWcbfUXIwLoEMgLzEUIVIYsSDwskpmOii/AkDM+BBwrl6+CKgrjX9+E2aWg==}
 
   /through2@2.0.5:
     resolution: {integrity: sha512-/mrRod8xqpA+IHSLyGCQ2s8SPHiCDEeQJSep1jqLYeEUClOFG2Qsh+4FU6G9VeqpZnGW/Su8LQGc4YKni5rYSQ==}

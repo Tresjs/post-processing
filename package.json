@@ -49,7 +49,7 @@
   "dependencies": {
     "@vueuse/core": "^10.1.2",
     "postprocessing": "^6.31.0",
-    "three": "^0.152.2",
+    "three": "^0.153.0",
     "three-stdlib": "^2.23.4",
     "vue": "^3.3.4"
   },
