@@ -7,6 +7,7 @@ import { inject, onUnmounted, shallowRef, watch, watchEffect, computed } from 'v
 import type { TresColor } from '@tresjs/core'
 import type { BlendFunction, KernelSize } from 'postprocessing'
 import type { Object3D, ColorRepresentation, Texture } from 'three'
+import { effectComposerInjectionKey } from '../injectionKeys'
 
 export type OutlineProps = {
   /**
@@ -53,7 +54,7 @@ export type OutlineProps = {
 const props = defineProps<OutlineProps>()
 
 const { state } = useCore()
-const composer = inject<any>('effectComposer') // TODO inject type
+const composer = inject(effectComposerInjectionKey) // TODO inject type
 const pass = shallowRef<EffectPass | null>(null)
 const effect = shallowRef<OutlineEffect | null>(null)
 
@@ -174,7 +175,7 @@ watchEffect(() => {
 
 onUnmounted(() => {
   effect.value?.selection.clear()
-  composer.value?.removePass(pass.value)
+  if (pass.value) composer?.value?.removePass(pass.value)
   effect.value?.dispose()
   pass.value?.dispose()
 })
