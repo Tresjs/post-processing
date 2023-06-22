@@ -110,7 +110,6 @@ const outlineEffectParameters = computed<OutlineEffectParameters>(() => {
     visibleEdgeColor: colorToNumber(visibleEdgeColor),
   }
 })
-
 const unwatch = watchEffect(() => {
   if (state.camera && composer && composer.value && state.scene) {
     effect.value = new OutlineEffect(state.scene, state.camera, outlineEffectParameters.value)
