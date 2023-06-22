@@ -6,7 +6,7 @@ import { defineComponent, inject, onUnmounted, shallowRef, watch, watchEffect, c
 import type { PropType } from 'vue'
 import type { TresColor } from '@tresjs/core'
 import type { BlendFunction, KernelSize } from 'postprocessing'
-import type { Object3D, ColorRepresentation } from 'three'
+import type { Object3D, ColorRepresentation, Texture } from 'three'
 
 export const Outline = defineComponent({
   name: 'Outline',
@@ -26,7 +26,7 @@ export const Outline = defineComponent({
       type: Number as PropType<BlendFunction>,
     },
     patternTexture: {
-      type: Number as PropType<number>,
+      type: Object as PropType<Texture>,
     },
     patternScale: {
       type: Number as PropType<number>,
@@ -118,7 +118,7 @@ export const Outline = defineComponent({
         resolutionScale,
         hiddenEdgeColor,
         visibleEdgeColor,
-      } = props // thre rest operator (const {outlinedObjects: _, ...rest} = props) was intentionally not used here to prevent triggering this computed when outlinedObjects changes
+      } = props // the rest operator (const {outlinedObjects: _, ...rest} = props) was intentionally not used here to prevent triggering this computed when outlinedObjects changes
 
       return {
         blur,
@@ -144,6 +144,7 @@ export const Outline = defineComponent({
         pass.value = new EffectPass(state.camera, effect.value)
 
         composer.value?.addPass(pass.value)
+
         unwatch()
       }
     })

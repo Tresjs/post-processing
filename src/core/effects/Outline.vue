@@ -1,33 +1,53 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import { Color } from 'three'
 import { useCore } from '../useCore'
 import { EffectPass, OutlineEffect } from 'postprocessing'
-import { inject, onUnmounted, shallowRef, watch, watchEffect, computed, Ref } from 'vue'
+import { inject, onUnmounted, shallowRef, watch, watchEffect, computed } from 'vue'
 
-import type { TresColor, TresObject } from '@tresjs/core'
-import type { BlendFunction } from 'postprocessing'
-import type { ColorRepresentation } from 'three'
+import type { TresColor } from '@tresjs/core'
+import type { BlendFunction, KernelSize } from 'postprocessing'
+import type { Object3D, ColorRepresentation, Texture } from 'three'
 
 export type OutlineProps = {
   /**
    * The objects in the scene which should have an outline.
    */
-  outlinedObjects: TresObject | TresObject[] | Ref<TresObject[]> | Ref<TresObject>
-  blendFunction?: BlendFunction
-  selectionLayer?: number
-  patternTexture?: number
-  patternScale?: number
-  edgeStrength?: number
+  outlinedObjects: Object3D[]
+
+  blur?: boolean
+
+  /**
+   * Whether occluded parts of selected objects should be visible
+   */
+  xRay?: boolean
+
+  /**
+   * The blur kernel size. Must be used with blur being true.
+   */
+  kernelSize?: KernelSize
+
+  /**
+   * The pulse speed. A value of zero disables the pulse effect.
+   */
   pulseSpeed?: number
-  visibleEdgeColor?: TresColor
-  hiddenEdgeColor?: TresColor
-  multisampling?: number
-  resolutionScale?: number
   resolutionX?: number
   resolutionY?: number
-  kernelSize?: number
-  blur?: number
-  xRay?: boolean
+  edgeStrength?: number
+  patternScale?: number
+
+  /**
+   * The number of samples used for multisample antialiasing. Requires WebGL 2.
+   */
+  multisampling?: number
+
+  /**
+   * The blend function. Use `BlendFunction.ALPHA` for dark outlines.
+   */
+  blendFunction?: BlendFunction
+  patternTexture?: Texture
+  resolutionScale?: number
+  hiddenEdgeColor?: TresColor
+  visibleEdgeColor?: TresColor
 }
 
 const props = defineProps<OutlineProps>()
@@ -36,13 +56,6 @@ const { state } = useCore()
 const composer = inject<any>('effectComposer') // TODO inject type
 const pass = shallowRef<EffectPass | null>(null)
 const effect = shallowRef<OutlineEffect | null>(null)
-
-type OutlineEffectParameters = NonNullable<
-  Exclude<
-    ConstructorParameters<typeof OutlineEffect>[2],
-    'width' | 'height' // excluded, because those are deprecated in postprocessing's OutlineEffec
-  >
->
 
 const normalizeColor = (value: Color | Array<number> | string | number | ColorRepresentation) => {
   //TODO import from core (after exporting it from there first 😊)
@@ -55,6 +68,13 @@ const normalizeColor = (value: Color | Array<number> | string | number | ColorRe
 const colorToNumber = (color: TresColor | undefined) =>
   color !== undefined ? normalizeColor(color).getHex() : undefined
 
+type OutlineEffectParameters = NonNullable<
+  Exclude<
+    ConstructorParameters<typeof OutlineEffect>[2],
+    'width' | 'height' // excluded, because those are deprecated in postprocessing's OutlineEffec
+  >
+>
+
 const outlineEffectParameters = computed<OutlineEffectParameters>(() => {
   const {
     blur,
@@ -65,13 +85,13 @@ const outlineEffectParameters = computed<OutlineEffectParameters>(() => {
     resolutionY,
     patternScale,
     edgeStrength,
-    blendFunction,
     multisampling,
+    blendFunction,
     patternTexture,
     resolutionScale,
     hiddenEdgeColor,
     visibleEdgeColor,
-  } = props // thre rest operator (const {outlinedObjects: _, ...rest} = props) was intentionally not used here to prevent triggering this computed when outlinedObjects changes
+  } = props // the rest operator (const {outlinedObjects: _, ...rest} = props) was intentionally not used here to prevent triggering this computed when outlinedObjects changes
 
   return {
     blur,
@@ -97,14 +117,15 @@ const unwatch = watchEffect(() => {
     pass.value = new EffectPass(state.camera, effect.value)
 
     composer.value?.addPass(pass.value)
+
     unwatch()
   }
 })
 
 watch(
   [() => props.outlinedObjects, effect], // whatchEffect is intentionally not used here as it would result in an endless loop
-  ([value, effect]) => {
-    effect.value?.selection.set(value)
+  () => {
+    effect.value?.selection.set(props.outlinedObjects || [])
   },
   {
     immediate: true,
@@ -159,4 +180,5 @@ onUnmounted(() => {
   pass.value?.dispose()
 })
 </script>
+
 <template></template>
