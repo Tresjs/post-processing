@@ -76,7 +76,7 @@ watchEffect(() => {
 })
 
 watchEffect(() => {
-  if (state.renderer) {
+  if (state.renderer && localScene.value && localCamera.value) {
     effectComposer.value = new EffectComposerImpl(state.renderer, {
       depthBuffer,
       stencilBuffer,
