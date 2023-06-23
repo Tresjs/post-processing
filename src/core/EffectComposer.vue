@@ -42,8 +42,8 @@ const {
 
 const effectComposer: ShallowRef<EffectComposerImpl | null> = shallowRef(null)
 
-const localScene = scene || state.scene
-const localCamera = camera || state.camera
+const localScene = computed(() => scene || state.scene)
+const localCamera = computed(() => camera || state.camera)
 
 let downSamplingPass = null
 let normalPass = null
@@ -83,7 +83,7 @@ watchEffect(() => {
       multisampling: multisampling > 0 && webGL2Available ? multisampling : 0,
       frameBufferType,
     })
-    effectComposer.value.addPass(new RenderPass(localScene, localCamera))
+    effectComposer.value.addPass(new RenderPass(localScene.value, localCamera.value))
 
     if (!disableNormalPass) {
       setNormalPass()
