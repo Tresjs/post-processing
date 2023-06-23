@@ -6,8 +6,8 @@ import { effectComposerInjectionKey } from '../injectionKeys'
 import { inject, onUnmounted, shallowRef, watch, watchEffect, computed } from 'vue'
 
 import type { TresColor } from '@tresjs/core'
-import type { BlendFunction, KernelSize } from 'postprocessing'
 import type { Object3D, Texture } from 'three'
+import type { BlendFunction, KernelSize } from 'postprocessing'
 
 export type OutlineProps = {
   /**
@@ -103,7 +103,6 @@ const outlineEffectParameters = computed<OutlineEffectParameters>(() => {
     visibleEdgeColor: colorToNumber(visibleEdgeColor),
   }
 })
-
 const unwatch = watchEffect(() => {
   if (state.camera && composer && composer.value && state.scene) {
     effect.value = new OutlineEffect(state.scene, state.camera, outlineEffectParameters.value)

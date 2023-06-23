@@ -4,10 +4,10 @@ import { TresCamera, TresObject, useRenderLoop } from '@tresjs/core'
 import { DepthDownsamplingPass, EffectComposer as EffectComposerImpl, NormalPass, RenderPass } from 'postprocessing'
 
 import { useCore } from './useCore'
-import { ShallowRef, computed, provide, shallowRef, watchEffect } from 'vue'
 import { isWebGL2Available } from 'three-stdlib'
-import { useElementBounding, useWindowSize } from '@vueuse/core'
+import { useElementBounding } from '@vueuse/core'
 import { effectComposerInjectionKey } from './injectionKeys'
+import { ShallowRef, computed, provide, shallowRef, watchEffect } from 'vue'
 
 export type EffectComposerProps = {
   enabled?: boolean
