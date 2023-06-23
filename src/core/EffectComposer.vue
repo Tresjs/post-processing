@@ -6,7 +6,7 @@ import { DepthDownsamplingPass, EffectComposer as EffectComposerImpl, NormalPass
 import { useCore } from './useCore'
 import { ShallowRef, computed, provide, shallowRef, watchEffect } from 'vue'
 import { isWebGL2Available } from 'three-stdlib'
-import { useElementBounding } from '@vueuse/core'
+import { useElementBounding, useWindowSize } from '@vueuse/core'
 import { effectComposerInjectionKey } from './injectionKeys'
 
 export type EffectComposerProps = {
