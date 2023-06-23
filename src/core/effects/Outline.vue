@@ -171,10 +171,6 @@ onUnmounted(() => {
   effect.value?.dispose()
   pass.value?.dispose()
 })
-
-setInterval(() => {
-  console.log(state.camera)
-}, 2000)
 </script>
 
 <template></template>
