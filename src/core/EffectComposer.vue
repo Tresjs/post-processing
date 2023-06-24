@@ -53,7 +53,7 @@ provide(effectComposerInjectionKey, effectComposer)
 
 function setNormalPass() {
   if (effectComposer.value) {
-    normalPass = new NormalPass(scene as Scene, camera as TresCamera)
+    normalPass = new NormalPass(localScene.value as Scene, localCamera.value as TresCamera)
     normalPass.enabled = false
     effectComposer.value.addPass(normalPass)
     if (resolutionScale !== undefined && webGL2Available) {
