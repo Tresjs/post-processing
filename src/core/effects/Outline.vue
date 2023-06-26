@@ -54,6 +54,7 @@ export type OutlineProps = {
 const props = defineProps<OutlineProps>()
 
 const { state } = useCore()
+
 const composer = inject(effectComposerInjectionKey)
 const pass = shallowRef<EffectPass | null>(null)
 const effect = shallowRef<OutlineEffect | null>(null)
