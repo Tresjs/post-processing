@@ -4,7 +4,7 @@ import { watchOnce } from '@vueuse/core'
 import { shallowRef } from 'vue'
 import { TresCanvas } from '@tresjs/core'
 import { KernelSize } from 'postprocessing'
-import { EffectComposer, Outline } from '/@'
+import { EffectComposer, Outline } from '@tresjs/post-processing'
 import { Color, Intersection, Object3D } from 'three'
 
 const boxWidth = 2

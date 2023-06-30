@@ -41,7 +41,7 @@ Now you can use the `EffectComposer` component in your scene.
 ```html
 <template>
   <TresCanvas shadows alpha>
-    <TresPerspectiveCamera :args="[45," 1, 0.1, 1000] />
+    <TresPerspectiveCamera :args="[45, 1, 0.1, 1000]" />
     <EffectComposer>
       <DepthOfField />
       <Bloom />

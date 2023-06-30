@@ -3,7 +3,7 @@ import { Color } from 'three'
 import { TresCanvas } from '@tresjs/core'
 import { Text3D } from '@tresjs/cientos'
 
-import { EffectComposer, Glitch } from '/@'
+import { EffectComposer, Glitch } from '@tresjs/post-processing'
 
 const gl = {
   clearColor: '#121212',
@@ -34,10 +34,8 @@ const gl = {
 
     <TresAmbientLight :intensity="2" />
     <TresDirectionalLight :position="[3, 3, 3]" :intensity="1" />
-    <Suspense>
-      <EffectComposer>
-        <Glitch />
-      </EffectComposer>
-    </Suspense>
+    <EffectComposer>
+      <Glitch />
+    </EffectComposer>
   </TresCanvas>
 </template>

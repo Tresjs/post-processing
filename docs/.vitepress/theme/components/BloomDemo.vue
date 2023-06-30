@@ -1,15 +1,17 @@
 <script setup lang="ts">
-import { Color } from 'three'
+import { BasicShadowMap, Color, NoToneMapping, SRGBColorSpace } from 'three'
 import { TresCanvas } from '@tresjs/core'
-import { BasicShadowMap, NoToneMapping } from 'three'
 
-import { EffectComposer, Bloom } from '/@'
+import { EffectComposer, Bloom } from '@tresjs/post-processing'
 import { reactive } from 'vue'
 
 const gl = {
   clearColor: '#121212',
   shadows: true,
-  alpha: false,
+  alpha: true,
+  shadowMapType: BasicShadowMap,
+  outputColorSpace: SRGBColorSpace,
+  toneMapping: NoToneMapping,
 }
 
 const bloomParams = reactive({
@@ -38,10 +40,10 @@ const bloomParams = reactive({
 
     <TresAmbientLight :intensity="2" />
     <TresDirectionalLight :position="[3, 3, 3]" :intensity="1" />
-    <Suspense>
-      <EffectComposer>
-        <Bloom v-bind="bloomParams"> </Bloom>
-      </EffectComposer>
-    </Suspense>
+
+    <EffectComposer>
+      <Bloom v-bind="bloomParams" />
+    </EffectComposer>
+
   </TresCanvas>
 </template>
