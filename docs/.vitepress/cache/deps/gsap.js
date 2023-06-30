@@ -1,6 +1,6 @@
 import "./chunk-4EOJPDL2.js";
 
-// node_modules/.pnpm/gsap@3.11.5/node_modules/gsap/gsap-core.js
+// node_modules/.pnpm/gsap@3.12.1/node_modules/gsap/gsap-core.js
 function _assertThisInitialized(self) {
   if (self === void 0) {
     throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
@@ -274,7 +274,7 @@ var _removeLinkedListItem = function _removeLinkedListItem2(parent, child, first
   child._next = child._prev = child.parent = null;
 };
 var _removeFromParent = function _removeFromParent2(child, onlyIfParentHasAutoRemove) {
-  child.parent && (!onlyIfParentHasAutoRemove || child.parent.autoRemoveChildren) && child.parent.remove(child);
+  child.parent && (!onlyIfParentHasAutoRemove || child.parent.autoRemoveChildren) && child.parent.remove && child.parent.remove(child);
   child._act = 0;
 };
 var _uncache = function _uncache2(animation, child) {
@@ -760,43 +760,43 @@ var _interrupt = function _interrupt2(animation) {
 var _quickTween;
 var _registerPluginQueue = [];
 var _createPlugin = function _createPlugin2(config3) {
-  if (!_windowExists()) {
-    _registerPluginQueue.push(config3);
-    return;
-  }
-  config3 = !config3.name && config3["default"] || config3;
-  var name = config3.name, isFunc = _isFunction(config3), Plugin = name && !isFunc && config3.init ? function() {
-    this._props = [];
-  } : config3, instanceDefaults = {
-    init: _emptyFunc,
-    render: _renderPropTweens,
-    add: _addPropTween,
-    kill: _killPropTweensOf,
-    modifier: _addPluginModifier,
-    rawVars: 0
-  }, statics = {
-    targetTest: 0,
-    get: 0,
-    getSetter: _getSetter,
-    aliases: {},
-    register: 0
-  };
-  _wake();
-  if (config3 !== Plugin) {
-    if (_plugins[name]) {
-      return;
+  if (_windowExists() && config3) {
+    config3 = !config3.name && config3["default"] || config3;
+    var name = config3.name, isFunc = _isFunction(config3), Plugin = name && !isFunc && config3.init ? function() {
+      this._props = [];
+    } : config3, instanceDefaults = {
+      init: _emptyFunc,
+      render: _renderPropTweens,
+      add: _addPropTween,
+      kill: _killPropTweensOf,
+      modifier: _addPluginModifier,
+      rawVars: 0
+    }, statics = {
+      targetTest: 0,
+      get: 0,
+      getSetter: _getSetter,
+      aliases: {},
+      register: 0
+    };
+    _wake();
+    if (config3 !== Plugin) {
+      if (_plugins[name]) {
+        return;
+      }
+      _setDefaults(Plugin, _setDefaults(_copyExcluding(config3, instanceDefaults), statics));
+      _merge(Plugin.prototype, _merge(instanceDefaults, _copyExcluding(config3, statics)));
+      _plugins[Plugin.prop = name] = Plugin;
+      if (config3.targetTest) {
+        _harnessPlugins.push(Plugin);
+        _reservedProps[name] = 1;
+      }
+      name = (name === "css" ? "CSS" : name.charAt(0).toUpperCase() + name.substr(1)) + "Plugin";
     }
-    _setDefaults(Plugin, _setDefaults(_copyExcluding(config3, instanceDefaults), statics));
-    _merge(Plugin.prototype, _merge(instanceDefaults, _copyExcluding(config3, statics)));
-    _plugins[Plugin.prop = name] = Plugin;
-    if (config3.targetTest) {
-      _harnessPlugins.push(Plugin);
-      _reservedProps[name] = 1;
-    }
-    name = (name === "css" ? "CSS" : name.charAt(0).toUpperCase() + name.substr(1)) + "Plugin";
+    _addGlobal(name, Plugin);
+    config3.register && config3.register(gsap, Plugin, PropTween);
+  } else {
+    config3 && _registerPluginQueue.push(config3);
   }
-  _addGlobal(name, Plugin);
-  config3.register && config3.register(gsap, Plugin, PropTween);
 };
 var _255 = 255;
 var _colorLookup = {
@@ -2679,6 +2679,7 @@ var _media = [];
 var _listeners = {};
 var _emptyArray = [];
 var _lastMediaTime = 0;
+var _contextID = 0;
 var _dispatch = function _dispatch2(type) {
   return (_listeners[type] || _emptyArray).map(function(f) {
     return f();
@@ -2717,6 +2718,7 @@ var Context = function() {
     this.data = [];
     this._r = [];
     this.isReverted = false;
+    this.id = _contextID++;
     func && this.add(func);
   }
   var _proto5 = Context2.prototype;
@@ -2780,7 +2782,7 @@ var Context = function() {
         return o.t.revert(revert);
       });
       this.data.forEach(function(e) {
-        return !(e instanceof Animation) && e.revert && e.revert(revert);
+        return e instanceof Timeline ? e.data !== "nested" && e.kill() : !(e instanceof Tween) && e.revert && e.revert(revert);
       });
       this._r.forEach(function(f) {
         return f(revert, _this4);
@@ -2793,8 +2795,10 @@ var Context = function() {
     }
     this.clear();
     if (matchMedia2) {
-      var i = _media.indexOf(this);
-      !!~i && _media.splice(i, 1);
+      var i = _media.length;
+      while (i--) {
+        _media[i].id === this.id && _media.splice(i, 1);
+      }
     }
   };
   _proto5.revert = function revert(config3) {
@@ -2813,6 +2817,7 @@ var MatchMedia = function() {
       matches: conditions
     });
     var context3 = new Context(0, scope || this.scope), cond = context3.conditions = {}, mq, p, active;
+    _context && !context3.selector && (context3.selector = _context.selector);
     this.contexts.push(context3);
     func = context3.add("onMatch", func);
     context3.queries = conditions;
@@ -3108,7 +3113,7 @@ var gsap = _gsap.registerPlugin({
     }
   }
 }, _buildModifierPlugin("roundProps", _roundModifier), _buildModifierPlugin("modifiers"), _buildModifierPlugin("snap", snap)) || _gsap;
-Tween.version = Timeline.version = gsap.version = "3.11.5";
+Tween.version = Timeline.version = gsap.version = "3.12.1";
 _coreReady = 1;
 _windowExists() && _wake();
 var Power0 = _easeMap.Power0;
@@ -3130,7 +3135,7 @@ var Sine = _easeMap.Sine;
 var Expo = _easeMap.Expo;
 var Circ = _easeMap.Circ;
 
-// node_modules/.pnpm/gsap@3.11.5/node_modules/gsap/CSSPlugin.js
+// node_modules/.pnpm/gsap@3.12.1/node_modules/gsap/CSSPlugin.js
 var _win2;
 var _doc2;
 var _docElement;
@@ -3201,7 +3206,7 @@ var _transformOriginProp = _transformProp + "Origin";
 var _saveStyle = function _saveStyle2(property, isNotCSS) {
   var _this = this;
   var target = this.target, style = target.style;
-  if (property in _transformProps) {
+  if (property in _transformProps && style) {
     this.tfm = this.tfm || {};
     if (property !== "transform") {
       property = _propertyAliases[property] || property;
@@ -4216,7 +4221,7 @@ _forEachName("x,y,z,top,right,bottom,left,width,height,fontSize,padding,margin,p
 });
 gsap.registerPlugin(CSSPlugin);
 
-// node_modules/.pnpm/gsap@3.11.5/node_modules/gsap/index.js
+// node_modules/.pnpm/gsap@3.12.1/node_modules/gsap/index.js
 var gsapWithCSS = gsap.registerPlugin(CSSPlugin) || gsap;
 var TweenMaxWithCSS = gsapWithCSS.core.Tween;
 export {
@@ -4250,7 +4255,7 @@ export {
 
 gsap/gsap-core.js:
   (*!
-   * GSAP 3.11.5
+   * GSAP 3.12.1
    * https://greensock.com
    *
    * @license Copyright 2008-2023, GreenSock. All rights reserved.
@@ -4261,7 +4266,7 @@ gsap/gsap-core.js:
 
 gsap/CSSPlugin.js:
   (*!
-   * CSSPlugin 3.11.5
+   * CSSPlugin 3.12.1
    * https://greensock.com
    *
    * Copyright 2008-2023, GreenSock. All rights reserved.

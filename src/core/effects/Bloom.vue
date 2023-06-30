@@ -84,7 +84,7 @@ const {
 
 const { state } = useCore()
 
-const composer = inject(effectComposerInjectionKey)
+const composer = inject<Ref<EffectComposer>>(effectComposerInjectionKey)
 const pass = ref<EffectPass | null>(null)
 const effect = ref<BloomEffect | null>(null)
 

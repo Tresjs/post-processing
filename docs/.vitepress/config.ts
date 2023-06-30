@@ -28,6 +28,7 @@ export default defineConfig({
         text: 'Effects',
         items: [
           { text: 'Bloom', link: '/guide/effects/bloom' },
+          { text: 'DepthOfField', link: '/guide/effects/depth-of-field' },
           { text: 'Glitch', link: '/guide/effects/glitch' },
           { text: 'Outline', link: '/guide/effects/outline' },
         ],

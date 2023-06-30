@@ -90,6 +90,9 @@ importers:
 
   docs:
     dependencies:
+      '@tresjs/post-processing':
+        specifier: workspace:^
+        version: link:..
       gsap:
         specifier: ^3.11.5
         version: 3.12.1
