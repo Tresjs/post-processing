@@ -16,6 +16,11 @@ const routes = [
     name: 'Glitch',
     component: () => import('./pages/glitch.vue'),
   },
+  {
+    path: '/depth-of-field',
+    name: 'Depth of Field',
+    component: () => import('./pages/depth-of-field.vue'),
+  },
 ]
 
 export const router = createRouter({

@@ -8,6 +8,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     copy: typeof import('./src/components/UnrealBloom copy.vue')['default']
+    DepthOfFieldDemo: typeof import('./src/components/DepthOfFieldDemo.vue')['default']
     GlitchDemo: typeof import('./src/components/GlitchDemo.vue')['default']
     OutlineDemo: typeof import('./src/components/OutlineDemo.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
