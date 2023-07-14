@@ -26,10 +26,10 @@ importers:
         version: 5.1.1(release-it@15.11.0)
       '@tresjs/cientos':
         specifier: 2.1.4
-        version: 2.1.4(@tresjs/core@2.4.0)(three@0.153.0)(vue@3.3.4)
+        version: 2.1.4(@tresjs/core@2.4.2)(three@0.153.0)(vue@3.3.4)
       '@tresjs/core':
-        specifier: 2.4.0
-        version: 2.4.0(three@0.153.0)(vue@3.3.4)
+        specifier: 2.4.2
+        version: 2.4.2(three@0.153.0)(vue@3.3.4)
       '@types/three':
         specifier: ^0.152.1
         version: 0.152.1
@@ -111,10 +111,10 @@ importers:
     dependencies:
       '@tresjs/cientos':
         specifier: 2.1.4
-        version: 2.1.4(@tresjs/core@2.4.0)(three@0.153.0)(vue@3.3.4)
+        version: 2.1.4(@tresjs/core@2.4.2)(three@0.153.0)(vue@3.3.4)
       '@tresjs/core':
-        specifier: 2.4.0
-        version: 2.4.0(three@0.153.0)(vue@3.3.4)
+        specifier: 2.4.2
+        version: 2.4.2(three@0.153.0)(vue@3.3.4)
       vue-router:
         specifier: ^4.2.2
         version: 4.2.2(vue@3.3.4)
@@ -935,14 +935,14 @@ packages:
       defer-to-connect: 2.0.1
     dev: true
 
-  /@tresjs/cientos@2.1.4(@tresjs/core@2.4.0)(three@0.153.0)(vue@3.3.4):
+  /@tresjs/cientos@2.1.4(@tresjs/core@2.4.2)(three@0.153.0)(vue@3.3.4):
     resolution: {integrity: sha512-K6G9XwIKC6Zg855Rh8YrBs8TZJlJv4AoJZZ9mc0fgG64V1qWDqTQsR3yhIsfPp2NPM8+NI4URPCAR4HybbgppQ==}
     peerDependencies:
       '@tresjs/core': '>=2.1.3'
       three: '>=0.133'
       vue: '>=3.3'
     dependencies:
-      '@tresjs/core': 2.4.0(three@0.153.0)(vue@3.3.4)
+      '@tresjs/core': 2.4.2(three@0.153.0)(vue@3.3.4)
       '@vueuse/core': 10.2.0(vue@3.3.4)
       three: 0.153.0
       three-stdlib: 2.23.10(three@0.153.0)
@@ -950,8 +950,8 @@ packages:
     transitivePeerDependencies:
       - '@vue/composition-api'
 
-  /@tresjs/core@2.4.0(three@0.153.0)(vue@3.3.4):
-    resolution: {integrity: sha512-T9WEW8SNqTquNjeO73BirNmG2ZSeCEtFdO3YcA3mBpwgDr3jPpgttfImpdR5kh3H5819rqpkm0Ur0kJbi4Zk0w==}
+  /@tresjs/core@2.4.2(three@0.153.0)(vue@3.3.4):
+    resolution: {integrity: sha512-9Em0F3MSSP1Bem/l9lFZLKVTcRxnunIRX/6rV3uO4r0cbkmFrS9nSLHITU6dw3agZmj6a/A01aKcNg1ggJadQA==}
     peerDependencies:
       three: '>=0.133'
       vue: '>=3.3'
