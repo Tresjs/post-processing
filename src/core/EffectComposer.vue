@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { HalfFloatType, Scene } from 'three'
-import { TresCamera, TresObject, useRenderLoop } from '@tresjs/core'
+import { Camera, HalfFloatType, Scene, WebGLRenderer } from 'three'
+import { TresCamera, TresCanvas, TresObject, useRenderLoop, useTresContext } from '@tresjs/core'
 import { DepthDownsamplingPass, EffectComposer as EffectComposerImpl, NormalPass, RenderPass } from 'postprocessing'
 
-import { useCore } from './useCore'
 import { isWebGL2Available } from 'three-stdlib'
-import { useElementBounding } from '@vueuse/core'
+import { MaybeElement, useElementBounding } from '@vueuse/core'
 import { effectComposerInjectionKey } from './injectionKeys'
 import { ShallowRef, computed, provide, shallowRef, watchEffect } from 'vue'
 
@@ -24,7 +23,11 @@ export type EffectComposerProps = {
   camera?: TresCamera
 }
 
-const { state } = useCore()
+const tresContext = useTresContext()
+
+setInterval(() => {
+  console.log(tresContext)
+}, 5000)
 
 const {
   enabled = true,
@@ -42,8 +45,8 @@ const {
 
 const effectComposer: ShallowRef<EffectComposerImpl | null> = shallowRef(null)
 
-const localScene = computed(() => scene || state.scene)
-const localCamera = computed(() => camera || state.camera)
+const localScene = computed(() => scene || (tresContext.scene.value as Scene))
+const localCamera = computed(() => camera || (tresContext.camera.value as Camera))
 
 let downSamplingPass = null
 let normalPass = null
@@ -67,17 +70,19 @@ function setNormalPass() {
   }
 }
 
-const canvas = computed(() => state.canvas?.value) // having a seperate computed makes useElementBounding work
+// const canvas = computed<HTMLCanvasElement>(() => tresContext.renderer.value.domElement) // having a seperate computed makes useElementBounding work //TODO remove
 
-const { width, height } = useElementBounding(canvas)
+const { width, height } = useElementBounding(tresContext.renderer.value.domElement as HTMLCanvasElement) // TODO test
 
 watchEffect(() => {
   if (effectComposer.value && width.value && height.value) effectComposer.value.setSize(width.value, height.value)
 })
 
 watchEffect(() => {
-  if (state.renderer && localScene.value && localCamera.value) {
-    effectComposer.value = new EffectComposerImpl(state.renderer, {
+  if (tresContext.renderer.value && localScene.value && localCamera.value) {
+    console.log(tresContext.renderer.value)
+
+    effectComposer.value = new EffectComposerImpl(tresContext.renderer.value as WebGLRenderer, {
       depthBuffer,
       stencilBuffer,
       multisampling: multisampling > 0 && webGL2Available ? multisampling : 0,
@@ -94,12 +99,12 @@ watchEffect(() => {
 const { onLoop } = useRenderLoop()
 
 onLoop(({ delta }) => {
-  if (enabled && state.renderer && effectComposer.value && width.value && height.value) {
-    const currentAutoClear = state.renderer.autoClear
-    state.renderer.autoClear = autoClear
-    if (stencilBuffer && !autoClear) state.renderer.clearStencil()
+  if (enabled && tresContext.renderer.value && effectComposer.value && width.value && height.value) {
+    // const currentAutoClear = tresContext.renderer.value.autoClear //TODO ?
+    // tresContext.renderer.value.autoClear = autoClear
+    if (stencilBuffer && !autoClear) tresContext.renderer.value.clearStencil()
     effectComposer.value.render(delta)
-    state.renderer.autoClear = currentAutoClear
+    // tresContext.renderer.value.autoClear = currentAutoClear
   }
 })
 </script>

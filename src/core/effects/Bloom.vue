@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { inject, onUnmounted, ref, toRaw, unref } from 'vue'
 import { BlurPass, KernelSize, EffectPass, BloomEffect, BlendFunction } from 'postprocessing'
-import { useCore } from '../useCore'
 import { watch } from 'vue'
 import { effectComposerInjectionKey } from '../injectionKeys'
+import { useTresContext } from '@tresjs/core'
 
 export type BloomProps = {
   blendFunction?: BlendFunction
@@ -82,13 +82,13 @@ const {
   luminanceSmoothing = 0.025,
 } = defineProps<BloomProps>()
 
-const { state } = useCore()
-
 const composer = inject(effectComposerInjectionKey)
 const pass = ref<EffectPass | null>(null)
 const effect = ref<BloomEffect | null>(null)
 
 defineExpose({ pass, effect })
+
+const tresContext = useTresContext()
 
 function createPass() {
   effect.value = new BloomEffect({
@@ -98,7 +98,7 @@ function createPass() {
     luminanceThreshold,
     luminanceSmoothing,
   })
-  pass.value = new EffectPass(unref(state.camera), toRaw(effect.value) as BloomEffect)
+  pass.value = new EffectPass(unref(tresContext.camera.value), toRaw(effect.value) as BloomEffect)
 }
 
 function disposePass() {
@@ -108,9 +108,9 @@ function disposePass() {
 }
 
 const unwatchComposer = watch(
-  () => [state.camera, composer?.value],
+  () => [tresContext.camera.value, composer?.value],
   () => {
-    if (state.camera && composer && composer.value) {
+    if (tresContext.camera.value && composer && composer.value) {
       createPass()
       composer?.value?.addPass(toRaw(pass.value) as EffectPass)
     }

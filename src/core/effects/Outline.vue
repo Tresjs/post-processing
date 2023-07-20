@@ -1,12 +1,11 @@
 <script lang="ts" setup>
-import { useCore } from '../useCore'
-import { normalizeColor } from '@tresjs/core'
+import { normalizeColor, useTresContext } from '@tresjs/core'
 import { EffectPass, OutlineEffect } from 'postprocessing'
 import { effectComposerInjectionKey } from '../injectionKeys'
 import { inject, onUnmounted, shallowRef, watch, watchEffect, computed } from 'vue'
 
 import type { TresColor } from '@tresjs/core'
-import type { Object3D, Texture } from 'three'
+import type { Object3D, Scene, Texture } from 'three'
 import type { BlendFunction, KernelSize } from 'postprocessing'
 
 export type OutlineProps = {
@@ -52,8 +51,6 @@ export type OutlineProps = {
 }
 
 const props = defineProps<OutlineProps>()
-
-const { state } = useCore()
 
 const composer = inject(effectComposerInjectionKey)
 const pass = shallowRef<EffectPass | null>(null)
@@ -104,10 +101,15 @@ const outlineEffectParameters = computed<OutlineEffectParameters>(() => {
     visibleEdgeColor: colorToNumber(visibleEdgeColor),
   }
 })
-const unwatch = watchEffect(() => {
-  if (state.camera && composer && composer.value && state.scene) {
-    effect.value = new OutlineEffect(state.scene, state.camera, outlineEffectParameters.value)
-    pass.value = new EffectPass(state.camera, effect.value)
+
+const { camera, scene } = useTresContext()
+
+let unwatch = () => {} // TODO
+
+unwatch = watchEffect(() => {
+  if (camera.value && composer && composer.value && scene.value) {
+    effect.value = new OutlineEffect(scene.value as Scene, camera.value, outlineEffectParameters.value)
+    pass.value = new EffectPass(camera.value, effect.value)
 
     composer.value?.addPass(pass.value)
 
