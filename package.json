@@ -46,7 +46,7 @@
     "vue": ">=3.3"
   },
   "dependencies": {
-    "@tresjs/core": "2.4.0-next.6",
+    "@tresjs/core": "2.4.0-next.8",
     "@vueuse/core": "^10.2.0",
     "postprocessing": "^6.32.1",
     "three-stdlib": "^2.23.10"

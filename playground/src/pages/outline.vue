@@ -48,7 +48,6 @@ const outlineParameters = reactive({
         <TresMeshNormalMaterial />
       </TresMesh>
     </template>
-
     <TresGridHelper />
     <TresAmbientLight :intensity="1" />
     <Suspense>
