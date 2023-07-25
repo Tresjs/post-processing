@@ -74,15 +74,11 @@ export type BloomProps = {
   mipmapBlur?: boolean
 }
 
-const props = withDefaults(defineProps<BloomProps>(), {
-  blendFunction: BlendFunction.ADD, // TODO opinionated tres default?
-})
+const props = defineProps<BloomProps>()
 
 const composer = inject(effectComposerInjectionKey)
 const pass = shallowRef<EffectPass | null>(null)
 const effect = shallowRef<BloomEffect | null>(null)
-
-defineExpose({ pass, effect })
 
 const { camera } = useTresContext()
 

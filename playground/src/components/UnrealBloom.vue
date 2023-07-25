@@ -2,9 +2,10 @@
 import { Color } from 'three'
 import { TresCanvas } from '@tresjs/core'
 // import { OrbitControls, useTweakPane } from '@tresjs/cientos'
+import { BlendFunction } from 'postprocessing'
 import { EffectComposer, Bloom } from '@tresjs/post-processing'
-import { BasicShadowMap, NoToneMapping } from 'three'
 import { onMounted, reactive, ref } from 'vue'
+import { BasicShadowMap, NoToneMapping } from 'three'
 
 const gl = {
   clearColor: '#121212',
@@ -19,6 +20,7 @@ const bloomParams = reactive({
   luminanceSmoothing: 0.3,
   mipmapBlur: true,
   intensity: 4.0,
+  blendFunction: BlendFunction.ADD,
 })
 
 // const { pane } = useTweakPane()

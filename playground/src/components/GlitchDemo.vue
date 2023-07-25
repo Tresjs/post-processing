@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { TresCanvas } from '@tresjs/core'
-import { OrbitControls, useTweakPane } from '@tresjs/cientos'
+// import { OrbitControls, useTweakPane } from '@tresjs/cientos'
 import { EffectComposer, Glitch } from '@tresjs/post-processing'
 import { BasicShadowMap, NoToneMapping, SRGBColorSpace } from 'three'
 import { reactive } from 'vue'
@@ -28,29 +28,29 @@ const glitchParams = reactive({
   dtSize: 64,
 })
 
-const { pane } = useTweakPane()
+// const { pane } = useTweakPane()
 
-pane.addInput(glitchParams, 'delay')
-pane.addInput(glitchParams, 'duration')
-pane.addInput(glitchParams, 'strength')
-pane.addInput(glitchParams, 'mode', {
-  options: {
-    SPORADIC: GlitchMode.SPORADIC,
-    CONSTANT_MILD: GlitchMode.CONSTANT_MILD,
-    CONSTANT_WILD: GlitchMode.CONSTANT_WILD,
-  },
-})
-pane.addInput(glitchParams, 'active')
-pane.addInput(glitchParams, 'ratio', { min: 0, max: 1 })
-pane.addInput(glitchParams, 'columns', { min: 1, max: 64, step: 1 })
-pane.addInput(glitchParams, 'chromaticAberrationOffset')
-pane.addInput(glitchParams, 'dtSize', { min: 1, max: 64, step: 1 })
+// pane.addInput(glitchParams, 'delay')
+// pane.addInput(glitchParams, 'duration')
+// pane.addInput(glitchParams, 'strength')
+// pane.addInput(glitchParams, 'mode', {
+//   options: {
+//     SPORADIC: GlitchMode.SPORADIC,
+//     CONSTANT_MILD: GlitchMode.CONSTANT_MILD,
+//     CONSTANT_WILD: GlitchMode.CONSTANT_WILD,
+//   },
+// })
+// pane.addInput(glitchParams, 'active')
+// pane.addInput(glitchParams, 'ratio', { min: 0, max: 1 })
+// pane.addInput(glitchParams, 'columns', { min: 1, max: 64, step: 1 })
+// pane.addInput(glitchParams, 'chromaticAberrationOffset')
+// pane.addInput(glitchParams, 'dtSize', { min: 1, max: 64, step: 1 })
 </script>
 
 <template>
   <TresCanvas v-bind="gl" :disable-render="true">
     <TresPerspectiveCamera :position="[5, 5, 5]" :look-at="[0, 0, 0]" />
-    <OrbitControls />
+    <!-- <OrbitControls /> -->
     <TresMesh>
       <TresSphereGeometry :args="[2, 32, 32]" />
       <TresMeshNormalMaterial />
