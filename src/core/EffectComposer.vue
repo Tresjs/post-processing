@@ -19,8 +19,8 @@ export type EffectComposerProps = {
   autoClear?: boolean
   multisampling?: number
   frameBufferType?: number
-  scene?: Scene
-  camera?: TresCamera
+  scene?: Scene // TODO check back with Alvaro why this is here
+  camera?: TresCamera // TODO check back with Alvaro why this is here -> does probably not work with Bloom effect as it uses tresContext's camera
 }
 
 const tresContext = useTresContext()
@@ -46,19 +46,19 @@ const webGL2Available = isWebGL2Available()
 
 provide(effectComposerInjectionKey, effectComposer)
 
-function setNormalPass() {
-  if (effectComposer.value) {
-    normalPass = new NormalPass(localScene.value as Scene, localCamera.value as TresCamera)
-    normalPass.enabled = false
-    effectComposer.value.addPass(normalPass)
-    if (props.resolutionScale !== undefined && webGL2Available) {
-      downSamplingPass = new DepthDownsamplingPass({
-        normalBuffer: normalPass.texture,
-        resolutionScale: props.resolutionScale,
-      })
-      downSamplingPass.enabled = false
-      effectComposer.value.addPass(downSamplingPass)
-    }
+const setNormalPass = () => {
+  if (!effectComposer.value) return
+
+  normalPass = new NormalPass(localScene.value as Scene, localCamera.value as TresCamera)
+  normalPass.enabled = false
+  effectComposer.value.addPass(normalPass)
+  if (props.resolutionScale !== undefined && webGL2Available) {
+    downSamplingPass = new DepthDownsamplingPass({
+      normalBuffer: normalPass.texture,
+      resolutionScale: props.resolutionScale,
+    })
+    downSamplingPass.enabled = false
+    effectComposer.value.addPass(downSamplingPass)
   }
 }
 

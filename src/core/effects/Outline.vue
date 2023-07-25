@@ -104,21 +104,22 @@ const outlineEffectParameters = computed<OutlineEffectParameters>(() => {
 
 const { camera, scene } = useTresContext()
 
-let unwatch = () => {} // TODO
+let unwatch: undefined | (() => void)
 
 unwatch = watchEffect(() => {
-  if (camera.value && composer && composer.value && scene.value) {
-    effect.value = new OutlineEffect(scene.value as Scene, camera.value, outlineEffectParameters.value)
-    pass.value = new EffectPass(camera.value, effect.value)
+  if (!camera.value || !composer?.value || !scene.value) return
 
-    composer.value?.addPass(pass.value)
+  unwatch?.()
+  if (effect.value) return
 
-    unwatch()
-  }
+  effect.value = new OutlineEffect(scene.value as Scene, camera.value, outlineEffectParameters.value)
+  pass.value = new EffectPass(camera.value, effect.value)
+
+  composer.value.addPass(pass.value)
 })
 
 watch(
-  [() => props.outlinedObjects, effect], // whatchEffect is intentionally not used here as it would result in an endless loop
+  [() => props.outlinedObjects, effect], // watchEffect is intentionally not used here as it would result in an endless loop
   () => {
     effect.value?.selection.set(props.outlinedObjects || [])
   },

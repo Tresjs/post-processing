@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, onUnmounted, ref, toRaw, unref } from 'vue'
+import { inject, onUnmounted, shallowRef, toRaw, watchEffect } from 'vue'
 import { BlurPass, KernelSize, EffectPass, BloomEffect, BlendFunction } from 'postprocessing'
 import { watch } from 'vue'
 import { effectComposerInjectionKey } from '../injectionKeys'
@@ -74,64 +74,55 @@ export type BloomProps = {
   mipmapBlur?: boolean
 }
 
-const {
-  blendFunction = BlendFunction.ADD,
-  mipmapBlur = false,
-  intensity = 1,
-  luminanceThreshold = 0.9,
-  luminanceSmoothing = 0.025,
-} = defineProps<BloomProps>()
+const props = withDefaults(defineProps<BloomProps>(), {
+  blendFunction: BlendFunction.ADD, // TODO opinionated tres default?
+})
 
 const composer = inject(effectComposerInjectionKey)
-const pass = ref<EffectPass | null>(null)
-const effect = ref<BloomEffect | null>(null)
+const pass = shallowRef<EffectPass | null>(null)
+const effect = shallowRef<BloomEffect | null>(null)
 
 defineExpose({ pass, effect })
 
-const tresContext = useTresContext()
+const { camera } = useTresContext()
 
-function createPass() {
-  effect.value = new BloomEffect({
-    blendFunction,
-    mipmapBlur,
-    intensity,
-    luminanceThreshold,
-    luminanceSmoothing,
-  })
-  pass.value = new EffectPass(unref(tresContext.camera.value), toRaw(effect.value) as BloomEffect)
-}
+let unwatch: undefined | (() => void)
 
-function disposePass() {
-  effect.value?.dispose()
-  pass.value?.dispose()
-  composer?.value?.removePass(toRaw(pass.value) as EffectPass)
-}
+unwatch = watchEffect(() => {
+  if (!camera.value || !composer?.value) return
 
-const unwatchComposer = watch(
-  () => [tresContext.camera.value, composer?.value],
-  () => {
-    if (tresContext.camera.value && composer && composer.value) {
-      createPass()
-      composer?.value?.addPass(toRaw(pass.value) as EffectPass)
-    }
-  },
-)
+  unwatch?.()
+  if (effect.value) return
 
-const unwatchProps = watch(
-  () => [blendFunction, mipmapBlur, intensity, luminanceThreshold, luminanceSmoothing],
-  () => {
-    if (pass.value) {
-      disposePass()
-      createPass()
-      composer?.value?.addPass(toRaw(pass.value) as EffectPass)
-    }
-  },
-)
+  effect.value = new BloomEffect(props)
+  pass.value = new EffectPass(camera.value, effect.value)
+
+  composer.value.addPass(pass.value)
+})
+
+watchEffect(() => {
+  if (!effect.value) return
+  const plainEffectPass = new BloomEffect()
+
+  // blendFunction is not updated, because it has no setter in BloomEffect
+
+  effect.value.width = props.width !== undefined ? props.width : plainEffectPass.width
+  effect.value.height = props.height !== undefined ? props.height : plainEffectPass.height
+  effect.value.blurPass = props.blurPass !== undefined ? props.blurPass : plainEffectPass.blurPass
+  effect.value.intensity = props.intensity !== undefined ? props.intensity : plainEffectPass.intensity
+  effect.value.kernelSize = props.kernelSize !== undefined ? props.kernelSize : plainEffectPass.kernelSize
+  effect.value.luminanceMaterial.smoothing =
+    props.luminanceSmoothing !== undefined ? props.luminanceSmoothing : plainEffectPass.luminanceMaterial.smoothing
+  effect.value.luminanceMaterial.threshold =
+    props.luminanceThreshold !== undefined ? props.luminanceThreshold : plainEffectPass.luminanceMaterial.threshold
+
+  plainEffectPass.dispose()
+})
 
 onUnmounted(() => {
-  disposePass()
-  unwatchComposer()
-  unwatchProps()
+  if (pass.value) composer?.value?.removePass(pass.value)
+  effect.value?.dispose()
+  pass.value?.dispose()
 })
 </script>
 <template></template>
