@@ -1,10 +1,9 @@
 <script setup lang="ts">
+import { inject, onUnmounted, ref, toRaw, unref, watch, watchEffect } from 'vue'
 import { GlitchMode, EffectComposer, EffectPass, GlitchEffect, BlendFunction } from 'postprocessing'
-import { Ref, inject, onUnmounted, ref, toRaw, unref, watch, watchEffect } from 'vue'
 
 import { Vector2, Texture } from 'three'
 
-import { useCore } from '../useCore'
 import { effectComposerInjectionKey } from '../injectionKeys'
 
 export interface GlitchProps {
@@ -109,8 +108,6 @@ const {
   peturbationMap,
   dtSize = 64,
 } = defineProps<GlitchProps>()
-
-const { state } = useCore()
 
 const composer = inject(effectComposerInjectionKey)
 const pass = ref<EffectPass | null>(null)
