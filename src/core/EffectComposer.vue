@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Camera, HalfFloatType, Scene, WebGLRenderer } from 'three'
+import { Camera, HalfFloatType, Scene, WebGLRenderer } from 'three' //TODO remove unused
 import { TresCamera, TresCanvas, TresObject, TresScene, useRenderLoop, useTresContext } from '@tresjs/core'
 import { DepthDownsamplingPass, EffectComposer as EffectComposerImpl, NormalPass, RenderPass } from 'postprocessing'
 
@@ -19,13 +19,10 @@ export type EffectComposerProps = {
   autoClear?: boolean
   multisampling?: number
   frameBufferType?: number
-  scene?: Scene // TODO check back with Alvaro why this is here
-  camera?: TresCamera // TODO check back with Alvaro why this is here -> does probably not work with Bloom effect as it uses tresContext's camera
 }
 
-const tresContext = useTresContext()
-
 const props = withDefaults(defineProps<EffectComposerProps>(), {
+  //TODO use defaults from three/postprocessing
   enabled: true,
   autoClear: true,
   multisampling: 8,
@@ -34,11 +31,9 @@ const props = withDefaults(defineProps<EffectComposerProps>(), {
   depthBuffer: true,
   stencilBuffer: false,
 })
+const { scene, camera, renderer, sizes } = useTresContext()
 
 const effectComposer: ShallowRef<EffectComposerImpl | null> = shallowRef(null)
-
-const localScene = computed(() => props.scene || (tresContext.scene.value as TresScene))
-const localCamera = computed(() => props.camera || (tresContext.camera.value as Camera))
 
 let downSamplingPass = null
 let normalPass = null
@@ -49,7 +44,7 @@ provide(effectComposerInjectionKey, effectComposer)
 const setNormalPass = () => {
   if (!effectComposer.value) return
 
-  normalPass = new NormalPass(localScene.value as Scene, localCamera.value as TresCamera)
+  normalPass = new NormalPass(scene.value, camera.value)
   normalPass.enabled = false
   effectComposer.value.addPass(normalPass)
   if (props.resolutionScale !== undefined && webGL2Available) {
@@ -62,20 +57,19 @@ const setNormalPass = () => {
   }
 }
 
-const { width, height } = useElementBounding(tresContext.renderer.value.domElement as HTMLCanvasElement)
-
 watchEffect(() => {
-  if (effectComposer.value && width.value && height.value) effectComposer.value.setSize(width.value, height.value)
+  if (effectComposer.value && sizes.width.value && sizes.height.value)
+    effectComposer.value.setSize(sizes.width.value, sizes.height.value)
 })
 watchEffect(() => {
-  if (tresContext.renderer.value && localScene.value && localCamera.value) {
-    effectComposer.value = new EffectComposerImpl(tresContext.renderer.value as WebGLRenderer, {
+  if (renderer.value && scene.value && camera.value) {
+    effectComposer.value = new EffectComposerImpl(renderer.value as WebGLRenderer, {
       depthBuffer: props.depthBuffer,
       stencilBuffer: props.stencilBuffer,
       multisampling: props.multisampling > 0 && webGL2Available ? props.multisampling : 0,
       frameBufferType: props.frameBufferType,
     })
-    effectComposer.value.addPass(new RenderPass(tresContext.scene.value as Scene, tresContext.camera.value))
+    effectComposer.value.addPass(new RenderPass(scene.value as Scene, camera.value))
 
     if (!props.disableNormalPass) {
       setNormalPass()
@@ -86,12 +80,12 @@ watchEffect(() => {
 const { onLoop } = useRenderLoop()
 
 onLoop(({ delta }) => {
-  if (props.enabled && tresContext.renderer.value && effectComposer.value && width.value && height.value) {
-    const currentAutoClear = tresContext.renderer.value.autoClear // TODO check back with Alvaro why this is here
-    tresContext.renderer.value.autoClear = props.autoClear
-    if (props.stencilBuffer && !props.autoClear) tresContext.renderer.value.clearStencil()
+  if (props.enabled && renderer.value && effectComposer.value && sizes.width.value && sizes.height.value) {
+    const currentAutoClear = renderer.value.autoClear
+    renderer.value.autoClear = props.autoClear
+    if (props.stencilBuffer && !props.autoClear) renderer.value.clearStencil()
     effectComposer.value.render(delta)
-    tresContext.renderer.value.autoClear = currentAutoClear
+    renderer.value.autoClear = currentAutoClear
   }
 })
 </script>
