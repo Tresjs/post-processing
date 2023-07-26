@@ -102,6 +102,8 @@ const composer = inject(effectComposerInjectionKey)
 const pass = shallowRef<EffectPass | null>(null)
 const effect = shallowRef<GlitchEffect | null>(null)
 
+defineExpose({ pass, effect }) // to allow users to modify pass and effect via template ref
+
 const { camera } = useTresContext()
 
 let unwatch: undefined | (() => void)

@@ -56,6 +56,8 @@ const composer = inject(effectComposerInjectionKey)
 const pass = shallowRef<EffectPass | null>(null)
 const effect = shallowRef<OutlineEffect | null>(null)
 
+defineExpose({ pass, effect }) // to allow users to modify pass and effect via template ref
+
 const colorToNumber = (color: TresColor | undefined) =>
   color !== undefined ? normalizeColor(color).getHex() : undefined
 
