@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { HalfFloatType, Scene, WebGLRenderer } from 'three'
+import { HalfFloatType } from 'three'
 import { TresObject, useRenderLoop, useTresContext } from '@tresjs/core'
 import { DepthDownsamplingPass, EffectComposer as EffectComposerImpl, NormalPass, RenderPass } from 'postprocessing'
 
@@ -80,8 +80,8 @@ const effectComposerParams = computed(() => {
 
 watchEffect(() => {
   if (renderer.value && scene.value && camera.value) {
-    effectComposer.value = new EffectComposerImpl(renderer.value as WebGLRenderer, effectComposerParams.value)
-    effectComposer.value.addPass(new RenderPass(scene.value as Scene, camera.value))
+    effectComposer.value = new EffectComposerImpl(renderer.value, effectComposerParams.value)
+    effectComposer.value.addPass(new RenderPass(scene.value, camera.value))
 
     if (!props.disableNormalPass) setNormalPass()
   }
