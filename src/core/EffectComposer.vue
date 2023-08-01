@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { Camera, HalfFloatType, Scene, WebGLRenderer } from 'three' //TODO remove unused
-import { TresCamera, TresCanvas, TresObject, TresScene, useRenderLoop, useTresContext } from '@tresjs/core'
+import { HalfFloatType, Scene, WebGLRenderer } from 'three'
+import { TresObject, useRenderLoop, useTresContext } from '@tresjs/core'
 import { DepthDownsamplingPass, EffectComposer as EffectComposerImpl, NormalPass, RenderPass } from 'postprocessing'
 
 import { isWebGL2Available } from 'three-stdlib'
-import { MaybeElement, useElementBounding } from '@vueuse/core'
 import { effectComposerInjectionKey } from './injectionKeys'
 import { ShallowRef, computed, provide, shallowRef, watchEffect } from 'vue'
+import { onUnmounted } from 'vue'
 
 export type EffectComposerProps = {
   enabled?: boolean
@@ -15,21 +15,20 @@ export type EffectComposerProps = {
   disableNormalPass?: boolean
   stencilBuffer?: boolean
   resolutionScale?: number
-  /*   renderPriority?: number */
   autoClear?: boolean
   multisampling?: number
   frameBufferType?: number
 }
 
 const props = withDefaults(defineProps<EffectComposerProps>(), {
-  //TODO use defaults from three/postprocessing
   enabled: true,
   autoClear: true,
-  multisampling: 8,
   frameBufferType: HalfFloatType,
   disableNormalPass: false,
-  depthBuffer: true,
-  stencilBuffer: false,
+
+  depthBuffer: undefined,
+  multisampling: 0,
+  stencilBuffer: undefined,
 })
 const { scene, camera, renderer, sizes } = useTresContext()
 
@@ -37,7 +36,6 @@ const effectComposer: ShallowRef<EffectComposerImpl | null> = shallowRef(null)
 
 let downSamplingPass: DepthDownsamplingPass | null = null
 let normalPass: NormalPass | null = null
-const webGL2Available = isWebGL2Available()
 
 provide(effectComposerInjectionKey, effectComposer)
 
@@ -47,7 +45,7 @@ const setNormalPass = () => {
   normalPass = new NormalPass(scene.value, camera.value)
   normalPass.enabled = false
   effectComposer.value.addPass(normalPass)
-  if (props.resolutionScale !== undefined && webGL2Available) {
+  if (props.resolutionScale !== undefined && isWebGL2Available()) {
     downSamplingPass = new DepthDownsamplingPass({
       normalBuffer: normalPass.texture,
       resolutionScale: props.resolutionScale,
@@ -61,19 +59,31 @@ watchEffect(() => {
   if (effectComposer.value && sizes.width.value && sizes.height.value)
     effectComposer.value.setSize(sizes.width.value, sizes.height.value)
 })
+
+const effectComposerParams = computed(() => {
+  const plainEffectComposer = new EffectComposerImpl()
+  const params = {
+    depthBuffer: props.depthBuffer !== undefined ? props.depthBuffer : plainEffectComposer.inputBuffer.depthBuffer,
+    stencilBuffer:
+      props.stencilBuffer !== undefined ? props.stencilBuffer : plainEffectComposer.inputBuffer.stencilBuffer,
+    multisampling: isWebGL2Available()
+      ? 0
+      : props.multisampling !== undefined
+      ? props.multisampling
+      : plainEffectComposer.multisampling,
+    frameBufferType: props.frameBufferType !== undefined ? props.frameBufferType : HalfFloatType,
+  }
+  plainEffectComposer.dispose()
+
+  return params
+})
+
 watchEffect(() => {
   if (renderer.value && scene.value && camera.value) {
-    effectComposer.value = new EffectComposerImpl(renderer.value as WebGLRenderer, {
-      depthBuffer: props.depthBuffer,
-      stencilBuffer: props.stencilBuffer,
-      multisampling: props.multisampling > 0 && webGL2Available ? props.multisampling : 0,
-      frameBufferType: props.frameBufferType,
-    })
+    effectComposer.value = new EffectComposerImpl(renderer.value as WebGLRenderer, effectComposerParams.value)
     effectComposer.value.addPass(new RenderPass(scene.value as Scene, camera.value))
 
-    if (!props.disableNormalPass) {
-      setNormalPass()
-    }
+    if (!props.disableNormalPass) setNormalPass()
   }
 })
 
@@ -87,6 +97,10 @@ onLoop(({ delta }) => {
     effectComposer.value.render(delta)
     renderer.value.autoClear = currentAutoClear
   }
+})
+
+onUnmounted(() => {
+  effectComposer.value?.dispose()
 })
 </script>
 <template>
