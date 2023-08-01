@@ -35,8 +35,8 @@ const { scene, camera, renderer, sizes } = useTresContext()
 
 const effectComposer: ShallowRef<EffectComposerImpl | null> = shallowRef(null)
 
-let downSamplingPass = null
-let normalPass = null
+let downSamplingPass: DepthDownsamplingPass | null = null
+let normalPass: NormalPass | null = null
 const webGL2Available = isWebGL2Available()
 
 provide(effectComposerInjectionKey, effectComposer)

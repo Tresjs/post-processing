@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Color } from 'three'
 import { TresCanvas } from '@tresjs/core'
-// import { OrbitControls, useTweakPane } from '@tresjs/cientos'
+import { OrbitControls, useTweakPane } from '@tresjs/cientos'
 import { BlendFunction } from 'postprocessing'
 import { EffectComposer, Bloom } from '@tresjs/post-processing'
 import { onMounted, reactive, ref } from 'vue'
@@ -23,18 +23,18 @@ const bloomParams = reactive({
   blendFunction: BlendFunction.ADD,
 })
 
-// const { pane } = useTweakPane()
+const { pane } = useTweakPane()
 
-// pane.addInput(bloomParams, 'luminanceThreshold', { min: 0, max: 1 })
-// pane.addInput(bloomParams, 'luminanceSmoothing', { min: 0, max: 1 })
-// pane.addInput(bloomParams, 'mipmapBlur')
-// pane.addInput(bloomParams, 'intensity', { min: 0, max: 10 })
+pane.addInput(bloomParams, 'luminanceThreshold', { min: 0, max: 1 })
+pane.addInput(bloomParams, 'luminanceSmoothing', { min: 0, max: 1 })
+pane.addInput(bloomParams, 'mipmapBlur')
+pane.addInput(bloomParams, 'intensity', { min: 0, max: 10 })
 
 const materialRef = ref(null)
 
 onMounted(() => {
   if (materialRef.value) {
-    // pane.addInput(materialRef.value, 'emissiveIntensity', { min: 0, max: 10, step: 0.1 })
+    pane.addInput(materialRef.value, 'emissiveIntensity', { min: 0, max: 10, step: 0.1 })
   }
 })
 </script>
@@ -42,7 +42,7 @@ onMounted(() => {
 <template>
   <TresCanvas v-bind="gl" :disable-render="true">
     <TresPerspectiveCamera :position="[5, 5, 5]" :look-at="[0, 0, 0]" />
-    <!-- <OrbitControls /> -->
+    <OrbitControls />
     <TresMesh>
       <TresSphereGeometry :args="[2, 32, 32]" />
       <TresMeshStandardMaterial color="hotpink" :emissive="new Color('hotpink')" :emissive-intensity="9" />

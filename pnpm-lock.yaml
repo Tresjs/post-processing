@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@tresjs/core':
-        specifier: 2.4.0-next.8
-        version: 2.4.0-next.8(three@0.153.0)(vue@3.3.4)
+        specifier: ^3.0.1
+        version: 3.0.1(three@0.153.0)(vue@3.3.4)
       '@vueuse/core':
         specifier: ^10.2.0
         version: 10.2.0(vue@3.3.4)
@@ -27,9 +27,6 @@ importers:
       '@release-it/conventional-changelog':
         specifier: ^5.1.1
         version: 5.1.1(release-it@15.11.0)
-      '@tresjs/cientos':
-        specifier: 2.1.4
-        version: 2.1.4(@tresjs/core@2.4.0-next.8)(three@0.153.0)(vue@3.3.4)
       '@types/three':
         specifier: ^0.152.1
         version: 0.152.1
@@ -110,11 +107,11 @@ importers:
   playground:
     dependencies:
       '@tresjs/cientos':
-        specifier: 2.1.4
-        version: 2.1.4(@tresjs/core@2.4.0-next.8)(three@0.153.0)(vue@3.3.4)
+        specifier: ^3.0.1
+        version: 3.0.1(three@0.153.0)(vue@3.3.4)
       '@tresjs/core':
-        specifier: 2.4.0-next.8
-        version: 2.4.0-next.8(three@0.153.0)(vue@3.3.4)
+        specifier: 3.0.1
+        version: 3.0.1(three@0.153.0)(vue@3.3.4)
       vue-router:
         specifier: ^4.2.2
         version: 4.2.2(vue@3.3.4)
@@ -275,6 +272,7 @@ packages:
 
   /@alvarosabu/utils@3.1.1:
     resolution: {integrity: sha512-DdZNe0i0UsqA2X/+JtaznG4qGorU24FaHqxMAhVspQaC1my+YAVQLpfw8GilHpzMxPxX4sGVzuTnBF8GOdG5oA==}
+    dev: false
 
   /@ampproject/remapping@2.2.1:
     resolution: {integrity: sha512-lFMjJTrFL3j7L9yBxwYfCq2k6qqwHyzuUl/XBnif78PWTJYyL/dfowQHWE3sp6U6ZzqWiiIZnpTMO96zhkjwtg==}
@@ -340,18 +338,22 @@ packages:
       '@chevrotain/gast': 10.5.0
       '@chevrotain/types': 10.5.0
       lodash: 4.17.21
+    dev: false
 
   /@chevrotain/gast@10.5.0:
     resolution: {integrity: sha512-pXdMJ9XeDAbgOWKuD1Fldz4ieCs6+nLNmyVhe2gZVqoO7v8HXuHYs5OV2EzUtbuai37TlOAQHrTDvxMnvMJz3A==}
     dependencies:
       '@chevrotain/types': 10.5.0
       lodash: 4.17.21
+    dev: false
 
   /@chevrotain/types@10.5.0:
     resolution: {integrity: sha512-f1MAia0x/pAVPWH/T73BJVyO2XU5tI4/iE7cnxb7tqdNTNhQI3Uq3XkqcoteTmD4t1aM0LbHCJOhgIDn07kl2A==}
+    dev: false
 
   /@chevrotain/utils@10.5.0:
     resolution: {integrity: sha512-hBzuU5+JjB2cqNZyszkDHZgOSrUUT8V3dhgRl8Q9Gp6dAj/H5+KILGjbhDpc3Iy9qmqlm/akuOI2ut9VUtzJxQ==}
+    dev: false
 
   /@docsearch/css@3.5.1:
     resolution: {integrity: sha512-2Pu9HDg/uP/IT10rbQ+4OrTQuxIWdKVUEdcw9/w7kZJv9NeHS6skJx1xuRiFyoGKwAzcHXnLp7csE99sj+O1YA==}
@@ -935,23 +937,24 @@ packages:
       defer-to-connect: 2.0.1
     dev: true
 
-  /@tresjs/cientos@2.1.4(@tresjs/core@2.4.0-next.8)(three@0.153.0)(vue@3.3.4):
-    resolution: {integrity: sha512-K6G9XwIKC6Zg855Rh8YrBs8TZJlJv4AoJZZ9mc0fgG64V1qWDqTQsR3yhIsfPp2NPM8+NI4URPCAR4HybbgppQ==}
+  /@tresjs/cientos@3.0.1(three@0.153.0)(vue@3.3.4):
+    resolution: {integrity: sha512-lLpsLopVdgxTw+bbFjZiIRymt4Q9Ye1cASOdTdnIEgD7mwWd3tMWM6oRREZEHIonmmYtvJ7TDJzYlHZU/yGxDw==}
     peerDependencies:
-      '@tresjs/core': '>=2.1.3'
       three: '>=0.133'
       vue: '>=3.3'
     dependencies:
-      '@tresjs/core': 2.4.0-next.8(three@0.153.0)(vue@3.3.4)
-      '@vueuse/core': 10.2.0(vue@3.3.4)
+      '@tresjs/core': 3.0.1(three@0.153.0)(vue@3.3.4)
+      '@vueuse/core': 10.2.1(vue@3.3.4)
+      camera-controls: 2.7.0(three@0.153.0)
       three: 0.153.0
-      three-stdlib: 2.23.10(three@0.153.0)
+      three-stdlib: 2.24.1(three@0.153.0)
       vue: 3.3.4
     transitivePeerDependencies:
       - '@vue/composition-api'
+    dev: false
 
-  /@tresjs/core@2.4.0-next.8(three@0.153.0)(vue@3.3.4):
-    resolution: {integrity: sha512-S6anESf6unHR52Rak3OYlh7r/7ADIF+ebz5QF3TMO07o5zrxM0oDoJ6LnzY4vyg6rI9uG5GIDUJCvLSr+HFSTg==}
+  /@tresjs/core@3.0.1(three@0.153.0)(vue@3.3.4):
+    resolution: {integrity: sha512-bhLOXqDXCT527dFwdyvUpq7H+WpOgJrmJTFK3tCxrULv996+rIgS0Nz6QRLsFAuyVJwqg29FPD0H/MYEjrviSQ==}
     peerDependencies:
       three: '>=0.133'
       vue: '>=3.3'
@@ -962,6 +965,7 @@ packages:
       vue: 3.3.4
     transitivePeerDependencies:
       - '@vue/composition-api'
+    dev: false
 
   /@trysound/sax@0.2.0:
     resolution: {integrity: sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==}
@@ -987,6 +991,7 @@ packages:
 
   /@types/draco3d@1.4.2:
     resolution: {integrity: sha512-goh23EGr6CLV6aKPwN1p8kBD/7tT5V/bLpToSbarKrwVejqNrspVrv8DhliteYkkhZYrlq/fwKZRRUzH4XN88w==}
+    dev: false
 
   /@types/estree@1.0.1:
     resolution: {integrity: sha512-LG4opVs2ANWZ1TJoKc937iMmNstM/d0ae1vNbnBvBhqCSezgVUOzcLCqbI5elV8Vy6WKwKjaqR+zO9VKirBBCA==}
@@ -1006,6 +1011,7 @@ packages:
 
   /@types/offscreencanvas@2019.7.0:
     resolution: {integrity: sha512-PGcyveRIpL1XIqK8eBsmRBt76eFgtzuPiSTyKHZxnGemp2yzGzWpjYKAfK3wIMiU7eH+851yEpiuP8JZerTmWg==}
+    dev: false
 
   /@types/stats.js@0.17.0:
     resolution: {integrity: sha512-9w+a7bR8PeB0dCT/HBULU2fMqf6BAzvKbxFboYhmDtDkKPiyXYbjoe2auwsXlEFI7CFNMF1dCv3dFH5Poy9R1w==}
@@ -1984,6 +1990,14 @@ packages:
     engines: {node: '>=14.16'}
     dev: true
 
+  /camera-controls@2.7.0(three@0.153.0):
+    resolution: {integrity: sha512-HONMoMYHieOCQOoweS639bdWHP/P/fvVGR08imnECGVUp04mqGfsX/zp1ZufLeiAA5hA6i1JhP6SrnOwh01C0w==}
+    peerDependencies:
+      three: '>=0.126.1'
+    dependencies:
+      three: 0.153.0
+    dev: false
+
   /chalk@2.4.2:
     resolution: {integrity: sha512-Mti+f9lpJNcwF4tWV8/OrTTtF1gZi+f8FqlyAdouralcFWFQWF2+NgCHShjkCb+IFBLq9buZwE1xckQU4peSuQ==}
     engines: {node: '>=4'}
@@ -2019,6 +2033,7 @@ packages:
       '@chevrotain/utils': 10.5.0
       lodash: 4.17.21
       regexp-to-ast: 0.5.0
+    dev: false
 
   /chokidar@3.5.3:
     resolution: {integrity: sha512-Dr3sfKRP6oTcjf2JmUmFJfeVMvXBdegxB0iVQ5eb2V10uFJUCAS8OByZdVAyVb8xXNz3GjjTgj9kLWsZTqE6kw==}
@@ -2596,6 +2611,7 @@ packages:
 
   /draco3d@1.5.6:
     resolution: {integrity: sha512-+3NaRjWktb5r61ZFoDejlykPEFKT5N/LkbXsaddlw6xNSXBanUYpFc2AXXpbJDilPHazcSreU/DpQIaxfX0NfQ==}
+    dev: false
 
   /duplexer@0.1.2:
     resolution: {integrity: sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg==}
@@ -3769,6 +3785,7 @@ packages:
 
   /ktx-parse@0.4.5:
     resolution: {integrity: sha512-MK3FOody4TXbFf8Yqv7EBbySw7aPvEcPX++Ipt6Sox+/YMFvR5xaTyhfNSk1AEmMy+RYIw81ctN4IMxCB8OAlg==}
+    dev: false
 
   /latest-version@7.0.0:
     resolution: {integrity: sha512-KvNT4XqAMzdcL6ka6Tl3i2lYeFDgXNCuIX+xNx6ZMVR1dFq+idXd9FLKNMOIx0t9mJ9/HudyX4oZWXZQ0UJHeg==}
@@ -4063,6 +4080,7 @@ packages:
 
   /mmd-parser@1.0.4:
     resolution: {integrity: sha512-Qi0VCU46t2IwfGv5KF0+D/t9cizcDug7qnNoy9Ggk7aucp0tssV8IwTMkBlDbm+VqAf3cdQHTCARKSsuS2MYFg==}
+    dev: false
 
   /modify-values@1.0.1:
     resolution: {integrity: sha512-xV2bxeN6F7oYjZWTe/YPAy6MN2M+sL4u/Rlm2AHCIVGfo2p1yGmBHQ6vHehl4bRTZBdHu3TSkWdYgkwpYzAGSw==}
@@ -4260,6 +4278,7 @@ packages:
     dependencies:
       string.prototype.codepointat: 0.2.1
       tiny-inflate: 1.0.3
+    dev: false
 
   /optionator@0.8.3:
     resolution: {integrity: sha512-+IW9pACdk3XWmmTXG8m3upGUJst5XRGzxMRjXzAuJ1XnIFNvfhjjIuYkDvysnPQ7qzqVzLt78BCruntqRhWQbA==}
@@ -4542,6 +4561,7 @@ packages:
 
   /potpack@1.0.2:
     resolution: {integrity: sha512-choctRBIV9EMT9WGAZHn3V7t0Z2pMQyl0EZE6pFc/6ml3ssw7Dlf/oAOvFwjm1HVsqfQN8GfeFyJ+d8tRzqueQ==}
+    dev: false
 
   /preact@10.16.0:
     resolution: {integrity: sha512-XTSj3dJ4roKIC93pald6rWuB2qQJO9gO2iLLyTe87MrjQN+HklueLsmskbywEWqCHlclgz3/M4YLL2iBr9UmMA==}
@@ -4724,6 +4744,7 @@ packages:
 
   /regexp-to-ast@0.5.0:
     resolution: {integrity: sha512-tlbJqcMHnPKI9zSrystikWKwHkBqu2a/Sgw01h3zFjvYrMxEDYHzzoMZnUrbIfpTFEsoRnnviOXNCzFiSc54Qw==}
+    dev: false
 
   /regexp.prototype.flags@1.5.0:
     resolution: {integrity: sha512-0SutC3pNudRKgquxGoRGIz946MZVHqbNfPjBdxeOhBrdgDKlRoXmYLQN9xRbrR09ZXWeGAdPuif7egofn6v5LA==}
@@ -5153,6 +5174,7 @@ packages:
 
   /string.prototype.codepointat@0.2.1:
     resolution: {integrity: sha512-2cBVCj6I4IOvEnjgO/hWqXjqBGsY+zwPmHl12Srk9IXSZ56Jwwmy+66XO5Iut/oQVR7t5ihYdLB0GMa4alEUcg==}
+    dev: false
 
   /string.prototype.trim@1.2.7:
     resolution: {integrity: sha512-p6TmeT1T3411M8Cgg9wBTMRtY2q9+PNy9EV1i2lIXUN/btt763oIfxwN3RR8VU6wHX8j/1CFy0L+YuThm6bgOg==}
@@ -5301,6 +5323,26 @@ packages:
       potpack: 1.0.2
       three: 0.153.0
       zstddec: 0.0.2
+    dev: false
+
+  /three-stdlib@2.24.1(three@0.153.0):
+    resolution: {integrity: sha512-imb4IQPtp6hGurwZhfv3K6MCxS/IhXmG6FZxxuVsERwZiVH7KjeHUFT66Jlqs8WC4f3pYkXrH7ht8HpdGcXlMQ==}
+    peerDependencies:
+      three: '>=0.128.0'
+    dependencies:
+      '@types/draco3d': 1.4.2
+      '@types/offscreencanvas': 2019.7.0
+      '@types/webxr': 0.5.2
+      chevrotain: 10.5.0
+      draco3d: 1.5.6
+      fflate: 0.6.10
+      ktx-parse: 0.4.5
+      mmd-parser: 1.0.4
+      opentype.js: 1.3.4
+      potpack: 1.0.2
+      three: 0.153.0
+      zstddec: 0.0.2
+    dev: false
 
   /three@0.153.0:
     resolution: {integrity: sha512-OCP2/uQR6GcDpSLnJt/3a4mdS0kNWcbfUXIwLoEMgLzEUIVIYsSDwskpmOii/AkDM+BBwrl6+CKgrjX9+E2aWg==}
@@ -5324,6 +5366,7 @@ packages:
 
   /tiny-inflate@1.0.3:
     resolution: {integrity: sha512-pkY1fj1cKHb2seWDy0B16HeWyczlJA9/WW3u3c4z/NiWDsO3DOU5D7nhTLE9CF0yXv/QZFY7sEJmj24dK+Rrqw==}
+    dev: false
 
   /titleize@3.0.0:
     resolution: {integrity: sha512-KxVu8EYHDPBdUYdKZdKtU2aj2XfEx9AfjXxE/Aj0vT06w2icA09Vus1rh6eSu1y01akYg6BjIK/hxyLJINoMLQ==}
@@ -6175,3 +6218,4 @@ packages:
 
   /zstddec@0.0.2:
     resolution: {integrity: sha512-DCo0oxvcvOTGP/f5FA6tz2Z6wF+FIcEApSTu0zV5sQgn9hoT5lZ9YRAKUraxt9oP7l4e8TnNdi8IZTCX6WCkwA==}
+    dev: false
