@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { inject, onUnmounted, shallowRef, toRaw, watchEffect } from 'vue'
-import { BlurPass, KernelSize, EffectPass, BloomEffect, BlendFunction } from 'postprocessing'
-import { watch } from 'vue'
-import { effectComposerInjectionKey } from '../injectionKeys'
 import { useTresContext } from '@tresjs/core'
+import { effectComposerInjectionKey } from '../injectionKeys'
+import { inject, onUnmounted, shallowRef, watchEffect } from 'vue'
+import { KernelSize, EffectPass, BloomEffect, BlendFunction } from 'postprocessing'
 
 export type BloomProps = {
   blendFunction?: BlendFunction
@@ -15,27 +14,6 @@ export type BloomProps = {
    * @memberof BloomProps
    */
   intensity?: number
-  /**
-   *  An efficient, incremental blur pass.
-   *
-   * @type {BlurPass}
-   * @memberof BloomProps
-   */
-  blurPass?: BlurPass
-  /**
-   * The width of the render
-   *
-   * @type {number}
-   * @memberof BloomProps
-   */
-  width?: number
-  /**
-   * The height of the render
-   *
-   * @type {number}
-   * @memberof BloomProps
-   */
-  height?: number
   /**
    * The kernel size.
    *
@@ -104,9 +82,6 @@ watchEffect(() => {
 
   // blendFunction is not updated, because it has no setter in BloomEffect
 
-  effect.value.width = props.width !== undefined ? props.width : plainEffectPass.width
-  effect.value.height = props.height !== undefined ? props.height : plainEffectPass.height
-  effect.value.blurPass = props.blurPass !== undefined ? props.blurPass : plainEffectPass.blurPass
   effect.value.intensity = props.intensity !== undefined ? props.intensity : plainEffectPass.intensity
   effect.value.kernelSize = props.kernelSize !== undefined ? props.kernelSize : plainEffectPass.kernelSize
   effect.value.luminanceMaterial.smoothing =
