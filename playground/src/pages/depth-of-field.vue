@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { TresCanvas } from '@tresjs/core'
 import { OrbitControls } from '@tresjs/cientos'
+import { EffectComposer, DepthOfField } from '@tresjs/post-processing'
 </script>
 
 <template>
@@ -23,5 +24,10 @@ import { OrbitControls } from '@tresjs/cientos'
         <TresMeshNormalMaterial />
       </TresMesh>
     </template>
+    <TresGridHelper />
+
+    <EffectComposer>
+      <DepthOfField />
+    </EffectComposer>
   </TresCanvas>
 </template>
