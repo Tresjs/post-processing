@@ -2,13 +2,57 @@
 import { TresCanvas } from '@tresjs/core'
 import { OrbitControls } from '@tresjs/cientos'
 import { EffectComposer, DepthOfField } from '@tresjs/post-processing'
+import { TresLeches, useControls } from '@tresjs/leches'
+import '@tresjs/leches/styles'
+
+import type { Ref } from 'vue'
+import { reactive, computed } from 'vue'
+import { CONTROLS_CONTEXT_KEY } from '@tresjs/leches/dist/composables/useControls.js'
+
+const paneElements = reactive({
+  focusDistance: 1,
+  focalLength: 0.02,
+  bokehScale: 5,
+})
+
+useControls('fpsgraph')
+const controls = useControls({
+  focusDistance: {
+    value: 1,
+    min: 0,
+    max: 1,
+    step: 0.1,
+  },
+  focalLength: {
+    value: 0.5,
+    min: 0,
+    max: 1,
+    step: 0.1,
+  },
+  bokehScale: {
+    value: 5,
+    min: 1,
+    max: 10,
+    step: 1,
+  },
+}) as { [key: string]: Ref<{ value: number }> }
+
+const effectParams = computed(() => 
+  Object
+    .entries(controls)
+    .reduce(
+      (acc, [key, value]) => ({ ...acc, [key]: value.value.value })
+      , {},
+    ),
+)
 </script>
 
 <template>
+  <TresLeches />
   <TresCanvas>
     <TresPerspectiveCamera
-      :position="[1, 3, 3]"
-      :look-at="[2, 2, 2]"
+      :position="[5, 2, 1]"
+      :look-at="[0, 1, 2]"
     />
     <OrbitControls />
     <template
@@ -27,7 +71,7 @@ import { EffectComposer, DepthOfField } from '@tresjs/post-processing'
     <TresGridHelper />
 
     <EffectComposer>
-      <DepthOfField />
+      <DepthOfField v-bind="effectParams" />
     </EffectComposer>
   </TresCanvas>
 </template>
