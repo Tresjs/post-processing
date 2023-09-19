@@ -7,36 +7,29 @@ import '@tresjs/leches/styles'
 
 import type { Ref } from 'vue'
 import { reactive, computed } from 'vue'
-import { CONTROLS_CONTEXT_KEY } from '@tresjs/leches/dist/composables/useControls.js'
-
-const paneElements = reactive({
-  focusDistance: 1,
-  focalLength: 0.02,
-  bokehScale: 5,
-})
 
 useControls('fpsgraph')
 const controls = useControls({
   focusDistance: {
-    value: 1,
+    value: 0.001,
     min: 0,
-    max: 1,
-    step: 0.01,
+    max: 0.1,
+    step: 0.0001,
   },
   worldFocusDistance: {
-    value: 0.2,
+    value: 3.8,
     min: 0,
-    max: 1,
+    max: 10,
     step: 0.001,
   },
   bokehScale: {
-    value: 2,
+    value: 10,
     min: 1,
-    max: 5,
-    step: 0.001,
+    max: 15,
+    step: 0.01,
   },
-  focalLength: {
-    value: 0.04,
+  focusRange: {
+    value: 0.0018,
     min: 0,
     max: 1,
     step: 0.001,
@@ -77,7 +70,9 @@ const effectParams = computed(() =>
     <TresGridHelper />
 
     <EffectComposer>
-      <DepthOfField v-bind="effectParams" />
+      <DepthOfField
+        v-bind="effectParams"
+      />
     </EffectComposer>
   </TresCanvas>
 </template>
