@@ -21,19 +21,25 @@ const controls = useControls({
     value: 1,
     min: 0,
     max: 1,
-    step: 0.1,
+    step: 0.01,
   },
-  focalLength: {
-    value: 0.5,
+  worldFocusDistance: {
+    value: 0.2,
     min: 0,
     max: 1,
-    step: 0.1,
+    step: 0.001,
   },
   bokehScale: {
-    value: 5,
+    value: 2,
     min: 1,
-    max: 10,
-    step: 1,
+    max: 5,
+    step: 0.001,
+  },
+  focalLength: {
+    value: 0.04,
+    min: 0,
+    max: 1,
+    step: 0.001,
   },
 }) as { [key: string]: Ref<{ value: number }> }
 
