@@ -1,7 +1,6 @@
 <script lang="ts" setup>
-// eslint-disable-next-line import/no-named-as-default
-import gsap from 'gsap'
 import { ref } from 'vue'
+import { gsap } from 'gsap'
 import { TresCanvas } from '@tresjs/core'
 import { EffectComposer, DepthOfField } from '@tresjs/post-processing'
 

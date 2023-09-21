@@ -1,5 +1,4 @@
 <script setup lang="ts">
-//TODO fix component
 import { Color } from 'three'
 import { TresCanvas } from '@tresjs/core'
 import { Text3D } from '@tresjs/cientos'

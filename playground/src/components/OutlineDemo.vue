@@ -1,5 +1,4 @@
 <script setup lang="ts">
-//TODO fix component
 import { TresCanvas } from '@tresjs/core'
 import { OrbitControls, useTweakPane } from '@tresjs/cientos'
 import { reactive, ref } from 'vue'
