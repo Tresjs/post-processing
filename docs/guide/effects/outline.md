@@ -39,3 +39,6 @@ import { EffectComposer, Outline } from '@tresjs/post-processing'
 | resolutionScale  | The resolution scale. This prop is not reactive.                                            | 0.5                                                                                                                                           |
 | hiddenEdgeColor  | The color of hidden edges.                                                                  | 0x22090a                                                                                                                                      |
 | visibleEdgeColor | The color of visible edges.                                                                 | 0xffffff                                                                                                                                      |
+
+## Further Reading
+see [postprocessing docs](https://pmndrs.github.io/postprocessing/public/docs/class/src/effects/OutlineEffect.js~OutlineEffect.html)

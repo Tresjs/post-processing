@@ -36,3 +36,6 @@ import { EffectComposer, Bloom } from '@tresjs/post-processing'
 | `luminanceThreshold` | The luminance threshold. Raise this value to mask out darker elements in the scene. Range is [0, 1]. | `0.9`                                                                                                                                          |
 | `luminanceSmoothing` | Controls the smoothness of the luminance threshold. Range is [0, 1].                                 | `0.025`                                                                                                                                        |
 | `mipMapBlur`         | Enables mip map blur. (UnrealBloom)                                                                  | `false`                                                                                                                                        |
+
+## Further Reading
+see [postprocessing docs](https://pmndrs.github.io/postprocessing/public/docs/class/src/effects/BloomEffect.js~BloomEffect.html)

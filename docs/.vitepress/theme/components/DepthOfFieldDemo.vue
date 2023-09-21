@@ -5,12 +5,12 @@ import { ref } from 'vue'
 import { TresCanvas } from '@tresjs/core'
 import { EffectComposer, DepthOfField } from '@tresjs/post-processing'
 
-const focusDistance = ref(0.0012)
+const dofEffect = ref<InstanceType<typeof DepthOfField> | null>(null)
 
 const toggleFocusDistance = () => {
-  gsap.to(focusDistance, {
-    value: focusDistance.value === 0.0012 ? 0.0017 : 0.0012,
-    duration: 0.3,
+  gsap.to(dofEffect.value?.effect.circleOfConfusionMaterial, {
+    focusDistance: dofEffect.value?.effect.circleOfConfusionMaterial.focusDistance === 0.0012 ? 0.003 : 0.0012,
+    duration: 0.5,
     ease: 'power2',
   })
 }
@@ -62,7 +62,8 @@ const toggleFocusDistance = () => {
     <TresGridHelper />
     <EffectComposer>
       <DepthOfField
-        :focus-distance="focusDistance"
+        ref="dofEffect"
+        :focus-distance="0.0012"
         :world-focus-distance="2"
         :world-focus-range="1"
         :bokeh-scale="8"

@@ -32,3 +32,7 @@ import { EffectComposer, Bloom } from '@tresjs/post-processing'
 | `focusDistance` | The normalized focus distance. Range is [0.0, 1.0]. | depends on camera |
 | `focusRange` | The focus range. Range is [0.0, 1.0]. | 0.1 |
 | `bokehScale` | The scale of the bokeh blur. | 1.0 |
+
+
+## Further Reading
+see [postprocessing docs](https://pmndrs.github.io/postprocessing/public/docs/class/src/effects/DepthOfFieldEffect.js~DepthOfFieldEffect.html)
