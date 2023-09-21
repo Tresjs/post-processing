@@ -17,7 +17,7 @@ export interface DepthOfFieldProps {
   worldFocusDistance?: number
 
   /**
-   * The focus distance in world units.
+   * The focus range in world units.
    */
   worldFocusRange?: number
 
@@ -55,7 +55,7 @@ const unwatch = watchEffect(() => {
   if (!camera.value || !composer?.value) return
 
   unwatch?.()
-  
+
   if (effect.value) return
 
   effect.value = new DepthOfFieldEffect(camera.value, props)
@@ -67,6 +67,7 @@ const unwatch = watchEffect(() => {
 watchEffect(() => {
   if (!effect.value) return
   const plainEffectPass = new DepthOfFieldEffect()
+  console.log(plainEffectPass.circleOfConfusionMaterial.worldFocusRange)
 
   // blendFunction is not updated, because it has no setter in BloomEffect
 
@@ -80,25 +81,35 @@ watchEffect(() => {
       ? props.worldFocusDistance
       : plainEffectPass.circleOfConfusionMaterial.worldFocusDistance
 
-  effect.value.circleOfConfusionMaterial.focusRange = props.focusRange !== undefined
-    ? props.focusRange : plainEffectPass.circleOfConfusionMaterial.focusRange
+  effect.value.circleOfConfusionMaterial.focusRange
+    = props.focusRange !== undefined
+      ? props.focusRange
+      : plainEffectPass.circleOfConfusionMaterial.focusRange
 
-  effect.value.circleOfConfusionMaterial.focusDistance = props.focusDistance !== undefined
-    ? props.focusDistance
-    : plainEffectPass.circleOfConfusionMaterial.focusDistance
+  effect.value.circleOfConfusionMaterial.focusDistance
+    = props.focusDistance !== undefined
+      ? props.focusDistance
+      : plainEffectPass.circleOfConfusionMaterial.focusDistance
 
-  effect.value.bokehScale = props.bokehScale !== undefined
-    ? props.bokehScale
-    : plainEffectPass.bokehScale
+  effect.value.bokehScale
+    = props.bokehScale !== undefined
+      ? props.bokehScale
+      : plainEffectPass.bokehScale
 
-  effect.value.blurPass.resolution.scale = props.resolutionScale !== undefined
-    ? props.resolutionScale : plainEffectPass.blurPass.resolution.scale
+  effect.value.blurPass.resolution.scale
+    = props.resolutionScale !== undefined
+      ? props.resolutionScale
+      : plainEffectPass.blurPass.resolution.scale
 
-  effect.value.blurPass.resolution.width = props.resolutionX !== undefined
-    ? props.resolutionX : plainEffectPass.resolution.width
+  effect.value.blurPass.resolution.width
+    = props.resolutionX !== undefined
+      ? props.resolutionX
+      : plainEffectPass.resolution.width
 
-  effect.value.blurPass.resolution.height = props.resolutionX !== undefined
-    ? props.resolutionX : plainEffectPass.resolution.height
+  effect.value.blurPass.resolution.height
+    = props.resolutionX !== undefined
+      ? props.resolutionX
+      : plainEffectPass.resolution.height
 })
 
 onUnmounted(() => {
