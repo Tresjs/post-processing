@@ -67,7 +67,6 @@ const unwatch = watchEffect(() => {
 watchEffect(() => {
   if (!effect.value) return
   const plainEffectPass = new DepthOfFieldEffect()
-  console.log(plainEffectPass.circleOfConfusionMaterial.worldFocusRange)
 
   // blendFunction is not updated, because it has no setter in BloomEffect
 
@@ -77,9 +76,9 @@ watchEffect(() => {
       : plainEffectPass.circleOfConfusionMaterial.worldFocusDistance
 
   effect.value.circleOfConfusionMaterial.worldFocusRange
-    = props.worldFocusDistance !== undefined
-      ? props.worldFocusDistance
-      : plainEffectPass.circleOfConfusionMaterial.worldFocusDistance
+    = props.worldFocusRange !== undefined
+      ? props.worldFocusRange
+      : plainEffectPass.circleOfConfusionMaterial.worldFocusRange
 
   effect.value.circleOfConfusionMaterial.focusRange
     = props.focusRange !== undefined

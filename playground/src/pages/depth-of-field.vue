@@ -22,6 +22,12 @@ const controls = useControls({
     max: 10,
     step: 0.001,
   },
+  worldFocusRange: {
+    value: 0.1,
+    min: 0,
+    max: 1,
+    step: 0.001,
+  },
   bokehScale: {
     value: 10,
     min: 1,

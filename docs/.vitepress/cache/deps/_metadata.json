@@ -1,65 +1,56 @@
 {
-  "hash": "b7d38704",
-  "browserHash": "9362cb0d",
+  "hash": "e8b9415e",
+  "browserHash": "9395bd41",
   "optimized": {
     "vue": {
       "src": "../../../../node_modules/.pnpm/vue@3.3.4/node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "c53f8951",
+      "fileHash": "29847c23",
       "needsInterop": false
     },
     "three": {
       "src": "../../../../node_modules/.pnpm/three@0.153.0/node_modules/three/build/three.module.js",
       "file": "three.js",
-      "fileHash": "267d8450",
+      "fileHash": "c47970e5",
       "needsInterop": false
     },
     "gsap": {
       "src": "../../../../node_modules/.pnpm/gsap@3.12.1/node_modules/gsap/index.js",
       "file": "gsap.js",
-      "fileHash": "320d7797",
+      "fileHash": "0a744ad7",
       "needsInterop": false
     },
     "@tresjs/core": {
-      "src": "../../../../node_modules/.pnpm/@tresjs+core@3.2.0_three@0.153.0_vue@3.3.4/node_modules/@tresjs/core/dist/tres.js",
+      "src": "../../../../node_modules/.pnpm/@tresjs+core@3.2.2_three@0.153.0_vue@3.3.4/node_modules/@tresjs/core/dist/tres.js",
       "file": "@tresjs_core.js",
-      "fileHash": "7e5f5953",
-      "needsInterop": false
-    },
-    "postprocessing": {
-      "src": "../../../../node_modules/.pnpm/postprocessing@6.32.1_three@0.153.0/node_modules/postprocessing/build/index.js",
-      "file": "postprocessing.js",
-      "fileHash": "817de48a",
+      "fileHash": "9c5dc3eb",
       "needsInterop": false
     },
     "@tresjs/cientos": {
       "src": "../../../../node_modules/.pnpm/@tresjs+cientos@3.0.1_three@0.153.0_vue@3.3.4/node_modules/@tresjs/cientos/dist/trescientos.js",
       "file": "@tresjs_cientos.js",
-      "fileHash": "bc5ef231",
+      "fileHash": "78832832",
       "needsInterop": false
     },
-    "@vueuse/core": {
-      "src": "../../../../node_modules/.pnpm/@vueuse+core@10.2.0_vue@3.3.4/node_modules/@vueuse/core/index.mjs",
-      "file": "@vueuse_core.js",
-      "fileHash": "fcd16c9e",
+    "postprocessing": {
+      "src": "../../../../node_modules/.pnpm/postprocessing@6.32.1_three@0.153.0/node_modules/postprocessing/build/index.js",
+      "file": "postprocessing.js",
+      "fileHash": "a69392b7",
       "needsInterop": false
     }
   },
   "chunks": {
-    "chunk-ZSIWZP73": {
-      "file": "chunk-ZSIWZP73.js"
+    "chunk-UXYWE37G": {
+      "file": "chunk-UXYWE37G.js"
     },
-    "chunk-JP43PKLV": {
-      "file": "chunk-JP43PKLV.js"
+    "chunk-NQEDJL6T": {
+      "file": "chunk-NQEDJL6T.js"
     },
-    "chunk-JKV2V35Q": {
-      "file": "chunk-JKV2V35Q.js"
+    "chunk-64YHRCBQ": {
+      "file": "chunk-64YHRCBQ.js"
     },
-    "chunk-QGIGEO4K": {
-      "file": "chunk-QGIGEO4K.js"
-    },
-    "chunk-JC4IRQUL": {
-      "file": "chunk-JC4IRQUL.js"
+    "chunk-SSYGV25P": {
+      "file": "chunk-SSYGV25P.js"
     }
   }
 }
