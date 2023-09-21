@@ -87,6 +87,15 @@ importers:
 
   docs:
     dependencies:
+      '@tresjs/cientos':
+        specifier: ^3.0.1
+        version: 3.0.1(three@0.153.0)(vue@3.3.4)
+      '@tresjs/core':
+        specifier: ^3.2.2
+        version: 3.2.2(three@0.153.0)(vue@3.3.4)
+      '@tresjs/post-processing':
+        specifier: workspace:^
+        version: link:..
       gsap:
         specifier: ^3.11.5
         version: 3.12.1
@@ -1224,6 +1233,20 @@ packages:
 
   /@tresjs/core@3.2.0(three@0.153.0)(vue@3.3.4):
     resolution: {integrity: sha512-Jkv9AwIlvucF6QnuBFWsTaVJBORDouKsqZ1rnj3l/kjBpBxP/3QFtrys2YtVXEP0qGdFy1pYdGrJ4JEhMmjxSA==}
+    peerDependencies:
+      three: '>=0.133'
+      vue: '>=3.3'
+    dependencies:
+      '@alvarosabu/utils': 3.1.1
+      '@vueuse/core': 10.4.1(vue@3.3.4)
+      three: 0.153.0
+      vue: 3.3.4
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+    dev: false
+
+  /@tresjs/core@3.2.2(three@0.153.0)(vue@3.3.4):
+    resolution: {integrity: sha512-zNh32siTJqk2JcnA8hZ8zPGkGvepNP03oCtlnUFl22BGULpQvehMWtMjYx233Gqoq5tiyUEcWeXxBSUHIEJjRg==}
     peerDependencies:
       three: '>=0.133'
       vue: '>=3.3'

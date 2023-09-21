@@ -1,12 +1,24 @@
 # Outline
 
-<ClientOnly>
-<OutlineDemo class="demo-scene"  />
-</ClientOnly>
+<DocsDemo>
+  <OutlineDemo />
+</DocsDemo>
+
+Outline is an effect that applies an outline to objects in your scene. This effect is commonly used to highlight objects.
 
 ## Usage
 
-Outline is an effect that applies an outline to objects in your scene. This effect is commonly used to highlight objects.
+```vue
+<script setup lang="ts">
+import { EffectComposer, Outline } from '@tresjs/post-processing'
+</script>
+
+<template>
+  <EffectComposer>
+    <Outline />
+  </EffectComposer>
+</template>
+```
 
 ## Props
 

@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { computed } from 'vue'
 import { TresCanvas } from '@tresjs/core'
 import { OrbitControls } from '@tresjs/cientos'
 import { EffectComposer, DepthOfField } from '@tresjs/post-processing'
@@ -6,7 +7,6 @@ import { TresLeches, useControls } from '@tresjs/leches'
 import '@tresjs/leches/styles'
 
 import type { Ref } from 'vue'
-import { reactive, computed } from 'vue'
 
 useControls('fpsgraph')
 const controls = useControls({

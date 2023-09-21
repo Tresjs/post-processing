@@ -1,8 +1,8 @@
 # Bloom
 
-<ClientOnly>
-<BloomDemo class="demo-scene"  />
-</ClientOnly>
+<DocsDemo>
+  <BloomDemo />
+</DocsDemo>
 
 Bloom is an effect that simulates the way that bright objects in the real world can create a "glow" effect around themselves. The effect works by adding a blurred and brightened version of the scene to the final render. This can help to create a more realistic and visually appealing scene.
 
@@ -15,7 +15,13 @@ import { EffectComposer, Bloom } from '@tresjs/post-processing'
 
 <template>
   <EffectComposer>
-    <Bloom :luminance-threshold="0.1" :luminance-smoothing="0.3" mipmap-blur :intensity="4.0" :radius="0.85" />
+    <Bloom
+      :radius="0.85"
+      :intensity="4.0"
+      :luminance-threshold="0.1"
+      :luminance-smoothing="0.3"
+      mipmap-blur
+    />
   </EffectComposer>
 </template>
 ```

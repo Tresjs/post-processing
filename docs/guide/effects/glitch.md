@@ -1,8 +1,8 @@
 # Glitch
 
-<ClientOnly>
-<GlitchDemo class="demo-scene"  />
-</ClientOnly>
+<DocsDemo>
+  <GlitchDemo />
+</DocsDemo>
 
 Glitch is an effect that simulates that simulates digital glitches, which are random or intentional errors that occur in digital media such as images, videos, or audio. The effect can be used to create a distorted or disrupted appearance, with elements of the scene appearing to shift or flicker in a chaotic manner.
 
