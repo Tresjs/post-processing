@@ -12,7 +12,7 @@ This photographic technique allows photographers and filmmakers to draw attentio
 
 ```vue
 <script setup lang="ts">
-import { EffectComposer, Bloom } from '@tresjs/post-processing'
+import { EffectComposer, DepthOfField } from '@tresjs/post-processing'
 </script>
 
 <template>
