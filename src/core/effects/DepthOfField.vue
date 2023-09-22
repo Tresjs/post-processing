@@ -109,6 +109,8 @@ watchEffect(() => {
     = props.resolutionX !== undefined
       ? props.resolutionX
       : plainEffectPass.resolution.height
+
+  plainEffectPass.dispose()
 })
 
 onUnmounted(() => {
