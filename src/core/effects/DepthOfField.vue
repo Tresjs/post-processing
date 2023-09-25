@@ -1,8 +1,9 @@
 <script lang="ts" setup>
 import type { BlendFunction } from 'postprocessing'
-import { EffectPass, DepthOfFieldEffect, BlendMode } from 'postprocessing'
 import { useTresContext } from '@tresjs/core'
+import { EffectPass, DepthOfFieldEffect } from 'postprocessing'
 import { inject, onUnmounted, shallowRef, watchEffect } from 'vue'
+import { makePropWatchers } from '../../util/prop'
 import { effectComposerInjectionKey } from '../injectionKeys'
 
 export interface DepthOfFieldProps {
@@ -64,54 +65,21 @@ const unwatch = watchEffect(() => {
   composer?.value?.addPass(pass.value)
 })
 
-watchEffect(() => {
-  if (!effect.value) return
-  const plainEffectPass = new DepthOfFieldEffect()
-
-  // blendFunction is not updated, because it has no setter in BloomEffect
-
-  effect.value.circleOfConfusionMaterial.worldFocusDistance
-    = props.worldFocusDistance !== undefined
-      ? props.worldFocusDistance
-      : plainEffectPass.circleOfConfusionMaterial.worldFocusDistance
-
-  effect.value.circleOfConfusionMaterial.worldFocusRange
-    = props.worldFocusRange !== undefined
-      ? props.worldFocusRange
-      : plainEffectPass.circleOfConfusionMaterial.worldFocusRange
-
-  effect.value.circleOfConfusionMaterial.focusRange
-    = props.focusRange !== undefined
-      ? props.focusRange
-      : plainEffectPass.circleOfConfusionMaterial.focusRange
-
-  effect.value.circleOfConfusionMaterial.focusDistance
-    = props.focusDistance !== undefined
-      ? props.focusDistance
-      : plainEffectPass.circleOfConfusionMaterial.focusDistance
-
-  effect.value.bokehScale
-    = props.bokehScale !== undefined
-      ? props.bokehScale
-      : plainEffectPass.bokehScale
-
-  effect.value.blurPass.resolution.scale
-    = props.resolutionScale !== undefined
-      ? props.resolutionScale
-      : plainEffectPass.blurPass.resolution.scale
-
-  effect.value.blurPass.resolution.width
-    = props.resolutionX !== undefined
-      ? props.resolutionX
-      : plainEffectPass.resolution.width
-
-  effect.value.blurPass.resolution.height
-    = props.resolutionX !== undefined
-      ? props.resolutionX
-      : plainEffectPass.resolution.height
-
-  plainEffectPass.dispose()
-})
+makePropWatchers(
+  [
+    // blendFunction is not updated, because it has no setter in BloomEffect
+    [ () => props.worldFocusDistance, 'circleOfConfusionMaterial.worldFocusDistance'],
+    [ () => props.focusDistance, 'circleOfConfusionMaterial.focusDistance' ],
+    [ () => props.worldFocusRange, 'circleOfConfusionMaterial.worldFocusRange'],
+    [ () => props.focusRange, 'circleOfConfusionMaterial.focusRange'],
+    [ () => props.bokehScale, 'bokehScale'],
+    [ () => props.resolutionScale, 'blurPass.resolution.scale'],
+    [ () => props.resolutionX, 'resolution.width'],
+    [ () => props.resolutionX, 'resolution.height'],
+  ],  
+  effect,
+  () => new DepthOfFieldEffect(),
+)
 
 onUnmounted(() => {
   if (pass.value) composer?.value?.removePass(pass.value)
