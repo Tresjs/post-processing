@@ -75,7 +75,7 @@ makePropWatchers(
     [ () => props.bokehScale, 'bokehScale'],
     [ () => props.resolutionScale, 'blurPass.resolution.scale'],
     [ () => props.resolutionX, 'resolution.width'],
-    [ () => props.resolutionX, 'resolution.height'],
+    [ () => props.resolutionY, 'resolution.height'],
   ],  
   effect,
   () => new DepthOfFieldEffect(),

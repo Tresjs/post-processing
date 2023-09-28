@@ -1,4 +1,4 @@
-import type { Ref } from 'vue'
+import type { Ref, WatchOptions } from 'vue'
 import { watch } from 'vue'
 import { set, get } from './object'
 
@@ -11,12 +11,14 @@ import { set, get } from './object'
  * @param {Ref<E>} target - A Ref representing the target object to be updated.
  * @param {string} propertyPath - The dot-separated path to the property within the target object.
  * @param {() => E & { dispose?(): void }} newPlainObjectFunction - A function that creates a new plain object to retrieve the defaults from with an optional "dispose" method for cleanup.
+ * @param {WatchOptions} watchOptions - The options for watch.
  */
 export const makePropWatcher = <T, E>(
   propGetter: () => T,
   target: Ref<E>,
   propertyPath: string,
   newPlainObjectFunction: () => E & { dispose?(): void },
+  watchOptions: WatchOptions = {},
 ) =>
     watch(propGetter, (newValue) => {
       if (!target.value) return
@@ -30,7 +32,8 @@ export const makePropWatcher = <T, E>(
       }
       else 
         set(target.value, propertyPath, propGetter())
-    })
+    },
+    watchOptions)
 
 /**
  * Creates multiple prop watchers for monitoring changes to multiple properties and updating a target object.
