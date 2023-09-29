@@ -1,10 +1,9 @@
 <script lang="ts" setup>
 import type { BlendFunction } from 'postprocessing'
 import { useTresContext } from '@tresjs/core'
-import { EffectPass, DepthOfFieldEffect } from 'postprocessing'
-import { inject, onUnmounted, shallowRef, watchEffect } from 'vue'
+import { DepthOfFieldEffect } from 'postprocessing'
 import { makePropWatchers } from '../../util/prop'
-import { effectComposerInjectionKey } from '../injectionKeys'
+import { useEffect } from '../composables/effect'
 
 export interface DepthOfFieldProps {
   /**
@@ -43,27 +42,9 @@ export interface DepthOfFieldProps {
 }
 
 const props = defineProps<DepthOfFieldProps>()
-
-const composer = inject(effectComposerInjectionKey)
-const pass = shallowRef<EffectPass | null>(null)
-const effect = shallowRef<DepthOfFieldEffect | null>(null)
-
-defineExpose({ pass, effect }) // to allow users to modify pass and effect via template ref
-
 const { camera } = useTresContext()
-
-const unwatch = watchEffect(() => {
-  if (!camera.value || !composer?.value) return
-
-  unwatch?.()
-
-  if (effect.value) return
-
-  effect.value = new DepthOfFieldEffect(camera.value, props)
-  pass.value = new EffectPass(camera.value, effect.value)
-
-  composer?.value?.addPass(pass.value)
-})
+  
+const { pass, effect } = useEffect(() => new DepthOfFieldEffect(camera.value, props))
 
 makePropWatchers(
   [
@@ -81,11 +62,7 @@ makePropWatchers(
   () => new DepthOfFieldEffect(),
 )
 
-onUnmounted(() => {
-  if (pass.value) composer?.value?.removePass(pass.value)
-  effect.value?.dispose()
-  pass.value?.dispose()
-})
+defineExpose({ pass, effect }) // to allow users to modify pass and effect via template ref
 </script>
 
 <template></template>
