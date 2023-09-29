@@ -45,6 +45,7 @@ const props = defineProps<DepthOfFieldProps>()
 const { camera } = useTresContext()
   
 const { pass, effect } = useEffect(() => new DepthOfFieldEffect(camera.value, props))
+defineExpose({ pass, effect }) // to allow users to modify pass and effect via template ref
 
 makePropWatchers(
   [
@@ -61,8 +62,6 @@ makePropWatchers(
   effect,
   () => new DepthOfFieldEffect(),
 )
-
-defineExpose({ pass, effect }) // to allow users to modify pass and effect via template ref
 </script>
 
 <template></template>

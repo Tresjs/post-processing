@@ -19,3 +19,8 @@ export const set = (obj: any, path: string | string[], value: any): void => {
     }, obj)
 }
 
+export const omit = <T extends Record<string, any>>(obj: T, props: (keyof T)[]): Partial<T> => {
+  const newObj = { ...obj }
+  props.forEach(prop => delete newObj[prop])
+  return newObj
+}
