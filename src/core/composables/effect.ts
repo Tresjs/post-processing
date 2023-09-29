@@ -9,7 +9,7 @@ export const useEffect = <T extends Effect>( newEffectFunction: () => T) => {
   const pass = shallowRef<EffectPass | null>(null)
   const effect = shallowRef<T | null>(null)
 
-  const { scene, camera } = useTresContext() // TODO watch and set mainCamera (?)
+  const { scene, camera } = useTresContext()
 
   watchEffect(() => {
     if (!camera.value || !effect?.value) return
