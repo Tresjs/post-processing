@@ -11,6 +11,12 @@ export const useEffect = <T extends Effect>( newEffectFunction: () => T) => {
 
   const { camera } = useTresContext() // TODO watch and set mainCamera (?)
 
+  watchEffect(() => {
+    if (!camera.value || !effect?.value) return
+
+    effect.value.mainCamera = camera.value
+  })
+  
   let unwatch = () => {} // seperate declaration prevents error in HMR
 
   unwatch = watchEffect(() => {
