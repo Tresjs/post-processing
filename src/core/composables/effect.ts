@@ -9,7 +9,7 @@ export const useEffect = <T extends Effect>( newEffectFunction: () => T) => {
   const pass = shallowRef<EffectPass | null>(null)
   const effect = shallowRef<T | null>(null)
 
-  const { camera } = useTresContext() // TODO watch and set mainCamera (?)
+  const { scene, camera } = useTresContext() // TODO watch and set mainCamera (?)
 
   watchEffect(() => {
     if (!camera.value || !effect?.value) return
@@ -20,7 +20,7 @@ export const useEffect = <T extends Effect>( newEffectFunction: () => T) => {
   let unwatch = () => {} // seperate declaration prevents error in HMR
 
   unwatch = watchEffect(() => {
-    if (!camera.value || !composer?.value) return
+    if (!camera.value || !composer?.value || !scene.value) return
   
     unwatch()
     if (effect.value) return

@@ -36,13 +36,11 @@ export const get = <T>(obj: any, path: string | string[]): T | undefined => {
  * @returns {void}
  * 
  * @example
- * ```
  * const obj = { a: { b: { c: 1 } } }
  * 
  * set(obj, 'a.b.c', 2)
  * 
  * console.log(obj) // { a: { b: { c: 2 } } }
- * ```
  */ 
 export const set = (obj: any, path: string | string[], value: any): void => {
   const pathArray = Array.isArray(path) ? path : path.match(pathRegex)
@@ -66,14 +64,12 @@ export const set = (obj: any, path: string | string[], value: any): void => {
  * @returns {Partial<T>} The new object with omitted properties
  * 
  * @example
- * ```
  * const obj = { a: 1, b: 2, c: 3 }
  * const propsToOmit = ['b', 'c']
  * 
  * const newObj = omit(obj, propsToOmit)
  * 
  * console.log(newObj) // { a: 1 }
- * ```
  */
 export const omit = <T extends Record<string, any>>(obj: T, properties: (keyof T)[]): Partial<T> => {
   const newObj = { ...obj }
