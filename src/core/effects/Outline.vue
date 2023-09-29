@@ -50,7 +50,13 @@ export interface OutlineProps {
   visibleEdgeColor?: TresColor
 }
 
-const props = defineProps<OutlineProps>()
+const props = withDefaults(
+  defineProps<OutlineProps>(),
+  {
+    blur: undefined,
+    xRay: undefined,
+  },
+)
 
 const composer = inject(effectComposerInjectionKey)
 const pass = shallowRef<EffectPass | null>(null)

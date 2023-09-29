@@ -1,15 +1,11 @@
 <script setup lang="ts">
+import { GlitchMode, GlitchEffect } from 'postprocessing'
+import { watchEffect } from 'vue'
 import type { BlendFunction } from 'postprocessing'
-import { GlitchMode, EffectPass, GlitchEffect } from 'postprocessing'
-import { inject, onUnmounted, shallowRef, watchEffect } from 'vue'
-
 import type { Vector2, Texture } from 'three'
-
-import { useTresContext } from '@tresjs/core'
-import { effectComposerInjectionKey } from '../injectionKeys'
-import { useEffect } from '../composables/effect'
-import { makePropWatchers, makePropWatchersUsingAllProps } from '../../util/prop'
 import { omit } from '../../util/object'
+import { useEffect } from '../composables/effect'
+import { makePropWatchersUsingAllProps } from '../../util/prop'
 
 export interface GlitchProps {
   blendFunction?: BlendFunction
@@ -121,7 +117,7 @@ watchEffect(() => {
 })
 
 makePropWatchersUsingAllProps(
-  omit(props, ['active', 'mode']),
+  omit(props, ['active', 'mode', 'blendFunction']),
   effect,
   () => new GlitchEffect(),
 )
