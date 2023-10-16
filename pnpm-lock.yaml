@@ -122,8 +122,8 @@ importers:
         specifier: 3.2.0
         version: 3.2.0(three@0.153.0)(vue@3.3.4)
       '@tresjs/leches':
-        specifier: ^0.9.1
-        version: 0.9.1(vue@3.3.4)
+        specifier: ^0.12.0
+        version: 0.12.0(vue@3.3.4)
       vue-router:
         specifier: ^4.2.2
         version: 4.2.2(vue@3.3.4)
@@ -1323,10 +1323,10 @@ packages:
       - supports-color
     dev: true
 
-  /@tresjs/leches@0.9.1(vue@3.3.4):
-    resolution: {integrity: sha512-LHSkWlSvqZJwjtvObbqVzKmcX9XoxFYyBfg2W65CgYaTzNabZqHYZ05NDPt/SlrGJtaKCsag2ZOcIVYyEVW/iQ==}
+  /@tresjs/leches@0.12.0(vue@3.3.4):
+    resolution: {integrity: sha512-f6mY8StYGk75BIwRNl+CU8IWC+MiVLF0IiB2+7ejcLNhqLjwM0BcbYdg4MXbZ4VAtKSjK90eTlVVx6vZh3USEA==}
     peerDependencies:
-      vue: '>=3.3'
+      vue: '>=3.3.4'
     dependencies:
       '@vueuse/components': 10.4.1(vue@3.3.4)
       vue: 3.3.4
