@@ -13,6 +13,9 @@ const toggleFocusDistance = () => {
     ease: 'power2',
   })
 }
+setInterval(() => {
+  console.log(dofEffect.value.effect.circleOfConfusionMaterial.focusDistance)
+}, 4000)
 </script>
 
 <template>

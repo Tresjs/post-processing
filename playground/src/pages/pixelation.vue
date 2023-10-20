@@ -6,8 +6,6 @@ import { EffectComposer, Pixelation } from '@tresjs/post-processing'
 import { TresLeches, useControls } from '@tresjs/leches'
 import '@tresjs/leches/styles'
 
-import type { Ref } from 'vue'
-
 useControls('fpsgraph')
 const { granularity } = useControls({
   granularity: {
