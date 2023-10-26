@@ -6,7 +6,7 @@ import { DepthDownsamplingPass, EffectComposer as EffectComposerImpl, NormalPass
 
 import { isWebGL2Available } from 'three-stdlib'
 import type { ShallowRef } from 'vue'
-import { computed, provide, shallowRef, watch, onUnmounted, watchEffect } from 'vue'
+import { computed, provide, shallowRef, watch, onUnmounted, watchEffect, onMounted } from 'vue'
 import { effectComposerInjectionKey } from './injectionKeys'
 
 export interface EffectComposerProps {
@@ -110,6 +110,11 @@ onLoop(({ delta }) => {
 
 onUnmounted(() => {
   effectComposer.value?.dispose()
+})
+
+onMounted(() => {
+  if (!sizes.height.value && !sizes.width.value) return
+  if (props.enabled) initEffectComposer()
 })
 </script>
 
