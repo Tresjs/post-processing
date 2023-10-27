@@ -88,12 +88,16 @@ const initEffectComposer = () => {
   if (!props.disableNormalPass) setNormalPass()
 }
 
-const stop = watch([sizes.height, sizes.width], () => {
+let stop = () => { } // defining this prevents error in watcher
+
+stop = watch([sizes.height, sizes.width], () => {
   // effect composer should only live once the canvas has a size > 0
   if (!sizes.height.value && !sizes.width.value) return
 
   watchEffect(initEffectComposer)
   stop?.()
+}, {
+  immediate: true
 })
 
 const { onLoop } = useRenderLoop()
@@ -110,11 +114,6 @@ onLoop(({ delta }) => {
 
 onUnmounted(() => {
   effectComposer.value?.dispose()
-})
-
-onMounted(() => {
-  if (!sizes.height.value && !sizes.width.value) return
-  if (props.enabled) initEffectComposer()
 })
 </script>
 
