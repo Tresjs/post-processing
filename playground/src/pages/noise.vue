@@ -29,10 +29,6 @@ const { value: blendFunction } = useControls({
     value: BlendFunction.COLOR,
   },
 })
-
-watch(blendFunction, (value) => {
-  console.log(value)
-})
 </script>
 
 <template>
