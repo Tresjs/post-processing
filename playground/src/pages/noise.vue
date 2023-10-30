@@ -6,7 +6,6 @@ import { OrbitControls } from '@tresjs/cientos'
 import { TresLeches, useControls } from '@tresjs/leches'
 import { BlendFunction } from 'postprocessing'
 import '@tresjs/leches/styles'
-import { watch } from 'vue'
 
 const gl = {
   clearColor: '#82DBC5',
@@ -26,7 +25,7 @@ const { value: blendFunction } = useControls({
       text: key,
       value: BlendFunction[key],
     })),
-    value: BlendFunction.COLOR,
+    value: BlendFunction.SCREEN,
   },
 })
 </script>
