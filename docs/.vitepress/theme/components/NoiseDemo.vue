@@ -14,7 +14,6 @@ const gl = {
   outputColorSpace: SRGBColorSpace,
   toneMapping: NoToneMapping,
 }
-
 </script>
 
 <template>
