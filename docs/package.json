@@ -1,8 +1,8 @@
 {
   "name": "docs",
-  "private": true,
-  "version": "0.0.0",
   "type": "module",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
     "dev": "vitepress dev",
     "build": "vitepress build",
@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@tresjs/cientos": "^3.5.1",
-    "@tresjs/core": "^3.4.1",
+    "@tresjs/core": "^3.5.0",
     "@tresjs/post-processing": "workspace:^",
     "gsap": "^3.12.2"
   },
@@ -18,6 +18,6 @@
     "unocss": "^0.57.2",
     "unplugin-vue-components": "^0.25.2",
     "vite-svg-loader": "^4.0.0",
-    "vitepress": "1.0.0-rc.24"
+    "vitepress": "1.0.0-rc.25"
   }
 }
