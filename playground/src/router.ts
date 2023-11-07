@@ -21,6 +21,7 @@ const routes = [
   makeRoute('Glitch'),
   makeRoute('Depth of Field'),
   makeRoute('Pixelation'),
+  makeRoute('Vignette'),
 ]
 
 export const router = createRouter({

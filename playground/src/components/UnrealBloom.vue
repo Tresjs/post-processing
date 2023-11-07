@@ -20,18 +20,18 @@ const bloomParams = reactive({
   intensity: 4.0,
   blendFunction: BlendFunction.ADD,
 })
-
+/* 
 const { pane } = useTweakPane()
 
 pane.addInput(bloomParams, 'luminanceThreshold', { min: 0, max: 1 })
 pane.addInput(bloomParams, 'luminanceSmoothing', { min: 0, max: 1 })
 pane.addInput(bloomParams, 'intensity', { min: 0, max: 10 })
-
+ */
 const materialRef = ref(null)
 
 onMounted(() => {
   if (materialRef.value) {
-    pane.addInput(materialRef.value, 'emissiveIntensity', { min: 0, max: 10, step: 0.1 })
+  /*   pane.addInput(materialRef.value, 'emissiveIntensity', { min: 0, max: 10, step: 0.1 }) */
   }
 })
 </script>
