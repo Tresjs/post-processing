@@ -2,6 +2,7 @@
 import { BlendFunction, NoiseEffect } from 'postprocessing'
 import { useEffect } from '../composables/effect'
 import { makePropWatchersUsingAllProps } from '../../util/prop'
+import { omit } from '../../util/object'
 
 export interface NoiseProps {
   /**
@@ -20,7 +21,7 @@ const { pass, effect } = useEffect(() => new NoiseEffect(props))
 defineExpose({ pass, effect }) // to allow users to modify pass and effect via template ref
 
 makePropWatchersUsingAllProps(
-  props,
+  omit(props, ['blendFunction']),
   effect,
   () => new NoiseEffect(),
 )
