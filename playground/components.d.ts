@@ -10,6 +10,7 @@ declare module 'vue' {
     BlenderCube: typeof import('./src/components/BlenderCube.vue')['default']
     copy: typeof import('./src/components/UnrealBloom copy.vue')['default']
     GlitchDemo: typeof import('./src/components/GlitchDemo.vue')['default']
+    NoiseDemo: typeof import('./src/components/NoiseDemo.vue')['default']
     OutlineDemo: typeof import('./src/components/OutlineDemo.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

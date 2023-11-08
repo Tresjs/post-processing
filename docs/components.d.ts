@@ -13,6 +13,7 @@ declare module 'vue' {
     DocsDemo: typeof import('./.vitepress/theme/components/DocsDemo.vue')['default']
     GlitchDemo: typeof import('./.vitepress/theme/components/GlitchDemo.vue')['default']
     LoveVueThreeJS: typeof import('./.vitepress/theme/components/LoveVueThreeJS.vue')['default']
+    NoiseDemo: typeof import('./.vitepress/theme/components/NoiseDemo.vue')['default']
     OutlineDemo: typeof import('./.vitepress/theme/components/OutlineDemo.vue')['default']
     PixelationDemo: typeof import('./.vitepress/theme/components/PixelationDemo.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
