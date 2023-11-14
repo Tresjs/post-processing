@@ -28,7 +28,7 @@ import { EffectComposer, Vignette } from '@tresjs/post-processing'
 | Prop          | Description                                                 | Default                    |
 | ------------- | ----------------------------------------------------------- | -------------------------- |
 | technique     | Whether the noise should be multiplied with the input color. | VignetteTechnique.DEFAULT |
-| blendFunction | The blend function to use.                                  | BlendFunction.NORMAL       |
+| blendFunction | The blend function to use. This prop is not reactive. | BlendFunction.NORMAL       |
 | offset        | The offset value.                                           | 0.5                        |
 | darkness      | The darkness value.                                         | 0.5                        |
 
