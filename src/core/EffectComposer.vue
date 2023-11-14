@@ -6,7 +6,7 @@ import { DepthDownsamplingPass, EffectComposer as EffectComposerImpl, NormalPass
 
 import { isWebGL2Available } from 'three-stdlib'
 import type { ShallowRef } from 'vue'
-import { computed, provide, shallowRef, watch, onUnmounted, watchEffect, onMounted, unref } from 'vue'
+import { computed, provide, shallowRef, watch, onUnmounted } from 'vue'
 import { effectComposerInjectionKey } from './injectionKeys'
 
 export interface EffectComposerProps {
@@ -77,16 +77,21 @@ const effectComposerParams = computed(() => {
 const initEffectComposer = () => {
   if (!renderer.value && !scene.value && !camera.value) return
 
-  effectComposer.value = new EffectComposerImpl(unref(renderer), effectComposerParams.value)
-  effectComposer.value.addPass(new RenderPass(unref(scene), unref(camera)))
+  effectComposer.value = new EffectComposerImpl(renderer.value, effectComposerParams.value)
+  effectComposer.value.addPass(new RenderPass(scene.value, camera.value))
 
   if (!props.disableNormalPass) setNormalPass()
 }
 
-watch(() => [sizes.height.value, sizes.width.value], ([width, height]) => {
+watch([renderer, scene, camera, () => props.disableNormalPass], () => {
+  if (!sizes.width.value || !sizes.height.value ) return
+  initEffectComposer()
+})
+
+watch(() => [sizes.width.value, sizes.height.value], ([width, height]) => {
   // effect composer should only live once the canvas has a size > 0
   if (!width && !height) return
-  effectComposer.value ? effectComposer.value.setSize(sizes.width.value, sizes.height.value) : initEffectComposer()
+  effectComposer.value ? effectComposer.value.setSize(width, height) : initEffectComposer()
 }, {
   immediate: true,
 })
