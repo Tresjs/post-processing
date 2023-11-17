@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { KernelSize } from 'postprocessing'
-import { reactive, ref, watch, watchEffect } from 'vue'
+import { ref } from 'vue'
 import { EffectComposer, Outline } from '@tresjs/post-processing'
 import { TresCanvas } from '@tresjs/core'
 import { OrbitControls } from '@tresjs/cientos'
@@ -16,7 +16,6 @@ const gl = {
   disableRender: true,
 }
 
-const effectComposer = ref<EffectComposerImpl | null>(null)
 
 const outlinedObjects = ref<Object3D[]>([])
 
@@ -47,10 +46,6 @@ const { edgeStrength, pulseSpeed, visibleEdgeColor, blur, kernelSize } = useCont
     max: KernelSize.VERY_LARGE,
     step: 1,
   },
-})
-
-watchEffect(() => {
-  console.log('effectComposer', effectComposer.value.composer)
 })
 </script>
 
@@ -84,7 +79,7 @@ watchEffect(() => {
     <TresGridHelper />
     <TresAmbientLight :intensity="1" />
     <Suspense>
-      <EffectComposer ref="effectComposer">
+      <EffectComposer>
         <Outline
           :outlined-objects="outlinedObjects"
           :blur="blur.value"

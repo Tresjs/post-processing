@@ -1,13 +1,13 @@
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
-import type { Ref } from 'vue'
+import { computed } from 'vue'
 import { TresCanvas } from '@tresjs/core'
 import { OrbitControls } from '@tresjs/cientos'
 import { EffectComposer, DepthOfField } from '@tresjs/post-processing'
-import type { EffectComposer as EffectComposerImpl } from 'postprocessing'
 
 import { TresLeches, useControls } from '@tresjs/leches'
 import '@tresjs/leches/styles'
+
+import type { Ref } from 'vue'
 
 useControls('fpsgraph')
 const controls = useControls({
