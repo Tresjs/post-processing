@@ -3,6 +3,9 @@ import { ref } from 'vue'
 import { gsap } from 'gsap'
 import { TresCanvas } from '@tresjs/core'
 import { EffectComposer, DepthOfField } from '@tresjs/post-processing'
+import type { EffectComposer as EffectComposerImpl } from 'postprocessing'
+
+import { useRouteDisposal } from '../composables/useRouteDisposal'
 
 const dofEffect = ref<InstanceType<typeof DepthOfField> | null>(null)
 
@@ -13,6 +16,10 @@ const toggleFocusDistance = () => {
     ease: 'power2',
   })
 }
+
+// Need to dispose of the effect composer when the route changes because Vitepress doesnt unmount the components
+const effectComposer = ref<EffectComposerImpl | null>(null)
+useRouteDisposal(effectComposer)
 </script>
 
 <template>
@@ -59,7 +66,7 @@ const toggleFocusDistance = () => {
       <TresMeshNormalMaterial />
     </TresMesh>
     <TresGridHelper />
-    <EffectComposer>
+    <EffectComposer ref="effectComposer">
       <DepthOfField
         ref="dofEffect"
         :focus-distance="0.0012"

@@ -1,8 +1,13 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { TresCanvas } from '@tresjs/core'
 import { BasicShadowMap, SRGBColorSpace, NoToneMapping } from 'three'
 import { OrbitControls } from '@tresjs/cientos'
 import { EffectComposer, Vignette, DepthOfField } from '@tresjs/post-processing'
+import type { EffectComposer as EffectComposerImpl } from 'postprocessing'
+
+import { useRouteDisposal } from '../composables/useRouteDisposal'
+
 import BlenderCube from './BlenderCube.vue'
 
 const gl = {
@@ -13,6 +18,10 @@ const gl = {
   outputColorSpace: SRGBColorSpace,
   toneMapping: NoToneMapping,
 }
+
+// Need to dispose of the effect composer when the route changes because Vitepress doesnt unmount the components
+const effectComposer = ref<EffectComposerImpl | null>(null)
+useRouteDisposal(effectComposer)
 </script>
 
 <template>
@@ -23,7 +32,7 @@ const gl = {
     <Suspense>
       <BlenderCube />
     </Suspense>
-    <EffectComposer>
+    <EffectComposer ref="effectComposer">
       <DepthOfField
         :focus-distance="0"
         :focal-length="0.02"

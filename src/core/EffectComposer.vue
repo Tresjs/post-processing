@@ -6,7 +6,7 @@ import { DepthDownsamplingPass, EffectComposer as EffectComposerImpl, NormalPass
 
 import { isWebGL2Available } from 'three-stdlib'
 import type { ShallowRef } from 'vue'
-import { computed, provide, shallowRef, watch, onUnmounted } from 'vue'
+import { computed, provide, shallowRef, watch, onUnmounted, ref } from 'vue'
 import { effectComposerInjectionKey } from './injectionKeys'
 
 export interface EffectComposerProps {
@@ -26,7 +26,6 @@ const props = withDefaults(defineProps<EffectComposerProps>(), {
   autoClear: true,
   frameBufferType: HalfFloatType,
   disableNormalPass: false,
-
   depthBuffer: undefined,
   multisampling: 0,
   stencilBuffer: undefined,
@@ -39,7 +38,7 @@ let downSamplingPass: DepthDownsamplingPass | null = null
 let normalPass: NormalPass | null = null
 
 provide(effectComposerInjectionKey, effectComposer)
-
+defineExpose({ composer: effectComposer })
 const setNormalPass = () => {
   if (!effectComposer.value) return
 
