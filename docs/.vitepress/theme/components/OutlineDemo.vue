@@ -5,7 +5,6 @@ import { NoToneMapping } from 'three'
 import { TresCanvas } from '@tresjs/core'
 import { OrbitControls } from '@tresjs/cientos'
 import { Outline, EffectComposer } from '@tresjs/post-processing'
-import type { EffectComposer as EffectComposerImpl } from 'postprocessing'
 import { KernelSize } from 'postprocessing'
 
 import { TresLeches, useControls } from '@tresjs/leches'
@@ -19,7 +18,7 @@ const gl = {
   disableRender: true,
 }
 
-const effectComposer = ref<EffectComposerImpl | null>(null)
+const { effectComposer } = useRouteDisposal()
 
 const outlinedObjects = ref<Object3D[]>([])
 

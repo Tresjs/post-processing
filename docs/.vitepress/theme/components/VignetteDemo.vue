@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { TresCanvas } from '@tresjs/core'
 import { BasicShadowMap, SRGBColorSpace, NoToneMapping } from 'three'
 import { OrbitControls } from '@tresjs/cientos'
 import { EffectComposer, Vignette, DepthOfField } from '@tresjs/post-processing'
-import type { EffectComposer as EffectComposerImpl } from 'postprocessing'
 
 import { useRouteDisposal } from '../composables/useRouteDisposal'
 
@@ -20,8 +18,7 @@ const gl = {
 }
 
 // Need to dispose of the effect composer when the route changes because Vitepress doesnt unmount the components
-const effectComposer = ref<EffectComposerImpl | null>(null)
-useRouteDisposal(effectComposer)
+const { effectComposer } = useRouteDisposal()
 </script>
 
 <template>

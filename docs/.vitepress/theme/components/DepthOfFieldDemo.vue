@@ -3,7 +3,6 @@ import { ref } from 'vue'
 import { gsap } from 'gsap'
 import { TresCanvas } from '@tresjs/core'
 import { EffectComposer, DepthOfField } from '@tresjs/post-processing'
-import type { EffectComposer as EffectComposerImpl } from 'postprocessing'
 
 import { useRouteDisposal } from '../composables/useRouteDisposal'
 
@@ -18,13 +17,11 @@ const toggleFocusDistance = () => {
 }
 
 // Need to dispose of the effect composer when the route changes because Vitepress doesnt unmount the components
-const effectComposer = ref<EffectComposerImpl | null>(null)
-useRouteDisposal(effectComposer)
+const { effectComposer } = useRouteDisposal()
 </script>
 
 <template>
-  <button
-    class="
+  <button class="
       absolute
       rounded
       px-2 py-1
@@ -39,42 +36,23 @@ useRouteDisposal(effectComposer)
       active:bg-gray-400/50
       font-semibold
       transition-colors
-    "
-    @click="toggleFocusDistance"
-  >
+    " @click="toggleFocusDistance">
     toggle focus
   </button>
   <TresCanvas>
-    <TresPerspectiveCamera
-      :rotation="[-0.89, 1.28, 0.87]"
-      :position="[5.55, 1.57, 1.02]"
-    />
+    <TresPerspectiveCamera :rotation="[-0.89, 1.28, 0.87]" :position="[5.55, 1.57, 1.02]" />
     <TresMesh :position="[-2, 1, 0]">
-      <TresBoxGeometry
-        :width="3"
-        :height="3"
-        :depth="3"
-      />
+      <TresBoxGeometry :width="3" :height="3" :depth="3" />
       <TresMeshNormalMaterial />
     </TresMesh>
     <TresMesh :position="[3, 1, 0]">
-      <TresBoxGeometry
-        :width="3"
-        :height="3"
-        :depth="3"
-      />
+      <TresBoxGeometry :width="3" :height="3" :depth="3" />
       <TresMeshNormalMaterial />
     </TresMesh>
     <TresGridHelper />
     <EffectComposer ref="effectComposer">
-      <DepthOfField
-        ref="dofEffect"
-        :focus-distance="0.0012"
-        :world-focus-distance="2"
-        :world-focus-range="1"
-        :bokeh-scale="8"
-        :focus-range="0.005"
-      />
+      <DepthOfField ref="dofEffect" :focus-distance="0.0012" :world-focus-distance="2" :world-focus-range="1"
+        :bokeh-scale="8" :focus-range="0.005" />
     </EffectComposer>
   </TresCanvas>
 </template>
