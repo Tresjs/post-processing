@@ -1,5 +1,4 @@
-import { ref } from 'vue'
-import { watch } from 'vue'
+import { ref, watch } from 'vue'
 import { useRouter } from 'vitepress'
 import type { EffectComposer } from '@tresjs/post-processing'
 
@@ -13,6 +12,6 @@ export function useRouteDisposal() {
   })
 
   return {
-    effectComposer
+    effectComposer,
   }
 }

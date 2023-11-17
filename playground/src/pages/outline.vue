@@ -16,7 +16,6 @@ const gl = {
   disableRender: true,
 }
 
-
 const outlinedObjects = ref<Object3D[]>([])
 
 const toggleMeshSelectionState = ({ object }: Intersection) => {
