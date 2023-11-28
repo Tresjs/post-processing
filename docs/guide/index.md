@@ -8,8 +8,8 @@ The `post-processing` package leverages the excellent work done by the pmndrs [p
 
 Because Post-processing, is not an easy task, fortunate now it is 😜.
 
-::: info
-This package is not required to use with the core library, but it can make your DX significally better, specially for complex scenes.
+::: warning
+This package is still in development, so be mindful of that when using it in production.
 :::
 
 ## Installation
@@ -17,15 +17,15 @@ This package is not required to use with the core library, but it can make your 
 ::: code-group
 
 ```bash [npm]
-npm install three @tresjs/post-processing
+npm install @tresjs/post-processing
 ```
 
 ```bash [yarn]
-yarn add three @tresjs/post-processing
+yarn add @tresjs/post-processing
 ```
 
 ```bash [pnpm]
-pnpm add three @tresjs/post-processing
+pnpm add @tresjs/post-processing
 ```
 
 :::
