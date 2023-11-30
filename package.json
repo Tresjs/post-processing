@@ -71,7 +71,7 @@
     "unocss": "^0.57.4",
     "vite": "^5.0.0",
     "vite-plugin-banner": "^0.7.1",
-    "vite-plugin-dts": "3.6.3",
+    "vite-plugin-dts": "3.6.4",
     "vite-svg-loader": "^4.0.0",
     "vitepress": "1.0.0-rc.26",
     "vue": "^3.3.8",
