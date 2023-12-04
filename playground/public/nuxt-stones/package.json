@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "unocss": "^0.52.3",
-    "unplugin-vue-components": "^0.24.1",
+    "unplugin-vue-components": "^0.26.0",
     "vite-svg-loader": "^4.0.0",
     "vitepress": "1.0.0-beta.1"
   }
