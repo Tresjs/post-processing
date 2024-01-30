@@ -8,13 +8,9 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     BlenderCube: typeof import('./src/components/BlenderCube.vue')['default']
-    copy: typeof import('./src/components/UnrealBloom copy.vue')['default']
-    GlitchDemo: typeof import('./src/components/GlitchDemo.vue')['default']
-    NoiseDemo: typeof import('./src/components/NoiseDemo.vue')['default']
     OutlineDemo: typeof import('./src/components/OutlineDemo.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TheExperience: typeof import('./src/components/TheExperience.vue')['default']
-    UnrealBloom: typeof import('./src/components/UnrealBloom.vue')['default']
   }
 }
