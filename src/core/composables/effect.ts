@@ -17,7 +17,7 @@ export const useEffect = <T extends Effect>( newEffectFunction: () => T) => {
     effect.value.mainCamera = camera.value
   })
   
-  let unwatch = () => {} // seperate declaration prevents error in HMR
+  let unwatch = () => { } // separate declaration prevents error in HMR
 
   unwatch = watchEffect(() => {
     if (!camera.value || !composer?.value || !scene.value) return
