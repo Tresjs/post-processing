@@ -50,10 +50,10 @@ defineExpose({ pass, effect }) // to allow users to modify pass and effect via t
 makePropWatchers(
   [
     // blendFunction is not updated, because it has no setter in BloomEffect
-    [ () => props.worldFocusDistance, 'circleOfConfusionMaterial.worldFocusDistance'],
-    [ () => props.focusDistance, 'circleOfConfusionMaterial.focusDistance' ],
-    [ () => props.worldFocusRange, 'circleOfConfusionMaterial.worldFocusRange'],
-    [ () => props.focusRange, 'circleOfConfusionMaterial.focusRange'],
+    [ () => props.worldFocusDistance, 'cocMaterial.worldFocusDistance'],
+    [ () => props.focusDistance, 'cocMaterial.focusDistance' ],
+    [ () => props.worldFocusRange, 'cocMaterial.worldFocusRange'],
+    [ () => props.focusRange, 'cocMaterial.focusRange'],
     [ () => props.bokehScale, 'bokehScale'],
     [ () => props.resolutionScale, 'blurPass.resolution.scale'],
     [ () => props.resolutionX, 'resolution.width'],

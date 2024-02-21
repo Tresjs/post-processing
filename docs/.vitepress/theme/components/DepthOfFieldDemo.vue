@@ -1,19 +1,16 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { gsap } from 'gsap'
 import { TresCanvas } from '@tresjs/core'
+import { OrbitControls } from '@tresjs/cientos'
 import { EffectComposer, DepthOfField } from '@tresjs/post-processing'
+import type { Intersection } from 'three'
 
 import { useRouteDisposal } from '../composables/useRouteDisposal'
 
 const dofEffect = ref<InstanceType<typeof DepthOfField> | null>(null)
 
-const toggleFocusDistance = () => {
-  gsap.to(dofEffect.value?.effect.circleOfConfusionMaterial, {
-    focusDistance: dofEffect.value?.effect.circleOfConfusionMaterial.focusDistance === 0.0012 ? 0.003 : 0.0012,
-    duration: 0.5,
-    ease: 'power2',
-  })
+const setTarget = ({ point }: Intersection) => {
+  dofEffect.value.effect.target = point
 }
 
 // Need to dispose of the effect composer when the route changes because Vitepress doesnt unmount the components
@@ -21,41 +18,18 @@ const { effectComposer } = useRouteDisposal()
 </script>
 
 <template>
-  <button
-    class="
-      absolute
-      rounded
-      px-2 py-1
-      bg-white/15
-      top-2.5
-      right-2
-      z-10
-      ring-1
-      ring-inset
-      ring-gray-400/50
-      hover:bg-gray-400/40
-      active:bg-gray-400/50
-      font-semibold
-      transition-colors
-    "
-    @click="toggleFocusDistance"
-  >
-    toggle focus
-  </button>
   <TresCanvas>
     <TresPerspectiveCamera
-      :rotation="[-0.89, 1.28, 0.87]"
-      :position="[5.55, 1.57, 1.02]"
+      :rotation="[-0.9, 1.28, 0.87]"
+      :position="[5.55, 1.75, 1.2]"
     />
-    <TresMesh :position="[-2, 1, 0]">
-      <TresBoxGeometry
-        :width="3"
-        :height="3"
-        :depth="3"
-      />
-      <TresMeshNormalMaterial />
-    </TresMesh>
-    <TresMesh :position="[3, 1, 0]">
+    <OrbitControls />
+    <TresMesh
+      v-for="i in 5"
+      :key="i"
+      :position="[i * 1.2 - 3, 1, 0]"
+      @pointer-move="setTarget"
+    >
       <TresBoxGeometry
         :width="3"
         :height="3"
@@ -67,11 +41,9 @@ const { effectComposer } = useRouteDisposal()
     <EffectComposer ref="effectComposer">
       <DepthOfField
         ref="dofEffect"
-        :focus-distance="0.0012"
-        :world-focus-distance="2"
-        :world-focus-range="1"
+        :world-focus-distance="1"
+        :world-focus-range="5"
         :bokeh-scale="8"
-        :focus-range="0.005"
       />
     </EffectComposer>
   </TresCanvas>

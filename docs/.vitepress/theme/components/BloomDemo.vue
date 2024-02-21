@@ -36,7 +36,7 @@ const { effectComposer } = useRouteDisposal()
     <TresMesh>
       <TresSphereGeometry :args="[2, 32, 32]" />
       <TresMeshStandardMaterial
-        color="hotpink"
+        :color="new Color('hotpink')"
         :emissive="new Color('hotpink')"
         :emissive-intensity="1.2"
       />
