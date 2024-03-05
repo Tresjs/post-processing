@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@tresjs/cientos": "^3.5.1",
-    "@tresjs/nuxt": "^1.2.2",
+    "@tresjs/nuxt": "^2.0.0",
     "@types/three": "^0.152.1"
   },
   "devDependencies": {
