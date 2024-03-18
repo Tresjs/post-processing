@@ -55,7 +55,7 @@ const {
   mipmapBlur: true,
 })
 
-const { threshold, smoothing } = useControls('luminance', {
+const { luminanceSmoothing, luminanceThreshold } = useControls('luminance', {
   threshold: {
     value: 0.2,
     min: 0,
@@ -128,14 +128,14 @@ onMounted(() => {
     />
     <Suspense>
       <EffectComposer :depth-buffer="true">
-        <Bloom
-          :luminance-threshold="threshold.value"
-          :luminance-smoothing="smoothing.value"
+        <Bloom 
+          :luminance-threshold="luminanceThreshold"
+          :luminance-smoothing="luminanceSmoothing"
           :intensity="intensity.value"
           :blend-function="blendFunction.value"
           :kernel-size="kernelSize.value"
           :resolution="resolution.value"
-          :mipmap-blur="mipmapBlur.value"
+          :mipmap-blur="mipmapBlur.value" 
         />
       </EffectComposer>
     </Suspense>
