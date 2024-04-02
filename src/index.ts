@@ -1,6 +1,7 @@
 import Bloom from './core/effects/Bloom.vue'
 import DepthOfField from './core/effects/DepthOfField.vue'
 import EffectComposer from './core/EffectComposer.vue'
+import FXAA from './core/effects/FXAA.vue'
 import Glitch from './core/effects/Glitch.vue'
 import Outline from './core/effects/Outline.vue'
 import Pixelation from './core/effects/Pixelation.vue'
@@ -13,6 +14,7 @@ export {
   Bloom,
   DepthOfField,
   EffectComposer,
+  FXAA,
   Glitch,
   Noise,
   Outline,
