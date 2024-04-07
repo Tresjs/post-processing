@@ -58,7 +58,7 @@
     "@release-it/conventional-changelog": "^8.0.1",
     "@tresjs/eslint-config-vue": "^0.2.1",
     "@types/three": "^0.159.0",
-    "@vitejs/plugin-vue": "^4.5.1",
+    "@vitejs/plugin-vue": "^5.0.0",
     "gsap": "^3.12.3",
     "kolorist": "^1.8.0",
     "pathe": "^1.1.1",
