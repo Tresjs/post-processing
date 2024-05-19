@@ -6,5 +6,6 @@ export default tresLintConfig({
   rules: {
     'style/max-statements-per-line': 'off',
     'jsdoc/check-alignment': 'off',
+    'vue/valid-template-root': 'off',
   },
 })

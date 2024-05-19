@@ -65,7 +65,6 @@ pane.addInput(glitchParams, 'dtSize', { min: 1, max: 64, step: 1 }) */
   <TresLeches />
   <TresCanvas
     v-bind="gl"
-    :disable-render="true"
   >
     <TresPerspectiveCamera
       :position="[5, 5, 5]"

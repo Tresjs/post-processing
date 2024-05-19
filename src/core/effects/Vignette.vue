@@ -30,3 +30,7 @@ makePropWatchersUsingAllProps(
   () => new VignetteEffect(),
 )
 </script>
+
+<template>
+  <!-- This component does not have any template -->
+</template>

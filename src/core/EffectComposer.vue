@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { HalfFloatType } from 'three'
 import type { TresObject } from '@tresjs/core'
-import { useRenderLoop, useTresContext } from '@tresjs/core'
+import { useLoop, useTresContext } from '@tresjs/core'
 import { DepthDownsamplingPass, EffectComposer as EffectComposerImpl, NormalPass, RenderPass } from 'postprocessing'
 
 import { isWebGL2Available } from 'three-stdlib'
@@ -95,14 +95,14 @@ watch(() => [sizes.width.value, sizes.height.value], ([width, height]) => {
   immediate: true,
 })
 
-const { onLoop } = useRenderLoop()
+const { render } = useLoop()
 
-onLoop(({ delta }) => {
+render(() => {
   if (props.enabled && renderer.value && effectComposer.value && sizes.width.value && sizes.height.value) {
     const currentAutoClear = renderer.value.autoClear
     renderer.value.autoClear = props.autoClear
     if (props.stencilBuffer && !props.autoClear) { renderer.value.clearStencil() }
-    effectComposer.value.render(delta)
+    effectComposer.value.render()
     renderer.value.autoClear = currentAutoClear
   }
 })
