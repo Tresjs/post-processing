@@ -9,7 +9,6 @@ import OnDemandExperience from './experience.vue'
   <TresCanvas
     render-mode="on-demand"
     clear-color="#c0ffee"
-    @render="onRender"
   >
     <OnDemandExperience />
   </TresCanvas>
