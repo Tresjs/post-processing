@@ -6,7 +6,7 @@ import { DepthDownsamplingPass, EffectComposer as EffectComposerImpl, NormalPass
 
 import { isWebGL2Available } from 'three-stdlib'
 import type { ShallowRef } from 'vue'
-import { computed, provide, shallowRef, watch, onUnmounted } from 'vue'
+import { computed, onUnmounted, provide, shallowRef, watch } from 'vue'
 import { effectComposerInjectionKey } from './injectionKeys'
 
 export interface EffectComposerProps {
@@ -40,7 +40,7 @@ let normalPass: NormalPass | null = null
 provide(effectComposerInjectionKey, effectComposer)
 defineExpose({ composer: effectComposer })
 const setNormalPass = () => {
-  if (!effectComposer.value) return
+  if (!effectComposer.value) { return }
 
   normalPass = new NormalPass(scene.value, camera.value)
   normalPass.enabled = false
@@ -74,22 +74,22 @@ const effectComposerParams = computed(() => {
 })
 
 const initEffectComposer = () => {
-  if (!renderer.value && !scene.value && !camera.value) return
+  if (!renderer.value && !scene.value && !camera.value) { return }
 
   effectComposer.value = new EffectComposerImpl(renderer.value, effectComposerParams.value)
   effectComposer.value.addPass(new RenderPass(scene.value, camera.value))
 
-  if (!props.disableNormalPass) setNormalPass()
+  if (!props.disableNormalPass) { setNormalPass() }
 }
 
 watch([renderer, scene, camera, () => props.disableNormalPass], () => {
-  if (!sizes.width.value || !sizes.height.value ) return
+  if (!sizes.width.value || !sizes.height.value) { return }
   initEffectComposer()
 })
 
 watch(() => [sizes.width.value, sizes.height.value], ([width, height]) => {
   // effect composer should only live once the canvas has a size > 0
-  if (!width && !height) return
+  if (!width && !height) { return }
   effectComposer.value ? effectComposer.value.setSize(width, height) : initEffectComposer()
 }, {
   immediate: true,
@@ -101,7 +101,7 @@ onLoop(({ delta }) => {
   if (props.enabled && renderer.value && effectComposer.value && sizes.width.value && sizes.height.value) {
     const currentAutoClear = renderer.value.autoClear
     renderer.value.autoClear = props.autoClear
-    if (props.stencilBuffer && !props.autoClear) renderer.value.clearStencil()
+    if (props.stencilBuffer && !props.autoClear) { renderer.value.clearStencil() }
     effectComposer.value.render(delta)
     renderer.value.autoClear = currentAutoClear
   }
@@ -113,5 +113,5 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <slot />
+  <slot></slot>
 </template>
