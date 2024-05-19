@@ -1,9 +1,18 @@
 <script setup lang="ts">
 import {
+  advancedRoutes,
   routes,
 } from '../router'
 
 const [_home, ...restRoutes] = routes
+
+const sections = [
+  {
+    icon: '🤓',
+    title: 'Advanced',
+    routes: advancedRoutes,
+  },
+]
 </script>
 
 <template>
@@ -59,8 +68,8 @@ const [_home, ...restRoutes] = routes
             {{ name }}
           </h2>
         </router-link>
-        <!-- <div
-          v-for="{ title, routes, icon } in routes"
+        <div
+          v-for="{ title, routes, icon } in sections"
           :key="title"
           class="
           p-4 my-4 leading-normal size-m weight-600 bg-zinc-50 rounded
@@ -85,7 +94,7 @@ const [_home, ...restRoutes] = routes
               <span>{{ route.name }} </span>
             </router-link>
           </div>
-        </div> -->
+        </div>
       </div>
     </div>
   </div>

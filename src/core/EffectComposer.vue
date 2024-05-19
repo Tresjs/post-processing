@@ -30,7 +30,9 @@ const props = withDefaults(defineProps<EffectComposerProps>(), {
   multisampling: 0,
   stencilBuffer: undefined,
 })
-const { scene, camera, renderer, sizes } = useTresContext()
+const emit = defineEmits(['render'])
+
+const { scene, camera, renderer, sizes, render: renderCtx } = useTresContext()
 
 const effectComposer: ShallowRef<EffectComposerImpl | null> = shallowRef(null)
 
@@ -39,6 +41,7 @@ let normalPass: NormalPass | null = null
 
 provide(effectComposerInjectionKey, effectComposer)
 defineExpose({ composer: effectComposer })
+
 const setNormalPass = () => {
   if (!effectComposer.value) { return }
 
@@ -98,12 +101,23 @@ watch(() => [sizes.width.value, sizes.height.value], ([width, height]) => {
 const { render } = useLoop()
 
 render(() => {
-  if (props.enabled && renderer.value && effectComposer.value && sizes.width.value && sizes.height.value) {
+  if (props.enabled && renderer.value && effectComposer.value && sizes.width.value && sizes.height.value && renderCtx.frames.value > 0) {
     const currentAutoClear = renderer.value.autoClear
     renderer.value.autoClear = props.autoClear
     if (props.stencilBuffer && !props.autoClear) { renderer.value.clearStencil() }
     effectComposer.value.render()
+    emit('render', effectComposer.value)
     renderer.value.autoClear = currentAutoClear
+  }
+
+  // Reset priority
+  renderCtx.priority.value = 0
+
+  if (renderCtx.mode.value === 'always') {
+    renderCtx.frames.value = 1
+  }
+  else {
+    renderCtx.frames.value = Math.max(0, renderCtx.frames.value - 1)
   }
 })
 
