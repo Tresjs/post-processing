@@ -69,7 +69,7 @@ const sections = [
           </h2>
         </router-link>
         <div
-          v-for="{ title, routes, icon } in sections"
+          v-for="{ title, routes: internalRoutes, icon } in sections"
           :key="title"
           class="
           p-4 my-4 leading-normal size-m weight-600 bg-zinc-50 rounded
@@ -83,7 +83,7 @@ const sections = [
             {{ title }}
           </h2>
           <div
-            v-for="route in routes"
+            v-for="route in internalRoutes"
             :key="route.name"
             class="link-wrapper"
           >

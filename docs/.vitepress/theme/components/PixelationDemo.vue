@@ -14,7 +14,6 @@ const { effectComposer } = useRouteDisposal()
     clear-color="#121212"
     :alpha="false"
     :shadows="true"
-    
   >
     <TresPerspectiveCamera
       :position="[3, 2, 4]"

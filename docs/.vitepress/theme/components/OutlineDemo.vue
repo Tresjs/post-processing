@@ -58,7 +58,6 @@ useRouteDisposal(effectComposer)
   <TresLeches />
   <TresCanvas
     v-bind="gl"
-    
   >
     <TresPerspectiveCamera
       :position="[1, 3, 3]"
