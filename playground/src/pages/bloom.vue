@@ -25,6 +25,8 @@ const {
   resolution,
   kernelSize,
   mipmapBlur,
+  threshold,
+  smoothing,
 } = useControls({
   intensity: {
     value: 4.0,
@@ -53,9 +55,6 @@ const {
     value: KernelSize.VERY_SMALL,
   },
   mipmapBlur: true,
-})
-
-const { threshold, smoothing } = useControls('luminance', {
   threshold: {
     value: 0.2,
     min: 0,

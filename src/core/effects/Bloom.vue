@@ -81,7 +81,3 @@ makePropWatchers(
   () => new BloomEffect(),
 )
 </script>
-
-<template>
-  <!-- This component does not have any template -->
-</template>
