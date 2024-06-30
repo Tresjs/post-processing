@@ -33,7 +33,7 @@ export const advancedRoutes = [
   {
     path: '/advanced/on-demand',
     name: 'On-demand',
-    component: () => import('./pages/advanced/on-demand/index.vue'),
+    component: () => import('./pages/advanced/on-demand.vue'),
   },
 ]
 

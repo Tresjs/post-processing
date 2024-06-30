@@ -14,6 +14,7 @@ const gl = {
   clearColor: '#4ADE80',
   toneMapping: NoToneMapping,
   disableRender: true,
+  multisampling: 8,
 }
 
 const outlinedObjects = ref<Object3D[]>([])
