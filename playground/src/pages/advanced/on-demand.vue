@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { TresCanvas, useTres } from '@tresjs/core'
+import { TresCanvas } from '@tresjs/core'
 import { OrbitControls } from '@tresjs/cientos'
 import { EffectComposer, Pixelation } from '@tresjs/post-processing'
 import { ref } from 'vue'
