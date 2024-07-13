@@ -60,7 +60,7 @@
     "@types/three": "^0.159.0",
     "@unocss/core": "^0.58.0",
     "@vitejs/plugin-vue": "^4.5.1",
-    "eslint": "^8.57.0",
+    "eslint": "^9.7.0",
     "gsap": "^3.12.3",
     "kolorist": "^1.8.0",
     "pathe": "^1.1.1",
