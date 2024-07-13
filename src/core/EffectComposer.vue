@@ -93,7 +93,8 @@ watch([renderer, scene, camera, () => props.disableNormalPass], () => {
 watch(() => [sizes.width.value, sizes.height.value], ([width, height]) => {
   // effect composer should only live once the canvas has a size > 0
   if (!width && !height) { return }
-  effectComposer.value ? effectComposer.value.setSize(width, height) : initEffectComposer()
+  if (effectComposer.value) { effectComposer.value.setSize(width, height) }
+  else { initEffectComposer() }
 }, {
   immediate: true,
 })
