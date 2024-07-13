@@ -27,6 +27,7 @@ export const routes = [
   makeRoute('Bloom', '🌼'),
   makeRoute('Noise', '📟'),
   makeRoute('Vignette', '🕶️'),
+  makeRoute('Three', '3'), // TODO move
 ]
 
 export const advancedRoutes = [

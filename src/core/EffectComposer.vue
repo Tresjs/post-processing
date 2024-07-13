@@ -79,6 +79,7 @@ const effectComposerParams = computed(() => {
 const initEffectComposer = () => {
   if (!renderer.value && !scene.value && !camera.value) { return }
 
+  effectComposer.value?.dispose()
   effectComposer.value = new EffectComposerImpl(renderer.value, effectComposerParams.value)
   effectComposer.value.addPass(new RenderPass(scene.value, camera.value))
 
@@ -87,6 +88,7 @@ const initEffectComposer = () => {
 
 watch([renderer, scene, camera, () => props.disableNormalPass], () => {
   if (!sizes.width.value || !sizes.height.value) { return }
+
   initEffectComposer()
 })
 

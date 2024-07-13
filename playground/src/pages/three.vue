@@ -1,0 +1,36 @@
+<!-- TODO move component -->
+<script lang="ts" setup>
+import { TresCanvas } from '@tresjs/core'
+import { EffectComposerThree } from '@tresjs/post-processing'
+import { OrbitControls } from '@tresjs/cientos'
+</script>
+
+<template>
+  <TresCanvas>
+    <TresPerspectiveCamera
+      :position="[5, 5, 5]"
+      :look-at="[0, 0, 0]"
+    />
+    <OrbitControls />
+    <TresMesh
+      :position="[-3.5, 1, 0]"
+    >
+      <TresConeGeometry :args="[1.25, 2, 4, 1, false, Math.PI * 0.25]" />
+      <TresMeshNormalMaterial />
+    </TresMesh>
+
+    <TresMesh :position="[0, 1, 0]">
+      <TresBoxGeometry :args="[2, 2, 2]" />
+      <TresMeshNormalMaterial />
+    </TresMesh>
+
+    <TresMesh :position="[3.5, 1, 0]">
+      <TresSphereGeometry />
+      <TresMeshNormalMaterial />
+    </TresMesh>
+
+    <TresGridHelper />
+
+    <EffectComposerThree />
+  </TresCanvas>
+</template>
