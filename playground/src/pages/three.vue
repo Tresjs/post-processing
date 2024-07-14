@@ -1,7 +1,7 @@
 <!-- TODO move component -->
 <script lang="ts" setup>
 import { TresCanvas } from '@tresjs/core'
-import { EffectComposerThree } from '@tresjs/post-processing'
+import { EffectComposerThree, PixelationThree } from '@tresjs/post-processing'
 import { OrbitControls } from '@tresjs/cientos'
 </script>
 
@@ -31,6 +31,8 @@ import { OrbitControls } from '@tresjs/cientos'
 
     <TresGridHelper />
 
-    <EffectComposerThree />
+    <EffectComposerThree>
+      <PixelationThree />
+    </EffectComposerThree>
   </TresCanvas>
 </template>
