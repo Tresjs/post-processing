@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { KernelSize } from 'postprocessing'
 import { ref } from 'vue'
-import { EffectComposer, Outline } from '@tresjs/post-processing'
+import { EffectComposer, Outline, SMAA } from '@tresjs/post-processing'
 import { TresCanvas } from '@tresjs/core'
 import { OrbitControls } from '@tresjs/cientos'
 import type { Intersection, Object3D } from 'three'
@@ -86,6 +86,7 @@ const { edgeStrength, pulseSpeed, visibleEdgeColor, blur, kernelSize } = useCont
           :visible-edge-color="visibleEdgeColor.value"
           :kernel-size="kernelSize.value"
         />
+        <SMAA />
       </EffectComposer>
     </Suspense>
   </TresCanvas>
