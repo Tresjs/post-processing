@@ -27,7 +27,6 @@ const props = withDefaults(defineProps<EffectComposerProps>(), {
   frameBufferType: HalfFloatType,
   disableNormalPass: false,
   depthBuffer: undefined,
-  multisampling: 0,
   stencilBuffer: undefined,
 })
 const emit = defineEmits(['render'])
@@ -67,10 +66,11 @@ const effectComposerParams = computed(() => {
     multisampling: isWebGL2Available()
       ? props.multisampling !== undefined
         ? props.multisampling
-        : plainEffectComposer.multisampling
+        : 8
       : 0,
     frameBufferType: props.frameBufferType !== undefined ? props.frameBufferType : HalfFloatType,
   }
+
   plainEffectComposer.dispose()
 
   return params
