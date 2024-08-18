@@ -67,7 +67,7 @@ const props = withDefaults(
 
 const { pass, effect } = useEffect(() => new BloomEffect(props))
 
-defineExpose({ pass, effect }) // to allow users to modify pass and effect via template ref
+defineExpose({ pass, effect })
 
 makePropWatchers(
   [

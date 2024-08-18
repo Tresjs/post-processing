@@ -13,7 +13,7 @@ export interface PixelationProps {
 const props = defineProps<PixelationProps>()
 
 const { pass, effect } = useEffect(() => new PixelationEffect(props.granularity))
-defineExpose({ pass, effect }) // to allow users to modify pass and effect via template ref
+defineExpose({ pass, effect })
 
 makePropWatchersUsingAllProps(
   props,

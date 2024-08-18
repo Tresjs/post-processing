@@ -88,7 +88,7 @@ const params: OutlineEffectParameters = {
 
 const { pass, effect } = useEffect(() => new OutlineEffect(scene.value, camera.value, params))
 
-defineExpose({ pass, effect }) // to allow users to modify pass and effect via template ref
+defineExpose({ pass, effect })
 
 watch(
   [() => props.outlinedObjects, effect], // watchEffect is intentionally not used here as it would result in an endless loop

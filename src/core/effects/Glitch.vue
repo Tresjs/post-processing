@@ -99,7 +99,7 @@ export interface GlitchProps {
 const props = defineProps<GlitchProps>()
 
 const { pass, effect } = useEffect(() => new GlitchEffect(props))
-defineExpose({ pass, effect }) // to allow users to modify pass and effect via template ref
+defineExpose({ pass, effect })
 
 watchEffect(() => {
   const getMode = () => {

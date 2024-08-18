@@ -1,4 +1,5 @@
 import type { Pass } from 'three/examples/jsm/postprocessing/Pass'
+import type { Ref } from 'vue'
 import { inject, onUnmounted, shallowRef, watchEffect } from 'vue'
 import { effectComposerInjectionKey } from '../three/EffectComposer.vue'
 
@@ -19,4 +20,6 @@ export const useEffectThree = <T extends Pass>(newPassFunction: () => T) => {
     composer?.value?.removePass(pass.value)
     pass.value.dispose()
   })
+
+  return { pass }
 }

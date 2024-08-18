@@ -18,7 +18,7 @@ const props = withDefaults(defineProps<NoiseProps>(), {
 })
 
 const { pass, effect } = useEffect(() => new NoiseEffect(props))
-defineExpose({ pass, effect }) // to allow users to modify pass and effect via template ref
+defineExpose({ pass, effect })
 
 makePropWatchersUsingAllProps(
   omit(props, ['blendFunction']),
