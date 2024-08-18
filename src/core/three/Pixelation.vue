@@ -1,15 +1,21 @@
-<script lang="ts" setup>
-import { RenderPixelatedPass } from 'three/addons/postprocessing/RenderPixelatedPass.js'
+<script lang="ts">
+import { RenderPixelatedPass } from 'three/examples/jsm/postprocessing/RenderPixelatedPass.js'
 import { inject } from 'vue'
 import { useTresContext } from '@tresjs/core'
+import { useEffectThree } from '../composables/useEffectThree'
 import { effectComposerInjectionKey } from './EffectComposer.vue'
 
-// TODO props
+export interface PixelationProps {
+  pixelSize: number
+}
+</script>
 
-const composer = inject(effectComposerInjectionKey)
+<script lang="ts" setup>
+const props = defineProps<PixelationProps>()
+
 const { scene, camera } = useTresContext()
 
-const renderPixelatedPass = new RenderPixelatedPass(16, scene.value, camera.value!)
+const renderPixelatedPass = new RenderPixelatedPass(props.pixelSize, scene.value, camera.value!)
 
-composer!.value!.addPass(renderPixelatedPass) // TODO move to composable
+useEffectThree(() => new RenderPixelatedPass(props.pixelSize, scene.value, camera.value!))
 </script>

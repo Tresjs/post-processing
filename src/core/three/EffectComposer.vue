@@ -1,9 +1,9 @@
 <script lang="ts">
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import { useDevicePixelRatio } from '@vueuse/core'
 import { useLoop, useTresContext } from '@tresjs/core'
-import { EffectComposer as EffectComposerThreejs } from 'three/addons/postprocessing/EffectComposer.js'
+import { EffectComposer as EffectComposerThreejs } from 'three/examples/jsm/postprocessing/EffectComposer.js'
 import { type InjectionKey, type ShallowRef, onUnmounted, provide, shallowRef, watchEffect } from 'vue'
-import { RenderPass } from 'three/addons/postprocessing/RenderPass.js'
 
 export const effectComposerInjectionKey: InjectionKey<ShallowRef<EffectComposerThreejs | null>> = Symbol('effectComposerThree')
 </script>

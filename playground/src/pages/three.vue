@@ -32,7 +32,7 @@ import { OrbitControls } from '@tresjs/cientos'
     <TresGridHelper />
 
     <EffectComposerThree>
-      <PixelationThree />
+      <PixelationThree :pixel-size="16" />
     </EffectComposerThree>
   </TresCanvas>
 </template>
