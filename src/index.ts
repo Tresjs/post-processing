@@ -1,14 +1,14 @@
-import Bloom from './core/effects/Bloom.vue'
-import DepthOfField from './core/effects/DepthOfField.vue'
+import Bloom from './core/postprocessing/Bloom.vue'
+import DepthOfField from './core/postprocessing/DepthOfField.vue'
 import EffectComposer from './core/EffectComposer.vue'
 import EffectComposerThree from './core/three/EffectComposer.vue'
 import PixelationThree from './core/three/Pixelation.vue' // TODO seperate exports differently
 import GlitchThree from './core/three/Glitch.vue' // TODO seperate exports differently
-import Glitch from './core/effects/Glitch.vue'
-import Outline from './core/effects/Outline.vue'
-import Pixelation from './core/effects/Pixelation.vue'
-import Vignette from './core/effects/Vignette.vue'
-import Noise from './core/effects/Noise.vue'
+import Glitch from './core/postprocessing/Glitch.vue'
+import Outline from './core/postprocessing/Outline.vue'
+import Pixelation from './core/postprocessing/Pixelation.vue'
+import Vignette from './core/postprocessing/Vignette.vue'
+import Noise from './core/postprocessing/Noise.vue'
 
 import { useEffect } from './core/composables/effect.ts'
 
