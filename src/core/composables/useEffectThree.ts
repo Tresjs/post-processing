@@ -1,5 +1,4 @@
 import type { Pass } from 'three/examples/jsm/postprocessing/Pass'
-import type { Ref } from 'vue'
 import { inject, onUnmounted, shallowRef, watchEffect } from 'vue'
 import { effectComposerInjectionKey } from '../three/EffectComposer.vue'
 

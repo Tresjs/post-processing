@@ -25,6 +25,7 @@ const home: RouteRecordRaw = {
 
 export const threeRoutes = [
   makeRoute('Pixelation', '👾'),
+  makeRoute('Glitch', '📺'),
 ]
 
 export const postProcessingRoutes = [

@@ -16,7 +16,7 @@ defineProps<{
       {{ route.meta.icon }}
     </div>
     <h3 class="text-sm p-0 m-0 mb-1.5 font-semibold text-zinc-600">
-      {{ route.meta.name }}
+      {{ route.meta?.name }}
     </h3>
   </router-link>
 </template>

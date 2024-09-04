@@ -2,7 +2,8 @@ import Bloom from './core/effects/Bloom.vue'
 import DepthOfField from './core/effects/DepthOfField.vue'
 import EffectComposer from './core/EffectComposer.vue'
 import EffectComposerThree from './core/three/EffectComposer.vue'
-import PixelationThree from './core/three/Pixelation.vue'
+import PixelationThree from './core/three/Pixelation.vue' // TODO seperate exports differently
+import GlitchThree from './core/three/Glitch.vue' // TODO seperate exports differently
 import Glitch from './core/effects/Glitch.vue'
 import Outline from './core/effects/Outline.vue'
 import Pixelation from './core/effects/Pixelation.vue'
@@ -23,4 +24,5 @@ export {
   useEffect,
   EffectComposerThree,
   PixelationThree,
+  GlitchThree,
 }
