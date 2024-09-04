@@ -1,4 +1,3 @@
-<!-- TODO move component -->
 <script lang="ts" setup>
 import { TresCanvas } from '@tresjs/core'
 import { EffectComposerThree, PixelationThree } from '@tresjs/post-processing'
