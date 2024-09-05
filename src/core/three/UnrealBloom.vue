@@ -21,13 +21,17 @@ const props = withDefaults(defineProps<UnrealBloomProps>(), {
 })
 
 const { sizes } = useTresContext()
-const sizeVector = computed(() => new Vector2(sizes.width.value, sizes.height.value))
-const { pass } = useEffectThree(() => new UnrealBloomPass(sizeVector.value, props.radius, props.strength, props.threshold))
+const { pass } = useEffectThree(() => new UnrealBloomPass(
+  new Vector2(sizes.width.value, sizes.height.value),
+  props.radius,
+  props.strength,
+  props.threshold,
+))
 
 defineExpose({ pass })
 
 watchEffect(() => {
-  // should this be done for all passes? 🤔
+  // TODO should this be done for all passes? 🤔
   pass.value.setSize(sizes.width.value, sizes.height.value)
 })
 
