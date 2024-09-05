@@ -27,6 +27,7 @@ export const threeRoutes = [
   makeRoute('Pixelation', '👾'),
   makeRoute('Glitch', '📺'),
   makeRoute('SMAA', '📐'),
+  makeRoute('Halftone', '🎨'),
 ]
 
 export const postProcessingRoutes = [

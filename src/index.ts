@@ -1,32 +1,39 @@
 import Bloom from './core/postprocessing/Bloom.vue'
-import DepthOfField from './core/postprocessing/DepthOfField.vue'
-import EffectComposer from './core/EffectComposer.vue'
-import EffectComposerThree from './core/three/EffectComposer.vue'
-import PixelationThree from './core/three/Pixelation.vue' // TODO seperate exports differently
-import GlitchThree from './core/three/Glitch.vue' // TODO seperate exports differently
-import SMAAThree from './core/three/SMAA.vue' // TODO seperate exports differently
-import OutputThree from './core/three/Output.vue' // TODO seperate exports differently
+import Noise from './core/postprocessing/Noise.vue'
 import Glitch from './core/postprocessing/Glitch.vue'
 import Outline from './core/postprocessing/Outline.vue'
-import Pixelation from './core/postprocessing/Pixelation.vue'
 import Vignette from './core/postprocessing/Vignette.vue'
-import Noise from './core/postprocessing/Noise.vue'
+import SMAAThree from './core/three/SMAA.vue' // TODO seperate exports differently
+import Pixelation from './core/postprocessing/Pixelation.vue'
+import GlitchThree from './core/three/Glitch.vue' // TODO seperate exports differently
+import OutputThree from './core/three/Output.vue' // TODO seperate exports differently
+import DepthOfField from './core/postprocessing/DepthOfField.vue'
+import HalftoneThree from './core/three/Halftone.vue' // TODO seperate exports differently
+import EffectComposer from './core/EffectComposer.vue'
+import PixelationThree from './core/three/Pixelation.vue' // TODO seperate exports differently
+import EffectComposerThree from './core/three/EffectComposer.vue'
 
-import { useEffect } from './core/composables/effect.ts'
+import { useEffect } from './core/composables/effect'
+import { useEffectThree } from './core/composables/useEffectThree'
 
 export {
-  Bloom, //
+  Bloom,
+  Noise,
+  Glitch,
+  Outline,
+  Vignette,
+  Pixelation,
   DepthOfField,
   EffectComposer,
-  Glitch,
-  Noise,
-  Outline,
-  Pixelation,
-  Vignette,
+
   useEffect,
-  EffectComposerThree,
-  OutputThree,
-  PixelationThree,
-  GlitchThree,
+
   SMAAThree,
+  GlitchThree,
+  OutputThree,
+  HalftoneThree,
+  PixelationThree,
+  EffectComposerThree,
+
+  useEffectThree,
 }
