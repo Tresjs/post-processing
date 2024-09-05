@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { SMAAThree } from '@tresjs/post-processing'
+import { OutputThree, SMAAThree } from '@tresjs/post-processing'
 import { ref } from 'vue'
 import BasicScene from '../../components/BasicScene.vue'
 
@@ -13,6 +13,7 @@ const enabled = ref(true)
   <BasicScene wireframe>
     <template #effects>
       <SMAAThree v-if="enabled" />
+      <OutputThree />
     </template>
   </BasicScene>
 </template>
