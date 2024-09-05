@@ -9,6 +9,10 @@ export const effectComposerInjectionKey: InjectionKey<ShallowRef<EffectComposerT
 </script>
 
 <script lang="ts" setup>
+const props = defineProps<{
+  withoutRenderPass?: boolean
+}>()
+
 const effectComposer: ShallowRef<EffectComposerThreejs | null> = shallowRef(null)
 provide(effectComposerInjectionKey, effectComposer)
 
@@ -35,11 +39,13 @@ watchEffect(() => {
   effectComposer.value?.setPixelRatio(pixelRatio.value)
 })
 
-watchEffect(() => {
-  if (camera.value && scene.value && effectComposer.value) {
-    effectComposer.value.addPass(new RenderPass(scene.value, camera.value)) // TODO prop that allows disabling automatically adding the render pass
-  }
-})
+if (!props.withoutRenderPass) {
+  watchEffect(() => {
+    if (camera.value && scene.value && effectComposer.value) {
+      effectComposer.value.addPass(new RenderPass(scene.value, camera.value))
+    }
+  })
+}
 
 const { render } = useLoop()
 

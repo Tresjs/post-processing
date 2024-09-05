@@ -9,7 +9,7 @@ defineProps<{
 </script>
 
 <template>
-  <TresCanvas>
+  <TresCanvas :disable-render="true">
     <TresPerspectiveCamera
       :position="[5, 5, 5]"
       :look-at="[0, 0, 0]"
