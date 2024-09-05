@@ -2,6 +2,10 @@
 import { TresCanvas } from '@tresjs/core'
 import { EffectComposerThree, PixelationThree } from '@tresjs/post-processing'
 import { OrbitControls } from '@tresjs/cientos'
+
+defineProps<{
+  wireframe?: boolean
+}>()
 </script>
 
 <template>
@@ -15,17 +19,17 @@ import { OrbitControls } from '@tresjs/cientos'
       :position="[-3.5, 1, 0]"
     >
       <TresConeGeometry :args="[1.25, 2, 4, 1, false, Math.PI * 0.25]" />
-      <TresMeshNormalMaterial />
+      <TresMeshNormalMaterial :wireframe="wireframe" />
     </TresMesh>
 
     <TresMesh :position="[0, 1, 0]">
       <TresBoxGeometry :args="[2, 2, 2]" />
-      <TresMeshNormalMaterial />
+      <TresMeshNormalMaterial :wireframe="wireframe" />
     </TresMesh>
 
     <TresMesh :position="[3.5, 1, 0]">
       <TresSphereGeometry />
-      <TresMeshNormalMaterial />
+      <TresMeshNormalMaterial :wireframe="wireframe" />
     </TresMesh>
 
     <TresGridHelper />
