@@ -1,13 +1,16 @@
-<script setup lang="ts">
+<script lang="ts">
 import { HalfFloatType } from 'three'
 import type { TresObject } from '@tresjs/core'
 import { useLoop, useTresContext } from '@tresjs/core'
 import { DepthDownsamplingPass, EffectComposer as EffectComposerImpl, NormalPass, RenderPass } from 'postprocessing'
 
 import { isWebGL2Available } from 'three-stdlib'
-import type { ShallowRef } from 'vue'
 import { computed, onUnmounted, provide, shallowRef, watch } from 'vue'
-import { effectComposerInjectionKey } from './injectionKeys'
+
+import type { EffectComposer } from 'postprocessing'
+import type { InjectionKey, ShallowRef } from 'vue'
+
+export const effectComposerInjectionKey: InjectionKey<ShallowRef<EffectComposer | null>> = Symbol('effectComposer')
 
 export interface EffectComposerProps {
   enabled?: boolean
@@ -20,7 +23,9 @@ export interface EffectComposerProps {
   multisampling?: number
   frameBufferType?: number
 }
+</script>
 
+<script setup lang="ts">
 const props = withDefaults(defineProps<EffectComposerProps>(), {
   enabled: true,
   autoClear: true,
@@ -114,7 +119,7 @@ render(() => {
   }
 
   // Reset priority
-  renderCtx.priority.value = 0
+  renderCtx.priority.value = 0 // TODO ask Alvaro about this
 
   if (renderCtx.mode.value === 'always') {
     renderCtx.frames.value = 1
