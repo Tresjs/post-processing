@@ -28,6 +28,7 @@ export const threeRoutes = [
   makeRoute('Glitch', '📺'),
   makeRoute('SMAA', '📐'),
   makeRoute('Halftone', '🎨'),
+  makeRoute('Unreal Bloom', '🌼'),
 ]
 
 export const postProcessingRoutes = [

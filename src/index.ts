@@ -11,6 +11,7 @@ import DepthOfField from './core/postprocessing/DepthOfField.vue'
 import HalftoneThree from './core/three/Halftone.vue' // TODO seperate exports differently
 import EffectComposer from './core/EffectComposer.vue'
 import PixelationThree from './core/three/Pixelation.vue' // TODO seperate exports differently
+import UnrealBloomThree from './core/three/UnrealBloom.vue' // TODO seperate exports differently
 import EffectComposerThree from './core/three/EffectComposer.vue'
 
 import { useEffect } from './core/composables/effect'
@@ -24,16 +25,17 @@ export {
   Vignette,
   Pixelation,
   DepthOfField,
-  EffectComposer,
 
   useEffect,
+  EffectComposer,
 
   SMAAThree,
   GlitchThree,
   OutputThree,
   HalftoneThree,
   PixelationThree,
-  EffectComposerThree,
+  UnrealBloomThree,
 
   useEffectThree,
+  EffectComposerThree,
 }
