@@ -1,7 +1,7 @@
 <script lang="ts" setup>
+import { OrbitControls } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
 import { EffectComposerThree, PixelationThree } from '@tresjs/post-processing'
-import { OrbitControls } from '@tresjs/cientos'
 
 defineProps<{
   wireframe?: boolean
@@ -9,7 +9,7 @@ defineProps<{
 </script>
 
 <template>
-  <TresCanvas :disable-render="true">
+  <TresCanvas render-mode="on-demand">
     <TresPerspectiveCamera
       :position="[5, 5, 5]"
       :look-at="[0, 0, 0]"

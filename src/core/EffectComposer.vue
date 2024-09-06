@@ -1,10 +1,9 @@
 <script lang="ts">
-import { HalfFloatType } from 'three'
-import type { TresObject } from '@tresjs/core'
 import { useLoop, useTresContext } from '@tresjs/core'
 import { DepthDownsamplingPass, EffectComposer as EffectComposerImpl, NormalPass, RenderPass } from 'postprocessing'
-
+import { HalfFloatType } from 'three'
 import { isWebGL2Available } from 'three-stdlib'
+
 import { computed, onUnmounted, provide, shallowRef, watch } from 'vue'
 
 import type { EffectComposer } from 'postprocessing'
@@ -14,7 +13,6 @@ export const effectComposerInjectionKey: InjectionKey<ShallowRef<EffectComposer 
 
 export interface EffectComposerProps {
   enabled?: boolean
-  children?: TresObject[]
   depthBuffer?: boolean
   disableNormalPass?: boolean
   stencilBuffer?: boolean
@@ -118,15 +116,9 @@ render(() => {
     renderer.value.autoClear = currentAutoClear
   }
 
-  // Reset priority
-  renderCtx.priority.value = 0 // TODO ask Alvaro about this
-
-  if (renderCtx.mode.value === 'always') {
-    renderCtx.frames.value = 1
-  }
-  else {
-    renderCtx.frames.value = Math.max(0, renderCtx.frames.value - 1)
-  }
+  renderCtx.frames.value = renderCtx.mode.value === 'always'
+    ? 1
+    : renderCtx.frames.value = Math.max(0, renderCtx.frames.value - 1)
 })
 
 onUnmounted(() => {

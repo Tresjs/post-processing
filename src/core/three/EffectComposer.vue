@@ -1,9 +1,9 @@
 <script lang="ts">
-import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
-import { useDevicePixelRatio } from '@vueuse/core'
 import { useLoop, useTresContext } from '@tresjs/core'
+import { useDevicePixelRatio } from '@vueuse/core'
 import { EffectComposer as EffectComposerThreejs } from 'three/examples/jsm/postprocessing/EffectComposer.js'
-import { type InjectionKey, type ShallowRef, onUnmounted, provide, shallowRef, watchEffect } from 'vue'
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
+import { type InjectionKey, onUnmounted, provide, type ShallowRef, shallowRef, watchEffect } from 'vue'
 
 export const effectComposerInjectionKey: InjectionKey<ShallowRef<EffectComposerThreejs | null>> = Symbol('effectComposerThree')
 </script>
@@ -11,6 +11,7 @@ export const effectComposerInjectionKey: InjectionKey<ShallowRef<EffectComposerT
 <script lang="ts" setup>
 const props = defineProps<{
   withoutRenderPass?: boolean
+  // TODO add enabled prop
 }>()
 
 const effectComposer: ShallowRef<EffectComposerThreejs | null> = shallowRef(null)
@@ -18,7 +19,7 @@ provide(effectComposerInjectionKey, effectComposer)
 
 defineExpose({ composer: effectComposer })
 
-const { renderer, sizes, scene, camera } = useTresContext()
+const { renderer, sizes, scene, camera, render: renderCtx } = useTresContext()
 
 const initEffectComposer = () => {
   effectComposer.value?.dispose()
@@ -50,7 +51,13 @@ if (!props.withoutRenderPass) {
 const { render } = useLoop()
 
 render(() => {
-  effectComposer.value?.render()
+  if (renderCtx.frames.value > 0 && effectComposer.value) {
+    effectComposer.value.render()
+  }
+
+  renderCtx.frames.value = renderCtx.mode.value === 'always'
+    ? 1
+    : renderCtx.frames.value = Math.max(0, renderCtx.frames.value - 1)
 })
 
 onUnmounted(() => {
