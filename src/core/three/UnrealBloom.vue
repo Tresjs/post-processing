@@ -31,11 +31,6 @@ const { pass } = useEffectThree(() => new UnrealBloomPass(
 defineExpose({ pass })
 
 watchEffect(() => {
-  // TODO should this be done for all passes? 🤔
-  pass.value.setSize(sizes.width.value, sizes.height.value)
-})
-
-watchEffect(() => {
   pass.value.radius = props.radius
   ?? pass.value.getCompositeMaterial().uniforms.bloomRadius?.value
   ?? 0.1
