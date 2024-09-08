@@ -9,10 +9,12 @@ export const effectComposerInjectionKey: InjectionKey<ShallowRef<EffectComposerT
 </script>
 
 <script lang="ts" setup>
-const props = defineProps<{
+const props = withDefaults(defineProps<{
+  enabled?: boolean
   withoutRenderPass?: boolean
-  // TODO add enabled prop
-}>()
+}>(), {
+  enabled: true,
+})
 
 const effectComposer: ShallowRef<EffectComposerThreejs | null> = shallowRef(null)
 provide(effectComposerInjectionKey, effectComposer)
@@ -51,7 +53,7 @@ if (!props.withoutRenderPass) {
 const { render } = useLoop()
 
 render(() => {
-  if (renderCtx.frames.value > 0 && effectComposer.value) {
+  if (renderCtx.frames.value > 0 && effectComposer.value && props.enabled) {
     effectComposer.value.render()
   }
 
