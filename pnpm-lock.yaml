@@ -14,9 +14,6 @@ importers:
       postprocessing:
         specifier: ^6.33.4
         version: 6.36.1(three@0.159.0)
-      three-stdlib:
-        specifier: ^2.28.7
-        version: 2.32.2(three@0.159.0)
     devDependencies:
       '@release-it/conventional-changelog':
         specifier: ^8.0.1
@@ -12318,16 +12315,6 @@ snapshots:
       glsl-tokenizer: 2.1.5
       object-hash: 3.0.0
       three: 0.168.0
-
-  three-stdlib@2.32.2(three@0.159.0):
-    dependencies:
-      '@types/draco3d': 1.4.9
-      '@types/offscreencanvas': 2019.7.3
-      '@types/webxr': 0.5.10
-      draco3d: 1.5.6
-      fflate: 0.6.10
-      potpack: 1.0.2
-      three: 0.159.0
 
   three-stdlib@2.32.2(three@0.168.0):
     dependencies:

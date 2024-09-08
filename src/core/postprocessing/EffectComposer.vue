@@ -2,7 +2,7 @@
 import { useLoop, useTresContext } from '@tresjs/core'
 import { DepthDownsamplingPass, EffectComposer as EffectComposerImpl, NormalPass, RenderPass } from 'postprocessing'
 import { HalfFloatType } from 'three'
-import { isWebGL2Available } from 'three-stdlib'
+import WEBGL from 'three/examples/jsm/capabilities/WebGL.js'
 
 import { computed, onUnmounted, provide, shallowRef, watch } from 'vue'
 
@@ -51,7 +51,7 @@ const setNormalPass = () => {
   normalPass = new NormalPass(scene.value, camera.value)
   normalPass.enabled = false
   effectComposer.value.addPass(normalPass)
-  if (props.resolutionScale !== undefined && isWebGL2Available()) {
+  if (props.resolutionScale !== undefined && WEBGL.isWebGL2Available()) {
     downSamplingPass = new DepthDownsamplingPass({
       normalBuffer: normalPass.texture,
       resolutionScale: props.resolutionScale,
@@ -67,7 +67,7 @@ const effectComposerParams = computed(() => {
     depthBuffer: props.depthBuffer !== undefined ? props.depthBuffer : plainEffectComposer.inputBuffer.depthBuffer,
     stencilBuffer:
       props.stencilBuffer !== undefined ? props.stencilBuffer : plainEffectComposer.inputBuffer.stencilBuffer,
-    multisampling: isWebGL2Available()
+    multisampling: WEBGL.isWebGL2Available()
       ? props.multisampling !== undefined
         ? props.multisampling
         : plainEffectComposer.multisampling

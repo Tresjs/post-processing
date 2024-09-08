@@ -48,9 +48,11 @@ watchEffect(() => {
 })
 
 watchEffect(() => {
+  type UniformsKey = keyof typeof pass.value.uniforms
+
   Object.entries(props).forEach(([key, value]) => {
     if (key in pass.value.uniforms) {
-      pass.value.uniforms[key].value = value ?? HalftoneShader.uniforms[key].value
+      pass.value.uniforms[key as UniformsKey].value = value ?? HalftoneShader.uniforms[key as UniformsKey].value
     }
   })
 })
