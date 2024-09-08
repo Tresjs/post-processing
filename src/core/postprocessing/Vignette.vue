@@ -2,7 +2,7 @@
 import { BlendFunction, VignetteEffect, VignetteTechnique } from 'postprocessing'
 import { omit } from '../../util/object'
 import { makePropWatchersUsingAllProps } from '../../util/prop'
-import { useEffect } from '../composables/effect'
+import { useEffect } from './composables/useEffect'
 
 export interface VignetteProps {
   /**

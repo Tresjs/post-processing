@@ -4,7 +4,7 @@ import { HalftonePass } from 'three/examples/jsm/postprocessing/HalftonePass.js'
 import { HalftoneShader } from 'three/examples/jsm/shaders/HalftoneShader.js'
 import { computed, watchEffect } from 'vue'
 import type { Blending } from 'three/src/constants.js'
-import { useEffectThree } from '../composables/useEffectThree'
+import { useEffect } from './composables/useEffect'
 
 export const Dot = 1
 export const Ellipse = 2
@@ -36,7 +36,7 @@ const shakedProps = computed(() =>
   ),
 )
 
-const { pass } = useEffectThree(() => new HalftonePass(
+const { pass } = useEffect(() => new HalftonePass(
   sizes.width.value,
   sizes.height.value,
   shakedProps.value,

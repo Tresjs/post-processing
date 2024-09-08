@@ -5,7 +5,7 @@ import type { BlendFunction } from 'postprocessing'
 import type { Texture, Vector2 } from 'three'
 import { omit } from '../../util/object'
 import { makePropWatchersUsingAllProps } from '../../util/prop'
-import { useEffect } from '../composables/effect'
+import { useEffect } from './composables/useEffect'
 
 export interface GlitchProps {
   blendFunction?: BlendFunction

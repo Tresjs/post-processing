@@ -4,7 +4,7 @@ import { Vector2 } from 'three'
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
 import { LuminosityHighPassShader } from 'three/examples/jsm/shaders/LuminosityHighPassShader.js'
 import { watchEffect } from 'vue'
-import { useEffectThree } from '../composables/useEffectThree'
+import { useEffect } from './composables/useEffect'
 
 export interface UnrealBloomProps {
   radius?: number
@@ -21,7 +21,7 @@ const props = withDefaults(defineProps<UnrealBloomProps>(), {
 })
 
 const { sizes } = useTresContext()
-const { pass } = useEffectThree(() => new UnrealBloomPass(
+const { pass } = useEffect(() => new UnrealBloomPass(
   new Vector2(sizes.width.value, sizes.height.value),
   props.radius,
   props.strength,

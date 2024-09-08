@@ -1,9 +1,9 @@
 import { useTresContext } from '@tresjs/core'
 import { inject, onUnmounted, shallowRef, watchEffect } from 'vue'
 import type { Pass } from 'three/examples/jsm/postprocessing/Pass.js'
-import { effectComposerInjectionKey } from '../three/EffectComposer.vue'
+import { effectComposerInjectionKey } from '../EffectComposer.vue'
 
-export const useEffectThree = <T extends Pass>(newPassFunction: () => T) => {
+export const useEffect = <T extends Pass>(newPassFunction: () => T) => {
   const composer = inject(effectComposerInjectionKey)
 
   const pass = shallowRef<T>(newPassFunction())

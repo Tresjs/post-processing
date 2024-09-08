@@ -1,7 +1,7 @@
 <script lang="ts">
 import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js'
 import { makePropWatchers } from '../../util/prop'
-import { useEffectThree } from '../composables/useEffectThree'
+import { useEffect } from './composables/useEffect'
 
 export interface GlitchProps {
   /**
@@ -18,7 +18,7 @@ export interface GlitchProps {
 <script lang="ts" setup>
 const props = defineProps<GlitchProps>()
 
-const { pass } = useEffectThree(() => new GlitchPass(props.dtSize))
+const { pass } = useEffect(() => new GlitchPass(props.dtSize))
 
 defineExpose({ pass })
 

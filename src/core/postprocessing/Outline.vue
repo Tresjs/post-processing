@@ -6,7 +6,7 @@ import type { TresColor } from '@tresjs/core'
 import type { BlendFunction, KernelSize } from 'postprocessing'
 import type { Object3D, Texture } from 'three'
 import { makePropWatchers } from '../../util/prop'
-import { useEffect } from '../composables/effect'
+import { useEffect } from './composables/useEffect'
 
 export interface OutlineProps {
   /**

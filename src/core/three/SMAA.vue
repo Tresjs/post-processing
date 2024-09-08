@@ -3,7 +3,7 @@ import { useTresContext } from '@tresjs/core'
 import { useDevicePixelRatio } from '@vueuse/core'
 import { SMAAPass } from 'three/examples/jsm/postprocessing/SMAAPass.js'
 import { computed, watchEffect } from 'vue'
-import { useEffectThree } from '../composables/useEffectThree'
+import { useEffect } from './composables/useEffect'
 
 const props = defineProps<{
   width?: number
@@ -16,7 +16,7 @@ const { pixelRatio } = useDevicePixelRatio() // the renderers pixel ratio is not
 const width = computed(() => props.width ?? sizes.width.value * pixelRatio.value)
 const height = computed(() => props.height ?? sizes.height.value * pixelRatio.value)
 
-const { pass } = useEffectThree(() => new SMAAPass(width.value, height.value))
+const { pass } = useEffect(() => new SMAAPass(width.value, height.value))
 
 defineExpose({ pass })
 
