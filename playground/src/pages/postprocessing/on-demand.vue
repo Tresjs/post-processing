@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { TresCanvas } from '@tresjs/core'
 import { OrbitControls } from '@tresjs/cientos'
+import { TresCanvas } from '@tresjs/core'
 import { EffectComposer, Pixelation } from '@tresjs/post-processing'
 import { ref } from 'vue'
 import GraphPane from '../../components/GraphPane.vue'

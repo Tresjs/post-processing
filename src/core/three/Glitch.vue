@@ -1,7 +1,7 @@
 <script lang="ts">
 import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js'
-import { useEffectThree } from '../composables/useEffectThree'
 import { makePropWatchers } from '../../util/prop'
+import { useEffectThree } from '../composables/useEffectThree'
 
 export interface GlitchProps {
   /**

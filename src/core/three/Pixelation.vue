@@ -1,9 +1,9 @@
 <script lang="ts">
-import { RenderPixelatedPass } from 'three/examples/jsm/postprocessing/RenderPixelatedPass.js'
 import { useTresContext } from '@tresjs/core'
+import { RenderPixelatedPass } from 'three/examples/jsm/postprocessing/RenderPixelatedPass.js'
 import { watchEffect } from 'vue'
-import { useEffectThree } from '../composables/useEffectThree'
 import { makePropWatchers } from '../../util/prop'
+import { useEffectThree } from '../composables/useEffectThree'
 
 export interface PixelationProps {
   pixelSize: number

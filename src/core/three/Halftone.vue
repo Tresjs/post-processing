@@ -1,6 +1,6 @@
 <script lang="ts">
-import { HalftonePass } from 'three/examples/jsm/postprocessing/HalftonePass.js'
 import { useTresContext } from '@tresjs/core'
+import { HalftonePass } from 'three/examples/jsm/postprocessing/HalftonePass.js'
 import { HalftoneShader } from 'three/examples/jsm/shaders/HalftoneShader.js'
 import { computed, watchEffect } from 'vue'
 import type { Blending } from 'three/src/constants.js'

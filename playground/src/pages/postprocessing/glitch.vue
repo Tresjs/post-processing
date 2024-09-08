@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { TresCanvas } from '@tresjs/core'
 import { OrbitControls } from '@tresjs/cientos'
-import { EffectComposer, Glitch } from '@tresjs/post-processing'
-import { BasicShadowMap, NoToneMapping, Vector2 } from 'three'
-import { GlitchMode } from 'postprocessing'
+import { TresCanvas } from '@tresjs/core'
 import { TresLeches, useControls } from '@tresjs/leches'
+import { EffectComposer, Glitch } from '@tresjs/post-processing'
+import { GlitchMode } from 'postprocessing'
+import { BasicShadowMap, NoToneMapping, Vector2 } from 'three'
 import '@tresjs/leches/styles'
 
 const gl = {

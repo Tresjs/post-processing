@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { SMAAPass } from 'three/examples/jsm/postprocessing/SMAAPass.js'
 import { useTresContext } from '@tresjs/core'
-import { computed, watchEffect } from 'vue'
 import { useDevicePixelRatio } from '@vueuse/core'
+import { SMAAPass } from 'three/examples/jsm/postprocessing/SMAAPass.js'
+import { computed, watchEffect } from 'vue'
 import { useEffectThree } from '../composables/useEffectThree'
 
 const props = defineProps<{

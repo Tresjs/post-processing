@@ -3,10 +3,10 @@ import { normalizeColor, useTresContext } from '@tresjs/core'
 import { OutlineEffect } from 'postprocessing'
 import { computed, watch } from 'vue'
 import type { TresColor } from '@tresjs/core'
-import type { Object3D, Texture } from 'three'
 import type { BlendFunction, KernelSize } from 'postprocessing'
-import { useEffect } from '../composables/effect'
+import type { Object3D, Texture } from 'three'
 import { makePropWatchers } from '../../util/prop'
+import { useEffect } from '../composables/effect'
 
 export interface OutlineProps {
   /**

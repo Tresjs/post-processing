@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { OrbitControls } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
-import { EffectComposerThree, PixelationThree } from '@tresjs/post-processing'
+import { EffectComposerThree } from '@tresjs/post-processing'
 
 defineProps<{
   wireframe?: boolean

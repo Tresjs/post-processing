@@ -1,9 +1,9 @@
 <script lang="ts">
-import { Vector2 } from 'three'
-import { computed, watchEffect } from 'vue'
 import { useTresContext } from '@tresjs/core'
+import { Vector2 } from 'three'
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
 import { LuminosityHighPassShader } from 'three/examples/jsm/shaders/LuminosityHighPassShader.js'
+import { watchEffect } from 'vue'
 import { useEffectThree } from '../composables/useEffectThree'
 
 export interface UnrealBloomProps {

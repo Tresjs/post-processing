@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { PixelationEffect } from 'postprocessing'
-import { useEffect } from '../composables/effect'
 import { makePropWatchersUsingAllProps } from '../../util/prop'
+import { useEffect } from '../composables/effect'
 
 export interface PixelationProps {
   /**

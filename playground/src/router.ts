@@ -1,5 +1,5 @@
-import type { RouteRecordRaw } from 'vue-router'
 import { createRouter, createWebHistory } from 'vue-router'
+import type { RouteRecordRaw } from 'vue-router'
 import { kebabCase } from './util/string'
 
 const makeRoute = (name: string, icon: string, isThreeEffect: boolean = true): RouteRecordRaw => {

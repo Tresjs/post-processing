@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { TresCanvas } from '@tresjs/core'
 import { OrbitControls } from '@tresjs/cientos'
-import { EffectComposer, Pixelation } from '@tresjs/post-processing'
+import { TresCanvas } from '@tresjs/core'
 import { TresLeches, useControls } from '@tresjs/leches'
+import { EffectComposer, Pixelation } from '@tresjs/post-processing'
 import '@tresjs/leches/styles'
 
 useControls('fpsgraph')

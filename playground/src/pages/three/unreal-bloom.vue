@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { OutputThree, UnrealBloomThree } from '@tresjs/post-processing'
+import { UnrealBloomThree } from '@tresjs/post-processing'
 import { ref } from 'vue'
 import BasicScene from '../../components/BasicScene.vue'
 

@@ -1,6 +1,6 @@
 import Bloom from './core/postprocessing/Bloom.vue'
-import Noise from './core/postprocessing/Noise.vue'
 import Glitch from './core/postprocessing/Glitch.vue'
+import Noise from './core/postprocessing/Noise.vue'
 import Outline from './core/postprocessing/Outline.vue'
 import Vignette from './core/postprocessing/Vignette.vue'
 import SMAAThree from './core/three/SMAA.vue' // TODO seperate exports differently
@@ -9,13 +9,13 @@ import GlitchThree from './core/three/Glitch.vue' // TODO seperate exports diffe
 import OutputThree from './core/three/Output.vue' // TODO seperate exports differently
 import DepthOfField from './core/postprocessing/DepthOfField.vue'
 import HalftoneThree from './core/three/Halftone.vue' // TODO seperate exports differently
-import EffectComposer from './core/EffectComposer.vue'
+import EffectComposer from './core/postprocessing/EffectComposer.vue'
 import PixelationThree from './core/three/Pixelation.vue' // TODO seperate exports differently
 import UnrealBloomThree from './core/three/UnrealBloom.vue' // TODO seperate exports differently
-import EffectComposerThree from './core/three/EffectComposer.vue'
-
 import { useEffect } from './core/composables/effect'
+
 import { useEffectThree } from './core/composables/useEffectThree'
+import EffectComposerThree from './core/three/EffectComposer.vue'
 
 export {
   Bloom,
@@ -23,19 +23,16 @@ export {
   Glitch,
   Outline,
   Vignette,
-  Pixelation,
-  DepthOfField,
-
   useEffect,
-  EffectComposer,
-
   SMAAThree,
+  Pixelation,
   GlitchThree,
   OutputThree,
+  DepthOfField,
   HalftoneThree,
+  EffectComposer,
+  useEffectThree,
   PixelationThree,
   UnrealBloomThree,
-
-  useEffectThree,
   EffectComposerThree,
 }

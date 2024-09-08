@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import type { BlendFunction } from 'postprocessing'
 import { useTresContext } from '@tresjs/core'
 import { DepthOfFieldEffect } from 'postprocessing'
+import type { BlendFunction } from 'postprocessing'
 import { makePropWatchers } from '../../util/prop'
 import { useEffect } from '../composables/effect'
 

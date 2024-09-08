@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { BloomEffect } from 'postprocessing'
 import type { BlendFunction, KernelSize } from 'postprocessing'
-import { useEffect } from '../composables/effect'
 import { makePropWatchers } from '../../util/prop'
+import { useEffect } from '../composables/effect'
 
 export interface BloomProps {
   /**
