@@ -22,9 +22,6 @@ export default defineConfig({
   },
   plugins: [
     vue({
-      script: {
-        propsDestructure: true,
-      },
       template: {
         compilerOptions: {
           isCustomElement: tag => tag.startsWith('Tres') && tag !== 'TresCanvas',
@@ -41,11 +38,6 @@ export default defineConfig({
     }),
   ],
   build: {
-    lib: {
-      entry: resolve(__dirname, 'src/index.ts'),
-      name: 'tres-postprocessing',
-      fileName: 'tres-postprocessing',
-    },
     copyPublicDir: false,
     watch: {
       include: [resolve(__dirname, 'src')],
@@ -60,10 +52,14 @@ export default defineConfig({
         }),
       ],
       external: ['three', 'vue', '@tresjs/core', 'postprocessing', '@vueuse/core'],
+      input: {
+        three: resolve(__dirname, 'src/core/three/index.ts'),
+        pmndrs: resolve(__dirname, 'src/core/pmndrs/index.ts'),
+      },
       output: {
+        entryFileNames: '[name].js',
         exports: 'named',
-        // Provide global variables to use in the UMD build
-        // for externalized deps
+        format: 'es',
         globals: {
           '@tresjs/core': 'TresjsCore',
           'three': 'Three',
