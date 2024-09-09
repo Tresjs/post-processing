@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Text3D } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
-import { EffectComposer, Glitch } from '@tresjs/post-processing'
+import { EffectComposer, Glitch } from '@tresjs/post-processing/pmndrs'
 
 import { Color } from 'three'
 

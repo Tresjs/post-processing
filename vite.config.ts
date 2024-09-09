@@ -1,3 +1,4 @@
+import { templateCompilerOptions } from '@tresjs/core'
 import vue from '@vitejs/plugin-vue'
 import { bold, gray, lightGreen, magenta } from 'kolorist'
 import { resolve } from 'pathe'
@@ -6,7 +7,6 @@ import { visualizer } from 'rollup-plugin-visualizer'
 import { defineConfig } from 'vite'
 import banner from 'vite-plugin-banner'
 import dts from 'vite-plugin-dts'
-
 import pkg from './package.json'
 
 // eslint-disable-next-line no-console
@@ -21,13 +21,7 @@ export default defineConfig({
     dedupe: ['@tresjs/core', '@vueuse/core'],
   },
   plugins: [
-    vue({
-      template: {
-        compilerOptions: {
-          isCustomElement: tag => tag.startsWith('Tres') && tag !== 'TresCanvas',
-        },
-      },
-    }),
+    vue(templateCompilerOptions),
     dts({
       insertTypesEntry: true,
     }),

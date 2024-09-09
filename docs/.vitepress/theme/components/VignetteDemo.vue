@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { OrbitControls } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
-import { DepthOfField, EffectComposer, Vignette } from '@tresjs/post-processing'
+import { DepthOfField, EffectComposer, Vignette } from '@tresjs/post-processing/pmndrs'
 import { BasicShadowMap, NoToneMapping, SRGBColorSpace } from 'three'
 
 import { useRouteDisposal } from '../composables/useRouteDisposal'

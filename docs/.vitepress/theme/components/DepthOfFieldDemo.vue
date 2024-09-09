@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { TresCanvas } from '@tresjs/core'
-import { DepthOfField, EffectComposer } from '@tresjs/post-processing'
+import { DepthOfField, EffectComposer } from '@tresjs/post-processing/pmndrs'
 import { gsap } from 'gsap'
 import { ref } from 'vue'
 

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { OrbitControls } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
-import { EffectComposer, Pixelation } from '@tresjs/post-processing'
+import { EffectComposer, Pixelation } from '@tresjs/post-processing/pmndrs'
 
 import { useRouteDisposal } from '../composables/useRouteDisposal'
 
