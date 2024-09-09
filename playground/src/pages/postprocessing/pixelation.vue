@@ -2,7 +2,7 @@
 import { OrbitControls } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
 import { TresLeches, useControls } from '@tresjs/leches'
-import { EffectComposer, Pixelation } from '@tresjs/post-processing'
+import { EffectComposer, Pixelation } from '@tresjs/post-processing/pmndrs'
 import '@tresjs/leches/styles'
 
 useControls('fpsgraph')

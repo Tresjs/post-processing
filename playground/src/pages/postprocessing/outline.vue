@@ -2,7 +2,7 @@
 import { OrbitControls } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
 import { TresLeches, useControls } from '@tresjs/leches'
-import { EffectComposer, Outline } from '@tresjs/post-processing'
+import { EffectComposer, Outline } from '@tresjs/post-processing/pmndrs'
 import { KernelSize } from 'postprocessing'
 import { NoToneMapping } from 'three'
 import { ref } from 'vue'

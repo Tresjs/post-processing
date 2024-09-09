@@ -2,7 +2,7 @@
 import { OrbitControls } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
 import { TresLeches, useControls } from '@tresjs/leches'
-import { DepthOfField, EffectComposer } from '@tresjs/post-processing'
+import { DepthOfField, EffectComposer } from '@tresjs/post-processing/pmndrs'
 
 import { computed } from 'vue'
 import type { Ref } from 'vue'
