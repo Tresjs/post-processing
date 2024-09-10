@@ -19,6 +19,10 @@
     "effects",
     "fx"
   ],
+  "maintainers": [
+    "Alvaro Saburido (https://github.com/alvarosabu/)",
+    "Tino Koch (https://github.com/Tinoooo)"
+  ],
   "exports": {
     "./three": {
       "types": "./dist/three.d.ts",
@@ -27,7 +31,8 @@
     "./pmndrs": {
       "types": "./dist/pmndrs.d.ts",
       "import": "./dist/pmndrs.js"
-    }
+    },
+    "./*": "./*"
   },
   "files": [
     "*.d.ts",

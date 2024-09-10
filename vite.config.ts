@@ -36,6 +36,13 @@ export default defineConfig({
     watch: {
       include: [resolve(__dirname, 'src')],
     },
+    lib: {
+      entry: {
+        three: resolve(__dirname, 'src/core/three/index.ts'),
+        pmndrs: resolve(__dirname, 'src/core/pmndrs/index.ts'),
+      },
+      formats: ['es'],
+    },
     rollupOptions: {
       plugins: [
         analyze(),
@@ -46,10 +53,6 @@ export default defineConfig({
         }),
       ],
       external: ['three', 'vue', '@tresjs/core', 'postprocessing', '@vueuse/core'],
-      input: {
-        three: resolve(__dirname, 'src/core/three/index.ts'),
-        pmndrs: resolve(__dirname, 'src/core/pmndrs/index.ts'),
-      },
       output: {
         entryFileNames: '[name].js',
         exports: 'named',
