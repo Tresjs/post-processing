@@ -21,7 +21,7 @@ const props = withDefaults(defineProps<VignetteProps>(), {
   darkness: 0.5,
 })
 
-const { pass, effect } = useEffect(() => new VignetteEffect(props))
+const { pass, effect } = useEffect(() => new VignetteEffect(props), props)
 defineExpose({ pass, effect })
 
 makePropWatchersUsingAllProps(

@@ -65,7 +65,7 @@ const props = withDefaults(
   },
 )
 
-const { pass, effect } = useEffect(() => new BloomEffect(props))
+const { pass, effect } = useEffect(() => new BloomEffect(props), props)
 
 defineExpose({ pass, effect })
 

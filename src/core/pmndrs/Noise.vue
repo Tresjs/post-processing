@@ -17,7 +17,7 @@ const props = withDefaults(defineProps<NoiseProps>(), {
   blendFunction: BlendFunction.SCREEN,
 })
 
-const { pass, effect } = useEffect(() => new NoiseEffect(props))
+const { pass, effect } = useEffect(() => new NoiseEffect(props), props)
 defineExpose({ pass, effect })
 
 makePropWatchersUsingAllProps(

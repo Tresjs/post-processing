@@ -12,7 +12,7 @@ export interface PixelationProps {
 
 const props = defineProps<PixelationProps>()
 
-const { pass, effect } = useEffect(() => new PixelationEffect(props.granularity))
+const { pass, effect } = useEffect(() => new PixelationEffect(props.granularity), props)
 defineExpose({ pass, effect })
 
 makePropWatchersUsingAllProps(

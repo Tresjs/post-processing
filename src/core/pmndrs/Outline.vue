@@ -86,7 +86,7 @@ const params: OutlineEffectParameters = {
   visibleEdgeColor: colorToNumber(props.visibleEdgeColor),
 }
 
-const { pass, effect } = useEffect(() => new OutlineEffect(scene.value, camera.value, params))
+const { pass, effect } = useEffect(() => new OutlineEffect(scene.value, camera.value, params), props)
 
 defineExpose({ pass, effect })
 

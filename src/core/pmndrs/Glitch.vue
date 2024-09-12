@@ -54,7 +54,7 @@ export interface GlitchProps {
 
 const props = defineProps<GlitchProps>()
 
-const { pass, effect } = useEffect(() => new GlitchEffect(props))
+const { pass, effect } = useEffect(() => new GlitchEffect(props), props)
 defineExpose({ pass, effect })
 
 watchEffect(() => {

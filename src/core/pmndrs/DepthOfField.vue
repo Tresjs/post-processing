@@ -44,7 +44,7 @@ export interface DepthOfFieldProps {
 const props = defineProps<DepthOfFieldProps>()
 const { camera } = useTresContext()
 
-const { pass, effect } = useEffect(() => new DepthOfFieldEffect(camera.value, props))
+const { pass, effect } = useEffect(() => new DepthOfFieldEffect(camera.value, props), props)
 defineExpose({ pass, effect })
 
 makePropWatchers(
