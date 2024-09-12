@@ -18,7 +18,7 @@ export interface GlitchProps {
 <script lang="ts" setup>
 const props = defineProps<GlitchProps>()
 
-const { pass } = useEffect(() => new GlitchPass(props.dtSize))
+const { pass } = useEffect(() => new GlitchPass(props.dtSize), props)
 
 defineExpose({ pass })
 

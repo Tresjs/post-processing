@@ -1,6 +1,6 @@
 import { useTresContext } from '@tresjs/core'
 import { EffectPass } from 'postprocessing'
-import { inject, onUnmounted, shallowRef, watchEffect } from 'vue'
+import { inject, nextTick, onUnmounted, shallowRef, watchEffect } from 'vue'
 import type { Effect } from 'postprocessing'
 import type { ShallowRef } from 'vue'
 import { effectComposerInjectionKey } from '../EffectComposer.vue'
@@ -21,12 +21,10 @@ export const useEffect = <T extends Effect>(newEffectFunction: () => T): {
     effect.value.mainCamera = camera.value
   })
 
-  let unwatch = () => {} // seperate declaration prevents error in HMR
-
-  unwatch = watchEffect(() => {
+  const unwatch = watchEffect(() => {
     if (!camera.value || !composer?.value || !scene.value) { return }
 
-    unwatch()
+    nextTick(() => unwatch())
     if (effect.value) { return }
 
     effect.value = newEffectFunction()
