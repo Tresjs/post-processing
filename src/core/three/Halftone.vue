@@ -6,12 +6,12 @@ import { computed, watchEffect } from 'vue'
 import type { Blending } from 'three/src/constants.js'
 import { useEffect } from './composables/useEffect'
 
-export const Dot = 1
-export const Ellipse = 2
-export const Line = 3
-export const Square = 4
-
-export type HalftoneShape = typeof Dot | typeof Ellipse | typeof Line | typeof Square
+export enum HalftoneShape {
+  Dot = 1,
+  Ellipse = 2,
+  Line = 3,
+  Square = 4,
+}
 
 interface HalftonePassProps {
   shape?: HalftoneShape
