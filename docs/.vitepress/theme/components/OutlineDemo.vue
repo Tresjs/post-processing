@@ -15,7 +15,6 @@ import '@tresjs/leches/styles'
 const gl = {
   clearColor: '#121212',
   toneMapping: NoToneMapping,
-  disableRender: true,
 }
 
 const { effectComposer } = useRouteDisposal()

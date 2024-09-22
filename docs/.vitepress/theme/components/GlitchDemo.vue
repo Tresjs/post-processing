@@ -11,7 +11,6 @@ const gl = {
   clearColor: '#121212',
   shadows: true,
   alpha: false,
-  disableRender: true,
 }
 
 // Need to dispose of the effect composer when the route changes because Vitepress doesnt unmount the components

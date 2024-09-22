@@ -13,7 +13,6 @@ import '@tresjs/leches/styles'
 const gl = {
   clearColor: '#4ADE80',
   toneMapping: NoToneMapping,
-  disableRender: true,
   multisampling: 8,
 }
 

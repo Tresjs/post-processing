@@ -11,7 +11,6 @@ const gl = {
   shadows: true,
   clearColor: '#4ADE80',
   toneMapping: NoToneMapping,
-  disableRender: true,
   shadowMapType: BasicShadowMap,
 }
 
