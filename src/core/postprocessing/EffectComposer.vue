@@ -1,13 +1,13 @@
 <script lang="ts">
-import { useLoop, useTresContext } from '@tresjs/core'
-import { DepthDownsamplingPass, EffectComposer as EffectComposerImpl, NormalPass, RenderPass } from 'postprocessing'
-import { HalfFloatType } from 'three'
-import WEBGL from 'three/examples/jsm/capabilities/WebGL.js'
-
-import { computed, onUnmounted, provide, shallowRef, watch } from 'vue'
-
 import type { EffectComposer } from 'postprocessing'
 import type { InjectionKey, ShallowRef } from 'vue'
+import { useLoop, useTresContext } from '@tresjs/core'
+import { DepthDownsamplingPass, EffectComposer as EffectComposerImpl, NormalPass, RenderPass } from 'postprocessing'
+
+import { HalfFloatType } from 'three'
+
+import WEBGL from 'three/examples/jsm/capabilities/WebGL.js'
+import { computed, onUnmounted, provide, shallowRef, watch } from 'vue'
 
 export const effectComposerInjectionKey: InjectionKey<ShallowRef<EffectComposer | null>> = Symbol('effectComposer')
 

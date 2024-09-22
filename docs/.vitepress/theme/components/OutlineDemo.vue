@@ -1,13 +1,13 @@
 <script lang="ts" setup>
+import type { Intersection, Object3D } from 'three'
 import { OrbitControls } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
 import { TresLeches, useControls } from '@tresjs/leches'
 import { EffectComposer, Outline } from '@tresjs/post-processing'
 import { KernelSize } from 'postprocessing'
 import { NoToneMapping } from 'three'
-import { ref } from 'vue'
 
-import type { Intersection, Object3D } from 'three'
+import { ref } from 'vue'
 import { useRouteDisposal } from '../composables/useRouteDisposal'
 
 import '@tresjs/leches/styles'

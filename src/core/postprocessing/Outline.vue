@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { normalizeColor, useTresContext } from '@tresjs/core'
-import { OutlineEffect } from 'postprocessing'
-import { computed, watch } from 'vue'
 import type { TresColor } from '@tresjs/core'
 import type { BlendFunction, KernelSize } from 'postprocessing'
 import type { Object3D, Texture } from 'three'
+import { normalizeColor, useTresContext } from '@tresjs/core'
+import { OutlineEffect } from 'postprocessing'
+import { computed, watch } from 'vue'
 import { makePropWatchers } from '../../util/prop'
 import { useEffect } from './composables/useEffect'
 

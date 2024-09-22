@@ -1,5 +1,5 @@
-import { watch } from 'vue'
 import type { Ref, WatchOptions } from 'vue'
+import { watch } from 'vue'
 import { get, set } from './object'
 
 /**
