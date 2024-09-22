@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useLoop } from '@tresjs/core'
 import { GlitchEffect, GlitchMode } from 'postprocessing'
 import { watchEffect } from 'vue'
 import type { BlendFunction } from 'postprocessing'
@@ -56,6 +57,9 @@ const props = defineProps<GlitchProps>()
 
 const { pass, effect } = useEffect(() => new GlitchEffect(props), props)
 defineExpose({ pass, effect })
+
+const { onBeforeRender } = useLoop()
+onBeforeRender(({ invalidate }) => invalidate())
 
 watchEffect(() => {
   const getMode = () => {

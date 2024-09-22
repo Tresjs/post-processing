@@ -1,4 +1,5 @@
 <script lang="ts">
+import { useLoop } from '@tresjs/core'
 import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js'
 import { makePropWatchers } from '../../util/prop'
 import { useEffect } from './composables/useEffect'
@@ -21,6 +22,9 @@ const props = defineProps<GlitchProps>()
 const { pass } = useEffect(() => new GlitchPass(props.dtSize), props)
 
 defineExpose({ pass })
+
+const { onBeforeRender } = useLoop()
+onBeforeRender(({ invalidate }) => invalidate())
 
 makePropWatchers(
   [[() => props.goWild, 'goWild']],

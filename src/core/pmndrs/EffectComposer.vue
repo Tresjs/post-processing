@@ -118,7 +118,7 @@ render(() => {
 
   renderCtx.frames.value = renderCtx.mode.value === 'always'
     ? 1
-    : renderCtx.frames.value = Math.max(0, renderCtx.frames.value - 1)
+    : Math.max(0, renderCtx.frames.value - 1)
 })
 
 onUnmounted(() => {
