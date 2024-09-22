@@ -52,6 +52,7 @@ const { edgeStrength, pulseSpeed, visibleEdgeColor, blur, kernelSize } = useCont
   <TresLeches />
   <TresCanvas
     v-bind="gl"
+    render-mode="on-demand"
   >
     <TresPerspectiveCamera
       :position="[1, 3, 3]"
