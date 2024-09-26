@@ -7,7 +7,6 @@ import { KernelSize } from 'postprocessing'
 import { NoToneMapping } from 'three'
 import { ref } from 'vue'
 
-import type { Intersection, Object3D } from 'three'
 import { useRouteDisposal } from '../composables/useRouteDisposal'
 
 import '@tresjs/leches/styles'

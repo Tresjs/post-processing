@@ -1,9 +1,9 @@
 <script setup lang="ts">
+import type { BlendFunction } from 'postprocessing'
+import type { Texture, Vector2 } from 'three'
 import { useLoop } from '@tresjs/core'
 import { GlitchEffect, GlitchMode } from 'postprocessing'
 import { watchEffect } from 'vue'
-import type { BlendFunction } from 'postprocessing'
-import type { Texture, Vector2 } from 'three'
 import { omit } from '../../util/object'
 import { makePropWatchersUsingAllProps } from '../../util/prop'
 import { useEffect } from './composables/useEffect'
