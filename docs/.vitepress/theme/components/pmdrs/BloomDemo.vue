@@ -1,17 +1,26 @@
 <script setup lang="ts">
-import { Text3D } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
-import { EffectComposer, Glitch } from '@tresjs/post-processing/pmndrs'
-
+import { Bloom, EffectComposer } from '@tresjs/post-processing/pmndrs'
+import { BlendFunction } from 'postprocessing'
 import { Color } from 'three'
+import { reactive } from 'vue'
 
-import { useRouteDisposal } from '../composables/useRouteDisposal'
+import { useRouteDisposal } from '../../composables/useRouteDisposal'
 
 const gl = {
   clearColor: '#121212',
   shadows: true,
   alpha: false,
 }
+
+const bloomParams = reactive({
+  luminanceThreshold: 0.1,
+  luminanceSmoothing: 0.3,
+  mipmapBlur: true,
+  intensity: 8,
+  radius: 0.5,
+  blendFunction: BlendFunction.ADD,
+})
 
 // Need to dispose of the effect composer when the route changes because Vitepress doesnt unmount the components
 const { effectComposer } = useRouteDisposal()
@@ -20,22 +29,17 @@ const { effectComposer } = useRouteDisposal()
 <template>
   <TresCanvas v-bind="gl">
     <TresPerspectiveCamera
-      :position="[0, 1, 5]"
+      :position="[5, 5, 5]"
       :look-at="[0, 0, 0]"
     />
-    <Suspense>
-      <Text3D
-        :position="[0, 1, 0]"
-        text="Post-processing"
-        font="https://raw.githubusercontent.com/Tresjs/assets/main/fonts/FiraCodeRegular.json"
-      >
-        <TresMeshStandardMaterial
-          color="hotpink"
-          :emissive="new Color('hotpink')"
-          :emissive-intensity="1.2"
-        />
-      </Text3D>
-    </Suspense>
+    <TresMesh>
+      <TresSphereGeometry :args="[2, 32, 32]" />
+      <TresMeshStandardMaterial
+        color="hotpink"
+        :emissive="new Color('hotpink')"
+        :emissive-intensity="1.2"
+      />
+    </TresMesh>
     <TresGridHelper />
 
     <TresAmbientLight :intensity="2" />
@@ -45,7 +49,7 @@ const { effectComposer } = useRouteDisposal()
     />
     <Suspense>
       <EffectComposer ref="effectComposer">
-        <Glitch />
+        <Bloom v-bind="bloomParams" />
       </EffectComposer>
     </Suspense>
   </TresCanvas>

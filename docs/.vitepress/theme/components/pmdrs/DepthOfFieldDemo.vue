@@ -4,7 +4,7 @@ import { DepthOfField, EffectComposer } from '@tresjs/post-processing/pmndrs'
 import { gsap } from 'gsap'
 import { ref } from 'vue'
 
-import { useRouteDisposal } from '../composables/useRouteDisposal'
+import { useRouteDisposal } from '../../composables/useRouteDisposal'
 
 const dofEffect = ref<InstanceType<typeof DepthOfField> | null>(null)
 

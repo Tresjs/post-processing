@@ -3,7 +3,7 @@ import { OrbitControls } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
 import { EffectComposer, Pixelation } from '@tresjs/post-processing/pmndrs'
 
-import { useRouteDisposal } from '../composables/useRouteDisposal'
+import { useRouteDisposal } from '../../composables/useRouteDisposal'
 
 // Need to dispose of the effect composer when the route changes because Vitepress doesnt unmount the components
 const { effectComposer } = useRouteDisposal()
