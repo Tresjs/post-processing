@@ -24,6 +24,7 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SMAAThreeDemo: typeof import('./.vitepress/theme/components/three/SMAAThreeDemo.vue')['default']
+    UnrealBloomThreeDemo: typeof import('./.vitepress/theme/components/three/UnrealBloomThreeDemo.vue')['default']
     VignetteDemo: typeof import('./.vitepress/theme/components/pmdrs/VignetteDemo.vue')['default']
   }
 }
