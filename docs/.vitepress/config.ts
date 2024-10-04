@@ -63,9 +63,9 @@ export default defineConfig({
         items: [
           { text: 'Glitch', link: '/guide/three/glitch' },
           { text: 'Halftone', link: '/guide/three/halftone' },
-          { text: 'Outline', link: '/guide/three/outline' },
+          { text: 'SMAA', link: '/guide/three/smaa' },
           { text: 'Pixelation', link: '/guide/three/pixelation' },
-          { text: 'Vignette', link: '/guide/three/vignette' },
+          { text: 'Unreal Bloom', link: '/guide/three/unreal-bloom' },
         ],
       },
     ],
