@@ -12,6 +12,7 @@ declare module 'vue' {
     DepthOfFieldDemo: typeof import('./.vitepress/theme/components/pmdrs/DepthOfFieldDemo.vue')['default']
     DocsDemo: typeof import('./.vitepress/theme/components/DocsDemo.vue')['default']
     GlitchDemo: typeof import('./.vitepress/theme/components/pmdrs/GlitchDemo.vue')['default']
+    GlitchTreeDemo: typeof import('./.vitepress/theme/components/three/GlitchTreeDemo.vue')['default']
     LoveVueThreeJS: typeof import('./.vitepress/theme/components/LoveVueThreeJS.vue')['default']
     NoiseDemo: typeof import('./.vitepress/theme/components/pmdrs/NoiseDemo.vue')['default']
     OutlineDemo: typeof import('./.vitepress/theme/components/pmdrs/OutlineDemo.vue')['default']

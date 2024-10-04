@@ -61,7 +61,7 @@ export default defineConfig({
       {
         text: 'Three',
         items: [
-
+          { text: 'Glitch', link: '/guide/three/glitch' },
         ],
       },
     ],

@@ -1,0 +1,34 @@
+# Glitch
+
+<DocsDemo>
+  <GlitchTreeDemo />
+</DocsDemo>
+
+Glitch is an effect that simulates that simulates digital glitches, which are random or intentional errors that occur in digital media such as images, videos, or audio. The effect can be used to create a distorted or disrupted appearance, with elements of the scene appearing to shift or flicker in a chaotic manner.
+
+The native `<Glitch />` pass in TresJS allows you to add this effect to your 3D scenes, and provides several parameters that can be tweaked to achieve the desired glitchy look, such as delay, duration, strength, mode, and more. The end result can be a unique and striking visual style that adds an extra layer of interest to your 3D scenes.
+
+::: warning
+This effect may potentially cause epileptic seizures in people with photosensitive epilepsy. Viewer discretion is advised.
+:::
+
+## Usage
+
+```vue
+<script setup lang="ts">
+import { EffectComposer, Glitch } from '@tresjs/post-processing/three'
+</script>
+
+<template>
+  <EffectComposer>
+    <Glitch />
+  </EffectComposer>
+</template>
+```
+
+## Props
+
+| Prop    | Description                                                                                                        | Default |
+|---------|--------------------------------------------------------------------------------------------------------------------|---------|
+| `dtSize` | The size of the generated noise map. Will be ignored if a perturbation map is provided. This prop is not reactive. | `64`    |
+| `goWild` | If true, the glitch effect will be more wild 🤪  | `false`
