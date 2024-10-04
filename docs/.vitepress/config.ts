@@ -62,6 +62,10 @@ export default defineConfig({
         text: 'Three',
         items: [
           { text: 'Glitch', link: '/guide/three/glitch' },
+          { text: 'Halftone', link: '/guide/three/halftone' },
+          { text: 'Outline', link: '/guide/three/outline' },
+          { text: 'Pixelation', link: '/guide/three/pixelation' },
+          { text: 'Vignette', link: '/guide/three/vignette' },
         ],
       },
     ],
