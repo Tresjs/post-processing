@@ -9,11 +9,13 @@ declare module 'vue' {
   export interface GlobalComponents {
     BlenderCube: typeof import('./.vitepress/theme/components/BlenderCube.vue')['default']
     BloomDemo: typeof import('./.vitepress/theme/components/pmdrs/BloomDemo.vue')['default']
+    copy: typeof import('./.vitepress/theme/components/three/PixelationThreeDemo copy.vue')['default']
     DepthOfFieldDemo: typeof import('./.vitepress/theme/components/pmdrs/DepthOfFieldDemo.vue')['default']
     DocsDemo: typeof import('./.vitepress/theme/components/DocsDemo.vue')['default']
     GlitchDemo: typeof import('./.vitepress/theme/components/pmdrs/GlitchDemo.vue')['default']
     GlitchThreeDemo: typeof import('./.vitepress/theme/components/three/GlitchThreeDemo.vue')['default']
     GlitchTreeDemo: typeof import('./.vitepress/theme/components/three/GlitchTreeDemo.vue')['default']
+    HalftoneThreeDemo: typeof import('./.vitepress/theme/components/three/HalftoneThreeDemo.vue')['default']
     LoveVueThreeJS: typeof import('./.vitepress/theme/components/LoveVueThreeJS.vue')['default']
     NoiseDemo: typeof import('./.vitepress/theme/components/pmdrs/NoiseDemo.vue')['default']
     OutlineDemo: typeof import('./.vitepress/theme/components/pmdrs/OutlineDemo.vue')['default']
