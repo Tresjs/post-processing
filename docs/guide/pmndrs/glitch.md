@@ -4,10 +4,6 @@
   <GlitchDemo />
 </DocsDemo>
 
-::: info
-This effect extends the [GlitchEffect](https://pmndrs.github.io/postprocessing/public/docs/class/src/effects) from the [postprocessing](https://pmndrs.github.io/postprocessing/public/docs/index.html) library.
-:::
-
 Glitch is an effect that simulates that simulates digital glitches, which are random or intentional errors that occur in digital media such as images, videos, or audio. The effect can be used to create a distorted or disrupted appearance, with elements of the scene appearing to shift or flicker in a chaotic manner.
 
 The `<Glitch />` pass in TresJS allows you to add this effect to your 3D scenes, and provides several parameters that can be tweaked to achieve the desired glitchy look, such as delay, duration, strength, mode, and more. The end result can be a unique and striking visual style that adds an extra layer of interest to your 3D scenes.
