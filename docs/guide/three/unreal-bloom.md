@@ -27,3 +27,7 @@ import { EffectComposer, UnrealBloom } from '@tresjs/post-processing/three'
 | `radius`   | The radius of the bloom effect.                                                                   | `0`     |
 | `strength` | The strength of the bloom effect.                                                                 | `1`     |
 | `threshold`| The threshold luminance for the bloom effect.                                                     | `0`     |
+
+## Further Reading
+
+see [Three.js example](https://threejs.org/examples/?q=bloom#webgl_postprocessing_unreal_bloom)

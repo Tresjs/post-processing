@@ -4,9 +4,9 @@
   <GlitchThreeDemo />
 </DocsDemo>
 
-Glitch is an effect that simulates that simulates digital glitches, which are random or intentional errors that occur in digital media such as images, videos, or audio. The effect can be used to create a distorted or disrupted appearance, with elements of the scene appearing to shift or flicker in a chaotic manner.
+Glitch is an effect that simulates digital glitches, which are random or intentional errors that occur in digital media. The effect can be used to create a distorted or disrupted appearance, with elements of the scene appearing to shift or flicker in a chaotic manner.
 
-The native `<Glitch />` pass in TresJS allows you to add this effect to your 3D scenes, and provides several parameters that can be tweaked to achieve the desired glitchy look, such as delay, duration, strength, mode, and more. The end result can be a unique and striking visual style that adds an extra layer of interest to your 3D scenes.
+The native `<Glitch />` component allows you to add this effect to your 3D scenes, and provides several parameters that can be tweaked to achieve the desired glitchy look, such as delay, duration, strength, mode, and more. The end result can be a unique and striking visual style that adds an extra layer of interest to your 3D scenes.
 
 ::: warning
 This effect may potentially cause epileptic seizures in people with photosensitive epilepsy. Viewer discretion is advised.
@@ -32,3 +32,7 @@ import { EffectComposer, Glitch } from '@tresjs/post-processing/three'
 |---------|--------------------------------------------------------------------------------------------------------------------|---------|
 | `dtSize` | The size of the generated noise map. Will be ignored if a perturbation map is provided. This prop is not reactive. | `64`    |
 | `goWild` | If true, the glitch effect will be more wild 🤪  | `false`
+
+## Further Reading
+
+see [Three.js example](https://threejs.org/examples/?q=glit#webgl_postprocessing_glitch)

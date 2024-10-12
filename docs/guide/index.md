@@ -6,7 +6,7 @@
 
 The `post-processing` package leverages both the excellent work done by the pmndrs [postprocessing](https://github.com/pmndrs/postprocessing) package and native [Three.js post-processing effects](https://threejs.org/examples/?q=postprocessing#webgl_postprocessing). Providing you with an easy-to-use, Vue-centric solution that makes the developer experience (DX) smoother and more delightful.
 
-Because Post-processing, is not an easy task, fortunate now it is 😜.
+Post-processing used to be not an easy task, but fortunately, now it is. 😜
 
 ::: info
 This package is not required to use with the core library, but it can make your DX significally better, specially for complex scenes.
