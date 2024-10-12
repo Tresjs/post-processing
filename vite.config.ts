@@ -9,7 +9,6 @@ import banner from 'vite-plugin-banner'
 import dts from 'vite-plugin-dts'
 import pkg from './package.json'
 
-// eslint-disable-next-line no-console
 console.log(`${lightGreen('▲')} ${gray('■')} ${magenta('𝗫')} ${bold('Tres/post-processing')} v${pkg.version}`)
 
 // https://vitejs.dev/config/

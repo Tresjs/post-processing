@@ -34,3 +34,7 @@ import { EffectComposer, Halftone } from '@tresjs/post-processing/three'
 | `blending`    | The blending mode of the halftone effect.                                                         | `1`     |
 | `greyscale`   | If true, the halftone effect will be in greyscale.                                                | `false` |
 | `blendingMode`| The blending mode used for the halftone effect.                                                   | `1`     |
+
+## Further Reading
+
+see [Three.js example](https://threejs.org/examples/?q=halftone#webgl_postprocessing_rgb_halftone)

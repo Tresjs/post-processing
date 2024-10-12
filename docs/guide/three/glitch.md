@@ -32,3 +32,7 @@ import { EffectComposer, Glitch } from '@tresjs/post-processing/three'
 |---------|--------------------------------------------------------------------------------------------------------------------|---------|
 | `dtSize` | The size of the generated noise map. Will be ignored if a perturbation map is provided. This prop is not reactive. | `64`    |
 | `goWild` | If true, the glitch effect will be more wild 🤪  | `false`
+
+## Further Reading
+
+see [Three.js example](https://threejs.org/examples/?q=glit#webgl_postprocessing_glitch)
