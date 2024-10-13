@@ -1,4 +1,6 @@
-import Bloom from './Bloom.vue'
+/* eslint-disable perfectionist/sort-named-exports */
+
+import Bloom, { type BloomProps } from './Bloom.vue'
 import { useEffect } from './composables/useEffect'
 import DepthOfField from './DepthOfField.vue'
 import EffectComposer from './EffectComposer.vue'
@@ -9,6 +11,8 @@ import Pixelation from './Pixelation.vue'
 import Vignette from './Vignette.vue'
 
 export {
+  BloomProps,
+
   Bloom,
   DepthOfField,
   EffectComposer,
