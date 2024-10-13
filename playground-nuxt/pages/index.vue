@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { EffectComposer, Glitch } from '@tresjs/post-processing/pmndrs'
-import { BlendFunction } from 'postprocessing'
 import { BasicShadowMap, NoToneMapping, SRGBColorSpace } from 'three'
-import { reactive } from 'vue'
 
 const gl = {
   clearColor: '#82DBC5',
