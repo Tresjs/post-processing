@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { EffectComposer, Glitch } from '@tresjs/post-processing/pmndrs'
 import { BlendFunction } from 'postprocessing'
-import { BasicShadowMap, Color, NoToneMapping, SRGBColorSpace } from 'three'
+import { BasicShadowMap, NoToneMapping, SRGBColorSpace } from 'three'
 import { reactive } from 'vue'
 
 const gl = {
@@ -12,13 +12,6 @@ const gl = {
   outputColorSpace: SRGBColorSpace,
   toneMapping: NoToneMapping,
 }
-
-const bloomParams = reactive({
-  luminanceThreshold: 0.2,
-  luminanceSmoothing: 0.3,
-  intensity: 4.0,
-  blendFunction: BlendFunction.ADD,
-})
 </script>
 
 <template>
