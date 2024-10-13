@@ -3,11 +3,9 @@ import { resolve } from 'pathe'
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-
   modules: [
     '@tresjs/nuxt',
   ],
-
   vite: {
     resolve: {
       alias: {
@@ -17,6 +15,5 @@ export default defineNuxtConfig({
       dedupe: ['three', '@tresjs/core', '@vueuse/core'],
     },
   },
-
   compatibilityDate: '2024-10-13',
 })
