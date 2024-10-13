@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Bloom, EffectComposer } from '@tresjs/post-processing/pmndrs'
+import { EffectComposer, Glitch } from '@tresjs/post-processing/pmndrs'
 import { BlendFunction } from 'postprocessing'
 import { BasicShadowMap, Color, NoToneMapping, SRGBColorSpace } from 'three'
 import { reactive } from 'vue'
@@ -30,17 +30,13 @@ const bloomParams = reactive({
     <OrbitControls />
     <TresMesh>
       <TresSphereGeometry :args="[2, 32, 32]" />
-      <TresMeshStandardMaterial
-        color="hotpink"
-        :emissive="new Color('hotpink')"
-        :emissive-intensity="9"
-      />
+      <TresMeshNormalMaterial />
     </TresMesh>
     <TresGridHelper />
     <TresAmbientLight :intensity="1" />
     <Suspense>
       <EffectComposer>
-        <Bloom v-bind="bloomParams" />
+        <Glitch />
       </EffectComposer>
     </Suspense>
   </TresCanvas>
