@@ -16,7 +16,7 @@
   "devDependencies": {
     "@tresjs/leches": "^0.14.0",
     "@types/three": "^0.164.0",
-    "unplugin-auto-import": "^0.17.6",
+    "unplugin-auto-import": "^0.18.0",
     "unplugin-vue-components": "^0.27.0",
     "vite-plugin-qrcode": "^0.2.3"
   }
