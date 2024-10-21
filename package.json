@@ -63,7 +63,7 @@
     "postprocessing": "^6.36.3"
   },
   "devDependencies": {
-    "@release-it/conventional-changelog": "^8.0.2",
+    "@release-it/conventional-changelog": "^9.0.0",
     "@tresjs/core": "^4.3.0",
     "@tresjs/eslint-config": "^1.4.0",
     "@types/three": "^0.169.0",
