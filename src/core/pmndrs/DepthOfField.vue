@@ -49,6 +49,8 @@ const { camera } = useTresContext()
 const { pass, effect } = useEffect(() => new DepthOfFieldEffect(camera.value, props), props)
 defineExpose({ pass, effect })
 
+console.log('DepthOfFieldEffect', { pass, effect })
+
 makePropWatchers(
   [
     // blendFunction is not updated, because it has no setter in BloomEffect
