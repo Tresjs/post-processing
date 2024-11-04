@@ -1,10 +1,7 @@
 <script lang="ts" setup>
 import { TresCanvas } from '@tresjs/core'
-import { TresLeches, useControls } from '@tresjs/leches'
-import { Backdrop, OrbitControls } from '@tresjs/cientos'
+import { Backdrop } from '@tresjs/cientos'
 import { DepthOfField, EffectComposer } from '@tresjs/post-processing/pmndrs'
-import type { Ref } from 'vue'
-import { computed, ref } from 'vue'
 import '@tresjs/leches/styles'
 
 import Ducky from '../Ducky.vue'
