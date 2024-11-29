@@ -14,10 +14,11 @@ If the colors in your scene look incorrect after adding the EffectComposer, it m
 
 The `<ToneMapping>` component is easy to set up and comes with multiple tone mapping modes to suit different visual requirements. Below is an example of how to use it in a Vue application.
 
-```vue{2,6-7,31-33}
+```vue{2,4,7-8,32-35}
 <script setup lang="ts">
 import { EffectComposer, ToneMapping } from '@tresjs/post-processing/pmndrs'
 import { onUnmounted, shallowRef } from 'vue'
+import { ToneMappingMode } from 'postprocessing'
 
 const gl = {
   toneMappingExposure: 1,
@@ -46,7 +47,8 @@ onUnmounted(() => {
     <primitive ref="modelRef" :object="model" />
 
     <EffectComposer>
-      <ToneMapping />
+      <!-- For example, here the ToneMappingMode.UNCHARTED2 mode -->
+      <ToneMapping :mode="ToneMappingMode.UNCHARTED2" />
     </EffectComposer>
   </TresCanvas>
 </template>
