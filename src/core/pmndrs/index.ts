@@ -9,6 +9,7 @@ import Noise, { type NoiseProps } from './Noise.vue'
 import Outline, { type OutlineProps } from './Outline.vue'
 import Pixelation, { type PixelationProps } from './Pixelation.vue'
 import Vignette, { type VignetteProps } from './Vignette.vue'
+import ToneMapping, { type ToneMappingProps } from './ToneMapping.vue'
 
 export {
   Bloom,
@@ -20,6 +21,7 @@ export {
   Pixelation,
   useEffect,
   Vignette,
+  ToneMapping,
 
   BloomProps,
   DepthOfFieldProps,
@@ -29,4 +31,5 @@ export {
   OutlineProps,
   PixelationProps,
   VignetteProps,
+  ToneMappingProps,
 }
