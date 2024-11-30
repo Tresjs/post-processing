@@ -9,6 +9,7 @@ import Noise, { type NoiseProps } from './Noise.vue'
 import Outline, { type OutlineProps } from './Outline.vue'
 import Pixelation, { type PixelationProps } from './Pixelation.vue'
 import Vignette, { type VignetteProps } from './Vignette.vue'
+import BarrelBlur, { type BarrelBlurProps } from './BarrelBlur.vue'
 
 export {
   Bloom,
@@ -20,6 +21,7 @@ export {
   Pixelation,
   useEffect,
   Vignette,
+  BarrelBlur,
 
   BloomProps,
   DepthOfFieldProps,
@@ -29,4 +31,5 @@ export {
   OutlineProps,
   PixelationProps,
   VignetteProps,
+  BarrelBlurProps,
 }
