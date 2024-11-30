@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { BlendFunction, ToneMappingEffect, ToneMappingMode } from 'postprocessing'
-import { defineExpose, defineProps, withDefaults } from 'vue'
+import { defineExpose, defineProps, watchEffect, withDefaults } from 'vue'
 import { useEffect } from './composables/useEffect'
 import { makePropWatchers } from '../../util/prop'
 
@@ -58,10 +58,15 @@ const { pass, effect } = useEffect(() => new ToneMappingEffect(props), props)
 
 defineExpose({ pass, effect })
 
+watchEffect(() => {
+  if (!effect.value) { return }
+
+  effect.value.blendMode.blendFunction = Number(props.blendFunction)
+})
+
 makePropWatchers(
   [
     [() => props.mode, 'mode'],
-    [() => props.blendFunction, 'blendFunction'],
     [() => props.resolution, 'resolution'],
     [() => props.averageLuminance, 'averageLuminance'],
     [() => props.middleGrey, 'middleGrey'],

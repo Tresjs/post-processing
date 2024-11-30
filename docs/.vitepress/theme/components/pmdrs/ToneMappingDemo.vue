@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Environment, OrbitControls, useGLTF } from '@tresjs/cientos'
+import { ContactShadows, Environment, Levioso, OrbitControls, useGLTF } from '@tresjs/cientos'
 import { dispose, TresCanvas } from '@tresjs/core'
 import { TresLeches, useControls } from '@tresjs/leches'
 import { EffectComposer, ToneMapping } from '@tresjs/post-processing/pmndrs'
@@ -27,19 +27,11 @@ const { toneMappingExposure, mode } = useControls({
     step: 1,
   },
   mode: {
+    options: Object.keys(ToneMappingMode).map(key => ({
+      text: key,
+      value: ToneMappingMode[key],
+    })),
     value: ToneMappingMode.AGX,
-    options: [
-      { text: 'LINEAR', value: ToneMappingMode.LINEAR },
-      { text: 'REINHARD', value: ToneMappingMode.REINHARD },
-      { text: 'REINHARD2', value: ToneMappingMode.REINHARD2 },
-      { text: 'REINHARD2_ADAPTIVE', value: ToneMappingMode.REINHARD2_ADAPTIVE },
-      { text: 'UNCHARTED2', value: ToneMappingMode.UNCHARTED2 },
-      { text: 'OPTIMIZED_CINEON', value: ToneMappingMode.OPTIMIZED_CINEON },
-      { text: 'CINEON', value: ToneMappingMode.CINEON },
-      { text: 'ACES_FILMIC', value: ToneMappingMode.ACES_FILMIC },
-      { text: 'AGX', value: ToneMappingMode.AGX },
-      { text: 'NEUTRAL', value: ToneMappingMode.NEUTRAL },
-    ],
   },
 })
 
@@ -56,16 +48,23 @@ onUnmounted(() => {
     :toneMappingExposure="toneMappingExposure.value"
   >
     <TresPerspectiveCamera
-      :position="[5, 5, 5]"
-      :look-at="[0, 0, 0]"
+      :position="[6.5, 6.5, 6.5]"
+      :look-at="[0, 1, 0]"
     />
-    <OrbitControls auto-rotate />
+    <OrbitControls />
 
-    <primitive ref="modelRef" :object="model" :position-y="-.5" :scale=".25" />
+    <Levioso :speed=".5" :rotation-factor=".5" :float-factor="2" :range="[0, .5]">
+      <primitive ref="modelRef" :object="model" :position-y="-.5" :scale=".25" />
+    </Levioso>
 
     <Suspense>
-      <Environment :intensity="2" background :blur=".25" preset="dawn" />
+      <Environment background :blur=".35" preset="dawn" />
     </Suspense>
+
+    <ContactShadows
+      :opacity=".5"
+      :position-y="-3.25"
+    />
 
     <Suspense>
       <EffectComposer>
