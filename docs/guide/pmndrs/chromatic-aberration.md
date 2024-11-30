@@ -10,7 +10,7 @@ The `ChromaticAberration` effect is part of the [`postprocessing`](https://pmndr
 
 The `<ChromaticAberration>` component is easy to use and provides customizable options to suit different visual styles.
 
-```vue{2,33-37}
+```vue{2,39-45}
 <script setup lang="ts">
 import { EffectComposer, ChromaticAberration } from '@tresjs/post-processing/pmndrs'
 import { Vector2 } from 'three'
@@ -20,7 +20,7 @@ const gl = {
   multisampling: 8,
 }
 
-const offset = new Vector2(0.085, 0.0)
+const offset = new Vector2(0.07, 0.07)
 
 </script>
 
@@ -33,10 +33,27 @@ const offset = new Vector2(0.085, 0.0)
       :look-at="[0, 0, 0]"
     />
 
+    <template
+      v-for="i in 4"
+      :key="i"
+    >
+      <TresMesh
+        :position="[((i - 1) - (4 - 1) / 2) * 1.5, 0, 0]"
+      >
+        <TresBoxGeometry
+          :width="4"
+          :height="4"
+          :depth="4"
+        />
+        <TresMeshStandardMaterial color="#1C1C1E" />
+      </TresMesh>
+    </template>
+
     <EffectComposer>
-      <!-- Add Chromatic Aberration -->
       <ChromaticAberration
-        :offset="offset"
+        :offset
+        radial-modulation
+        :modulation-offset="0"
       />
     </EffectComposer>
   </TresCanvas>

@@ -1,50 +1,30 @@
 <script setup lang="ts">
-import { Environment, OrbitControls, useGLTF } from '@tresjs/cientos'
-import { dispose, TresCanvas } from '@tresjs/core'
+import { ContactShadows, Environment, OrbitControls } from '@tresjs/cientos'
+import { TresCanvas } from '@tresjs/core'
 import { TresLeches, useControls } from '@tresjs/leches'
 import { ChromaticAberration, EffectComposer } from '@tresjs/post-processing/pmndrs'
-import { ToneMappingMode } from 'postprocessing'
-import { NoToneMapping } from 'three'
-import { onUnmounted, shallowRef } from 'vue'
+import { NoToneMapping, Vector2 } from 'three'
+import { shallowRef, watchEffect } from 'vue'
 
 import '@tresjs/leches/styles'
 
 const gl = {
-  toneMappingExposure: 1,
+  clearColor: '#ffffff',
   toneMapping: NoToneMapping,
   multisampling: 8,
 }
 
-const modelRef = shallowRef(null)
+const chromaticAberrationRef = shallowRef(null)
 
-const { scene: model } = await useGLTF('https://raw.githubusercontent.com/Tresjs/assets/main/models/gltf/realistic-pokeball/scene.gltf', { draco: true })
-
-const { toneMappingExposure, mode } = useControls({
-  toneMappingExposure: {
-    value: 1,
-    min: 0,
-    max: 10,
-    step: 1,
-  },
-  mode: {
-    value: ToneMappingMode.AGX,
-    options: [
-      { text: 'LINEAR', value: ToneMappingMode.LINEAR },
-      { text: 'REINHARD', value: ToneMappingMode.REINHARD },
-      { text: 'REINHARD2', value: ToneMappingMode.REINHARD2 },
-      { text: 'REINHARD2_ADAPTIVE', value: ToneMappingMode.REINHARD2_ADAPTIVE },
-      { text: 'UNCHARTED2', value: ToneMappingMode.UNCHARTED2 },
-      { text: 'OPTIMIZED_CINEON', value: ToneMappingMode.OPTIMIZED_CINEON },
-      { text: 'CINEON', value: ToneMappingMode.CINEON },
-      { text: 'ACES_FILMIC', value: ToneMappingMode.ACES_FILMIC },
-      { text: 'AGX', value: ToneMappingMode.AGX },
-      { text: 'NEUTRAL', value: ToneMappingMode.NEUTRAL },
-    ],
-  },
+const { offsetX, offsetY, radialModulation, modulationOffset } = useControls({
+  offsetX: { value: 0.070, step: 0.001, max: 0.5 },
+  offsetY: { value: 0.070, step: 0.001, max: 0.5 },
+  radialModulation: true,
+  modulationOffset: { value: 0, step: 0.01 },
 })
 
-onUnmounted(() => {
-  dispose(model)
+watchEffect(() => {
+  modulationOffset.value.visible = radialModulation.value.value
 })
 </script>
 
@@ -53,7 +33,6 @@ onUnmounted(() => {
 
   <TresCanvas
     v-bind="gl"
-    :toneMappingExposure="toneMappingExposure.value"
   >
     <TresPerspectiveCamera
       :position="[5, 5, 5]"
@@ -61,16 +40,41 @@ onUnmounted(() => {
     />
     <OrbitControls auto-rotate />
 
-    <primitive ref="modelRef" :object="model" :position-y="-.5" :scale=".25" />
+    <template
+      v-for="i in 4"
+      :key="i"
+    >
+      <TresMesh
+        :position="[((i - 1) - (4 - 1) / 2) * 1.5, 0, 0]"
+      >
+        <TresBoxGeometry
+          :width="4"
+          :height="4"
+          :depth="4"
+        />
+        <TresMeshStandardMaterial color="#1C1C1E" />
+      </TresMesh>
+    </template>
 
-    <Suspense>
-      <Environment :intensity="2" background :blur=".25" preset="dawn" />
-    </Suspense>
+    <TresAmbientLight color="#ffffff" />
+
+    <TresDirectionalLight />
+
+    <ContactShadows
+      :opacity="1"
+      :position-y="-.5"
+      :scale="20"
+      :blur=".85"
+    />
 
     <Suspense>
       <EffectComposer>
-        <ChromaticAberration />
+        <ChromaticAberration ref="chromaticAberrationRef" :offset="new Vector2(offsetX.value, offsetY.value)" :radial-modulation="radialModulation.value" :modulation-offset="modulationOffset.value" />
       </EffectComposer>
+    </Suspense>
+
+    <Suspense>
+      <Environment :intensity="2" :blur="0" preset="snow" />
     </Suspense>
   </TresCanvas>
 </template>
