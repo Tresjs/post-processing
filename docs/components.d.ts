@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     BlenderCube: typeof import('./.vitepress/theme/components/BlenderCube.vue')['default']
     BloomDemo: typeof import('./.vitepress/theme/components/pmdrs/BloomDemo.vue')['default']
+    ChromaticAberrationDemo: typeof import('./.vitepress/theme/components/pmdrs/ChromaticAberrationDemo.vue')['default']
     copy: typeof import('./.vitepress/theme/components/three/HalftoneThreeDemo copy.vue')['default']
     DepthOfFieldDemo: typeof import('./.vitepress/theme/components/pmdrs/DepthOfFieldDemo.vue')['default']
     DocsDemo: typeof import('./.vitepress/theme/components/DocsDemo.vue')['default']
