@@ -27,5 +27,6 @@ declare module 'vue' {
     SMAAThreeDemo: typeof import('./.vitepress/theme/components/three/SMAAThreeDemo.vue')['default']
     UnrealBloomThreeDemo: typeof import('./.vitepress/theme/components/three/UnrealBloomThreeDemo.vue')['default']
     VignetteDemo: typeof import('./.vitepress/theme/components/pmdrs/VignetteDemo.vue')['default']
+    HueSaturation: typeof import('./.vitepress/theme/components/pmdrs/HueSaturationDemo.vue')['default']
   }
 }

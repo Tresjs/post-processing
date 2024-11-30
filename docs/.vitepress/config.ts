@@ -55,6 +55,7 @@ export default defineConfig({
           { text: 'Outline', link: '/guide/pmndrs/outline' },
           { text: 'Pixelation', link: '/guide/pmndrs/pixelation' },
           { text: 'Vignette', link: '/guide/pmndrs/vignette' },
+          { text: 'Hue & Saturation', link: '/guide/pmndrs/hue-saturation' },
         ],
       },
       {
