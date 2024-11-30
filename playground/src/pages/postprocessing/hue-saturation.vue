@@ -2,8 +2,8 @@
 import { Environment, OrbitControls } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
 import { TresLeches, useControls } from '@tresjs/leches'
-import { EffectComposer } from '@tresjs/post-processing/pmndrs'
-import { ToneMappingMode } from 'postprocessing'
+import { EffectComposer, HueSaturation } from '@tresjs/post-processing/pmndrs'
+import { BlendFunction, ToneMappingMode } from 'postprocessing'
 import { NoToneMapping } from 'three'
 
 import '@tresjs/leches/styles'
@@ -13,32 +13,15 @@ const gl = {
   multisampling: 8,
 }
 
-const { resolution, mode } = useControls({
-
-  mode: {
-    value: ToneMappingMode.AGX,
-    options: [
-      { text: 'LINEAR', value: ToneMappingMode.LINEAR },
-      { text: 'REINHARD', value: ToneMappingMode.REINHARD },
-      { text: 'REINHARD2', value: ToneMappingMode.REINHARD2 },
-      { text: 'REINHARD2_ADAPTIVE', value: ToneMappingMode.REINHARD2_ADAPTIVE },
-      { text: 'UNCHARTED2', value: ToneMappingMode.UNCHARTED2 },
-      { text: 'OPTIMIZED_CINEON', value: ToneMappingMode.OPTIMIZED_CINEON },
-      { text: 'CINEON', value: ToneMappingMode.CINEON },
-      { text: 'ACES_FILMIC', value: ToneMappingMode.ACES_FILMIC },
-      { text: 'AGX', value: ToneMappingMode.AGX },
-      { text: 'NEUTRAL', value: ToneMappingMode.NEUTRAL },
-    ],
-  },
-  resolution: {
-    value: 256,
-    options: [
-      { text: '128', value: 128 },
-      { text: '256', value: 256 },
-      { text: '512', value: 512 },
-      { text: '1024', value: 1024 },
-      { text: '2048', value: 2048 },
-    ],
+const { saturation, hue, blendFunction } = useControls({
+  hue: { value: 0, min: -Math.PI, max: Math.PI, step: 0.001 },
+  saturation: { value: 0, min: -1, max: 1, step: 0.001 },
+  blendFunction: {
+    options: Object.keys(BlendFunction).map(key => ({
+      text: key,
+      value: BlendFunction[key],
+    })),
+    value: BlendFunction.SRC,
   },
 })
 </script>
@@ -57,17 +40,17 @@ const { resolution, mode } = useControls({
 
     <TresMesh :position="[0, 1, 0]">
       <TresBoxGeometry :args="[2, 2, 2]" />
-      <TresMeshPhysicalMaterial color="#F57BAD" :roughness=".25" :transmission=".85" />
+      <TresMeshPhysicalMaterial color="white" :roughness="1" :transmission="0" />
     </TresMesh>
 
     <Suspense>
-      <Environment :intensity="2" background :blur=".25" preset="dawn" />
+      <Environment background :blur=".25" preset="modern" />
     </Suspense>
 
     <Suspense>
-      <!-- <EffectComposer> -->
-      <!-- <ToneMapping :mode="Number(mode.value)" :resolution="Number(resolution.value)" /> -->
-      <!-- </EffectComposer> -->
+      <EffectComposer>
+        <HueSaturation :blendFunction="Number(blendFunction.value)" :hue="hue.value" :saturation="saturation.value" />
+      </EffectComposer>
     </Suspense>
   </TresCanvas>
 </template>

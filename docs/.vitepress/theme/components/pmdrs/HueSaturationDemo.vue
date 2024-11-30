@@ -1,50 +1,28 @@
 <script setup lang="ts">
-import { Environment, OrbitControls, useGLTF } from '@tresjs/cientos'
-import { dispose, TresCanvas } from '@tresjs/core'
+import { Environment, OrbitControls } from '@tresjs/cientos'
+import { TresCanvas } from '@tresjs/core'
 import { TresLeches, useControls } from '@tresjs/leches'
-import { EffectComposer } from '@tresjs/post-processing/pmndrs'
-import { ToneMappingMode } from 'postprocessing'
+import { EffectComposer, HueSaturation } from '@tresjs/post-processing/pmndrs'
+import { BlendFunction, ToneMappingMode } from 'postprocessing'
 import { NoToneMapping } from 'three'
-import { onUnmounted, shallowRef } from 'vue'
 
 import '@tresjs/leches/styles'
 
 const gl = {
-  toneMappingExposure: 1,
   toneMapping: NoToneMapping,
   multisampling: 8,
 }
 
-const modelRef = shallowRef(null)
-
-const { scene: model } = await useGLTF('https://raw.githubusercontent.com/Tresjs/assets/main/models/gltf/realistic-pokeball/scene.gltf', { draco: true })
-
-const { toneMappingExposure, mode } = useControls({
-  toneMappingExposure: {
-    value: 1,
-    min: 0,
-    max: 10,
-    step: 1,
+const { saturation, hue, blendFunction } = useControls({
+  hue: { value: -Math.PI, min: -Math.PI, max: Math.PI, step: 0.001 },
+  saturation: { value: 1, min: -1, max: 1, step: 0.001 },
+  blendFunction: {
+    options: Object.keys(BlendFunction).map(key => ({
+      text: key,
+      value: BlendFunction[key],
+    })),
+    value: BlendFunction.SRC,
   },
-  mode: {
-    value: ToneMappingMode.AGX,
-    options: [
-      { text: 'LINEAR', value: ToneMappingMode.LINEAR },
-      { text: 'REINHARD', value: ToneMappingMode.REINHARD },
-      { text: 'REINHARD2', value: ToneMappingMode.REINHARD2 },
-      { text: 'REINHARD2_ADAPTIVE', value: ToneMappingMode.REINHARD2_ADAPTIVE },
-      { text: 'UNCHARTED2', value: ToneMappingMode.UNCHARTED2 },
-      { text: 'OPTIMIZED_CINEON', value: ToneMappingMode.OPTIMIZED_CINEON },
-      { text: 'CINEON', value: ToneMappingMode.CINEON },
-      { text: 'ACES_FILMIC', value: ToneMappingMode.ACES_FILMIC },
-      { text: 'AGX', value: ToneMappingMode.AGX },
-      { text: 'NEUTRAL', value: ToneMappingMode.NEUTRAL },
-    ],
-  },
-})
-
-onUnmounted(() => {
-  dispose(model)
 })
 </script>
 
@@ -53,7 +31,6 @@ onUnmounted(() => {
 
   <TresCanvas
     v-bind="gl"
-    :toneMappingExposure="toneMappingExposure.value"
   >
     <TresPerspectiveCamera
       :position="[5, 5, 5]"
@@ -61,15 +38,18 @@ onUnmounted(() => {
     />
     <OrbitControls auto-rotate />
 
-    <primitive ref="modelRef" :object="model" :position-y="-.5" :scale=".25" />
+    <TresMesh :position="[0, 1, 0]">
+      <TresBoxGeometry :args="[2, 2, 2]" />
+      <TresMeshPhysicalMaterial color="white" />
+    </TresMesh>
 
     <Suspense>
-      <Environment :intensity="2" background :blur=".25" preset="dawn" />
+      <Environment background :blur=".25" preset="modern" />
     </Suspense>
 
     <Suspense>
       <EffectComposer>
-        <!-- <ToneMapping :mode="Number(mode.value)" /> -->
+        <HueSaturation :blendFunction="Number(blendFunction.value)" :hue="hue.value" :saturation="saturation.value" />
       </EffectComposer>
     </Suspense>
   </TresCanvas>

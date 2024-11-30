@@ -1,74 +1,54 @@
 <script lang="ts" setup>
-import { BlendFunction, ToneMappingEffect, ToneMappingMode } from 'postprocessing'
-import { defineExpose, defineProps, withDefaults } from 'vue'
+import { BlendFunction, HueSaturationEffect } from 'postprocessing'
+import { defineExpose, defineProps, watchEffect, withDefaults } from 'vue'
 import { useEffect } from './composables/useEffect'
 import { makePropWatchers } from '../../util/prop'
 
 export interface HueSaturationProps {
   /**
-   * The tone mapping mode.
+   * The saturation adjustment. A value of 0.0 results in grayscale, and 1.0 leaves saturation unchanged.
+   * Range: [0.0, 1.0]
    */
-  mode?: ToneMappingMode
+  saturation?: number
 
   /**
-   * The blend function.
+   * The hue adjustment in radians.
+   * Range: [-π, π] (or [0, 2π] for a full rotation)
+   */
+  hue?: number
+
+  /**
+   * The blend function. Defines how the effect blends with the original scene.
    */
   blendFunction?: BlendFunction
 
-  /**
-   * The resolution for luminance texture. The resolution of the luminance texture. Must be a power of two.
-   */
-  resolution?: number
-
-  /**
-   * The average luminance. Only for `REINHARD2`.
-   */
-  averageLuminance?: number
-
-  /**
-   * The middle grey factor. Only for `REINHARD2`.
-   */
-  middleGrey?: number
-
-  /**
-   * The minimum luminance. Only for `REINHARD2`.
-   */
-  minLuminance?: number
-
-  /**
-   * The white point. Only for `REINHARD2`.
-   */
-  whitePoint?: number
 }
 
 const props = withDefaults(
   defineProps<HueSaturationProps>(),
   {
-    mode: ToneMappingMode.AGX,
+    saturation: 0.0,
+    hue: 0.0,
     blendFunction: BlendFunction.SRC,
-    resolution: 256,
-    averageLuminance: 1.0,
-    middleGrey: 0.6,
-    minLuminance: 0.01,
-    whitePoint: 4.0,
   },
 )
 
-const { pass, effect } = useEffect(() => new ToneMappingEffect(props), props)
+const { pass, effect } = useEffect(() => new HueSaturationEffect(props), props)
 
 defineExpose({ pass, effect })
 
 makePropWatchers(
   [
-    [() => props.mode, 'mode'],
-    [() => props.blendFunction, 'blendFunction'],
-    [() => props.resolution, 'resolution'],
-    [() => props.averageLuminance, 'averageLuminance'],
-    [() => props.middleGrey, 'middleGrey'],
-    [() => props.minLuminance, 'minLuminance'],
-    [() => props.whitePoint, 'whitePoint'],
+    [() => props.hue, 'hue'],
+    [() => props.saturation, 'saturation'],
   ],
   effect,
-  () => new ToneMappingEffect(),
+  () => new HueSaturationEffect(),
 )
+
+watchEffect(() => {
+  if (!effect.value) { return }
+
+  effect.value.blendMode.blendFunction = Number(props.blendFunction)
+})
 </script>

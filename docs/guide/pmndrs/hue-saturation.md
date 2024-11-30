@@ -1,70 +1,60 @@
-# ToneMapping
+# HueSaturation
 
 <DocsDemo>
-  <ToneMappingDemo />
+  <HueSaturationDemo />
 </DocsDemo>
 
-The `ToneMapping` effect from the [`postprocessing`](https://pmndrs.github.io/postprocessing/public/docs/class/src/effects/ToneMappingEffect.js~ToneMappingEffect.html) package provides an abstraction for various tone mapping algorithms to improve the visual rendering of HDR (high dynamic range) content. Tone mapping is used to map high-range brightness values to a range that is displayable on standard screens. This effect contributes significantly to the visual quality of your scene by controlling luminance and color balance.
-
-::: info
-If the colors in your scene look incorrect after adding the EffectComposer, it might be because tone mapping is deactivated by default, which is normal behavior. Add `<ToneMapping>` manually as an effect at the end of the `<EffectComposer>` to fix this.
-:::
+The `HueSaturation` effect is part of the [`postprocessing`](https://pmndrs.github.io/postprocessing/public/docs/class/src/effects/HueSaturationEffect.js~HueSaturationEffect.html) package. It allows you to adjust the hue and saturation of your scene, providing flexibility for color grading and artistic effects.
 
 ## Usage
 
-The `<ToneMapping>` component is easy to set up and comes with multiple tone mapping modes to suit different visual requirements. Below is an example of how to use it in a Vue application.
+The `<HueSaturation>` component is straightforward to use and provides customizable options to fine-tune the hue and saturation of your visuals.
 
-```vue{2,4,7-8,32-35}
+```vue{2,5-9,26-32}
 <script setup lang="ts">
-import { EffectComposer } from '@tresjs/post-processing/pmndrs'
-import { onUnmounted, shallowRef } from 'vue'
-import { ToneMappingMode } from 'postprocessing'
+import { HueSaturation } from '@tresjs/post-processing/pmndrs'
+import { BlendFunction } from 'postprocessing'
 
-const gl = {
-  toneMappingExposure: 1,
-  toneMapping: NoToneMapping,
-  multisampling: 8,
+const effectProps = {
+  saturation: 1,
+  hue: -Math.PI,
+  blendFunction: BlendFunction.SRC,
 }
-
-const modelRef = shallowRef(null)
-
-const { scene: model } = await useGLTF('https://raw.githubusercontent.com/Tresjs/assets/main/models/gltf/realistic-pokeball/scene.gltf', { draco: true })
-
-onUnmounted(() => {
-  dispose(modelRef.value)
-})
 </script>
 
 <template>
-  <TresCanvas
-    v-bind="gl"
-  >
+  <TresCanvas>
     <TresPerspectiveCamera
       :position="[5, 5, 5]"
       :look-at="[0, 0, 0]"
     />
 
-    <primitive ref="modelRef" :object="model" />
+    <OrbitControls auto-rotate />
 
-    <EffectComposer>
-      <!-- For example, here the ToneMappingMode.UNCHARTED2 mode -->
-      <!-- <ToneMapping :mode="ToneMappingMode.UNCHARTED2" /> -->
-    </EffectComposer>
+    <TresMesh :position="[0, 1, 0]">
+      <TresBoxGeometry :args="[2, 2, 2]" />
+      <TresMeshPhysicalMaterial color="white" />
+    </TresMesh>
+
+    <Suspense>
+      <EffectComposer>
+        <HueSaturation
+          v-bind="effectProps"
+        />
+      </EffectComposer>
+    </Suspense>
   </TresCanvas>
 </template>
 ```
 
 ## Props
 
-| Prop              | Description                                                                                                   | Default                                                                                           |
-| ----------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
-| mode              | Tone mapping mode used, defined by [`ToneMappingMode`](https://pmndrs.github.io/postprocessing/public/docs/variable/index.html#static-variable-ToneMappingMode).                                                         | `ToneMappingMode.AGX`                                                                             |
-| blendFunction     | Defines the [`BlendFunction`](https://pmndrs.github.io/postprocessing/public/docs/variable/index.html#static-variable-BlendFunction) used for the effect.                                                               | `BlendFunction.SRC`                                                                               |
-| resolution        | Resolution of the luminance texture (must be a power of two, e.g., 256, 512, etc.).                           | `256`                                                                                             |
-| averageLuminance  | Average luminance value used in adaptive calculations. Only applicable to `ToneMappingMode.REINHARD2`                        | `1.0`                                                                                             |
-| middleGrey        | Factor to adjust the balance of grey in luminance calculations. Only applicable to `ToneMappingMode.REINHARD2`               | `0.6`                                                                                             |
-| minLuminance      | Lower luminance limit, used to avoid overexposure effects in dark scenes. Only applicable to `ToneMappingMode.REINHARD2`     | `0.01`                                                                                            |
-| whitePoint        | White point for tone mapping, used to balance luminance values. Only applicable to `ToneMappingMode.REINHARD2`               | `4.0`                                                                                             |
+| Prop           | Description                                                                                                                                                                  | Default                  |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------ |
+| **saturation** | The saturation adjustment. A value of `0.0` results in grayscale, while `1.0` leaves saturation unchanged. Range: `[0.0, 1.0]`.                                               | `0.0`                    |
+| **hue**        | The hue adjustment in radians. Values range from `[-π, π]` (or `[0, 2π]` for a full rotation).                                                                               | `0.0`                    |
+| **blendFunction** | Defines how the effect blends with the original scene. See the [`BlendFunction`](https://pmndrs.github.io/postprocessing/public/docs/variable/index.html#static-variable-BlendFunction) options. | `BlendFunction.SRC`      |
 
 ## Further Reading
-see [postprocessing docs](https://pmndrs.github.io/postprocessing/public/docs/class/src/effects/ToneMappingEffect.js~ToneMappingEffect.html)
+
+For more details, see the [HueSaturation documentation](https://pmndrs.github.io/postprocessing/public/docs/class/src/effects/HueSaturationEffect.js~HueSaturationEffect.html).
