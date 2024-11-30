@@ -7,6 +7,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    BarrelBlurDemo: typeof import('./.vitepress/theme/components/pmdrs/BarrelBlurDemo.vue')['default']
     BlenderCube: typeof import('./.vitepress/theme/components/BlenderCube.vue')['default']
     BloomDemo: typeof import('./.vitepress/theme/components/pmdrs/BloomDemo.vue')['default']
     copy: typeof import('./.vitepress/theme/components/three/HalftoneThreeDemo copy.vue')['default']
@@ -27,6 +28,5 @@ declare module 'vue' {
     SMAAThreeDemo: typeof import('./.vitepress/theme/components/three/SMAAThreeDemo.vue')['default']
     UnrealBloomThreeDemo: typeof import('./.vitepress/theme/components/three/UnrealBloomThreeDemo.vue')['default']
     VignetteDemo: typeof import('./.vitepress/theme/components/pmdrs/VignetteDemo.vue')['default']
-    BarrelBlurDemo: typeof import('./.vitepress/theme/components/pmdrs/BarrelBlurDemo.vue')['default']
   }
 }

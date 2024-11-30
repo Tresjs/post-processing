@@ -1,34 +1,43 @@
-<script lang="ts">
-import { BlendFunction, VignetteEffect, VignetteTechnique } from 'postprocessing'
-import { omit } from '../../util/object'
-import { makePropWatchersUsingAllProps } from '../../util/prop'
-import { useEffect } from './composables/useEffect'
-
-export interface VignetteProps {
-  /**
-   * Whether the noise should be multiplied with the input color.
-   */
-  technique?: VignetteTechnique
-  blendFunction?: BlendFunction
-  offset: number
-  darkness: number
-}
-</script>
-
 <script lang="ts" setup>
-const props = withDefaults(defineProps<VignetteProps>(), {
-  technique: VignetteTechnique.DEFAULT,
-  blendFunction: BlendFunction.NORMAL,
-  offset: 0.5,
-  darkness: 0.5,
+import { BlendFunction } from 'postprocessing'
+import { BarrelBlurEffect } from './custom/barrel-blur/index'
+import { makePropWatchers } from '../../util/prop'
+import { useEffect } from './composables/useEffect'
+import { defineProps, watchEffect } from 'vue'
+
+export interface BarrelBlurProps {
+  /**
+   * The blend function for the effect.
+   * Determines how this effect blends with other effects.
+   */
+  blendFunction?: BlendFunction
+
+  /**
+   * The intensity of the barrel distortion.
+   * A value between 0 (no distortion) and 1 (maximum distortion).
+   */
+  amount?: number
+}
+
+const props = withDefaults(defineProps<BarrelBlurProps>(), {
+  amount: 0.25,
+  blendFunction: BlendFunction.OVERLAY,
 })
 
-const { pass, effect } = useEffect(() => new VignetteEffect(props), props)
+const { pass, effect } = useEffect(() => new BarrelBlurEffect(props), props)
 defineExpose({ pass, effect })
 
-makePropWatchersUsingAllProps(
-  omit(props, ['blendFunction']),
+watchEffect(() => {
+  if (!effect.value) { return }
+
+  effect.value.blendMode.blendFunction = Number(props.blendFunction)
+})
+
+makePropWatchers(
+  [
+    [() => props.amount, 'amount'],
+  ],
   effect,
-  () => new VignetteEffect(),
+  () => new BarrelBlurEffect(),
 )
 </script>

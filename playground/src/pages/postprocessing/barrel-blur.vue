@@ -1,56 +1,73 @@
 <script setup lang="ts">
-import { OrbitControls } from '@tresjs/cientos'
+import { ContactShadows, Environment, OrbitControls } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
 import { TresLeches, useControls } from '@tresjs/leches'
-import { DepthOfField, EffectComposer, Vignette } from '@tresjs/post-processing/pmndrs'
-import { BasicShadowMap, NoToneMapping, SRGBColorSpace } from 'three'
-import BlenderCube from '../../components/BlenderCube.vue'
+import { BarrelBlur, EffectComposer } from '@tresjs/post-processing/pmndrs'
+import { NoToneMapping, Vector2 } from 'three'
+import { BlendFunction } from 'postprocessing'
+
 import '@tresjs/leches/styles'
 
 const gl = {
-  clearColor: '#4f4f4f',
-  shadows: true,
-  alpha: false,
-  shadowMapType: BasicShadowMap,
-  outputColorSpace: SRGBColorSpace,
+  clearColor: '#ffffff',
   toneMapping: NoToneMapping,
+  multisampling: 8,
+  envMapIntensity: 10,
 }
 
-const { darkness, offset } = useControls({
-  offset: {
-    value: 0.3,
-    min: 0,
-    max: 1,
-    step: 0.01,
-  },
-  darkness: {
-    value: 0.9,
-    min: 0,
-    max: 1,
-    step: 0.01,
+const { blendFunction, amount } = useControls({
+  amount: { value: 0.2, step: 0.001, max: 1 },
+  blendFunction: {
+    options: Object.keys(BlendFunction).map(key => ({
+      text: key,
+      value: BlendFunction[key],
+    })),
+    value: BlendFunction.OVERLAY,
   },
 })
 </script>
 
 <template>
   <TresLeches />
-  <TresCanvas v-bind="gl">
-    <TresPerspectiveCamera :position="[3, 3, 3]" />
-    <OrbitControls />
+
+  <TresCanvas
+    v-bind="gl"
+  >
+    <TresPerspectiveCamera
+      :position="[0, 6.5, 6.5]"
+      :look-at="[0, 0, 0]"
+    />
+    <OrbitControls auto-rotate />
+
+    <template
+      v-for="i in 8"
+      :key="i"
+    >
+      <TresMesh
+        :position="[((i - 1) - (8 - 1) / 2) * -2, 0, ((i - 1) - (8 - 1) / 2) * -2]"
+      >
+        <TresBoxGeometry :args="[2, 2, 2]" />
+        <TresMeshStandardMaterial color="white" :roughness="1" :metalness="1" />
+      </TresMesh>
+    </template>
+
     <Suspense>
-      <BlenderCube />
+      <Environment :blur=".25 " preset="shangai" />
     </Suspense>
-    <EffectComposer>
-      <DepthOfField
-        :focus-distance="0"
-        :focal-length="0.02"
-        :bokeh-scale="2"
-      />
-      <Vignette
-        :darkness="darkness.value"
-        :offset="offset.value"
-      />
-    </EffectComposer>
-    <TresAmbientLight :intensity="1" />
+
+    <TresDirectionalLight color="white" />
+
+    <ContactShadows
+      :opacity=".65"
+      :position-y="-1"
+      :scale="35"
+      :blur="1"
+    />
+
+    <Suspense>
+      <EffectComposer>
+        <BarrelBlur :amount="amount.value" :blendFunction="blendFunction.value" />
+      </EffectComposer>
+    </Suspense>
   </TresCanvas>
 </template>
