@@ -1,27 +1,31 @@
-# Chromatic Aberration
+# Scanline
 
 <DocsDemo>
-  <ChromaticAberrationDemo />
+  <ScanlineDemo />
 </DocsDemo>
 
-The `ChromaticAberration` effect is part of the [`postprocessing`](https://pmndrs.github.io/postprocessing/public/docs/class/src/effects/ChromaticAberrationEffect.js~ChromaticAberrationEffect.html) package. It simulates the dispersion of light as it passes through a lens, creating subtle or dramatic color fringing effects at the edges of objects. This effect can enhance the visual appeal of your scene by adding a realistic lens effect or a stylized touch.
+The `Scanline` effect is part of the [`postprocessing`](https://pmndrs.github.io/postprocessing/public/docs/class/src/effects/ScanlineEffect.js~ScanlineEffect.html) package. It simulates scanlines reminiscent of old CRT displays, creating a nostalgic or stylized visual effect for your scene. This effect can enhance the retro aesthetic of your project or add a unique visual touch.
 
 ## Usage
 
-The `<ChromaticAberration>` component is easy to use and provides customizable options to suit different visual styles.
+The `<Scanline>` component is easy to use and provides customizable options to achieve the desired visual appearance.
 
-```vue{2,39-45}
+```vue{2,10-15,27-33}
 <script setup lang="ts">
-import { EffectComposer, ChromaticAberration } from '@tresjs/post-processing/pmndrs'
-import { Vector2 } from 'three'
+import { EffectComposer, Scanline } from '@tresjs/post-processing/pmndrs'
+import { BlendFunction } from 'postprocessing'
 
 const gl = {
   toneMapping: NoToneMapping,
   multisampling: 8,
 }
 
-const offset = new Vector2(0.07, 0.07)
-
+const effectProps = {
+  blendFunction: BlendFunction.HARD_MIX,
+  density: 1.25,
+  opacity: 0.65,
+  scrollSpeed: 0.05,
+}
 </script>
 
 <template>
@@ -33,29 +37,13 @@ const offset = new Vector2(0.07, 0.07)
       :look-at="[0, 0, 0]"
     />
 
-    <template
-      v-for="i in 4"
-      :key="i"
-    >
-      <TresMesh
-        :position="[((i - 1) - (4 - 1) / 2) * 1.5, 0, 0]"
-      >
-        <TresBoxGeometry
-          :width="4"
-          :height="4"
-          :depth="4"
+    <Suspense>
+      <EffectComposer>
+        <ScanlineEffect
+          v-bind="effectProps"
         />
-        <TresMeshStandardMaterial color="#1C1C1E" />
-      </TresMesh>
-    </template>
-
-    <EffectComposer>
-      <ChromaticAberration
-        :offset
-        radial-modulation
-        :modulation-offset="0"
-      />
-    </EffectComposer>
+      </EffectComposer>
+    </Suspense>
   </TresCanvas>
 </template>
 ```
@@ -64,14 +52,11 @@ const offset = new Vector2(0.07, 0.07)
 
 | Prop              | Description                                                                                                   | Default                   |
 | ----------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------- |
-| blendFunction     | Defines the [`BlendFunction`](https://pmndrs.github.io/postprocessing/public/docs/variable/index.html#static-variable-BlendFunction) used for the effect.                                                               | `BlendFunction.SRC`       |
-| offset            | The color offset vector determining the intensity and direction of chromatic aberration.                     | `Vector2(0.01, 0.01)`     |
-| radialModulation  | Enables radial modulation to vary the effect intensity based on distance from the center.                    | `false`                   |
-| modulationOffset  | Specifies the modulation offset when `radialModulation` is **enabled**.                                          | `0.15`                    |
-
-::: info
-The `modulationOffset` property is functional only when `radialModulation` is enabled.
-:::
+| blendFunction     | Defines the [`BlendFunction`](https://pmndrs.github.io/postprocessing/public/docs/variable/index.html#static-variable-BlendFunction) used for the effect.                                                               | `BlendFunction.OVERLAY`   |
+| density           | The density of the scanlines. Higher values increase the frequency of lines.                                  | `1.25`                    |
+| opacity           | The opacity of the scanlines. Controls the transparency of the effect.                                       | `1.0`                     |
+| scrollSpeed       | The speed at which the scanlines scroll vertically. When set to `0`, the scanlines remain static. Any non-zero value animates the scanlines vertically. | `0.0`                     |
 
 ## Further Reading
-see [postprocessing docs](https://pmndrs.github.io/postprocessing/public/docs/class/src/effects/ToneMappingEffect.js~ToneMappingEffect.html)
+
+See [postprocessing docs](https://pmndrs.github.io/postprocessing/public/docs/class/src/effects/ScanlineEffect.js~ScanlineEffect.html)

@@ -1,30 +1,30 @@
 <script setup lang="ts">
-import { ContactShadows, Environment, OrbitControls } from '@tresjs/cientos'
+import { Environment, Levioso, OrbitControls, Ring, Sphere, Stars } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
 import { TresLeches, useControls } from '@tresjs/leches'
-import { ChromaticAberration, EffectComposer } from '@tresjs/post-processing/pmndrs'
-import { NoToneMapping, Vector2 } from 'three'
-import { shallowRef, watchEffect } from 'vue'
+import { EffectComposer, Scanline } from '@tresjs/post-processing/pmndrs'
+import { DoubleSide, MathUtils, NoToneMapping } from 'three'
+import { BlendFunction } from 'postprocessing'
 
 import '@tresjs/leches/styles'
 
 const gl = {
-  clearColor: '#ffffff',
+  clearColor: '#000000',
   toneMapping: NoToneMapping,
   multisampling: 8,
 }
 
-const chromaticAberrationRef = shallowRef(null)
-
-const { offsetX, offsetY, radialModulation, modulationOffset } = useControls({
-  offsetX: { value: 0.070, step: 0.001, max: 0.5 },
-  offsetY: { value: 0.070, step: 0.001, max: 0.5 },
-  radialModulation: true,
-  modulationOffset: { value: 0, step: 0.01 },
-})
-
-watchEffect(() => {
-  modulationOffset.value.visible = radialModulation.value.value
+const { blendFunction, opacity, density, scrollSpeed } = useControls({
+  density: { value: 1.15, step: 0.001, max: 2 },
+  opacity: { value: 0.65, step: 0.1, min: 0, max: 1 },
+  scrollSpeed: { value: 0.05, step: 0.01, min: 0, max: 2 },
+  blendFunction: {
+    options: Object.keys(BlendFunction).map(key => ({
+      text: key,
+      value: BlendFunction[key],
+    })),
+    value: BlendFunction.HARD_MIX,
+  },
 })
 </script>
 
@@ -35,45 +35,34 @@ watchEffect(() => {
     v-bind="gl"
   >
     <TresPerspectiveCamera
-      :position="[5, 5, 5]"
+      :position="[6.5, 3, 6.5]"
       :look-at="[0, 0, 0]"
     />
-    <OrbitControls auto-rotate />
-
-    <template
-      v-for="i in 4"
-      :key="i"
-    >
-      <TresMesh
-        :position="[((i - 1) - (4 - 1) / 2) * 1.5, 0, 0]"
-      >
-        <TresBoxGeometry
-          :width="4"
-          :height="4"
-          :depth="4"
-        />
-        <TresMeshStandardMaterial color="#1C1C1E" />
-      </TresMesh>
-    </template>
-
-    <TresAmbientLight color="#ffffff" />
-
-    <TresDirectionalLight />
-
-    <ContactShadows
-      :opacity="1"
-      :position-y="-.5"
-      :scale="20"
-      :blur=".85"
-    />
+    <OrbitControls auto-rotate :auto-rotate-speed=".5" />
 
     <Suspense>
-      <Environment :intensity="2" :blur="0" preset="snow" />
+      <Environment :blur="1" preset="snow" />
     </Suspense>
+
+    <TresAmbientLight />
+
+    <TresGroup :rotation-y="MathUtils.degToRad(5)" :rotation-x="MathUtils.degToRad(100)">
+      <Sphere :args="[2, 32, 16]">
+        <TresMeshPhysicalMaterial color="#FC7BAC" :side="DoubleSide" :transmission=".5" />
+      </Sphere>
+
+      <Levioso :speed="2.5" :rotationFactor="1" :floatFactor=".5">
+        <Ring :args="[4.25, 2.5, 32]" :scale-y="-1" :position-z="-.25">
+          <TresMeshPhysicalMaterial color="#ffffff" :side="DoubleSide" :transmission=".25" />
+        </Ring>
+      </Levioso>
+    </TresGroup>
+
+    <Stars />
 
     <Suspense>
       <EffectComposer>
-        <ChromaticAberration ref="chromaticAberrationRef" :offset="new Vector2(offsetX.value, offsetY.value)" :radial-modulation="radialModulation.value" :modulation-offset="modulationOffset.value" />
+        <Scanline :density="density.value" :opacity="opacity.value" :scrollSpeed="scrollSpeed.value" :blendFunction="Number(blendFunction.value)" />
       </EffectComposer>
     </Suspense>
   </TresCanvas>
