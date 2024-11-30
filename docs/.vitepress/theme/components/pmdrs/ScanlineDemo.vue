@@ -68,13 +68,13 @@ watchEffect(() => {
     />
 
     <Suspense>
-      <EffectComposer>
-        <ChromaticAberration ref="chromaticAberrationRef" :offset="new Vector2(offsetX.value, offsetY.value)" :radial-modulation="radialModulation.value" :modulation-offset="modulationOffset.value" />
-      </EffectComposer>
+      <Environment :intensity="2" :blur="0" preset="snow" />
     </Suspense>
 
     <Suspense>
-      <Environment :intensity="2" :blur="0" preset="snow" />
+      <EffectComposer>
+        <ChromaticAberration ref="chromaticAberrationRef" :offset="new Vector2(offsetX.value, offsetY.value)" :radial-modulation="radialModulation.value" :modulation-offset="modulationOffset.value" />
+      </EffectComposer>
     </Suspense>
   </TresCanvas>
 </template>

@@ -2,9 +2,10 @@
 import { ContactShadows, Environment, OrbitControls } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
 import { TresLeches, useControls } from '@tresjs/leches'
-import { ChromaticAberration, EffectComposer } from '@tresjs/post-processing/pmndrs'
+import { EffectComposer, Scanline } from '@tresjs/post-processing/pmndrs'
 import { NoToneMapping, Vector2 } from 'three'
 import { watchEffect } from 'vue'
+import { BlendFunction } from 'postprocessing'
 
 import '@tresjs/leches/styles'
 
@@ -15,15 +16,17 @@ const gl = {
   envMapIntensity: 10,
 }
 
-const { offsetX, offsetY, radialModulation, modulationOffset } = useControls({
-  offsetX: { value: 0.085, step: 0.001, max: 0.5 },
-  offsetY: { value: 0.0, step: 0.001, max: 0.5 },
-  radialModulation: false,
-  modulationOffset: { value: 0, step: 0.01 },
-})
-
-watchEffect(() => {
-  modulationOffset.value.visible = radialModulation.value.value
+const { blendFunction, opacity, density, scrollSpeed } = useControls({
+  density: { value: 1.15, step: 0.001, max: 2 },
+  opacity: { value: 1, step: 0.1, min: 0, max: 1 },
+  scrollSpeed: { value: 0.05, step: 0.01, min: 0, max: 2 },
+  blendFunction: {
+    options: Object.keys(BlendFunction).map(key => ({
+      text: key,
+      value: BlendFunction[key],
+    })),
+    value: BlendFunction.OVERLAY,
+  },
 })
 </script>
 
@@ -41,8 +44,10 @@ watchEffect(() => {
 
     <TresMesh :position="[0, .5, 0]">
       <TresBoxGeometry :args="[2, 2, 2]" />
-      <TresMeshPhysicalMaterial color="#82DBC5" :roughness=".25" />
+      <TresMeshStandardMaterial color="white" :roughness="1" :metalness="1" />
     </TresMesh>
+
+    <TresDirectionalLight color="white" />
 
     <ContactShadows
       :opacity="1"
@@ -51,7 +56,7 @@ watchEffect(() => {
 
     <Suspense>
       <EffectComposer>
-        <ChromaticAberration :offset="new Vector2(offsetX.value, offsetY.value)" :radial-modulation="radialModulation.value" :modulation-offset="modulationOffset.value" />
+        <Scanline :density="density.value" :opacity="opacity.value" :scrollSpeed="scrollSpeed.value" :blendFunction="Number(blendFunction.value)" />
       </EffectComposer>
     </Suspense>
   </TresCanvas>

@@ -7,7 +7,7 @@ import EffectComposer, { type EffectComposerProps } from './EffectComposer.vue'
 import Glitch, { type GlitchProps } from './Glitch.vue'
 import Noise, { type NoiseProps } from './Noise.vue'
 import Outline, { type OutlineProps } from './Outline.vue'
-import ChromaticAberration, { type ChromaticAberrationProps } from './ChromaticAberration.vue'
+import Scanline, { type ScanlineProps } from './Scanline.vue'
 import Pixelation, { type PixelationProps } from './Pixelation.vue'
 import Vignette, { type VignetteProps } from './Vignette.vue'
 
@@ -21,7 +21,7 @@ export {
   Pixelation,
   useEffect,
   Vignette,
-  ChromaticAberration,
+  Scanline,
 
   BloomProps,
   DepthOfFieldProps,
@@ -31,5 +31,5 @@ export {
   OutlineProps,
   PixelationProps,
   VignetteProps,
-  ChromaticAberrationProps,
+  ScanlineProps,
 }
