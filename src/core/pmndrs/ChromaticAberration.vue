@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { BlendFunction, ChromaticAberrationEffect } from 'postprocessing'
 import { Vector2 } from 'three'
-import { defineExpose, defineProps, withDefaults } from 'vue'
+import { defineExpose, defineProps, watchEffect, withDefaults } from 'vue'
 import { useEffect } from './composables/useEffect'
 import { makePropWatchers } from '../../util/prop'
 
@@ -40,6 +40,12 @@ const props = withDefaults(
 const { pass, effect } = useEffect(() => new ChromaticAberrationEffect(props), props)
 
 defineExpose({ pass, effect })
+
+watchEffect(() => {
+  if (!effect.value) { return }
+
+  effect.value.blendMode.blendFunction = Number(props.blendFunction)
+})
 
 makePropWatchers(
   [

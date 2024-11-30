@@ -5,6 +5,7 @@ import { TresLeches, useControls } from '@tresjs/leches'
 import { ChromaticAberration, EffectComposer } from '@tresjs/post-processing/pmndrs'
 import { NoToneMapping, Vector2 } from 'three'
 import { watchEffect } from 'vue'
+import { BlendFunction } from 'postprocessing'
 
 import '@tresjs/leches/styles'
 
@@ -15,11 +16,18 @@ const gl = {
   envMapIntensity: 10,
 }
 
-const { offsetX, offsetY, radialModulation, modulationOffset } = useControls({
+const { offsetX, offsetY, radialModulation, modulationOffset, blendFunction } = useControls({
   offsetX: { value: 0.085, step: 0.001, max: 0.5 },
   offsetY: { value: 0.0, step: 0.001, max: 0.5 },
   radialModulation: false,
   modulationOffset: { value: 0, step: 0.01 },
+  blendFunction: {
+    options: Object.keys(BlendFunction).map(key => ({
+      text: key,
+      value: BlendFunction[key],
+    })),
+    value: BlendFunction.SRC,
+  },
 })
 
 watchEffect(() => {
@@ -51,7 +59,7 @@ watchEffect(() => {
 
     <Suspense>
       <EffectComposer>
-        <ChromaticAberration :offset="new Vector2(offsetX.value, offsetY.value)" :radial-modulation="radialModulation.value" :modulation-offset="modulationOffset.value" />
+        <ChromaticAberration :offset="new Vector2(offsetX.value, offsetY.value)" :radial-modulation="radialModulation.value" :modulation-offset="modulationOffset.value" :blendFunction="Number(blendFunction.value)" />
       </EffectComposer>
     </Suspense>
   </TresCanvas>
