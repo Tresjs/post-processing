@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { BlendFunction, HueSaturationEffect } from 'postprocessing'
-import { defineExpose, defineProps, watchEffect, withDefaults } from 'vue'
+import { defineProps, watchEffect } from 'vue'
 import { useEffect } from './composables/useEffect'
 import { makePropWatchers } from '../../util/prop'
 
