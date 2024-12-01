@@ -1,4 +1,4 @@
-# HueSaturation
+# Hue & Saturation
 
 <DocsDemo>
   <HueSaturationDemo />
