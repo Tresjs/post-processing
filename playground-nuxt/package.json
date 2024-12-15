@@ -13,7 +13,7 @@
     "@tresjs/cientos": "^4.0.3",
     "@tresjs/nuxt": "^3.0.7",
     "@tresjs/post-processing": "^0.7.1",
-    "@types/three": "^0.169.0"
+    "@types/three": "^0.171.0"
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
