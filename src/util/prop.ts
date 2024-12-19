@@ -1,6 +1,6 @@
 import type { Ref, WatchOptions } from 'vue'
 import { watch } from 'vue'
-import { get, set } from './object'
+import { get, set } from './object.js'
 
 /**
  * Creates a prop watcher function that monitors changes to a property and updates a target object.

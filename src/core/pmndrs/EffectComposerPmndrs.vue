@@ -1,31 +1,17 @@
-<script lang="ts">
-import type { EffectComposer } from 'postprocessing'
-import type { InjectionKey, ShallowRef } from 'vue'
+<script setup lang="ts">
+import type { ShallowRef } from 'vue'
 import { useLoop, useTresContext } from '@tresjs/core'
 import { DepthDownsamplingPass, EffectComposer as EffectComposerImpl, NormalPass, RenderPass } from 'postprocessing'
 
 import { HalfFloatType } from 'three'
+import { effectComposerInjectionKey } from './helper.js'
+import type { EffectComposerPmndrsProps } from './types.js'
 
 import WEBGL from 'three/examples/jsm/capabilities/WebGL.js'
 
 import { computed, onUnmounted, provide, shallowRef, watch } from 'vue'
 
-export const effectComposerInjectionKey: InjectionKey<ShallowRef<EffectComposer | null>> = Symbol('effectComposer')
-
-export interface EffectComposerProps {
-  enabled?: boolean
-  depthBuffer?: boolean
-  disableNormalPass?: boolean
-  stencilBuffer?: boolean
-  resolutionScale?: number
-  autoClear?: boolean
-  multisampling?: number
-  frameBufferType?: number
-}
-</script>
-
-<script setup lang="ts">
-const props = withDefaults(defineProps<EffectComposerProps>(), {
+const props = withDefaults(defineProps<EffectComposerPmndrsProps>(), {
   enabled: true,
   autoClear: true,
   frameBufferType: HalfFloatType,

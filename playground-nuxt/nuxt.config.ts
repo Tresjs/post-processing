@@ -6,6 +6,16 @@ export default defineNuxtConfig({
   modules: [
     '@tresjs/nuxt',
   ],
+  typescript: {
+    tsConfig: {
+      compilerOptions: {
+        paths: {
+          '@tresjs/post-processing/pmndrs': ['../../src/core/pmndrs'],
+          '@tresjs/post-processing/three': ['../../src/core/three'],
+        },
+      },
+    },
+  },
   vite: {
     resolve: {
       alias: {

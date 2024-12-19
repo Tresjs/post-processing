@@ -26,16 +26,25 @@
   "exports": {
     "./three": {
       "types": "./dist/three.d.ts",
-      "import": "./dist/three.js"
+      "default": "./dist/three.js"
     },
     "./pmndrs": {
       "types": "./dist/pmndrs.d.ts",
-      "import": "./dist/pmndrs.js"
+      "default": "./dist/pmndrs.js"
     },
     "./*": "./*"
   },
+  "typesVersions": {
+    "*": {
+      "three": [
+        "./dist/three.d.ts"
+      ],
+      "pmndrs": [
+        "./dist/pmndrs.d.ts"
+      ]
+    }
+  },
   "files": [
-    "*.d.ts",
     "dist"
   ],
   "publishConfig": {
@@ -44,7 +53,7 @@
   "scripts": {
     "dev": "cd playground && npm run dev",
     "playground": "cd playground && npm run dev",
-    "build": "vite build",
+    "build": "vite build && node ./scripts/postbuild.mjs",
     "preview": "vite preview",
     "release": "release-it",
     "lint": "eslint .",

@@ -2,7 +2,7 @@ import type { Pass } from 'three/examples/jsm/postprocessing/Pass.js'
 import type { Reactive, ShallowRef } from 'vue'
 import { useTresContext } from '@tresjs/core'
 import { inject, nextTick, onUnmounted, shallowRef, watch, watchEffect } from 'vue'
-import { effectComposerInjectionKey } from '../EffectComposer.vue'
+import { effectComposerInjectionKey } from '../helper.js'
 
 /**
  * @param newPassFunction - A function that returns a new pass instance.

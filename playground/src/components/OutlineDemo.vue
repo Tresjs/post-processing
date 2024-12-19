@@ -2,7 +2,7 @@
 import type { Intersection, Object3D } from 'three'
 import { OrbitControls, useTweakPane } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
-import { EffectComposer, Outline } from '@tresjs/post-processing/pmndrs'
+import { EffectComposerPmndrs, OutlinePmndrs } from '@tresjs/post-processing/pmndrs'
 import { BasicShadowMap, NoToneMapping } from 'three'
 import { reactive, ref } from 'vue'
 
@@ -61,12 +61,12 @@ pane.addInput(outlineParameters, 'visibleEdgeColor')
     <TresGridHelper />
     <TresAmbientLight :intensity="1" />
     <Suspense>
-      <EffectComposer>
-        <Outline
+      <EffectComposerPmndrs>
+        <OutlinePmndrs
           :outlined-objects="outlinedObjects"
           v-bind="outlineParameters"
         />
-      </EffectComposer>
+      </EffectComposerPmndrs>
     </Suspense>
   </TresCanvas>
 </template>

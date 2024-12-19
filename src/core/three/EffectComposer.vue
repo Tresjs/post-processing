@@ -1,19 +1,12 @@
-<script lang="ts">
+<script lang="ts" setup>
 import { useLoop, useTresContext } from '@tresjs/core'
 import { useDevicePixelRatio } from '@vueuse/core'
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
-import { type InjectionKey, onUnmounted, provide, type ShallowRef, shallowRef, watchEffect } from 'vue'
+import { onUnmounted, provide, type ShallowRef, shallowRef, watchEffect } from 'vue'
+import { effectComposerInjectionKey } from './helper.js'
+import type { EffectComposerProps } from './types.js'
 
-export const effectComposerInjectionKey: InjectionKey<ShallowRef<EffectComposer | null>> = Symbol('effectComposerThree')
-
-export interface EffectComposerProps {
-  enabled?: boolean
-  withoutRenderPass?: boolean
-}
-</script>
-
-<script lang="ts" setup>
 const props = withDefaults(
   defineProps<EffectComposerProps>(),
   { enabled: true },

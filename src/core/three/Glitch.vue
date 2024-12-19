@@ -1,22 +1,10 @@
-<script lang="ts">
+<script lang="ts" setup>
 import { useLoop } from '@tresjs/core'
 import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js'
-import { makePropWatchers } from '../../util/prop'
-import { useEffect } from './composables/useEffect'
+import { makePropWatchers } from '../../util/prop.js'
+import { useEffect } from './composables/useEffect.js'
+import type { GlitchProps } from './types.js'
 
-export interface GlitchProps {
-  /**
-   * The size of the generated noise map
-   */
-  dtSize?: number
-  /**
-   * If true, the glitch effect will be more wild 🤪
-   */
-  goWild?: boolean
-}
-</script>
-
-<script lang="ts" setup>
 const props = defineProps<GlitchProps>()
 
 const { pass } = useEffect(() => new GlitchPass(props.dtSize), props)

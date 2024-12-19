@@ -1,32 +1,11 @@
-<script lang="ts">
-import type { Blending } from 'three/src/constants.js'
+<script lang="ts" setup>
 import { useTresContext } from '@tresjs/core'
 import { HalftonePass } from 'three/examples/jsm/postprocessing/HalftonePass.js'
 import { HalftoneShader } from 'three/examples/jsm/shaders/HalftoneShader.js'
 import { computed, watchEffect } from 'vue'
-import { useEffect } from './composables/useEffect'
+import { useEffect } from './composables/useEffect.js'
+import type { HalftoneProps } from './types.js'
 
-export enum HalftoneShape {
-  Dot = 1,
-  Ellipse = 2,
-  Line = 3,
-  Square = 4,
-}
-
-export interface HalftoneProps {
-  shape?: HalftoneShape
-  radius?: number
-  rotateR?: number
-  rotateG?: number
-  rotateB?: number
-  scatter?: number
-  blending?: number
-  greyscale?: boolean
-  blendingMode?: Blending
-}
-</script>
-
-<script lang="ts" setup>
 const props = defineProps<HalftoneProps>()
 const { sizes } = useTresContext()
 

@@ -1,17 +1,11 @@
-<script lang="ts">
+<script lang="ts" setup>
 import { useTresContext } from '@tresjs/core'
 import { useDevicePixelRatio } from '@vueuse/core'
 import { SMAAPass } from 'three/examples/jsm/postprocessing/SMAAPass.js'
 import { computed, watchEffect } from 'vue'
-import { useEffect } from './composables/useEffect'
+import { useEffect } from './composables/useEffect.js'
+import type { SMAAProps } from './types.js'
 
-export interface SMAAProps {
-  width?: number
-  height?: number
-}
-</script>
-
-<script lang="ts" setup>
 const props = defineProps<SMAAProps>()
 
 const { sizes } = useTresContext()
