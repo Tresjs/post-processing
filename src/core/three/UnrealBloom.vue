@@ -1,19 +1,12 @@
-<script lang="ts">
+<script lang="ts" setup>
 import { useTresContext } from '@tresjs/core'
 import { Vector2 } from 'three'
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js'
 import { LuminosityHighPassShader } from 'three/examples/jsm/shaders/LuminosityHighPassShader.js'
 import { watchEffect } from 'vue'
-import { useEffect } from './composables/useEffect'
+import { useEffect } from './composables/useEffect.js'
+import type { UnrealBloomProps } from './types.js'
 
-export interface UnrealBloomProps {
-  radius?: number
-  strength?: number
-  threshold?: number
-}
-</script>
-
-<script lang="ts" setup>
 const props = withDefaults(defineProps<UnrealBloomProps>(), {
   radius: 0,
   strength: 1,

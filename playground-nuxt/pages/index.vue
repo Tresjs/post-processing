@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { EffectComposer, Glitch } from '@tresjs/post-processing/pmndrs'
+import { EffectComposerPmndrs, GlitchPmndrs } from '@tresjs/post-processing/pmndrs'
 import { BasicShadowMap, NoToneMapping, SRGBColorSpace } from 'three'
 
 const gl = {
@@ -26,9 +26,9 @@ const gl = {
     <TresGridHelper />
     <TresAmbientLight :intensity="1" />
     <Suspense>
-      <EffectComposer>
-        <Glitch />
-      </EffectComposer>
+      <EffectComposerPmndrs>
+        <GlitchPmndrs />
+      </EffectComposerPmndrs>
     </Suspense>
   </TresCanvas>
 </template>

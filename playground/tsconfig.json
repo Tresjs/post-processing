@@ -8,7 +8,8 @@
     "module": "ESNext",
     "moduleResolution": "bundler",
     "paths": {
-      "@tresjs/post-processing": ["../dist/"]
+      "@tresjs/post-processing/pmndrs": ["../dist/pmndrs"],
+      "@tresjs/post-processing/three": ["../dist/three"],
     },
     "resolveJsonModule": true,
     "strict": true,

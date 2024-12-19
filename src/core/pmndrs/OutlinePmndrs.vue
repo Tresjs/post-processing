@@ -1,57 +1,14 @@
 <script lang="ts" setup>
 import type { TresColor } from '@tresjs/core'
-import type { BlendFunction, KernelSize } from 'postprocessing'
-import type { Object3D, Texture } from 'three'
 import { normalizeColor, useTresContext } from '@tresjs/core'
 import { OutlineEffect } from 'postprocessing'
 import { computed, watch } from 'vue'
-import { makePropWatchers } from '../../util/prop'
-import { useEffect } from './composables/useEffect'
-
-export interface OutlineProps {
-  /**
-   * The objects in the scene which should have an outline.
-   */
-  outlinedObjects: Object3D[]
-
-  blur?: boolean
-
-  /**
-   * Whether occluded parts of selected objects should be visible
-   */
-  xRay?: boolean
-
-  /**
-   * The blur kernel size. Must be used with blur being true.
-   */
-  kernelSize?: KernelSize
-
-  /**
-   * The pulse speed. A value of zero disables the pulse effect.
-   */
-  pulseSpeed?: number
-  resolutionX?: number
-  resolutionY?: number
-  edgeStrength?: number
-  patternScale?: number
-
-  /**
-   * The number of samples used for multisample antialiasing. Requires WebGL 2.
-   */
-  multisampling?: number
-
-  /**
-   * The blend function. Use `BlendFunction.ALPHA` for dark outlines.
-   */
-  blendFunction?: BlendFunction
-  patternTexture?: Texture
-  resolutionScale?: number
-  hiddenEdgeColor?: TresColor
-  visibleEdgeColor?: TresColor
-}
+import { makePropWatchers } from '../../util/prop.js'
+import { useEffectPmndrs } from './composables/useEffectPmndrs.js'
+import type { OutlinePmndrsProps } from './types.js'
 
 const props = withDefaults(
-  defineProps<OutlineProps>(),
+  defineProps<OutlinePmndrsProps>(),
   {
     blur: undefined,
     xRay: undefined,
@@ -86,7 +43,7 @@ const params: OutlineEffectParameters = {
   visibleEdgeColor: colorToNumber(props.visibleEdgeColor),
 }
 
-const { pass, effect } = useEffect(() => new OutlineEffect(scene.value, camera.value, params), props)
+const { pass, effect } = useEffectPmndrs(() => new OutlineEffect(scene.value, camera.value, params), props)
 
 defineExpose({ pass, effect })
 

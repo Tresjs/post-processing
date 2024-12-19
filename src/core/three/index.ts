@@ -1,29 +1,18 @@
-/* eslint-disable perfectionist/sort-named-exports */
-import { useEffect } from './composables/useEffect'
-import EffectComposer, { type EffectComposerProps } from './EffectComposer.vue'
-import Glitch, { type GlitchProps } from './Glitch.vue'
-import Halftone, { type HalftoneProps } from './Halftone.vue'
-import Pixelation, { type PixelationProps } from './Pixelation.vue'
-import Output from './Output.vue'
-import SMAA, { type SMAAProps } from './SMAA.vue'
-import UnrealBloom, { type UnrealBloomProps } from './UnrealBloom.vue'
-
-export {
-  EffectComposer,
-
-  Glitch,
-  Halftone,
-  Output,
-  Pixelation,
-  SMAA,
-  UnrealBloom,
-
-  useEffect,
-
+export { useEffect } from './composables/useEffect.js'
+export type {
   EffectComposerProps,
   GlitchProps,
   HalftoneProps,
   PixelationProps,
   SMAAProps,
   UnrealBloomProps,
-}
+} from './types.js'
+
+// eslint-disable-next-line perfectionist/sort-exports
+export { default as EffectComposer } from './EffectComposer.vue'
+export { default as Glitch } from './Glitch.vue'
+export { default as Halftone } from './Halftone.vue'
+export { default as Output } from './Output.vue'
+export { default as Pixelation } from './Pixelation.vue'
+export { default as SMAA } from './SMAA.vue'
+export { default as UnrealBloom } from './UnrealBloom.vue'
