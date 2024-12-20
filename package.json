@@ -34,8 +34,17 @@
     },
     "./*": "./*"
   },
+  "typesVersions": {
+    "*": {
+      "three": [
+        "./dist/three.d.ts"
+      ],
+      "pmndrs": [
+        "./dist/pmndrs.d.ts"
+      ]
+    }
+  },
   "files": [
-    "*.d.ts",
     "dist"
   ],
   "publishConfig": {
@@ -51,7 +60,8 @@
     "lint:fix": "eslint . --fix",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs"
+    "docs:preview": "vitepress preview docs",
+    "test:attw": "attw --pack --ignore-rules cjs-resolves-to-esm"
   },
   "peerDependencies": {
     "@tresjs/core": ">=4.0",
@@ -63,6 +73,7 @@
     "postprocessing": "^6.36.4"
   },
   "devDependencies": {
+    "@arethetypeswrong/cli": "^0.17.2",
     "@release-it/conventional-changelog": "^9.0.3",
     "@tresjs/core": "^4.3.1",
     "@tresjs/eslint-config": "^1.4.0",
@@ -86,5 +97,10 @@
     "vitepress": "1.5.0",
     "vue": "^3.5.13",
     "vue-tsc": "^2.1.10"
+  },
+  "pnpm": {
+    "overrides": {
+      "typescript": "^5.7.2"
+    }
   }
 }
