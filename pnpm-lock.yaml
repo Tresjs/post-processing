@@ -21,7 +21,7 @@ importers:
         version: 6.36.4(three@0.170.0)
     devDependencies:
       '@arethetypeswrong/cli':
-        specifier: ^0.17.2
+        specifier: 0.17.2
         version: 0.17.2(patch_hash=trzafi2znozhw5t6zb5kozvhea)
       '@release-it/conventional-changelog':
         specifier: ^9.0.3
