@@ -24,13 +24,10 @@
     "Tino Koch (https://github.com/Tinoooo)"
   ],
   "exports": {
-    "./three": {
-      "types": "./dist/three.d.ts",
-      "import": "./dist/three.js"
-    },
-    "./pmndrs": {
-      "types": "./dist/pmndrs.d.ts",
-      "import": "./dist/pmndrs.js"
+    ".": {
+      "types": "./dist/tres-post-processing.d.ts",
+      "import": "./dist/tres-post-processing.js",
+      "require": "./dist/tres-post-processing.cjs"
     },
     "./*": "./*"
   },
