@@ -1,10 +1,11 @@
 <script lang="ts" setup>
-import { BlendFunction, HueSaturationEffect } from 'postprocessing'
-import { defineProps, watchEffect } from 'vue'
-import { useEffect } from './composables/useEffect'
+import type { BlendFunction } from 'postprocessing'
+import { HueSaturationEffect } from 'postprocessing'
+import { defineProps } from 'vue'
 import { makePropWatchers } from '../../util/prop'
+import { useEffectPmndrs } from './composables/useEffectPmndrs'
 
-export interface HueSaturationProps {
+export interface HueSaturationPmndrsProps {
   /**
    * The saturation adjustment. A value of 0.0 results in grayscale, and 1.0 leaves saturation unchanged.
    * Range: [0.0, 1.0]
@@ -25,30 +26,24 @@ export interface HueSaturationProps {
 }
 
 const props = withDefaults(
-  defineProps<HueSaturationProps>(),
+  defineProps<HueSaturationPmndrsProps>(),
   {
     saturation: 0.0,
     hue: 0.0,
-    blendFunction: BlendFunction.SRC,
   },
 )
 
-const { pass, effect } = useEffect(() => new HueSaturationEffect(props), props)
+const { pass, effect } = useEffectPmndrs(() => new HueSaturationEffect(props), props)
 
 defineExpose({ pass, effect })
 
 makePropWatchers(
   [
+    [() => props.blendFunction, 'blendMode.blendFunction'],
     [() => props.hue, 'hue'],
     [() => props.saturation, 'saturation'],
   ],
   effect,
   () => new HueSaturationEffect(),
 )
-
-watchEffect(() => {
-  if (!effect.value) { return }
-
-  effect.value.blendMode.blendFunction = Number(props.blendFunction)
-})
 </script>

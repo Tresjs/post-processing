@@ -8,11 +8,11 @@ The `HueSaturation` effect is part of the [`postprocessing`](https://pmndrs.gith
 
 ## Usage
 
-The `<HueSaturation>` component is straightforward to use and provides customizable options to fine-tune the hue and saturation of your visuals.
+The `<HueSaturationPmndrs>` component is straightforward to use and provides customizable options to fine-tune the hue and saturation of your visuals.
 
 ```vue{2,5-9,26-32}
 <script setup lang="ts">
-import { HueSaturation } from '@tresjs/post-processing/pmndrs'
+import { EffectComposerPmndrs, HueSaturationPmndrs } from '@tresjs/post-processing'
 import { BlendFunction } from 'postprocessing'
 
 const effectProps = {
@@ -37,11 +37,11 @@ const effectProps = {
     </TresMesh>
 
     <Suspense>
-      <EffectComposer>
-        <HueSaturation
+      <EffectComposerPmndrs>
+        <HueSaturationPmndrs
           v-bind="effectProps"
         />
-      </EffectComposer>
+      </EffectComposerPmndrs>
     </Suspense>
   </TresCanvas>
 </template>

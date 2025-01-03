@@ -2,8 +2,9 @@
 import { Environment, OrbitControls } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
 import { TresLeches, useControls } from '@tresjs/leches'
-import { EffectComposer, HueSaturation } from '@tresjs/post-processing/pmndrs'
-import { BlendFunction, ToneMappingMode } from 'postprocessing'
+import { EffectComposerPmndrs, HueSaturationPmndrs } from '@tresjs/post-processing'
+
+import { BlendFunction } from 'postprocessing'
 import { NoToneMapping } from 'three'
 
 import '@tresjs/leches/styles'
@@ -48,9 +49,9 @@ const { saturation, hue, blendFunction } = useControls({
     </Suspense>
 
     <Suspense>
-      <EffectComposer>
-        <HueSaturation :blendFunction="Number(blendFunction.value)" :hue="hue.value" :saturation="saturation.value" />
-      </EffectComposer>
+      <EffectComposerPmndrs>
+        <HueSaturationPmndrs :blendFunction="Number(blendFunction.value)" :hue="hue.value" :saturation="saturation.value" />
+      </EffectComposerPmndrs>
     </Suspense>
   </TresCanvas>
 </template>
