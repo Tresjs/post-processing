@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { BlendFunction, ToneMappingEffect, ToneMappingMode } from 'postprocessing'
-import { defineExpose } from 'vue'
 import { makePropWatchers } from '../../util/prop'
 import { useEffectPmndrs } from './composables/useEffectPmndrs'
 
