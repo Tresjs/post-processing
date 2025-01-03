@@ -135,8 +135,8 @@ importers:
         specifier: ^0.14.0
         version: 0.14.0(vite@6.0.6(@types/node@22.10.2)(jiti@2.4.2)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))(vue@3.5.13(typescript@5.7.2))
       '@types/three':
-        specifier: ^0.170.0
-        version: 0.170.0
+        specifier: ^0.171.0
+        version: 0.171.0
       unplugin-auto-import:
         specifier: ^0.18.5
         version: 0.18.5(@nuxt/kit@3.15.0(rollup@4.29.1))(@vueuse/core@12.2.0(typescript@5.7.2))(rollup@4.29.1)
@@ -1552,9 +1552,6 @@ packages:
   '@types/three@0.163.0':
     resolution: {integrity: sha512-uIdDhsXRpQiBUkflBS/i1l3JX14fW6Ot9csed60nfbZNXHDTRsnV2xnTVwXcgbvTiboAR4IW+t+lTL5f1rqIqA==}
 
-  '@types/three@0.170.0':
-    resolution: {integrity: sha512-CUm2uckq+zkCY7ZbFpviRttY+6f9fvwm6YqSqPfA5K22s9w7R4VnA3rzJse8kHVvuzLcTx+CjNCs2NYe0QFAyg==}
-
   '@types/three@0.171.0':
     resolution: {integrity: sha512-oLuT1SAsT+CUg/wxUTFHo0K3NtJLnx9sJhZWQJp/0uXqFpzSk1hRHmvWvpaAWSfvx2db0lVKZ5/wV0I0isD2mQ==}
 
@@ -2041,9 +2038,6 @@ packages:
 
   '@vueuse/shared@12.2.0':
     resolution: {integrity: sha512-SRr4AZwv/giS+EmyA1ZIzn3/iALjjnWAGaBNmoDTMEob9JwQaevAocuaMDnPAvU7Z35Y5g3CFRusCWgp1gVJ3Q==}
-
-  '@webgpu/types@0.1.51':
-    resolution: {integrity: sha512-ktR3u64NPjwIViNCck+z9QeyN0iPkQCUOQ07ZCV1RzlkfP+olLTeEZ95O1QHS+v4w9vJeY9xj/uJuSphsHy5rQ==}
 
   '@webgpu/types@0.1.52':
     resolution: {integrity: sha512-eI883Nlag2hGIkhXxAnq8s4APpqXWuPL3Gbn2ghiU12UjLvfCbVqHK4XfXl3eLRTatqcMmeK7jws7IwWsGfbzw==}
@@ -6532,15 +6526,6 @@ snapshots:
       fflate: 0.8.2
       meshoptimizer: 0.18.1
 
-  '@types/three@0.170.0':
-    dependencies:
-      '@tweenjs/tween.js': 23.1.3
-      '@types/stats.js': 0.17.3
-      '@types/webxr': 0.5.20
-      '@webgpu/types': 0.1.51
-      fflate: 0.8.2
-      meshoptimizer: 0.18.1
-
   '@types/three@0.171.0':
     dependencies:
       '@tweenjs/tween.js': 23.1.3
@@ -7236,8 +7221,6 @@ snapshots:
       vue: 3.5.13(typescript@5.7.2)
     transitivePeerDependencies:
       - typescript
-
-  '@webgpu/types@0.1.51': {}
 
   '@webgpu/types@0.1.52': {}
 
