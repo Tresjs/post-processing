@@ -120,10 +120,10 @@ importers:
     dependencies:
       '@tresjs/cientos':
         specifier: ^4.0.2
-        version: 4.0.3(@tresjs/core@4.3.1(three@0.172.0)(vue@3.5.13(typescript@5.7.2)))(three@0.172.0)(vue@3.5.13(typescript@5.7.2))
+        version: 4.0.3(@tresjs/core@4.3.2(three@0.172.0)(typescript@5.7.2)(vue@3.5.13(typescript@5.7.2)))(three@0.172.0)(vue@3.5.13(typescript@5.7.2))
       '@tresjs/core':
-        specifier: 4.3.1
-        version: 4.3.1(three@0.172.0)(vue@3.5.13(typescript@5.7.2))
+        specifier: 4.3.2
+        version: 4.3.2(three@0.172.0)(typescript@5.7.2)(vue@3.5.13(typescript@5.7.2))
       '@tresjs/post-processing':
         specifier: workspace:*
         version: link:..
@@ -1480,6 +1480,12 @@ packages:
 
   '@tresjs/core@4.3.1':
     resolution: {integrity: sha512-81//cbtReAN/azjBgSGOsjmgPQGDNrqAsODuAnThILcAJcNDx5n/Qwut7kfnoyCHef4LynuAHCyd8EbvDSwyJg==}
+    peerDependencies:
+      three: '>=0.133'
+      vue: '>=3.4'
+
+  '@tresjs/core@4.3.2':
+    resolution: {integrity: sha512-d6SJzt7jh2EPBFwIDhR7beutcedrJTfZ7uv4/o+mVGu4ORsWRsTFTdPHrdG+jLwgd4P5jjQXahyx0G4AqsoTMQ==}
     peerDependencies:
       three: '>=0.133'
       vue: '>=3.4'
@@ -6420,6 +6426,22 @@ snapshots:
       - '@vue/composition-api'
       - react
 
+  '@tresjs/cientos@4.0.3(@tresjs/core@4.3.2(three@0.172.0)(typescript@5.7.2)(vue@3.5.13(typescript@5.7.2)))(three@0.172.0)(vue@3.5.13(typescript@5.7.2))':
+    dependencies:
+      '@tresjs/core': 4.3.2(three@0.172.0)(typescript@5.7.2)(vue@3.5.13(typescript@5.7.2))
+      '@vueuse/core': 11.3.0(vue@3.5.13(typescript@5.7.2))
+      camera-controls: 2.9.0(three@0.172.0)
+      stats-gl: 2.2.8
+      stats.js: 0.17.0
+      three: 0.172.0
+      three-custom-shader-material: 5.4.0(three@0.172.0)
+      three-stdlib: 2.33.0(three@0.172.0)
+      vue: 3.5.13(typescript@5.7.2)
+    transitivePeerDependencies:
+      - '@react-three/fiber'
+      - '@vue/composition-api'
+      - react
+
   '@tresjs/core@4.3.1(three@0.172.0)(vue@3.5.13(typescript@5.7.2))':
     dependencies:
       '@alvarosabu/utils': 3.2.0
@@ -6429,6 +6451,16 @@ snapshots:
       vue: 3.5.13(typescript@5.7.2)
     transitivePeerDependencies:
       - '@vue/composition-api'
+
+  '@tresjs/core@4.3.2(three@0.172.0)(typescript@5.7.2)(vue@3.5.13(typescript@5.7.2))':
+    dependencies:
+      '@alvarosabu/utils': 3.2.0
+      '@vue/devtools-api': 6.6.4
+      '@vueuse/core': 12.2.0(typescript@5.7.2)
+      three: 0.172.0
+      vue: 3.5.13(typescript@5.7.2)
+    transitivePeerDependencies:
+      - typescript
 
   '@tresjs/eslint-config@1.4.0(@typescript-eslint/utils@8.19.0(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.2))(@vue/compiler-sfc@3.5.13)(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.2)':
     dependencies:
