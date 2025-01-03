@@ -2,9 +2,9 @@
 import { ContactShadows, Environment, OrbitControls } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
 import { TresLeches, useControls } from '@tresjs/leches'
-import { EffectComposer, ToneMapping } from '@tresjs/post-processing/pmndrs'
 import { BlendFunction, ToneMappingMode } from 'postprocessing'
 import { NoToneMapping } from 'three'
+import { EffectComposerPmndrs, ToneMappingPmndrs } from '@tresjs/post-processing'
 
 import '@tresjs/leches/styles'
 
@@ -69,9 +69,9 @@ const { blendFunction, resolution, mode } = useControls({
     />
 
     <Suspense>
-      <EffectComposer>
-        <ToneMapping :mode="Number(mode.value)" :resolution="Number(resolution.value)" :blendFunction="Number(blendFunction.value)" />
-      </EffectComposer>
+      <EffectComposerPmndrs>
+        <ToneMappingPmndrs :mode="Number(mode.value)" :resolution="Number(resolution.value)" :blendFunction="Number(blendFunction.value)" />
+      </EffectComposerPmndrs>
     </Suspense>
   </TresCanvas>
 </template>

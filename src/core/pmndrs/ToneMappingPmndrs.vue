@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { BlendFunction, ToneMappingEffect, ToneMappingMode } from 'postprocessing'
-import { defineExpose, defineProps, watchEffect, withDefaults } from 'vue'
-import { useEffect } from './composables/useEffect'
+import { defineExpose } from 'vue'
 import { makePropWatchers } from '../../util/prop'
+import { useEffectPmndrs } from './composables/useEffectPmndrs'
 
-export interface ToneMappingProps {
+export interface ToneMappingPmndrsProps {
   /**
    * The tone mapping mode.
    */
@@ -42,7 +42,7 @@ export interface ToneMappingProps {
 }
 
 const props = withDefaults(
-  defineProps<ToneMappingProps>(),
+  defineProps<ToneMappingPmndrsProps>(),
   {
     mode: ToneMappingMode.AGX,
     blendFunction: BlendFunction.SRC,
@@ -54,23 +54,18 @@ const props = withDefaults(
   },
 )
 
-const { pass, effect } = useEffect(() => new ToneMappingEffect(props), props)
+const { pass, effect } = useEffectPmndrs(() => new ToneMappingEffect(props), props)
 
 defineExpose({ pass, effect })
-
-watchEffect(() => {
-  if (!effect.value) { return }
-
-  effect.value.blendMode.blendFunction = Number(props.blendFunction)
-})
 
 makePropWatchers(
   [
     [() => props.mode, 'mode'],
+    [() => props.blendFunction, 'blendMode.blendFunction'],
     [() => props.resolution, 'resolution'],
     [() => props.averageLuminance, 'averageLuminance'],
     [() => props.middleGrey, 'middleGrey'],
-    [() => props.minLuminance, 'minLuminance'],
+    [() => props.minLuminance, 'adaptiveLuminanceMaterial.minLuminance'],
     [() => props.whitePoint, 'whitePoint'],
   ],
   effect,

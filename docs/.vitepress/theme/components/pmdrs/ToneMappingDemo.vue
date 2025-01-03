@@ -2,7 +2,7 @@
 import { ContactShadows, Environment, Levioso, OrbitControls, useGLTF } from '@tresjs/cientos'
 import { dispose, TresCanvas } from '@tresjs/core'
 import { TresLeches, useControls } from '@tresjs/leches'
-import { EffectComposer, ToneMapping } from '@tresjs/post-processing/pmndrs'
+import { EffectComposerPmndrs, ToneMappingPmndrs } from '@tresjs/post-processing'
 import { ToneMappingMode } from 'postprocessing'
 import { NoToneMapping } from 'three'
 import { onUnmounted, shallowRef } from 'vue'
@@ -67,9 +67,9 @@ onUnmounted(() => {
     />
 
     <Suspense>
-      <EffectComposer>
-        <ToneMapping :mode="Number(mode.value)" />
-      </EffectComposer>
+      <EffectComposerPmndrs>
+        <ToneMappingPmndrs :mode="Number(mode.value)" />
+      </EffectComposerPmndrs>
     </Suspense>
   </TresCanvas>
 </template>
