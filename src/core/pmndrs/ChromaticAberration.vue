@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { BlendFunction, ChromaticAberrationEffect } from 'postprocessing'
+import type { BlendFunction } from 'postprocessing'
+import { ChromaticAberrationEffect } from 'postprocessing'
 import { Vector2 } from 'three'
-import { defineExpose, defineProps, watchEffect, withDefaults } from 'vue'
-import { useEffect } from './composables/useEffect'
 import { makePropWatchers } from '../../util/prop'
+import { useEffectPmndrs } from './composables/useEffectPmndrs'
 
-export interface ChromaticAberrationProps {
+export interface ChromaticAberrationPmndrsProps {
   /**
    * The blend function.
    */
@@ -28,27 +28,21 @@ export interface ChromaticAberrationProps {
 }
 
 const props = withDefaults(
-  defineProps<ChromaticAberrationProps>(),
+  defineProps<ChromaticAberrationPmndrsProps>(),
   {
-    blendFunction: BlendFunction.SRC,
     offset: () => new Vector2(0.01, 0.01),
     radialModulation: false,
     modulationOffset: 0.15,
   },
 )
 
-const { pass, effect } = useEffect(() => new ChromaticAberrationEffect(props), props)
+const { pass, effect } = useEffectPmndrs(() => new ChromaticAberrationEffect(props), props)
 
 defineExpose({ pass, effect })
 
-watchEffect(() => {
-  if (!effect.value) { return }
-
-  effect.value.blendMode.blendFunction = Number(props.blendFunction)
-})
-
 makePropWatchers(
   [
+    [() => props.blendFunction, 'blendMode.blendFunction'],
     [() => props.offset, 'offset'],
     [() => props.radialModulation, 'radialModulation'],
     [() => props.modulationOffset, 'modulationOffset'],

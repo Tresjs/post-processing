@@ -2,9 +2,9 @@
 import { ContactShadows, Environment, OrbitControls } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
 import { TresLeches, useControls } from '@tresjs/leches'
-import { ChromaticAberration, EffectComposer } from '@tresjs/post-processing/pmndrs'
 import { NoToneMapping, Vector2 } from 'three'
 import { shallowRef, watchEffect } from 'vue'
+import { ChromaticAberrationPmndrs, EffectComposerPmndrs } from '@tresjs/post-processing'
 
 import '@tresjs/leches/styles'
 
@@ -68,9 +68,9 @@ watchEffect(() => {
     />
 
     <Suspense>
-      <EffectComposer>
-        <ChromaticAberration ref="chromaticAberrationRef" :offset="new Vector2(offsetX.value, offsetY.value)" :radial-modulation="radialModulation.value" :modulation-offset="modulationOffset.value" />
-      </EffectComposer>
+      <EffectComposerPmndrs>
+        <ChromaticAberrationPmndrs ref="chromaticAberrationRef" :offset="new Vector2(offsetX.value, offsetY.value)" :radial-modulation="radialModulation.value" :modulation-offset="modulationOffset.value" />
+      </EffectComposerPmndrs>
     </Suspense>
 
     <Suspense>

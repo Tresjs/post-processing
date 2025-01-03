@@ -8,11 +8,11 @@ The `ChromaticAberration` effect is part of the [`postprocessing`](https://pmndr
 
 ## Usage
 
-The `<ChromaticAberration>` component is easy to use and provides customizable options to suit different visual styles.
+The `<ChromaticAberrationPmndrs>` component is easy to use and provides customizable options to suit different visual styles.
 
 ```vue{2,38-46}
 <script setup lang="ts">
-import { EffectComposer, ChromaticAberration } from '@tresjs/post-processing/pmndrs'
+import { EffectComposerPmndrs, ChromaticAberrationPmndrs } from '@tresjs/post-processing/pmndrs'
 import { Vector2 } from 'three'
 
 const gl = {
@@ -49,13 +49,13 @@ const offset = new Vector2(0.07, 0.07)
     </template>
 
     <Suspense>
-      <EffectComposer>
-        <ChromaticAberration
+      <EffectComposerPmndrs>
+        <ChromaticAberrationPmndrs
           :offset
           radial-modulation
           :modulation-offset="0"
         />
-      </EffectComposer>
+      </EffectComposerPmndrs>
     </Suspense>
   </TresCanvas>
 </template>
