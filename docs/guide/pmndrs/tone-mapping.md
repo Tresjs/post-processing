@@ -7,16 +7,16 @@
 The `ToneMapping` effect from the [`postprocessing`](https://pmndrs.github.io/postprocessing/public/docs/class/src/effects/ToneMappingEffect.js~ToneMappingEffect.html) package provides an abstraction for various tone mapping algorithms to improve the visual rendering of HDR (high dynamic range) content. Tone mapping is used to map high-range brightness values to a range that is displayable on standard screens. This effect contributes significantly to the visual quality of your scene by controlling luminance and color balance.
 
 ::: info
-If the colors in your scene look incorrect after adding the EffectComposer, it might be because tone mapping is deactivated by default, which is normal behavior. Add `<ToneMapping>` manually as an effect at the end of the `<EffectComposer>` to fix this.
+If the colors in your scene look incorrect after adding the EffectComposer, it might be because tone mapping is deactivated by default, which is normal behavior. Add `<ToneMappingPmndrs>` manually as an effect at the end of the `<EffectComposerPmndrs>` to fix this.
 :::
 
 ## Usage
 
-The `<ToneMapping>` component is easy to set up and comes with multiple tone mapping modes to suit different visual requirements. Below is an example of how to use it in a Vue application.
+The `<ToneMappingPmndrs>` component is easy to set up and comes with multiple tone mapping modes to suit different visual requirements. Below is an example of how to use it in a Vue application.
 
 ```vue{2,4,7-8,32-36}
 <script setup lang="ts">
-import { EffectComposer, ToneMapping } from '@tresjs/post-processing/pmndrs'
+import { EffectComposerPmndrs, ToneMappingPmndrs } from '@tresjs/post-processing/pmndrs'
 import { onUnmounted, shallowRef } from 'vue'
 import { ToneMappingMode } from 'postprocessing'
 
@@ -47,9 +47,9 @@ onUnmounted(() => {
     <primitive ref="modelRef" :object="model" />
 
     <Suspense>
-      <EffectComposer>
-        <ToneMapping :mode="ToneMappingMode.AGX" />
-      </EffectComposer>
+      <EffectComposerPmndrs>
+        <ToneMappingPmndrs :mode="ToneMappingMode.AGX" />
+      </EffectComposerPmndrs>
     </Suspense>
   </TresCanvas>
 </template>

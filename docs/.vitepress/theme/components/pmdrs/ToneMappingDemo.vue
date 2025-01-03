@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ContactShadows, Environment, Levioso, OrbitControls, useGLTF } from '@tresjs/cientos'
+import { ContactShadows, Environment, OrbitControls, useGLTF } from '@tresjs/cientos'
 import { dispose, TresCanvas } from '@tresjs/core'
 import { TresLeches, useControls } from '@tresjs/leches'
 import { EffectComposerPmndrs, ToneMappingPmndrs } from '@tresjs/post-processing'
@@ -53,9 +53,7 @@ onUnmounted(() => {
     />
     <OrbitControls />
 
-    <Levioso :speed=".5" :rotation-factor=".5" :float-factor="2" :range="[0, .5]">
-      <primitive ref="modelRef" :object="model" :position-y="-.5" :scale=".25" />
-    </Levioso>
+    <primitive ref="modelRef" :object="model" :position-y="-.5" :scale=".25" />
 
     <Suspense>
       <Environment background :blur=".35" preset="dawn" />
