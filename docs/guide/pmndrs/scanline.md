@@ -8,11 +8,11 @@ The `Scanline` effect is part of the [`postprocessing`](https://pmndrs.github.io
 
 ## Usage
 
-The `<Scanline>` component is easy to use and provides customizable options to achieve the desired visual appearance.
+The `<ScanlinePmndrs>` component is easy to use and provides customizable options to achieve the desired visual appearance.
 
 ```vue{2,10-15,27-33}
 <script setup lang="ts">
-import { EffectComposer, Scanline } from '@tresjs/post-processing/pmndrs'
+import { EffectComposerPmndrs, ScanlinePmndrs } from '@tresjs/post-processing/pmndrs'
 import { BlendFunction } from 'postprocessing'
 
 const gl = {
@@ -38,11 +38,11 @@ const effectProps = {
     />
 
     <Suspense>
-      <EffectComposer>
-        <ScanlineEffect
+      <EffectComposerPmndrs>
+        <ScanlinePmndrs
           v-bind="effectProps"
         />
-      </EffectComposer>
+      </EffectComposerPmndrs>
     </Suspense>
   </TresCanvas>
 </template>

@@ -2,10 +2,10 @@
 import { ContactShadows, Environment, OrbitControls } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
 import { TresLeches, useControls } from '@tresjs/leches'
-import { EffectComposer, Scanline } from '@tresjs/post-processing/pmndrs'
 import { NoToneMapping, Vector2 } from 'three'
 import { watchEffect } from 'vue'
 import { BlendFunction } from 'postprocessing'
+import { EffectComposerPmndrs, ScanlinePmndrs } from '@tresjs/post-processing'
 
 import '@tresjs/leches/styles'
 
@@ -55,9 +55,9 @@ const { blendFunction, opacity, density, scrollSpeed } = useControls({
     />
 
     <Suspense>
-      <EffectComposer>
-        <Scanline :density="density.value" :opacity="opacity.value" :scrollSpeed="scrollSpeed.value" :blendFunction="Number(blendFunction.value)" />
-      </EffectComposer>
+      <EffectComposerPmndrs>
+        <ScanlinePmndrs :density="density.value" :opacity="opacity.value" :scrollSpeed="scrollSpeed.value" :blendFunction="Number(blendFunction.value)" />
+      </EffectComposerPmndrs>
     </Suspense>
   </TresCanvas>
 </template>

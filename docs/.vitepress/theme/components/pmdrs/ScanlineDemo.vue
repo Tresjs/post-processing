@@ -2,9 +2,9 @@
 import { Environment, Levioso, OrbitControls, Ring, Sphere, Stars } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
 import { TresLeches, useControls } from '@tresjs/leches'
-import { EffectComposer, Scanline } from '@tresjs/post-processing/pmndrs'
 import { DoubleSide, MathUtils, NoToneMapping } from 'three'
 import { BlendFunction } from 'postprocessing'
+import { EffectComposerPmndrs, ScanlinePmndrs } from '@tresjs/post-processing'
 
 import '@tresjs/leches/styles'
 
@@ -61,9 +61,9 @@ const { blendFunction, opacity, density, scrollSpeed } = useControls({
     <Stars />
 
     <Suspense>
-      <EffectComposer>
-        <Scanline :density="density.value" :opacity="opacity.value" :scrollSpeed="scrollSpeed.value" :blendFunction="Number(blendFunction.value)" />
-      </EffectComposer>
+      <EffectComposerPmndrs>
+        <ScanlinePmndrs :density="density.value" :opacity="opacity.value" :scrollSpeed="scrollSpeed.value" :blendFunction="Number(blendFunction.value)" />
+      </EffectComposerPmndrs>
     </Suspense>
   </TresCanvas>
 </template>

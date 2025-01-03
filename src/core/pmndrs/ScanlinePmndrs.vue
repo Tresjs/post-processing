@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { BlendFunction, ScanlineEffect } from 'postprocessing'
-import { defineExpose, defineProps, watchEffect, withDefaults } from 'vue'
-import { useEffect } from './composables/useEffect'
+import type { BlendFunction } from 'postprocessing'
+import { ScanlineEffect } from 'postprocessing'
 import { makePropWatchers } from '../../util/prop'
+import { useEffectPmndrs } from './composables/useEffectPmndrs'
 
-export interface ScanlineProps {
+export interface ScanlinePmndrsProps {
   /**
    * The blend function.
    */
@@ -27,33 +27,22 @@ export interface ScanlineProps {
 }
 
 const props = withDefaults(
-  defineProps<ScanlineProps>(),
+  defineProps<ScanlinePmndrsProps>(),
   {
-    blendFunction: BlendFunction.OVERLAY,
     density: 1.25,
     opacity: 1.0,
     scrollSpeed: 0.0,
   },
 )
 
-const { pass, effect } = useEffect(() => new ScanlineEffect(props), props)
+const { pass, effect } = useEffectPmndrs(() => new ScanlineEffect(props), props)
 
 defineExpose({ pass, effect })
 
-watchEffect(() => {
-  if (!effect.value) { return }
-
-  effect.value.blendMode.opacity.value = props.opacity
-})
-
-watchEffect(() => {
-  if (!effect.value) { return }
-
-  effect.value.blendMode.blendFunction = Number(props.blendFunction)
-})
-
 makePropWatchers(
   [
+    [() => props.blendFunction, 'blendMode.blendFunction'],
+    [() => props.opacity, 'blendMode.opacity.value'],
     [() => props.density, 'density'],
     [() => props.scrollSpeed, 'scrollSpeed'],
   ],

@@ -1,35 +1,35 @@
 /* eslint-disable perfectionist/sort-named-exports */
 
-import Bloom, { type BloomProps } from './Bloom.vue'
-import { useEffect } from './composables/useEffect'
-import DepthOfField, { type DepthOfFieldProps } from './DepthOfField.vue'
-import EffectComposer, { type EffectComposerProps } from './EffectComposer.vue'
-import Glitch, { type GlitchProps } from './Glitch.vue'
-import Noise, { type NoiseProps } from './Noise.vue'
-import Outline, { type OutlineProps } from './Outline.vue'
-import Scanline, { type ScanlineProps } from './Scanline.vue'
-import Pixelation, { type PixelationProps } from './Pixelation.vue'
-import Vignette, { type VignetteProps } from './Vignette.vue'
+import BloomPmndrs, { type BloomPmndrsProps } from './BloomPmndrs.vue'
+import { useEffectPmndrs } from './composables/useEffectPmndrs'
+import DepthOfFieldPmndrs, { type DepthOfFieldPmndrsProps } from './DepthOfFieldPmndrs.vue'
+import EffectComposerPmndrs, { type EffectComposerPmndrsProps } from './EffectComposerPmndrs.vue'
+import GlitchPmndrs, { type GlitchPmndrsProps } from './GlitchPmndrs.vue'
+import NoisePmndrs, { type NoisePmndrsProps } from './NoisePmndrs.vue'
+import OutlinePmndrs, { type OutlinePmndrsProps } from './OutlinePmndrs.vue'
+import PixelationPmndrs, { type PixelationPmndrsProps } from './PixelationPmndrs.vue'
+import VignettePmndrs, { type VignettePmndrsProps } from './VignettePmndrs.vue'
+import ScanlinePmndrs, { type ScanlinePmndrsProps } from './ScanlinePmndrs.vue'
 
 export {
-  Bloom,
-  DepthOfField,
-  EffectComposer,
-  Glitch,
-  Noise,
-  Outline,
-  Pixelation,
-  useEffect,
-  Vignette,
-  Scanline,
+  BloomPmndrs,
+  DepthOfFieldPmndrs,
+  EffectComposerPmndrs,
+  GlitchPmndrs,
+  NoisePmndrs,
+  OutlinePmndrs,
+  PixelationPmndrs,
+  useEffectPmndrs,
+  VignettePmndrs,
+  ScanlinePmndrs,
 
-  BloomProps,
-  DepthOfFieldProps,
-  EffectComposerProps,
-  GlitchProps,
-  NoiseProps,
-  OutlineProps,
-  PixelationProps,
-  VignetteProps,
-  ScanlineProps,
+  BloomPmndrsProps,
+  DepthOfFieldPmndrsProps,
+  EffectComposerPmndrsProps,
+  GlitchPmndrsProps,
+  NoisePmndrsProps,
+  OutlinePmndrsProps,
+  PixelationPmndrsProps,
+  VignettePmndrsProps,
+  ScanlinePmndrsProps,
 }
