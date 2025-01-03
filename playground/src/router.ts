@@ -33,6 +33,7 @@ export const threeRoutes = [
 
 export const postProcessingRoutes = [
   makeRoute('Outline', '🔲', false),
+  makeRoute('Tone Mapping', '🎨', false),
   makeRoute('Glitch', '📺', false),
   makeRoute('Depth of Field', '📷', false),
   makeRoute('Pixelation', '👾', false),
