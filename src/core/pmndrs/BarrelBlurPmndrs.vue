@@ -1,11 +1,10 @@
 <script lang="ts" setup>
-import { BlendFunction } from 'postprocessing'
+import type { BlendFunction } from 'postprocessing'
 import { BarrelBlurEffect } from './custom/barrel-blur/index'
 import { makePropWatchers } from '../../util/prop'
-import { useEffect } from './composables/useEffect'
-import { defineProps, watchEffect } from 'vue'
+import { useEffectPmndrs } from './composables/useEffectPmndrs'
 
-export interface BarrelBlurProps {
+export interface BarrelBlurPmndrsProps {
   /**
    * The blend function for the effect.
    * Determines how this effect blends with other effects.
@@ -19,22 +18,17 @@ export interface BarrelBlurProps {
   amount?: number
 }
 
-const props = withDefaults(defineProps<BarrelBlurProps>(), {
+const props = withDefaults(defineProps<BarrelBlurPmndrsProps>(), {
   amount: 0.25,
-  blendFunction: BlendFunction.OVERLAY,
 })
 
-const { pass, effect } = useEffect(() => new BarrelBlurEffect(props), props)
+const { pass, effect } = useEffectPmndrs(() => new BarrelBlurEffect(props), props)
+
 defineExpose({ pass, effect })
-
-watchEffect(() => {
-  if (!effect.value) { return }
-
-  effect.value.blendMode.blendFunction = Number(props.blendFunction)
-})
 
 makePropWatchers(
   [
+    [() => props.blendFunction, 'blendMode.blendFunction'],
     [() => props.amount, 'amount'],
   ],
   effect,

@@ -2,9 +2,9 @@
 import { ContactShadows, Environment, OrbitControls } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
 import { TresLeches, useControls } from '@tresjs/leches'
-import { BarrelBlur, EffectComposer } from '@tresjs/post-processing/pmndrs'
-import { NoToneMapping, Vector2 } from 'three'
+import { NoToneMapping } from 'three'
 import { BlendFunction } from 'postprocessing'
+import { BarrelBlurPmndrs, EffectComposerPmndrs } from '@tresjs/post-processing'
 
 import '@tresjs/leches/styles'
 
@@ -52,7 +52,7 @@ const { blendFunction, amount } = useControls({
     </template>
 
     <Suspense>
-      <Environment :blur=".25 " preset="shangai" />
+      <Environment :blur=".25" preset="shangai" />
     </Suspense>
 
     <TresDirectionalLight color="white" />
@@ -65,9 +65,9 @@ const { blendFunction, amount } = useControls({
     />
 
     <Suspense>
-      <EffectComposer>
-        <BarrelBlur :amount="amount.value" :blendFunction="blendFunction.value" />
-      </EffectComposer>
+      <EffectComposerPmndrs>
+        <BarrelBlurPmndrs :amount="amount.value" :blendFunction="blendFunction.value" />
+      </EffectComposerPmndrs>
     </Suspense>
   </TresCanvas>
 </template>
