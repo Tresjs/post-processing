@@ -10,7 +10,7 @@ import { EffectComposerPmndrs, ScanlinePmndrs } from '@tresjs/post-processing'
 import '@tresjs/leches/styles'
 
 const gl = {
-  clearColor: '#ffffff',
+  clearColor: '#4f4f4f',
   toneMapping: NoToneMapping,
   multisampling: 8,
   envMapIntensity: 10,
