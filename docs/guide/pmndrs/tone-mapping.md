@@ -68,4 +68,4 @@ onUnmounted(() => {
 | whitePoint        | White point for tone mapping, used to balance luminance values. Only applicable to `ToneMappingMode.REINHARD2`               | `4.0`                                                                                             |
 
 ## Further Reading
-see [postprocessing docs](https://pmndrs.github.io/postprocessing/public/docs/class/src/effects/ToneMappingEffect.js~ToneMappingEffect.html)
+For more details, see the [Tone Mapping documentation](https://pmndrs.github.io/postprocessing/public/docs/class/src/effects/ToneMappingEffect.js~ToneMappingEffect.html)
