@@ -10,6 +10,7 @@ import OutlinePmndrs, { type OutlinePmndrsProps } from './OutlinePmndrs.vue'
 import PixelationPmndrs, { type PixelationPmndrsProps } from './PixelationPmndrs.vue'
 import VignettePmndrs, { type VignettePmndrsProps } from './VignettePmndrs.vue'
 import HueSaturationPmndrs, { type HueSaturationPmndrsProps } from './HueSaturationPmndrs.vue'
+import ScanlinePmndrs, { type ScanlinePmndrsProps } from './ScanlinePmndrs.vue'
 
 export {
   BloomPmndrs,
@@ -22,7 +23,7 @@ export {
   useEffectPmndrs,
   VignettePmndrs,
   HueSaturationPmndrs,
-
+  ScanlinePmndrs,
   BloomPmndrsProps,
   DepthOfFieldPmndrsProps,
   EffectComposerPmndrsProps,
@@ -32,4 +33,5 @@ export {
   PixelationPmndrsProps,
   VignettePmndrsProps,
   HueSaturationPmndrsProps,
+  ScanlinePmndrsProps,
 }
