@@ -66,7 +66,7 @@ const effectProps = {
 | Prop           | Description                                                                                                                                                                  | Default                  |
 | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------ |
 | **amount**     | The intensity of the barrel distortion. A value between 0 (no distortion) and 1 (maximum distortion).                                                                         | `0.1`                    |
-| **offset**     | The offset of the barrel distortion center. An array of two numbers where both values are between 0 and 1.    | `[0.5, 0.5]`             |
+| **offset**     | The offset of the barrel distortion center. A `Vector2` value or an array of two numbers where both values are between 0 and 1.    | `[0.5, 0.5]`             |
 | **blendFunction** | Defines how the effect blends with the original scene. See the [`BlendFunction`](https://pmndrs.github.io/postprocessing/public/docs/variable/index.html#static-variable-BlendFunction) options. | `BlendFunction.NORMAL`   |
 
 ## Further Reading
