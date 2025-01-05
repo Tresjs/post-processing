@@ -10,12 +10,11 @@ The `Barrel Blur` is a custom effect that applies a barrel distortion with chrom
 
 The `<BarrelBlurPmndrs>` component is straightforward to use and provides customizable options to fine-tune the barrel blur effect.
 
-```vue{4,13-17,42-46}
+```vue{4,12-15,40-44}
 <script setup lang="ts">
 import { TresCanvas } from '@tresjs/core'
 import { Environment, OrbitControls, RoundedBox } from '@tresjs/cientos'
 import { EffectComposerPmndrs, BarrelBlurPmndrs } from '@tresjs/post-processing'
-import { BlendFunction } from 'postprocessing'
 
 const gl = {
   clearColor: '#4f4f4f',
@@ -26,7 +25,6 @@ const gl = {
 const effectProps = {
   amount: 0.25,
   offset: [0.5, 0.5],
-  blendFunction: BlendFunction.OVERLAY,
 }
 </script>
 
