@@ -34,7 +34,7 @@ const { blendFunction, offset, rotation, focusArea, feather } = useControls({
   offset: { value: 0.0, min: -0.5, max: 0.5, step: 0.01 },
   rotation: { value: 0.0, min: -Math.PI, max: Math.PI, step: 0.01 },
   focusArea: { value: 0.7, min: 0, max: 1, step: 0.01 },
-  feather: { value: 0.2, min: 0, max: 1, step: 0.01 },
+  feather: { value: 0.1, min: 0, max: 1, step: 0.01 },
 })
 </script>
 
@@ -42,7 +42,7 @@ const { blendFunction, offset, rotation, focusArea, feather } = useControls({
   <TresLeches style="left: initial;right:10px; top:10px;" />
 
   <TresCanvas v-bind="gl">
-    <TresPerspectiveCamera :position="[0, 8, 4]" />
+    <TresPerspectiveCamera :position="[0, 4, 8]" />
     <OrbitControls auto-rotate />
 
     <template v-for="index in 50" :key="index">

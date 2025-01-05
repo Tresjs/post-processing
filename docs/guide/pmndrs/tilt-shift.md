@@ -10,9 +10,11 @@ The `TiltShift` effect is part of the [`postprocessing`](https://pmndrs.github.i
 
 The `<TiltShiftPmndrs>` component is straightforward to use and provides customizable options to fine-tune the tilt-shift effect.
 
-```vue{2,19-22,47-51}
+```vue{3,21-24,49-53}
 <script setup lang="ts">
+import { ContactShadows, Environment, OrbitControls } from '@tresjs/cientos'
 import { EffectComposerPmndrs, TiltShiftPmndrs } from '@tresjs/post-processing'
+import { NoToneMapping } from 'three'
 
 const colors = [
   '#FF5733',
@@ -31,13 +33,13 @@ const gl = {
 
 const effectProps = {
   focusArea: 0.7,
-  feather: 0.2,
+  feather: 0.1,
 }
 </script>
 
 <template>
    <TresCanvas v-bind="gl">
-    <TresPerspectiveCamera :position="[0, 8, 4]" />
+    <TresPerspectiveCamera :position="[0, 4, 8]" />
     <OrbitControls auto-rotate />
 
     <template v-for="index in 50" :key="index">
