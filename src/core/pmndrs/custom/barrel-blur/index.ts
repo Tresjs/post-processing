@@ -13,7 +13,7 @@ export class BarrelBlurEffect extends Effect {
    * @param {object} [options] - Configuration options for the effect.
    * @param {BlendFunction} [options.blendFunction] - Blend mode.
    * @param {number} [options.amount] - Intensity of the barrel distortion (0 to 1).
-   * @param {Vector2} [options.offset] - Offset of the barrel distortion center (0 to 1 for both x and y).
+   * @param {Vector2} [options.offset] - Offset of the barrel distortion (0 to 1 for both x and y).
    *
    */
   constructor({ blendFunction = BlendFunction.NORMAL, amount = 0.1, offset = new Vector2(0.5, 0.5) } = {}) {
@@ -57,11 +57,9 @@ export class BarrelBlurEffect extends Effect {
 
         vec3 outcol = pow(sumcol / sumw, vec3(1.0 / GAMMA));
 
-        // Applique un tonemapping simple
-        outcol = outcol / (outcol + vec3(1.0)); // Tonemapping de Reinhard
-        // outcol = clamp(outcol, 0.0, 1.0);       // Assure une normalisation
+        outcol = clamp(outcol, 0.0, 1.0); // Ensures normalized color values
 
-        outputColor = vec4(outcol, inputColor.a); // Conserve l'alpha d'origine
+        outputColor = vec4(outcol, inputColor.a); // Preserves original alpha
     }
       `, {
       blendFunction,
