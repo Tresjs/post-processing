@@ -20,17 +20,20 @@ export interface BarrelBlurPmndrsProps {
 
   /**
    * The offset of the barrel distortion center.
-   * A Vector2 value where both x and y are between 0 and 1.
+   * A Vector2 value where both x and y are between 0 and 1. This allows you to change the position of the distortion effect.
    */
-  offset?: Vector2
+  offset?: [number, number]
 }
 
 const props = withDefaults(defineProps<BarrelBlurPmndrsProps>(), {
-  amount: 0.25,
-  offset: new Vector2(0.5, 0.5),
+  amount: 0.15,
+  offset: () => [0.5, 0.5],
 })
 
-const { pass, effect } = useEffectPmndrs(() => new BarrelBlurEffect(props), props)
+const { pass, effect } = useEffectPmndrs(() => new BarrelBlurEffect({
+  ...props,
+  offset: new Vector2(...props.offset),
+}), props)
 
 defineExpose({ pass, effect })
 
@@ -38,9 +41,12 @@ makePropWatchers(
   [
     [() => props.blendFunction, 'blendMode.blendFunction'],
     [() => props.amount, 'amount'],
-    [() => props.offset, 'offset'],
+    [() => new Vector2(...props.offset), 'offset'],
   ],
   effect,
-  () => new BarrelBlurEffect(),
+  () => new BarrelBlurEffect({
+    ...props,
+    offset: new Vector2(...props.offset),
+  }),
 )
 </script>

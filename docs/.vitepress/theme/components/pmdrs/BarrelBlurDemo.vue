@@ -1,38 +1,63 @@
 <script setup lang="ts">
-import { OrbitControls } from '@tresjs/cientos'
+import { Environment, OrbitControls, RoundedBox } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
-import { DepthOfField, EffectComposer, Vignette } from '@tresjs/post-processing/pmndrs'
-import { BasicShadowMap, NoToneMapping, SRGBColorSpace } from 'three'
+import { TresLeches, useControls } from '@tresjs/leches'
+import { BarrelBlurPmndrs, EffectComposerPmndrs } from '@tresjs/post-processing'
+import { BlendFunction } from 'postprocessing'
+import { NoToneMapping, Vector2 } from 'three'
 
-import { useRouteDisposal } from '../../composables/useRouteDisposal'
-
-import BlenderCube from '../BlenderCube.vue'
+import '@tresjs/leches/styles'
 
 const gl = {
   clearColor: '#4f4f4f',
-  shadows: true,
-  alpha: false,
-  shadowMapType: BasicShadowMap,
-  outputColorSpace: SRGBColorSpace,
   toneMapping: NoToneMapping,
+  multisampling: 8,
 }
 
-// Need to dispose of the effect composer when the route changes because Vitepress doesnt unmount the components
-const { effectComposer } = useRouteDisposal()
+const { amount, offsetX, offsetY, blendFunction } = useControls({
+  amount: { value: 0.25, step: 0.001, max: 1 },
+  offsetX: { value: 0.5, step: 0.01, min: 0, max: 1 },
+  offsetY: { value: 0.5, step: 0.01, min: 0, max: 1 },
+  blendFunction: {
+    options: Object.keys(BlendFunction).map(key => ({
+      text: key,
+      value: BlendFunction[key],
+    })),
+    value: BlendFunction.OVERLAY,
+  },
+})
 </script>
 
 <template>
-  <TresLeches />
-  <TresCanvas v-bind="gl">
-    <TresPerspectiveCamera :position="[3, 3, 3]" />
-    <OrbitControls />
+  <TresLeches style="left: initial;right:10px; top:10px;" />
+
+  <TresCanvas
+    v-bind="gl"
+  >
+    <TresPerspectiveCamera
+      :position="[5, 5, 5]"
+      :look-at="[0, 0, 0]"
+    />
+    <OrbitControls auto-rotate />
+
     <Suspense>
-      <BlenderCube />
+      <Environment preset="shangai" />
     </Suspense>
-    <EffectComposer ref="effectComposer">
-      <DepthOfField :focus-distance="0" :focal-length="0.02" :bokeh-scale="2" />
-      <Vignette :darkness="0.9" :offset="0.3" />
-    </EffectComposer>
-    <TresAmbientLight :intensity="1" />
+
+    <RoundedBox :args="[2, 2, 2, 2, 0.25]">
+      <TresMeshPhysicalMaterial
+        color="white"
+        :metalness=".9"
+        :roughness=".5"
+        :clearcoat="1.0"
+        :clearcoatRoughness="0.1"
+      />
+    </RoundedBox>
+
+    <Suspense>
+      <EffectComposerPmndrs>
+        <BarrelBlurPmndrs :amount="amount.value" :offset="[offsetX.value, offsetY.value]" :blendFunction="Number(blendFunction.value)" />
+      </EffectComposerPmndrs>
+    </Suspense>
   </TresCanvas>
 </template>

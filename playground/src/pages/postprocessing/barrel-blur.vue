@@ -34,9 +34,10 @@ const neonColors = [
   '#EE82EE', // Violet
 ]
 
-const { blendFunction, amount, offset } = useControls({
+const { blendFunction, amount, offsetX, offsetY } = useControls({
   amount: { value: 0.2, step: 0.001, max: 1 },
-  offset: new Vector2(0.5, 0.5),
+  offsetX: { value: 0.5, step: 0.01, min: 0, max: 1 },
+  offsetY: { value: 0.5, step: 0.01, min: 0, max: 1 },
   blendFunction: {
     options: Object.keys(BlendFunction).map(key => ({
       text: key,
@@ -83,7 +84,7 @@ const { blendFunction, amount, offset } = useControls({
 
     <Suspense>
       <EffectComposerPmndrs>
-        <BarrelBlurPmndrs :amount="amount.value" :offset="offset.value" :blendFunction="Number(blendFunction.value)" />
+        <BarrelBlurPmndrs :amount="amount.value" :offset="[offsetX.value, offsetY.value]" :blendFunction="Number(blendFunction.value)" />
       </EffectComposerPmndrs>
     </Suspense>
   </TresCanvas>

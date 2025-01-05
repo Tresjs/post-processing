@@ -13,10 +13,10 @@ export class BarrelBlurEffect extends Effect {
    * @param {object} [options] - Configuration options for the effect.
    * @param {BlendFunction} [options.blendFunction] - Blend mode.
    * @param {number} [options.amount] - Intensity of the barrel distortion (0 to 1).
-   * @param {Vector2} [options.offset] - Offset of the barrel distortion (0 to 1 for both x and y).
+   * @param {Vector2} [options.offset] - Offset of the barrel distortion center (0 to 1 for both x and y). This allows you to change the position of the distortion effect.
    *
    */
-  constructor({ blendFunction = BlendFunction.NORMAL, amount = 0.1, offset = new Vector2(0.5, 0.5) } = {}) {
+  constructor({ blendFunction = BlendFunction.NORMAL, amount = 0.15, offset = new Vector2(0.5, 0.5) } = {}) {
     super('BarrelBlurEffect', `
     uniform float amount;
     uniform vec2 offset;
@@ -40,7 +40,7 @@ export class BarrelBlurEffect extends Effect {
     }
 
     void mainUv(inout vec2 uv) {
-        uv = barrelDistortion(uv, amount);
+        uv = barrelDistortion(uv, amount * 0.5);
     }
 
     void mainImage(const in vec4 inputColor, const in vec2 uv, out vec4 outputColor) {
@@ -85,7 +85,6 @@ export class BarrelBlurEffect extends Effect {
   }
 
   /**
-   *
    * The offset.
    *
    * @type {Vector2}
