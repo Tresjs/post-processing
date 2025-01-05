@@ -2,7 +2,7 @@
 import { ContactShadows, Environment, OrbitControls } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
 import { TresLeches, useControls } from '@tresjs/leches'
-import { NoToneMapping, Vector2 } from 'three'
+import { NoToneMapping } from 'three'
 import { BlendFunction } from 'postprocessing'
 import { BarrelBlurPmndrs, EffectComposerPmndrs } from '@tresjs/post-processing'
 

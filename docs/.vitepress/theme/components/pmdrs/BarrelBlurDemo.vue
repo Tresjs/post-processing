@@ -4,7 +4,7 @@ import { TresCanvas } from '@tresjs/core'
 import { TresLeches, useControls } from '@tresjs/leches'
 import { BarrelBlurPmndrs, EffectComposerPmndrs } from '@tresjs/post-processing'
 import { BlendFunction } from 'postprocessing'
-import { NoToneMapping, Vector2 } from 'three'
+import { NoToneMapping } from 'three'
 
 import '@tresjs/leches/styles'
 
