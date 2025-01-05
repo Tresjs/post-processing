@@ -5,7 +5,6 @@ import { TresLeches, useControls } from '@tresjs/leches'
 import { EffectComposerPmndrs, TiltShiftPmndrs } from '@tresjs/post-processing'
 import { BlendFunction } from 'postprocessing'
 import { NoToneMapping } from 'three'
-import { ref } from 'vue'
 
 import '@tresjs/leches/styles'
 
