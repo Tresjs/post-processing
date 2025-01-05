@@ -2,7 +2,7 @@
 import { ContactShadows, Environment, OrbitControls } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
 import { TresLeches, useControls } from '@tresjs/leches'
-import { NoToneMapping } from 'three'
+import { NoToneMapping, Vector2 } from 'three'
 import { BlendFunction } from 'postprocessing'
 import { BarrelBlurPmndrs, EffectComposerPmndrs } from '@tresjs/post-processing'
 
@@ -15,8 +15,28 @@ const gl = {
   envMapIntensity: 10,
 }
 
-const { blendFunction, amount } = useControls({
+const neonColors = [
+  '#FF00FF', // Magenta
+  '#00FFFF', // Cyan
+  '#00FF00', // Lime
+  '#FFFF00', // Yellow
+  '#FF0000', // Red
+  '#FF1493', // Deep Pink
+  '#7FFF00', // Chartreuse
+  '#FF4500', // Orange Red
+  '#8A2BE2', // Blue Violet
+  '#00FF7F', // Spring Green
+  '#FFD700', // Gold
+  '#FF69B4', // Hot Pink
+  '#ADFF2F', // Green Yellow
+  '#FF6347', // Tomato
+  '#40E0D0', // Turquoise
+  '#EE82EE', // Violet
+]
+
+const { blendFunction, amount, offset } = useControls({
   amount: { value: 0.2, step: 0.001, max: 1 },
+  offset: new Vector2(0.5, 0.5),
   blendFunction: {
     options: Object.keys(BlendFunction).map(key => ({
       text: key,
@@ -39,20 +59,17 @@ const { blendFunction, amount } = useControls({
     />
     <OrbitControls auto-rotate />
 
-    <template
-      v-for="i in 8"
-      :key="i"
-    >
-      <TresMesh
-        :position="[((i - 1) - (8 - 1) / 2) * -2, 0, ((i - 1) - (8 - 1) / 2) * -2]"
-      >
+    <TresAmbientLight :intensity="1" />
+
+    <template v-for="(color, index) in neonColors" :key="index">
+      <TresMesh :position="[index % 4 * 2 - 3, 0, Math.floor(index / 4) * 2 - 3]">
         <TresBoxGeometry :args="[2, 2, 2]" />
-        <TresMeshStandardMaterial color="white" :roughness="1" :metalness="1" />
+        <TresMeshStandardMaterial :color="color" :roughness=".5" :metalness="1" />
       </TresMesh>
     </template>
 
     <Suspense>
-      <Environment :blur=".25" preset="shangai" />
+      <Environment :blur=".25" preset="snow" />
     </Suspense>
 
     <TresDirectionalLight color="white" />
@@ -66,7 +83,7 @@ const { blendFunction, amount } = useControls({
 
     <Suspense>
       <EffectComposerPmndrs>
-        <BarrelBlurPmndrs :amount="amount.value" :blendFunction="blendFunction.value" />
+        <BarrelBlurPmndrs :amount="amount.value" :offset="offset.value" :blendFunction="Number(blendFunction.value)" />
       </EffectComposerPmndrs>
     </Suspense>
   </TresCanvas>

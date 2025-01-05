@@ -1,6 +1,5 @@
-import { Uniform } from 'three'
+import { Uniform, Vector2 } from 'three'
 import { BlendFunction, Effect } from 'postprocessing'
-// import fragmentShader from './fragmentShader.glsl'
 
 /**
  * BarrelBlurEffect - A custom effect for applying a barrel distortion
@@ -14,18 +13,17 @@ export class BarrelBlurEffect extends Effect {
    * @param {object} [options] - Configuration options for the effect.
    * @param {BlendFunction} [options.blendFunction] - Blend mode.
    * @param {number} [options.amount] - Intensity of the barrel distortion (0 to 1).
+   * @param {Vector2} [options.offset] - Offset of the barrel distortion center (0 to 1 for both x and y).
+   *
    */
-  constructor({ blendFunction = BlendFunction.NORMAL, amount = 0.1 } = {}) {
+  constructor({ blendFunction = BlendFunction.NORMAL, amount = 0.1, offset = new Vector2(0.5, 0.5) } = {}) {
     super('BarrelBlurEffect', `
     uniform float amount;
+    uniform vec2 offset;
 
     #define NUM_ITER 16
     #define RECIP_NUM_ITER 0.0625
     #define GAMMA 1.0
-
-    float sat(float t) {
-      return clamp(t, 0.0, 1.0);
-    }
 
     vec3 spectrum_offset(float t) {
         float lo = step(t, 0.5);
@@ -35,10 +33,10 @@ export class BarrelBlurEffect extends Effect {
     }
 
     vec2 barrelDistortion(vec2 p, float amt) {
-        p = 2.0 * p - 1.0;
+        p = p - offset;
         float theta = atan(p.y, p.x);
         float radius = pow(length(p), 1.0 + 3.0 * amt);
-        return 0.5 * (vec2(cos(theta), sin(theta)) * radius + 1.0);
+        return vec2(cos(theta), sin(theta)) * radius + offset;
     }
 
     void mainUv(inout vec2 uv) {
@@ -61,14 +59,15 @@ export class BarrelBlurEffect extends Effect {
 
         // Applique un tonemapping simple
         outcol = outcol / (outcol + vec3(1.0)); // Tonemapping de Reinhard
-        outcol = clamp(outcol, 0.0, 1.0);       // Assure une normalisation
+        // outcol = clamp(outcol, 0.0, 1.0);       // Assure une normalisation
 
-        outputColor = vec4(outcol, 1.0);
+        outputColor = vec4(outcol, inputColor.a); // Conserve l'alpha d'origine
     }
       `, {
       blendFunction,
       uniforms: new Map([
         ['amount', new Uniform(amount)], // Uniform controlling the intensity of distortion
+        ['offset', new Uniform(offset)], // Uniform controlling the offset of distortion
       ]),
     })
   }
@@ -85,5 +84,20 @@ export class BarrelBlurEffect extends Effect {
 
   set amount(value) {
     this.uniforms.get('amount').value = value
+  }
+
+  /**
+   *
+   * The offset.
+   *
+   * @type {Vector2}
+   */
+
+  get offset() {
+    return this.uniforms.get('offset').value
+  }
+
+  set offset(value) {
+    this.uniforms.get('offset').value = value
   }
 }
