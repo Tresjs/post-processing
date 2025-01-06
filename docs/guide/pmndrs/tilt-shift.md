@@ -12,7 +12,7 @@ The `<TiltShiftPmndrs>` component is straightforward to use and provides customi
 
 ```vue{3,21-24,49-53}
 <script setup lang="ts">
-import { ContactShadows, Environment, OrbitControls } from '@tresjs/cientos'
+import { Environment, OrbitControls } from '@tresjs/cientos'
 import { EffectComposerPmndrs, TiltShiftPmndrs } from '@tresjs/post-processing'
 import { NoToneMapping } from 'three'
 
@@ -65,13 +65,7 @@ const effectProps = {
       </EffectComposerPmndrs>
     </Suspense>
 
-    <ContactShadows
-      :opacity=".75"
-      :position-y="-3.5"
-      :scale="20"
-      :blur=".1"
-      :far="15"
-    />
+    <TresGridHelper :position="[0, -3.5, 0]" :args="[30, 15]" />
   </TresCanvas>
 </template>
 ```

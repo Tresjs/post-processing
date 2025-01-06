@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ContactShadows, Environment, OrbitControls } from '@tresjs/cientos'
+import { Environment, OrbitControls } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
 import { TresLeches, useControls } from '@tresjs/leches'
 import { EffectComposerPmndrs, TiltShiftPmndrs } from '@tresjs/post-processing'
@@ -74,12 +74,6 @@ const { blendFunction, offset, rotation, focusArea, feather } = useControls({
       </EffectComposerPmndrs>
     </Suspense>
 
-    <ContactShadows
-      :opacity=".75"
-      :position-y="-3.5"
-      :scale="20"
-      :blur=".1"
-      :far="15"
-    />
+    <TresGridHelper :position="[0, -3.5, 0]" :args="[30, 15]" />
   </TresCanvas>
 </template>
