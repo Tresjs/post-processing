@@ -59,7 +59,7 @@ const { blendFunction, offset, rotation, focusArea, feather } = useControls({
     </template>
 
     <Suspense>
-      <Environment background :blur=".35" preset="city" />
+      <Environment background :blur=".35" preset="snow" />
     </Suspense>
 
     <Suspense>

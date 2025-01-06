@@ -68,7 +68,7 @@ const { blendFunction, offset, rotation, focusArea, feather, kernelSize, resolut
     </TresMesh>
 
     <Suspense>
-      <Environment background :blur=".25" preset="modern" />
+      <Environment background :blur=".25" preset="city" />
     </Suspense>
 
     <Suspense>

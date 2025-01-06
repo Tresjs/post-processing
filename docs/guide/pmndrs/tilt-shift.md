@@ -56,7 +56,7 @@ const effectProps = {
     </template>
 
     <Suspense>
-      <Environment background :blur=".35" preset="city" />
+      <Environment background :blur=".35" preset="snow" />
     </Suspense>
 
     <Suspense>
