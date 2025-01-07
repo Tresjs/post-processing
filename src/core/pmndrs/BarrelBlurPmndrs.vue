@@ -25,13 +25,13 @@ export interface BarrelBlurPmndrsProps {
   offset?: Vector2 | [number, number]
 }
 
-const props = withDefaults(defineProps<BarrelBlurPmndrsProps>(), {
-  amount: 0.15,
-  offset: () => new Vector2(0.5, 0.5),
-})
+const props = defineProps<BarrelBlurPmndrsProps>()
 
 const { pass, effect } = useEffectPmndrs(
-  () => new BarrelBlurEffect({ ...props, offset: Array.isArray(props.offset) ? new Vector2(...props.offset) : props.offset }),
+  () => new BarrelBlurEffect({
+    ...props,
+    offset: Array.isArray(props.offset) ? new Vector2(...props.offset) : props.offset,
+  }),
   props,
 )
 

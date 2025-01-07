@@ -41,7 +41,7 @@ const { blendFunction, amount, offsetX, offsetY } = useControls({
   blendFunction: {
     options: Object.keys(BlendFunction).map(key => ({
       text: key,
-      value: BlendFunction[key],
+      value: BlendFunction[key as keyof typeof BlendFunction],
     })),
     value: BlendFunction.OVERLAY,
   },
