@@ -16,12 +16,7 @@ export interface SepiaPmndrsProps {
   intensity?: number
 }
 
-const props = withDefaults(
-  defineProps<SepiaPmndrsProps>(),
-  {
-    intensity: 1.0,
-  },
-)
+const props = defineProps<SepiaPmndrsProps>()
 
 const { pass, effect } = useEffectPmndrs(() => new SepiaEffect(props), props)
 
