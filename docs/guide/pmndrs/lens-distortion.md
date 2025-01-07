@@ -79,7 +79,6 @@ pbrTexture.map.colorSpace = SRGBColorSpace
 | **principalPoint** | The center point. <br> Accepts `Vector2` or `[number, number]`.                                                                                                               | `[0.0, 0.0]`             |
 | **focalLength** | The focal length. <br> Accepts `Vector2` or `[number, number]`.                                                                                                                  | `[1.0, 1.0]`             |
 | **skew**        | The skew value.                                                                                                                                               | `0`                      |
-| **blendFunction** | Defines how the effect blends with the original scene. See the [`BlendFunction`](https://pmndrs.github.io/postprocessing/public/docs/variable/index.html#static-variable-BlendFunction) options. | `BlendFunction.NORMAL`      |
 
 ## Further Reading
 

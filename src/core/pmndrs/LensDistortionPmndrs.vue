@@ -1,7 +1,6 @@
 <script lang="ts" setup>
-import type { BlendFunction } from 'postprocessing'
 import { LensDistortionEffect } from 'postprocessing'
-import { makePropWatchers } from '../../util/prop'
+import { makePropWatchersUsingAllProps } from '../../util/prop'
 import { useEffectPmndrs } from './composables/useEffectPmndrs'
 import { Vector2 } from 'three'
 
@@ -25,35 +24,24 @@ export interface LensDistortionPmndrsProps {
    * The skew value.
    */
   skew?: number
-
-  /**
-   * The blend function. Defines how the effect blends with the original scene.
-   */
-  blendFunction?: BlendFunction
 }
 
-const props = withDefaults(
-  defineProps<LensDistortionPmndrsProps>(),
-  {
-    distortion: new Vector2(0.0, 0.0),
-    principalPoint: new Vector2(0.0, 0.0),
-    focalLength: new Vector2(1.0, 1.0),
-    skew: 0,
-  },
-)
+const props = defineProps<LensDistortionPmndrsProps>()
 
-const { pass, effect } = useEffectPmndrs(() => new LensDistortionEffect(props), props)
+const { pass, effect } = useEffectPmndrs(
+  () => new LensDistortionEffect({
+    ...props,
+    distortion: props.distortion ? (Array.isArray(props.distortion) ? new Vector2(...props.distortion) : props.distortion) : new Vector2(),
+    principalPoint: props.principalPoint ? (Array.isArray(props.principalPoint) ? new Vector2(...props.principalPoint) : props.principalPoint) : new Vector2(),
+    focalLength: props.focalLength ? (Array.isArray(props.focalLength) ? new Vector2(...props.focalLength) : props.focalLength) : new Vector2(),
+  }),
+  props,
+)
 
 defineExpose({ pass, effect })
 
-makePropWatchers(
-  [
-    [() => props.blendFunction, 'blendMode.blendFunction'],
-    [() => props.distortion, 'distortion'],
-    [() => props.principalPoint, 'principalPoint'],
-    [() => props.focalLength, 'focalLength'],
-    [() => props.skew, 'skew'],
-  ],
+makePropWatchersUsingAllProps(
+  props,
   effect,
   () => new LensDistortionEffect(),
 )
