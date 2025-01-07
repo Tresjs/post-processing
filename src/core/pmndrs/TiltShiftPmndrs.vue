@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import type { BlendFunction } from 'postprocessing'
-import { KernelSize, Resolution, TiltShiftEffect } from 'postprocessing'
+import type { BlendFunction, KernelSize } from 'postprocessing'
+import { TiltShiftEffect } from 'postprocessing'
 import { makePropWatchers } from '../../util/prop'
 import { useEffectPmndrs } from './composables/useEffectPmndrs'
 
@@ -56,19 +56,7 @@ export interface TiltShiftPmndrsProps {
   resolutionY?: number
 }
 
-const props = withDefaults(
-  defineProps<TiltShiftPmndrsProps>(),
-  {
-    offset: 0.0,
-    rotation: 0.0,
-    focusArea: 0.4,
-    feather: 0.3,
-    kernelSize: KernelSize.MEDIUM,
-    resolutionScale: 0.5,
-    resolutionX: Resolution.AUTO_SIZE,
-    resolutionY: Resolution.AUTO_SIZE,
-  },
-)
+const props = defineProps<TiltShiftPmndrsProps>()
 
 const { pass, effect } = useEffectPmndrs(() => new TiltShiftEffect(props), props)
 
