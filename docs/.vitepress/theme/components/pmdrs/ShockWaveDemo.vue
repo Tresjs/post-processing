@@ -16,13 +16,14 @@ const gl = {
 
 const shockWaveRef = shallowRef(null)
 
-const { centerX, centerY, centerZ, amplitude, wavelength, speed } = useControls({
-  centerX: { value: 0.5, step: 0.01, max: 1.0 },
-  centerY: { value: 0.5, step: 0.01, max: 1.0 },
-  centerZ: { value: 0.5, step: 0.01, max: 1.0 },
+const { positionX, positionY, positionZ, amplitude, waveSize, speed, maxRadius } = useControls({
+  positionX: { value: 0.5, step: 0.01, max: 1.0 },
+  positionY: { value: 0.5, step: 0.01, max: 1.0 },
+  positionZ: { value: 0.5, step: 0.01, max: 1.0 },
   amplitude: { value: 0.1, step: 0.01, max: 1.0 },
-  wavelength: { value: 0.1, step: 0.01, max: 1.0 },
+  waveSize: { value: 0.1, step: 0.01, max: 1.0 },
   speed: { value: 1.0, step: 0.1, max: 10.0 },
+  maxRadius: { value: 1.0, step: 0.1, max: 10.0 },
 })
 </script>
 
@@ -67,7 +68,7 @@ const { centerX, centerY, centerZ, amplitude, wavelength, speed } = useControls(
 
     <Suspense>
       <EffectComposerPmndrs>
-        <ShockWavePmndrs ref="shockWaveRef" :center="new Vector3(centerX.value, centerY.value, centerZ.value)" :amplitude="amplitude.value" :wavelength="wavelength.value" :speed="speed.value" />
+        <ShockWavePmndrs ref="shockWaveRef" :position="new Vector3(positionX.value, positionY.value, positionZ.value)" :amplitude="amplitude.value" :waveSize="waveSize.value" :speed="speed.value" :maxRadius="maxRadius.value" />
       </EffectComposerPmndrs>
     </Suspense>
 
