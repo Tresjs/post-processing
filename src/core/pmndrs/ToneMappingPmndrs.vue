@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { BlendFunction, ToneMappingEffect, ToneMappingMode } from 'postprocessing'
+import type { BlendFunction, ToneMappingMode } from 'postprocessing'
+import { ToneMappingEffect } from 'postprocessing'
 import { makePropWatchers } from '../../util/prop'
 import { useEffectPmndrs } from './composables/useEffectPmndrs'
 
@@ -40,18 +41,7 @@ export interface ToneMappingPmndrsProps {
   whitePoint?: number
 }
 
-const props = withDefaults(
-  defineProps<ToneMappingPmndrsProps>(),
-  {
-    mode: ToneMappingMode.AGX,
-    blendFunction: BlendFunction.SRC,
-    resolution: 256,
-    averageLuminance: 1.0,
-    middleGrey: 0.6,
-    minLuminance: 0.01,
-    whitePoint: 4.0,
-  },
-)
+const props = defineProps<ToneMappingPmndrsProps>()
 
 const { pass, effect } = useEffectPmndrs(() => new ToneMappingEffect(props), props)
 
