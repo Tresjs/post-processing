@@ -12,6 +12,7 @@ import VignettePmndrs, { type VignettePmndrsProps } from './VignettePmndrs.vue'
 import ChromaticAberrationPmndrs, { type ChromaticAberrationPmndrsProps } from './ChromaticAberration.vue'
 import HueSaturationPmndrs, { type HueSaturationPmndrsProps } from './HueSaturationPmndrs.vue'
 import ScanlinePmndrs, { type ScanlinePmndrsProps } from './ScanlinePmndrs.vue'
+import ShockWavePmndrs, { type ShockWavePmndrsProps } from './ShockWavePmndrs.vue'
 
 export {
   BloomPmndrs,
@@ -26,6 +27,8 @@ export {
   ChromaticAberrationPmndrs,
   HueSaturationPmndrs,
   ScanlinePmndrs,
+  ShockWavePmndrs,
+
   BloomPmndrsProps,
   DepthOfFieldPmndrsProps,
   EffectComposerPmndrsProps,
@@ -37,4 +40,5 @@ export {
   ChromaticAberrationPmndrsProps,
   HueSaturationPmndrsProps,
   ScanlinePmndrsProps,
+  ShockWavePmndrsProps,
 }
