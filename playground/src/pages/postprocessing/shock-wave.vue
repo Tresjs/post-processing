@@ -5,7 +5,7 @@ import { TresLeches, useControls } from '@tresjs/leches'
 import { NoToneMapping, Vector3 } from 'three'
 import { DepthPickingPassPmndrs, EffectComposerPmndrs, ShockWavePmndrs } from '@tresjs/post-processing'
 import { useMouse, useWindowSize } from '@vueuse/core'
-import { computed, onBeforeUnmount, ref, watch } from 'vue'
+import { computed, ref } from 'vue'
 
 import '@tresjs/leches/styles'
 
