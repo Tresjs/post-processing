@@ -4,23 +4,33 @@
   <ShockWaveDemo />
 </DocsDemo>
 
+<details>
+  <summary>Demo code</summary>
+
+  <<< @/.vitepress/theme/components/pmdrs/ShockWaveDemo.vue{0}
+</details>
+
 The `ShockWave` effect is part of the [`postprocessing`](https://pmndrs.github.io/postprocessing/public/docs/class/src/effects/ShockWaveEffect.js~ShockWaveEffect.html) package. It simulates a shockwave effect originating from a center point, creating a ripple-like distortion in the scene. This effect can add dramatic impact to your scene by simulating explosions or other shockwave phenomena.
 
 ## Usage
 
-The `<ShockWavePmndrs>` component is easy to use and provides customizable options to suit different visual styles.
+The `<ShockWavePmndrs>` component is easy to use and provides customizable options to suit different visual styles. There are several possible techniques to achieve this. See [Events](#events) and [DepthPickingPass](#depthpickingpass) for more details.
 
-### Using DepthPickingPassPmndrs
+### Events
 
-The `DepthPickingPassPmndrs` component is used to read the depth information from the scene. This is particularly useful when you need to interact with the 3D objects in the scene based on their depth, such as triggering effects at specific points in 3D space.
+To determine the position of the shockwave effect, you can use Tres.js events. Tres.js allows you to handle user interactions directly and find the intersection point with objects in the scene. This technique is useful when you need to interact with specific objects based on user input.
 
-In the example above, `DepthPickingPassPmndrs` is used to determine the depth of the point where the shockwave effect should originate. This allows the shockwave to interact accurately with the 3D objects in the scene.
+You can use various Tres.js events such as `click`, `pointer-enter`, etc., to trigger the shockwave effect. For more details about available events, see the [documentation](https://docs.tresjs.org/api/events.html).
 
-```vue{2,38-46}
+Here is an example of how to use events to trigger the shockwave effect:
+
+```vue{2,3,13-15,17-18,20-21,23-24,26-28,30-36,45,50-58}
 <script setup lang="ts">
-import { EffectComposerPmndrs, ShockWavePmndrs, DepthPickingPassPmndrs } from '@tresjs/post-processing/pmndrs'
+import { EffectComposerPmndrs, ShockWavePmndrs } from '@tresjs/post-processing'
 import { useMouse, useWindowSize } from '@vueuse/core'
-import { Vector3 } from 'three'
+import { NoToneMapping, Vector3 } from 'three'
+import { computed, ref } from 'vue'
+import { TresCanvas } from '@tresjs/core'
 
 const gl = {
   toneMapping: NoToneMapping,
@@ -28,11 +38,10 @@ const gl = {
 }
 
 const effectProps = {
-  speed: 1.0,
+  speed: 0.2,
 }
 
 const position = ref(new Vector3(0, 0, 0))
-const depthPickingPassRef = ref(null)
 const shockWaveEffectRef = ref(null)
 
 const { x, y } = useMouse()
@@ -41,19 +50,90 @@ const { width, height } = useWindowSize()
 const cursorX = computed(() => (x.value / width.value) * 2.0 - 1.0)
 const cursorY = computed(() => -(y.value / height.value) * 2.0 + 1.0)
 
+function updateMousePosition({ point }) {
+  mousePosition.value.copy(point)
+}
+
+function triggerShockWave() {
+  if (!shockWaveEffectRef.value) { return }
+
+  updateMousePosition()
+
+  shockWaveEffectRef.value.effect.explode()
+}
+</script>
+
+<template>
+  <TresCanvas v-bind="gl">
+    <TresPerspectiveCamera
+      :position="[5, 5, 5]"
+      :look-at="[0, 0, 0]"
+    />
+    <TresMesh @click="triggerShockWave">
+      <TresBoxGeometry />
+      <TresMeshStandardMaterial color="#1C1C1E" />
+    </TresMesh>
+
+    <Suspense>
+      <EffectComposerPmndrs>
+        <ShockWavePmndrs
+          ref="shockWaveEffectRef"
+          :position="position"
+          v-bind="effectProps"
+        />
+      </EffectComposerPmndrs>
+    </Suspense>
+  </TresCanvas>
+</template>
+```
+
+### DepthPickingPass
+
+The `DepthPickingPassPmndrs` component reads depth information from the scene. This is particularly useful for interacting with 3D objects based on their depth, such as triggering effects at specific points in 3D space.
+
+In the example above, `DepthPickingPassPmndrs` determines the depth of the point where the shockwave effect should originate, allowing accurate interaction with 3D objects.
+
+```vue{2,3,13-15,17-20,22-23,25-26,28-37,39-45,51,58,63-72}
+<script setup lang="ts">
+import { DepthPickingPassPmndrs, EffectComposerPmndrs, ShockWavePmndrs } from '@tresjs/post-processing'
+import { useMouse, useWindowSize } from '@vueuse/core'
+import { NoToneMapping, Vector3 } from 'three'
+import { computed, ref } from 'vue'
+import { TresCanvas } from '@tresjs/core'
+
+const gl = {
+  toneMapping: NoToneMapping,
+  multisampling: 8,
+}
+
+const effectProps = {
+  speed: 0.2,
+}
+
+const position = ref(new Vector3(0, 0, 0))
+const depthPickingPassRef = ref(null)
+const shockWaveEffectRef = ref(null)
+const elCanvasRef = ref(null)
+
+const { x, y } = useMouse()
+const { width, height } = useWindowSize()
+
+const cursorX = computed(() => (x.value / width.value) * 2.0 - 1.0)
+const cursorY = computed(() => -(y.value / height.value) * 2.0 + 1.0)
+
 async function updateMousePosition() {
-  if (!elCanvas.value || !shockWaveEffectRef.value || !depthPickingPassRef.value) { return }
+  if (!elCanvasRef.value || !depthPickingPassRef.value) { return }
 
   const ndcPosition = new Vector3(cursorX.value, cursorY.value, 0)
 
   ndcPosition.z = await depthPickingPassRef.value.pass.readDepth(ndcPosition)
   ndcPosition.z = ndcPosition.z * 2.0 - 1.0
 
-  mousePosition.value.copy(ndcPosition.unproject(elCanvas.value.context.camera.value))
+  position.value.copy(ndcPosition.unproject(elCanvasRef.value.context.camera.value))
 }
 
 function triggerShockWave() {
-  if (!elCanvas.value || !shockWaveEffectRef.value) { return }
+  if (!shockWaveEffectRef.value) { return }
 
   updateMousePosition()
 
@@ -64,13 +144,14 @@ function triggerShockWave() {
 <template>
   <TresCanvas
     v-bind="gl"
+    ref="elCanvasRef"
   >
     <TresPerspectiveCamera
       :position="[5, 5, 5]"
       :look-at="[0, 0, 0]"
     />
 
-    <TresMesh>
+    <TresMesh @click="triggerShockWave">
       <TresBoxGeometry />
       <TresMeshStandardMaterial color="#1C1C1E" />
     </TresMesh>
@@ -89,53 +170,7 @@ function triggerShockWave() {
 </template>
 ```
 
-### Using Raycast
-
-Another technique to determine the position of the shockwave effect is by using raycasting. Raycasting allows you to project a ray from the camera through the mouse position and find the intersection point with objects in the scene. This technique is useful when you need to interact with specific objects based on user input.
-
-Here is an example of how to use raycasting to trigger the shockwave effect:
-
-```vue
-<script setup lang="ts">
-import { EffectComposerPmndrs, ShockWavePmndrs } from '@tresjs/post-processing/pmndrs'
-import { Raycaster, Vector2, Vector3 } from 'three'
-import { ref } from 'vue'
-
-const raycaster = new Raycaster()
-const mouse = new Vector2()
-const shockWaveEffect = ref(null)
-const elCanvas = ref(null)
-const mousePosition = ref(new Vector3())
-
-function onMouseMove(event) {
-  mouse.x = (event.clientX / window.innerWidth) * 2 - 1
-  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1
-}
-
-function triggerShockWave() {
-  if (!elCanvas.value || !shockWaveEffect.value) { return }
-
-  raycaster.setFromCamera(mouse, elCanvas.value.context.camera.value)
-  const intersects = raycaster.intersectObjects(elCanvas.value.context.scene.value.children)
-
-  if (intersects.length > 0) {
-    mousePosition.value.copy(intersects[0].point)
-    shockWaveEffect.value.effect.explode()
-  }
-}
-
-window.addEventListener('mousemove', onMouseMove)
-</script>
-
-<template>
-  <TresCanvas ref="elCanvas">
-    <!-- ...existing code... -->
-    <EffectComposerPmndrs>
-      <ShockWavePmndrs ref="shockWaveEffect" :position="mousePosition" />
-    </EffectComposerPmndrs>
-  </TresCanvas>
-</template>
-```
+For more details about DepthPickingPass, see the [documentation](https://pmndrs.github.io/postprocessing/public/docs/class/src/passes/DepthPickingPass.js~DepthPickingPass.html).
 
 ## Props
 

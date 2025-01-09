@@ -201,7 +201,8 @@ function getActiveDuration() {
   text-align: center;
   color: #fff;
   z-index: 2;
-  background: rgba(0, 0, 0, 0.5);
+  border-radius: 0px 10px 0px 0px;
+  background: linear-gradient(90deg, hsla(24, 100%, 83%, 1) 0%, hsla(341, 91%, 68%, 1) 100%);
   margin: 0;
 }
 </style>
