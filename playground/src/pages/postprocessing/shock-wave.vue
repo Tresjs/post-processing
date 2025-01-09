@@ -35,7 +35,7 @@ const { amplitude, waveSize, speed, maxRadius } = useControls({
 const cursorX = computed(() => (x.value / width.value) * 2.0 - 1.0)
 const cursorY = computed(() => -(y.value / height.value) * 2.0 + 1.0)
 
-async function updateMousePosition3D() {
+async function updateMousePosition() {
   if (!elCanvas.value || !shockWaveEffect.value || !depthPickingPassRef.value) { return }
 
   const ndcPosition = new Vector3(cursorX.value, cursorY.value, 0)
@@ -44,22 +44,6 @@ async function updateMousePosition3D() {
   ndcPosition.z = ndcPosition.z * 2.0 - 1.0
 
   mousePosition.value.copy(ndcPosition.unproject(elCanvas.value.context.camera.value))
-}
-
-watch(cursorX, () => {
-  console.log('cursorX', cursorX.value)
-})
-
-watch(width, () => {
-  console.log('width', width.value)
-})
-
-watch(height, () => {
-  console.log('height', height.value)
-})
-
-function updateMousePosition() {
-  updateMousePosition3D()
 }
 
 function triggerShockWave() {

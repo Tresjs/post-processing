@@ -5,22 +5,22 @@ import { TresLeches, useControls } from '@tresjs/leches'
 import { NoToneMapping, Shape, Vector3 } from 'three'
 import { computed, reactive, ref, shallowRef } from 'vue'
 import { DepthPickingPassPmndrs, EffectComposerPmndrs, ShockWavePmndrs } from '@tresjs/post-processing'
-import { useElementSize, useMouse, useParentElement } from '@vueuse/core'
+import { useElementBounding, useMouse, useParentElement } from '@vueuse/core'
+import { gsap } from 'gsap'
 
 import '@tresjs/leches/styles'
 
 const gl = {
-  clearColor: '#ffffff',
+  clearColor: '#8D404A',
   toneMapping: NoToneMapping,
   multisampling: 8,
 }
 
-const meshHearRef = shallowRef(null)
-const shockWaveEffect = shallowRef(null)
-const mousePosition = ref(new Vector3())
-const effectComposerRef = ref(null)
-const elCanvas = ref(null)
+const shockWaveEffectRef = shallowRef(null)
+const elCanvasRef = ref(null)
 const depthPickingPassRef = ref(null)
+const meshHeartRef = ref(null)
+const mousePosition = ref(new Vector3())
 
 function createHeartShape(scale: number) {
   const shape = new Shape()
@@ -38,11 +38,11 @@ function createHeartShape(scale: number) {
   return shape
 }
 
-const heartShape = createHeartShape(0.35)
+const heartShapeFront = createHeartShape(0.35)
 
 const parentEl = useParentElement()
 const { x, y } = useMouse({ target: parentEl })
-const { width, height } = useElementSize(parentEl)
+const { width, height, left, top } = useElementBounding(parentEl)
 
 const extrudeSettings = reactive({
   depth: 0.1,
@@ -53,47 +53,83 @@ const extrudeSettings = reactive({
   bevelThickness: 0.25,
 })
 
-const { amplitude, waveSize, speed, maxRadius } = useControls({
-  amplitude: { value: 0.3, step: 0.01, max: 1.0 },
-  waveSize: { value: 0.75, step: 0.01, max: 1.0 },
-  speed: { value: 1, step: 0.1, max: 10.0 },
-  maxRadius: { value: 1.0, step: 0.1, max: 10.0 },
+const materialProps = reactive({
+  color: '#FF9999',
+  reflectivity: 0.75,
+  ior: 1.5,
+  roughness: 0.75,
+  clearcoat: 0.01,
+  clearcoatRoughness: 0.15,
+  transmission: 0.7,
 })
 
-const cursorX = computed(() => ((x.value - width.value) / width.value) * 2.0)
-const cursorY = computed(() => -((y.value - height.value) / height.value) * 2.0)
+const { amplitude, waveSize, speed, maxRadius } = useControls({
+  amplitude: { value: 0.4, step: 0.01, max: 1.0 },
+  waveSize: { value: 0.5, step: 0.01, max: 1.0 },
+  speed: { value: 1.5, step: 0.1, max: 10.0 },
+  maxRadius: { value: 0.2, step: 0.01, max: 2 },
+})
+
+const cursorX = computed(() => ((x.value - left.value - width.value) / width.value) * 2.0 + 1.0)
+const cursorY = computed(() => -((y.value - top.value - height.value) / height.value) * 2.0 - 1.0)
 
 async function updateMousePosition() {
-  if (!elCanvas.value || !shockWaveEffect.value || !depthPickingPassRef.value) { return }
+  if (!elCanvasRef.value || !shockWaveEffectRef.value || !depthPickingPassRef.value) { return }
 
   const ndcPosition = new Vector3(cursorX.value, cursorY.value, 0)
 
   // Read depth from depth picking pass
   ndcPosition.z = await depthPickingPassRef.value.pass.readDepth(ndcPosition)
+
   ndcPosition.z = ndcPosition.z * 2.0 - 1.0
 
-  mousePosition.value.copy(ndcPosition.unproject(elCanvas.value.context.camera.value))
+  mousePosition.value.copy(ndcPosition.unproject(elCanvasRef.value.context.camera.value))
 }
 
 function triggerShockWave() {
-  if (!elCanvas.value || !shockWaveEffect.value) { return }
+  if (!elCanvasRef.value || !shockWaveEffectRef.value) { return }
 
   updateMousePosition()
 
-  shockWaveEffect.value.effect.explode()
+  shockWaveEffectRef.value.effect.explode()
 
   const duration = getActiveDuration()
 
-  // Fallback for onFinish
-  setTimeout(() => {
-    console.log('Explode animation done')
-    console.log('Total duration:', duration)
-  }, duration)
+  const durationSeconds = duration / 1000
+
+  const timeline = gsap.timeline()
+
+  timeline.to(meshHeartRef.value.scale, {
+    duration: durationSeconds / 9,
+    x: 0.8,
+    y: 0.8,
+    z: 0.8,
+    ease: 'power2.inOut',
+  })
+  timeline.to(meshHeartRef.value.scale, {
+    duration: durationSeconds / 9,
+    x: 1.2,
+    y: 1.2,
+    z: 1.2,
+    ease: 'power2.inOut',
+  })
+  timeline.to(meshHeartRef.value.scale, {
+    duration: durationSeconds / 9,
+    x: 1,
+    y: 1,
+    z: 1,
+    ease: 'power2.inOut',
+  })
+
+  // Fallback for onFinish explode Shock Wave
+  // setTimeout(() => {
+  // console.log('Explode animation done')
+  // }, duration)
 }
 
 function getActiveDuration() {
   // This function retrieves the duration for emitting the shock wave.
-  // For more details, see: https://github.com/pmndrs/postprocessing/blob/3d3df0576b6d49aec9e763262d5a1ff7429fd91a/src/effects/ShockWaveEffect.js#L258-L301
+  // For more details, see: https://github.com/pmndrs/postprocessing/blob/3d3df0576b6d49aec9e763262d5a1ff7429fd91a/src/effects/ShockWaveEffectRef.js#L258-L301
 
   // To reduce the duration of the animation, you can decrease the values of maxRadius and waveSize.
   // Note that the speed affects how quickly the shock wave radius increases over time, but not the total duration of the emit explode.
@@ -113,44 +149,59 @@ function getActiveDuration() {
 <template>
   <TresLeches style="left: initial;right:10px; top:10px;" />
 
+  <p class="doc-shock-wave-instructions text-xs font-semibold text-zinc-600">Click on the heart to distribute love</p>
+
   <TresCanvas
-    ref="elCanvas"
+    ref="elCanvasRef"
     v-bind="gl"
   >
     <TresPerspectiveCamera
       :position="[0, 0, 10]"
     />
 
-    <OrbitControls make-default />
+    <OrbitControls make-default auto-rotate />
 
-    <TresMesh :position="[0, .5, -5]" @click="triggerShockWave">
-      <TresBoxGeometry :args="[2, 2, 2]" />
-      <TresMeshPhysicalMaterial color="#82DBC5" :roughness=".25" />
-    </TresMesh>
-
-    <TresMesh ref="meshHearRef" :position-y="2" @click="triggerShockWave">
-      <TresExtrudeGeometry :args="[heartShape, extrudeSettings]" />
-      <TresMeshStandardMaterial
-        color="#78B158"
+    <TresMesh ref="meshHeartRef" :position-y="2" @click="triggerShockWave">
+      <TresExtrudeGeometry :args="[heartShapeFront, extrudeSettings]" />
+      <TresMeshPhysicalMaterial
+        v-bind="materialProps"
       />
     </TresMesh>
 
+    <TresDirectionalLight
+      :position="[5, 5, 7.5]"
+      :intensity="2"
+    />
+
     <ContactShadows
       :opacity="1"
-      :position-y="-2"
-      :scale="20"
-      :blur=".85"
+      :position-y="-2.75"
+      :blur=".5"
     />
 
     <Suspense>
-      <Environment background :intensity="2" :blur="0" preset="snow" />
+      <Environment preset="night" />
     </Suspense>
 
     <Suspense>
-      <EffectComposerPmndrs ref="effectComposerRef">
+      <EffectComposerPmndrs>
         <DepthPickingPassPmndrs ref="depthPickingPassRef" />
-        <ShockWavePmndrs ref="shockWaveEffect" :position="mousePosition" :amplitude="amplitude.value" :waveSize="waveSize.value" :speed="speed.value" :maxRadius="maxRadius.value" />
+        <ShockWavePmndrs ref="shockWaveEffectRef" :position="mousePosition" :amplitude="amplitude.value" :waveSize="waveSize.value" :speed="speed.value" :maxRadius="maxRadius.value" />
       </EffectComposerPmndrs>
     </Suspense>
   </TresCanvas>
 </template>
+
+<style scoped>
+.doc-shock-wave-instructions {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 0.65rem 0.85rem;
+  text-align: center;
+  color: #fff;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.5);
+  margin: 0;
+}
+</style>
