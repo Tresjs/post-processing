@@ -46,6 +46,18 @@ async function updateMousePosition3D() {
   mousePosition.value.copy(ndcPosition.unproject(elCanvas.value.context.camera.value))
 }
 
+watch(cursorX, () => {
+  console.log('cursorX', cursorX.value)
+})
+
+watch(width, () => {
+  console.log('width', width.value)
+})
+
+watch(height, () => {
+  console.log('height', height.value)
+})
+
 function updateMousePosition() {
   updateMousePosition3D()
 }

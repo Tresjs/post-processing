@@ -4,12 +4,12 @@ import { DepthPickingPass } from 'postprocessing'
 import { inject, onUnmounted, shallowRef, watch } from 'vue'
 import { effectComposerInjectionKey } from './EffectComposerPmndrs.vue'
 
-export interface DepthPickingPmndrsProps {
+export interface DepthPickingPassPmndrsProps {
   depthPacking?: DepthPackingStrategies
   mode?: number
 }
 
-const props = defineProps<DepthPickingPmndrsProps>()
+const props = defineProps<DepthPickingPassPmndrsProps>()
 const composer = inject(effectComposerInjectionKey)
 
 const pass = shallowRef<DepthPickingPass>(new DepthPickingPass(props))
