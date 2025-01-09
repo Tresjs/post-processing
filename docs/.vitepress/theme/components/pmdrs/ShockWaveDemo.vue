@@ -3,7 +3,7 @@ import { ContactShadows, Environment, OrbitControls } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
 import { TresLeches, useControls } from '@tresjs/leches'
 import { NoToneMapping, Shape, Vector3 } from 'three'
-import { computed, reactive, ref, shallowRef } from 'vue'
+import { computed, onUnmounted, reactive, ref, shallowRef } from 'vue'
 import { DepthPickingPassPmndrs, EffectComposerPmndrs, ShockWavePmndrs } from '@tresjs/post-processing'
 import { useElementBounding, useMouse, useParentElement } from '@vueuse/core'
 import { gsap } from 'gsap'
@@ -63,6 +63,10 @@ const materialProps = reactive({
   transmission: 0.7,
 })
 
+let tl: gsap.core.Timeline
+
+const ctx = gsap.context(() => { })
+
 const { amplitude, waveSize, speed, maxRadius } = useControls({
   amplitude: { value: 0.4, step: 0.01, max: 1.0 },
   waveSize: { value: 0.5, step: 0.01, max: 1.0 },
@@ -97,33 +101,35 @@ function triggerShockWave() {
 
   const durationSeconds = duration / 1000
 
-  const timeline = gsap.timeline()
+  ctx.add(() => {
+    tl?.kill()
 
-  timeline.to(meshHeartRef.value.scale, {
-    duration: durationSeconds / 9,
-    x: 0.8,
-    y: 0.8,
-    z: 0.8,
-    ease: 'power2.inOut',
-  })
-  timeline.to(meshHeartRef.value.scale, {
-    duration: durationSeconds / 9,
-    x: 1.2,
-    y: 1.2,
-    z: 1.2,
-    ease: 'power2.inOut',
-  })
-  timeline.to(meshHeartRef.value.scale, {
-    duration: durationSeconds / 9,
-    x: 1,
-    y: 1,
-    z: 1,
-    ease: 'power2.inOut',
+    tl = gsap.timeline()
+
+    tl.to(meshHeartRef.value.scale, {
+      duration: durationSeconds / 9,
+      x: 0.8,
+      y: 0.8,
+      z: 0.8,
+      ease: 'power2.inOut',
+    }).to(meshHeartRef.value.scale, {
+      duration: durationSeconds / 9,
+      x: 1.2,
+      y: 1.2,
+      z: 1.2,
+      ease: 'power2.inOut',
+    }).to(meshHeartRef.value.scale, {
+      duration: durationSeconds / 9,
+      x: 1,
+      y: 1,
+      z: 1,
+      ease: 'power2.inOut',
+    })
   })
 
   // Fallback for onFinish explode Shock Wave
   // setTimeout(() => {
-  // console.log('Explode animation done')
+  // console.log('Explode effect animation done')
   // }, duration)
 }
 
@@ -144,6 +150,10 @@ function getActiveDuration() {
   // Convert to milliseconds
   return duration * 1000
 }
+
+onUnmounted(() => {
+  ctx.revert()
+})
 </script>
 
 <template>
