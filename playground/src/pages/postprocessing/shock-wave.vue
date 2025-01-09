@@ -3,10 +3,9 @@ import { ContactShadows, Environment, OrbitControls } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
 import { TresLeches, useControls } from '@tresjs/leches'
 import { NoToneMapping, Vector3 } from 'three'
-import { EffectComposerPmndrs, ShockWavePmndrs } from '@tresjs/post-processing'
+import { DepthPickingPassPmndrs, EffectComposerPmndrs, ShockWavePmndrs } from '@tresjs/post-processing'
 import { useMouse, useWindowSize } from '@vueuse/core'
 import { computed, onBeforeUnmount, ref, watch } from 'vue'
-import { DepthPickingPass } from 'postprocessing'
 
 import '@tresjs/leches/styles'
 
@@ -23,9 +22,8 @@ const { width, height } = useWindowSize()
 const shockWaveEffect = ref(null)
 const elCanvas = ref(null)
 const effectComposerRef = ref(null)
+const depthPickingPassRef = ref(null)
 const mousePosition = ref(new Vector3())
-
-const depthPickingPass = new DepthPickingPass()
 
 const { amplitude, waveSize, speed, maxRadius } = useControls({
   amplitude: { value: 0.15, step: 0.001, max: 0.25 },
@@ -38,10 +36,11 @@ const cursorX = computed(() => (x.value / width.value) * 2.0 - 1.0)
 const cursorY = computed(() => -(y.value / height.value) * 2.0 + 1.0)
 
 async function updateMousePosition3D() {
-  if (!elCanvas.value || !shockWaveEffect.value || !depthPickingPass) { return }
+  if (!elCanvas.value || !shockWaveEffect.value || !depthPickingPassRef.value) { return }
 
   const ndcPosition = new Vector3(cursorX.value, cursorY.value, 0)
-  ndcPosition.z = await depthPickingPass.readDepth(ndcPosition)
+
+  ndcPosition.z = await depthPickingPassRef.value.pass.readDepth(ndcPosition)
   ndcPosition.z = ndcPosition.z * 2.0 - 1.0
 
   mousePosition.value.copy(ndcPosition.unproject(elCanvas.value.context.camera.value))
@@ -58,19 +57,6 @@ function triggerShockWave() {
 
   shockWaveEffect.value.effect.explode()
 }
-
-watch(() => effectComposerRef.value?.composer, () => {
-  if (!effectComposerRef.value?.composer) { return }
-
-  effectComposerRef.value.composer.addPass(depthPickingPass)
-})
-
-onBeforeUnmount(() => {
-  if (!effectComposerRef.value?.composer || !depthPickingPass) { return }
-
-  effectComposerRef.value.composer.removePass(depthPickingPass)
-  depthPickingPass.dispose()
-})
 </script>
 
 <template>
@@ -116,6 +102,7 @@ onBeforeUnmount(() => {
 
     <Suspense>
       <EffectComposerPmndrs ref="effectComposerRef">
+        <DepthPickingPassPmndrs ref="depthPickingPassRef" />
         <ShockWavePmndrs ref="shockWaveEffect" :position="mousePosition" :amplitude="amplitude.value" :waveSize="waveSize.value" :speed="speed.value" :maxRadius="maxRadius.value" />
       </EffectComposerPmndrs>
     </Suspense>

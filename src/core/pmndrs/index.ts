@@ -13,6 +13,7 @@ import ChromaticAberrationPmndrs, { type ChromaticAberrationPmndrsProps } from '
 import HueSaturationPmndrs, { type HueSaturationPmndrsProps } from './HueSaturationPmndrs.vue'
 import ScanlinePmndrs, { type ScanlinePmndrsProps } from './ScanlinePmndrs.vue'
 import ShockWavePmndrs, { type ShockWavePmndrsProps } from './ShockWavePmndrs.vue'
+import DepthPickingPassPmndrs, { type DepthPickingPassPmndrsProps } from './DepthPickingPassPmndrs.vue'
 
 export {
   BloomPmndrs,
@@ -28,6 +29,7 @@ export {
   HueSaturationPmndrs,
   ScanlinePmndrs,
   ShockWavePmndrs,
+  DepthPickingPassPmndrs,
 
   BloomPmndrsProps,
   DepthOfFieldPmndrsProps,
@@ -41,4 +43,5 @@ export {
   HueSaturationPmndrsProps,
   ScanlinePmndrsProps,
   ShockWavePmndrsProps,
+  DepthPickingPassPmndrsProps,
 }
