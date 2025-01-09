@@ -16,6 +16,8 @@ The `ShockWave` effect is part of the [`postprocessing`](https://pmndrs.github.i
 
 The `<ShockWavePmndrs>` component is easy to use and provides customizable options to suit different visual styles. There are several possible techniques to achieve this. See [Events](#events) and [DepthPickingPass](#depthpickingpass) for more details.
 
+The main difference between `Events` and `DepthPickingPass` lies in the scope you want. `Events` is more suited for being used on a specific element, while `DepthPickingPass` is intended to be used for an entire scene (depth is calculated globally).
+
 ### Events
 
 To determine the position of the shockwave effect, you can use Tres.js events. Tres.js allows you to handle user interactions directly and find the intersection point with objects in the scene. This technique is useful when you need to interact with specific objects based on user input.

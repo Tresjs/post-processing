@@ -91,7 +91,7 @@ async function updateMousePosition() {
 }
 
 function triggerShockWave() {
-  if (!elCanvasRef.value || !shockWaveEffectRef.value) { return }
+  if (!meshHeartRef.value || !shockWaveEffectRef.value) { return }
 
   updateMousePosition()
 
