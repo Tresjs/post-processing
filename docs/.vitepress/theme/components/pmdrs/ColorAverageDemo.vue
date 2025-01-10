@@ -18,9 +18,7 @@ const gl = {
   envMapIntensity: 10,
 }
 
-let tl: gsap.core.Timeline
-
-const ctx = gsap.context(() => { })
+const ctx = gsap.context(() => {})
 
 const meshRef = ref<Mesh | null>(null)
 
@@ -33,27 +31,30 @@ const { blendFunction, opacity } = useControls({
     value: BlendFunction.NORMAL,
   },
   opacity: {
-    value: 0,
+    value: 1,
     min: 0,
     max: 1,
   },
 })
 
 function onUpdateTimeline(e) {
-  opacity.value.value = e.progress()
+  const progress = 1 - e.progress()
+  opacity.value.value = progress
 }
 
 watch(meshRef, () => {
   if (!meshRef.value) { return }
 
-  tl = gsap.timeline({
-    repeat: -1,
-    yoyo: true,
-    onUpdate() {
-      onUpdateTimeline(this)
-    },
+  ctx.add(() => {
+    gsap.timeline({
+      repeat: -1,
+      yoyo: true,
+      onUpdate() {
+        onUpdateTimeline(this)
+      },
+    })
+      .to(meshRef.value.position, { y: -3.5, duration: 2 })
   })
-    .to(meshRef.value.position, { y: -3.5, duration: 2 })
 })
 
 onUnmounted(() => {

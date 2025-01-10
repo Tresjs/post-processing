@@ -10,14 +10,25 @@ The `ColorAverage` effect is part of the [`postprocessing`](https://pmndrs.githu
 
 The `<ColorAveragePmndrs>` component is easy to use and provides customizable options to suit different visual styles.
 
-```vue{2,38-40}
+```vue{6,15-18,40-44}
 <script setup lang="ts">
-import { EffectComposerPmndrs, ColorAveragePmndrs } from '@tresjs/post-processing/pmndrs'
+import { Environment, OrbitControls } from '@tresjs/cientos'
+import { TresCanvas } from '@tresjs/core'
+import { NoToneMapping } from 'three'
+import { BlendFunction } from 'postprocessing'
+import { ColorAveragePmndrs, EffectComposerPmndrs } from '@tresjs/post-processing'
 
 const gl = {
+  clearColor: '#ffffff',
   toneMapping: NoToneMapping,
   multisampling: 8,
+  envMapIntensity: 10,
 }
+
+const effectProps = reactive({
+  blendFunction: BlendFunction.NORMAL,
+  opacity: 0.5
+})
 </script>
 
 <template>
@@ -25,29 +36,23 @@ const gl = {
     v-bind="gl"
   >
     <TresPerspectiveCamera
-      :position="[5, 5, 5]"
+      :position="[5, 2, 15]"
       :look-at="[0, 0, 0]"
     />
+    <OrbitControls auto-rotate />
 
-    <template
-      v-for="i in 4"
-      :key="i"
-    >
-      <TresMesh
-        :position="[((i - 1) - (4 - 1) / 2) * 1.5, 0, 0]"
-      >
-        <TresBoxGeometry
-          :width="4"
-          :height="4"
-          :depth="4"
-        />
-        <TresMeshStandardMaterial color="#1C1C1E" />
-      </TresMesh>
-    </template>
+    <TresMesh :position="[0, 3.5, 0]">
+      <TresBoxGeometry :args="[2, 2, 2]" />
+      <TresMeshPhysicalMaterial color="#8B0000" :roughness=".25" />
+    </TresMesh>
+
+    <Suspense>
+      <Environment background preset="shangai" />
+    </Suspense>
 
     <Suspense>
       <EffectComposerPmndrs>
-        <ColorAveragePmndrs :blendFunction="BlendFunction.NORMAL" />
+        <ColorAveragePmndrs v-bind="effectProps" />
       </EffectComposerPmndrs>
     </Suspense>
   </TresCanvas>
@@ -59,6 +64,7 @@ const gl = {
 | Prop              | Description                                                                                                   | Default                   |
 | ----------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------- |
 | blendFunction     | Defines the [`BlendFunction`](https://pmndrs.github.io/postprocessing/public/docs/variable/index.html#static-variable-BlendFunction) used for the effect.                                                               | `BlendFunction.NORMAL`    |
+| opacity           | Sets the opacity of the color average effect.                                                                 | `1`                       |
 
 ## Further Reading
 For more details, see the [ColorAverage documentation](https://pmndrs.github.io/postprocessing/public/docs/class/src/effects/ColorAverageEffect.js~ColorAverageEffect.html)
