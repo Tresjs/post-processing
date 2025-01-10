@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { Environment, OrbitControls } from '@tresjs/cientos'
+import { ContactShadows, Environment, OrbitControls, useGLTF } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
 import { TresLeches, useControls } from '@tresjs/leches'
-import { EffectComposerPmndrs, HueSaturationPmndrs } from '@tresjs/post-processing'
+import { DotScreenPmndrs, EffectComposerPmndrs } from '@tresjs/post-processing'
 
 import { BlendFunction } from 'postprocessing'
 import { NoToneMapping } from 'three'
@@ -10,21 +10,24 @@ import { NoToneMapping } from 'three'
 import '@tresjs/leches/styles'
 
 const gl = {
+  clearColor: '#ffffff',
   toneMapping: NoToneMapping,
   multisampling: 8,
 }
 
-const { saturation, hue, blendFunction } = useControls({
-  hue: { value: -Math.PI, min: -Math.PI, max: Math.PI, step: 0.001 },
-  saturation: { value: 1, min: -1, max: 1, step: 0.001 },
+const { angle, scale, blendFunction } = useControls({
+  angle: { value: 1.57, min: -Math.PI, max: Math.PI, step: 0.001 },
+  scale: { value: 1, min: 0.1, max: 2.5, step: 0.01 },
   blendFunction: {
     options: Object.keys(BlendFunction).map(key => ({
       text: key,
       value: BlendFunction[key],
     })),
-    value: BlendFunction.SRC,
+    value: BlendFunction.NORMAL,
   },
 })
+
+const { scene } = await useGLTF('https://raw.githubusercontent.com/Tresjs/assets/main/models/gltf/suzanne/suzanne.glb', { draco: true })
 </script>
 
 <template>
@@ -34,23 +37,25 @@ const { saturation, hue, blendFunction } = useControls({
     v-bind="gl"
   >
     <TresPerspectiveCamera
-      :position="[5, 5, 5]"
+      :position="[0, 1, 6.5]"
       :look-at="[0, 0, 0]"
     />
-    <OrbitControls auto-rotate />
+    <OrbitControls />
 
-    <TresMesh :position="[0, 1, 0]">
-      <TresBoxGeometry :args="[2, 2, 2]" />
-      <TresMeshPhysicalMaterial color="white" />
-    </TresMesh>
+    <primitive :scale="2" :rotation-x="Math.PI / -5" :rotation-y="Math.PI" :position-y=".25" :object="scene" />
+
+    <ContactShadows
+      :opacity="1"
+      :position-y="-1.5"
+    />
 
     <Suspense>
-      <Environment background :blur=".25" preset="modern" />
+      <Environment preset="modern" />
     </Suspense>
 
     <Suspense>
       <EffectComposerPmndrs>
-        <HueSaturationPmndrs :blendFunction="Number(blendFunction.value)" :hue="hue.value" :saturation="saturation.value" />
+        <DotScreenPmndrs :blendFunction="Number(blendFunction.value)" :angle="angle.value" :scale="scale.value" />
       </EffectComposerPmndrs>
     </Suspense>
   </TresCanvas>

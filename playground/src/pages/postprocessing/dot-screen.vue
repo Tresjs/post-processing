@@ -15,7 +15,6 @@ const gl = {
 
 const { angle, scale, blendFunction } = useControls({
   angle: { value: 1.57, min: -Math.PI, max: Math.PI, step: 0.001 },
-
   scale: { value: 0.5, min: 0.1, max: 2.5, step: 0.01 },
   blendFunction: {
     options: Object.keys(BlendFunction).map(key => ({
