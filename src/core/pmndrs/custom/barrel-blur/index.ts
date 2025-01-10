@@ -63,7 +63,7 @@ export class BarrelBlurEffect extends Effect {
     }
       `, {
       blendFunction,
-      uniforms: new Map([
+      uniforms: new Map<string, Uniform<number | Vector2>>([
         ['amount', new Uniform(amount)], // Uniform controlling the intensity of distortion
         ['offset', new Uniform(offset)], // Uniform controlling the offset of distortion
       ]),
@@ -77,11 +77,11 @@ export class BarrelBlurEffect extends Effect {
    */
 
   get amount() {
-    return this.uniforms.get('amount').value
+    return this.uniforms.get('amount')?.value
   }
 
   set amount(value) {
-    this.uniforms.get('amount').value = value
+    this.uniforms.get('amount')!.value = value
   }
 
   /**
@@ -91,10 +91,10 @@ export class BarrelBlurEffect extends Effect {
    */
 
   get offset() {
-    return this.uniforms.get('offset').value
+    return this.uniforms.get('offset')?.value
   }
 
   set offset(value) {
-    this.uniforms.get('offset').value = value
+    this.uniforms.get('offset')!.value = value
   }
 }

@@ -20,7 +20,8 @@ export interface BarrelBlurPmndrsProps {
 
   /**
    * The offset of the barrel distortion center.
-   * A Vector2 value or an array of two numbers where both x and y are between 0 and 1. This allows you to change the position of the distortion effect.
+   * A Vector2 value or an A value or an array of two numbers, with both values ranging from 0 to 1.
+   * This allows you to change the position of the distortion effect.
    */
   offset?: Vector2 | [number, number]
 }
