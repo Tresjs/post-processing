@@ -1,26 +1,23 @@
-# Chromatic Aberration
+# Color Average
 
 <DocsDemo>
-  <ChromaticAberrationDemo />
+  <ColorAverageDemo />
 </DocsDemo>
 
-The `ChromaticAberration` effect is part of the [`postprocessing`](https://pmndrs.github.io/postprocessing/public/docs/class/src/effects/ChromaticAberrationEffect.js~ChromaticAberrationEffect.html) package. It simulates the dispersion of light as it passes through a lens, creating subtle or dramatic color fringing effects at the edges of objects. This effect can enhance the visual appeal of your scene by adding a realistic lens effect or a stylized touch.
+The `ColorAverage` effect is part of the [`postprocessing`](https://pmndrs.github.io/postprocessing/public/docs/class/src/effects/ColorAverageEffect.js~ColorAverageEffect.html) package. It averages the colors of the scene, creating a unique visual effect. This effect can be used to achieve a variety of artistic styles.
 
 ## Usage
 
-The `<ChromaticAberrationPmndrs>` component is easy to use and provides customizable options to suit different visual styles.
+The `<ColorAveragePmndrs>` component is easy to use and provides customizable options to suit different visual styles.
 
-```vue{2,38-46}
+```vue{2,38-40}
 <script setup lang="ts">
-import { EffectComposerPmndrs, ChromaticAberrationPmndrs } from '@tresjs/post-processing/pmndrs'
-import { Vector2 } from 'three'
+import { EffectComposerPmndrs, ColorAveragePmndrs } from '@tresjs/post-processing/pmndrs'
 
 const gl = {
   toneMapping: NoToneMapping,
   multisampling: 8,
 }
-
-const offset = new Vector2(0.07, 0.07)
 </script>
 
 <template>
@@ -50,11 +47,7 @@ const offset = new Vector2(0.07, 0.07)
 
     <Suspense>
       <EffectComposerPmndrs>
-        <ChromaticAberrationPmndrs
-          :offset
-          radial-modulation
-          :modulation-offset="0"
-        />
+        <ColorAveragePmndrs :blendFunction="BlendFunction.NORMAL" />
       </EffectComposerPmndrs>
     </Suspense>
   </TresCanvas>
@@ -65,14 +58,7 @@ const offset = new Vector2(0.07, 0.07)
 
 | Prop              | Description                                                                                                   | Default                   |
 | ----------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------- |
-| blendFunction     | Defines the [`BlendFunction`](https://pmndrs.github.io/postprocessing/public/docs/variable/index.html#static-variable-BlendFunction) used for the effect.                                                               | `BlendFunction.SRC`       |
-| offset            | The color offset vector determining the intensity and direction of chromatic aberration.                     | `Vector2(0.01, 0.01)`     |
-| radialModulation  | Enables radial modulation to vary the effect intensity based on distance from the center.                    | `false`                   |
-| modulationOffset  | Specifies the modulation offset when `radialModulation` is **enabled**.                                          | `0.15`                    |
-
-::: info
-The `modulationOffset` property is functional only when `radialModulation` is enabled.
-:::
+| blendFunction     | Defines the [`BlendFunction`](https://pmndrs.github.io/postprocessing/public/docs/variable/index.html#static-variable-BlendFunction) used for the effect.                                                               | `BlendFunction.NORMAL`    |
 
 ## Further Reading
-see [postprocessing docs](https://pmndrs.github.io/postprocessing/public/docs/class/src/effects/ToneMappingEffect.js~ToneMappingEffect.html)
+For more details, see the [ColorAverage documentation](https://pmndrs.github.io/postprocessing/public/docs/class/src/effects/ColorAverageEffect.js~ColorAverageEffect.html)

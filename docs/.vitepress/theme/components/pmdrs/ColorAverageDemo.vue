@@ -1,10 +1,13 @@
 <script setup lang="ts">
-import { ContactShadows, Environment, OrbitControls } from '@tresjs/cientos'
+import { Environment, OrbitControls } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
 import { TresLeches, useControls } from '@tresjs/leches'
-import { NoToneMapping, Vector2 } from 'three'
-import { shallowRef, watchEffect } from 'vue'
-import { ChromaticAberrationPmndrs, EffectComposerPmndrs } from '@tresjs/post-processing'
+import type { Mesh } from 'three'
+import { NoToneMapping } from 'three'
+import { BlendFunction } from 'postprocessing'
+import { ColorAveragePmndrs, EffectComposerPmndrs } from '@tresjs/post-processing'
+import { gsap } from 'gsap'
+import { onUnmounted, ref, watch } from 'vue'
 
 import '@tresjs/leches/styles'
 
@@ -12,19 +15,49 @@ const gl = {
   clearColor: '#ffffff',
   toneMapping: NoToneMapping,
   multisampling: 8,
+  envMapIntensity: 10,
 }
 
-const chromaticAberrationRef = shallowRef(null)
+let tl: gsap.core.Timeline
 
-const { offsetX, offsetY, radialModulation, modulationOffset } = useControls({
-  offsetX: { value: 0.070, step: 0.001, max: 0.5 },
-  offsetY: { value: 0.070, step: 0.001, max: 0.5 },
-  radialModulation: true,
-  modulationOffset: { value: 0, step: 0.01 },
+const ctx = gsap.context(() => { })
+
+const meshRef = ref<Mesh | null>(null)
+
+const { blendFunction, opacity } = useControls({
+  blendFunction: {
+    options: Object.keys(BlendFunction).map(key => ({
+      text: key,
+      value: BlendFunction[key],
+    })),
+    value: BlendFunction.NORMAL,
+  },
+  opacity: {
+    value: 0,
+    min: 0,
+    max: 1,
+  },
 })
 
-watchEffect(() => {
-  modulationOffset.value.visible = radialModulation.value.value
+function onUpdateTimeline(e) {
+  opacity.value.value = e.progress()
+}
+
+watch(meshRef, () => {
+  if (!meshRef.value) { return }
+
+  tl = gsap.timeline({
+    repeat: -1,
+    yoyo: true,
+    onUpdate() {
+      onUpdateTimeline(this)
+    },
+  })
+    .to(meshRef.value.position, { y: -3.5, duration: 2 })
+})
+
+onUnmounted(() => {
+  ctx.revert()
 })
 </script>
 
@@ -35,46 +68,24 @@ watchEffect(() => {
     v-bind="gl"
   >
     <TresPerspectiveCamera
-      :position="[5, 5, 5]"
+      :position="[5, 2, 15]"
       :look-at="[0, 0, 0]"
     />
     <OrbitControls auto-rotate />
 
-    <template
-      v-for="i in 4"
-      :key="i"
-    >
-      <TresMesh
-        :position="[((i - 1) - (4 - 1) / 2) * 1.5, 0, 0]"
-      >
-        <TresBoxGeometry
-          :width="4"
-          :height="4"
-          :depth="4"
-        />
-        <TresMeshStandardMaterial color="#1C1C1E" />
-      </TresMesh>
-    </template>
-
-    <TresAmbientLight color="#ffffff" />
-
-    <TresDirectionalLight />
-
-    <ContactShadows
-      :opacity="1"
-      :position-y="-.5"
-      :scale="20"
-      :blur=".85"
-    />
+    <TresMesh ref="meshRef" :position="[0, 3.5, 0]">
+      <TresBoxGeometry :args="[2, 2, 2]" />
+      <TresMeshPhysicalMaterial color="#8B0000" :roughness=".25" />
+    </TresMesh>
 
     <Suspense>
-      <EffectComposerPmndrs>
-        <ChromaticAberrationPmndrs ref="chromaticAberrationRef" :offset="new Vector2(offsetX.value, offsetY.value)" :radial-modulation="radialModulation.value" :modulation-offset="modulationOffset.value" />
-      </EffectComposerPmndrs>
+      <Environment background preset="shangai" />
     </Suspense>
 
     <Suspense>
-      <Environment :intensity="2" :blur="0" preset="snow" />
+      <EffectComposerPmndrs>
+        <ColorAveragePmndrs :blendFunction="Number(blendFunction.value)" :opacity="opacity.value" />
+      </EffectComposerPmndrs>
     </Suspense>
   </TresCanvas>
 </template>

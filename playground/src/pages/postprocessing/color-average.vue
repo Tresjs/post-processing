@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { ContactShadows, OrbitControls } from '@tresjs/cientos'
+import { ContactShadows, Environment, OrbitControls } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
 import { TresLeches, useControls } from '@tresjs/leches'
-import { NoToneMapping, Vector2 } from 'three'
-import { watchEffect } from 'vue'
+import { NoToneMapping } from 'three'
 import { BlendFunction } from 'postprocessing'
-import { ChromaticAberrationPmndrs, EffectComposerPmndrs } from '@tresjs/post-processing'
+import { ColorAveragePmndrs, EffectComposerPmndrs } from '@tresjs/post-processing'
 
 import '@tresjs/leches/styles'
 
@@ -16,22 +15,19 @@ const gl = {
   envMapIntensity: 10,
 }
 
-const { offsetX, offsetY, radialModulation, modulationOffset, blendFunction } = useControls({
-  offsetX: { value: 0.085, step: 0.001, max: 0.5 },
-  offsetY: { value: 0.0, step: 0.001, max: 0.5 },
-  radialModulation: false,
-  modulationOffset: { value: 0, step: 0.01 },
+const { blendFunction, opacity } = useControls({
   blendFunction: {
     options: Object.keys(BlendFunction).map(key => ({
       text: key,
       value: BlendFunction[key],
     })),
-    value: BlendFunction.SRC,
+    value: BlendFunction.NORMAL,
   },
-})
-
-watchEffect(() => {
-  modulationOffset.value.visible = radialModulation.value.value
+  opacity: {
+    value: 1,
+    min: 0,
+    max: 1,
+  },
 })
 </script>
 
@@ -49,7 +45,7 @@ watchEffect(() => {
 
     <TresMesh :position="[0, .5, 0]">
       <TresBoxGeometry :args="[2, 2, 2]" />
-      <TresMeshPhysicalMaterial color="#82DBC5" :roughness=".25" />
+      <TresMeshPhysicalMaterial color="#8B0000" :roughness=".25" />
     </TresMesh>
 
     <ContactShadows
@@ -58,8 +54,12 @@ watchEffect(() => {
     />
 
     <Suspense>
+      <Environment background preset="snow" />
+    </Suspense>
+
+    <Suspense>
       <EffectComposerPmndrs>
-        <ChromaticAberrationPmndrs :offset="new Vector2(offsetX.value, offsetY.value)" :radial-modulation="radialModulation.value" :modulation-offset="modulationOffset.value" :blendFunction="Number(blendFunction.value)" />
+        <ColorAveragePmndrs :blendFunction="Number(blendFunction.value)" :opacity="opacity.value" />
       </EffectComposerPmndrs>
     </Suspense>
   </TresCanvas>
