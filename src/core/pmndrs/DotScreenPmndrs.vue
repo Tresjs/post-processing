@@ -1,48 +1,41 @@
 <script lang="ts" setup>
 import type { BlendFunction } from 'postprocessing'
-import { HueSaturationEffect } from 'postprocessing'
+import { DotScreenEffect } from 'postprocessing'
 import { makePropWatchers } from '../../util/prop'
 import { useEffectPmndrs } from './composables/useEffectPmndrs'
 
 export interface DotScreenPmndrsProps {
   /**
-   * The saturation adjustment. A value of 0.0 results in grayscale, and 1.0 leaves saturation unchanged.
-   * Range: [0.0, 1.0]
+   * The angle of the dot pattern.
+   * Default: 1.57
    */
-  saturation?: number
+  angle?: number
 
   /**
-   * The hue adjustment in radians.
-   * Range: [-π, π] (or [0, 2π] for a full rotation)
+   * The scale of the dot pattern.
+   * Default: 1.0
    */
-  hue?: number
+  scale?: number
 
   /**
    * The blend function. Defines how the effect blends with the original scene.
    */
   blendFunction?: BlendFunction
-
 }
 
-const props = withDefaults(
-  defineProps<DotScreenPmndrsProps>(),
-  {
-    saturation: 0.0,
-    hue: 0.0,
-  },
-)
+const props = defineProps<DotScreenPmndrsProps>()
 
-const { pass, effect } = useEffectPmndrs(() => new HueSaturationEffect(props), props)
+const { pass, effect } = useEffectPmndrs(() => new DotScreenEffect(props), props)
 
 defineExpose({ pass, effect })
 
 makePropWatchers(
   [
     [() => props.blendFunction, 'blendMode.blendFunction'],
-    [() => props.hue, 'hue'],
-    [() => props.saturation, 'saturation'],
+    [() => props.angle, 'angle'],
+    [() => props.scale, 'scale'],
   ],
   effect,
-  () => new HueSaturationEffect(),
+  () => new DotScreenEffect(),
 )
 </script>

@@ -2,7 +2,7 @@
 import { Environment, OrbitControls } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
 import { TresLeches, useControls } from '@tresjs/leches'
-import { EffectComposerPmndrs, HueSaturationPmndrs } from '@tresjs/post-processing'
+import { DotScreenPmndrs, EffectComposerPmndrs } from '@tresjs/post-processing'
 import { BlendFunction } from 'postprocessing'
 import { NoToneMapping } from 'three'
 
@@ -13,15 +13,16 @@ const gl = {
   multisampling: 8,
 }
 
-const { saturation, hue, blendFunction } = useControls({
-  hue: { value: 0, min: -Math.PI, max: Math.PI, step: 0.001 },
-  saturation: { value: 0, min: -1, max: 1, step: 0.001 },
+const { angle, scale, blendFunction } = useControls({
+  angle: { value: 1.57, min: -Math.PI, max: Math.PI, step: 0.001 },
+
+  scale: { value: 0.5, min: 0.1, max: 2.5, step: 0.01 },
   blendFunction: {
     options: Object.keys(BlendFunction).map(key => ({
       text: key,
       value: BlendFunction[key],
     })),
-    value: BlendFunction.SRC,
+    value: BlendFunction.NORMAL,
   },
 })
 </script>
@@ -44,12 +45,12 @@ const { saturation, hue, blendFunction } = useControls({
     </TresMesh>
 
     <Suspense>
-      <Environment background :blur=".25" preset="modern" />
+      <Environment background :blur=".1" preset="dawn" />
     </Suspense>
 
     <Suspense>
       <EffectComposerPmndrs>
-        <HueSaturationPmndrs :blendFunction="Number(blendFunction.value)" :hue="hue.value" :saturation="saturation.value" />
+        <DotScreenPmndrs :blendFunction="Number(blendFunction.value)" :angle="angle.value" :scale="scale.value" />
       </EffectComposerPmndrs>
     </Suspense>
   </TresCanvas>
