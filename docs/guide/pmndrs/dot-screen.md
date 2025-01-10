@@ -10,37 +10,51 @@ The `DotScreen` effect is part of the [`postprocessing`](https://pmndrs.github.i
 
 The `<DotScreenPmndrs>` component is straightforward to use and provides customizable options to fine-tune the dot screen effect.
 
-```vue{2,5-9,26-32}
+```vue{4,13-16,42-46}
 <script setup lang="ts">
-import { EffectComposerPmndrs, DotScreenPmndrs } from '@tresjs/post-processing'
-import { BlendFunction } from 'postprocessing'
+import { ContactShadows, Environment, OrbitControls, useGLTF } from '@tresjs/cientos'
+import { TresCanvas } from '@tresjs/core'
+import { DotScreenPmndrs, EffectComposerPmndrs } from '@tresjs/post-processing'
+import { NoToneMapping } from 'three'
 
-const effectProps = {
-  angle: 1.57,
-  scale: 1.0,
-  blendFunction: BlendFunction.SRC,
+const gl = {
+  clearColor: '#ffffff',
+  toneMapping: NoToneMapping,
+  multisampling: 8,
 }
+
+const effectProps = reactive({
+  angle: 1.57,
+  scale: 1.25
+})
+
+const { scene } = await useGLTF('https://raw.githubusercontent.com/Tresjs/assets/main/models/gltf/suzanne/suzanne.glb', { draco: true })
 </script>
 
 <template>
-  <TresCanvas>
+  <TresCanvas
+    v-bind="gl"
+  >
     <TresPerspectiveCamera
-      :position="[5, 5, 5]"
+      :position="[0, 1, 7.5]"
       :look-at="[0, 0, 0]"
     />
+    <OrbitControls />
 
-    <OrbitControls auto-rotate />
+    <primitive :scale="2" :rotation-x="Math.PI / -5" :rotation-y="Math.PI" :position-y=".25" :position-z="0.5" :object="scene" />
 
-    <TresMesh :position="[0, 1, 0]">
-      <TresBoxGeometry :args="[2, 2, 2]" />
-      <TresMeshPhysicalMaterial color="white" />
-    </TresMesh>
+    <ContactShadows
+      :opacity="1"
+      :position-y="-1.5"
+    />
+
+    <Suspense>
+      <Environment preset="modern" />
+    </Suspense>
 
     <Suspense>
       <EffectComposerPmndrs>
-        <DotScreenPmndrs
-          v-bind="effectProps"
-        />
+        <DotScreenPmndrs v-bind="effectProps" />
       </EffectComposerPmndrs>
     </Suspense>
   </TresCanvas>
@@ -51,9 +65,9 @@ const effectProps = {
 
 | Prop           | Description                                                                                                                                                                  | Default                  |
 | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------ |
-| **angle**      | The angle of the dot pattern. Default: `1.57`.                                                                                                                               | `1.57`                   |
-| **scale**      | The scale of the dot pattern. Default: `1.0`.                                                                                                                                | `1.0`                    |
-| **blendFunction** | Defines how the effect blends with the original scene. See the [`BlendFunction`](https://pmndrs.github.io/postprocessing/public/docs/variable/index.html#static-variable-BlendFunction) options. | `BlendFunction.SRC`      |
+| **angle**      | The angle of the dot pattern *(in radians)*.    | `1.57`                   |
+| **scale**      | The scale of the dot pattern.                 | `1.0`                    |
+| **blendFunction** | Defines how the effect blends with the original scene. See the [`BlendFunction`](https://pmndrs.github.io/postprocessing/public/docs/variable/index.html#static-variable-BlendFunction) options. | `BlendFunction.NORMAL`      |
 
 ## Further Reading
 

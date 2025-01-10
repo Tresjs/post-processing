@@ -17,7 +17,7 @@ const gl = {
 
 const { angle, scale, blendFunction } = useControls({
   angle: { value: 1.57, min: -Math.PI, max: Math.PI, step: 0.001 },
-  scale: { value: 1, min: 0.1, max: 2.5, step: 0.01 },
+  scale: { value: 1.25, min: 0.1, max: 2.5, step: 0.01 },
   blendFunction: {
     options: Object.keys(BlendFunction).map(key => ({
       text: key,
@@ -37,12 +37,12 @@ const { scene } = await useGLTF('https://raw.githubusercontent.com/Tresjs/assets
     v-bind="gl"
   >
     <TresPerspectiveCamera
-      :position="[0, 1, 6.5]"
+      :position="[0, 1, 7.5]"
       :look-at="[0, 0, 0]"
     />
     <OrbitControls />
 
-    <primitive :scale="2" :rotation-x="Math.PI / -5" :rotation-y="Math.PI" :position-y=".25" :object="scene" />
+    <primitive :scale="2" :rotation-x="Math.PI / -5" :rotation-y="Math.PI" :position-y=".25" :position-z="0.5" :object="scene" />
 
     <ContactShadows
       :opacity="1"
