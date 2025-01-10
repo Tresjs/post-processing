@@ -27,7 +27,6 @@ void getSectorVarianceAndAverageColor(float angle, float radius, vec2 uv, out ve
     float sigma = radius / 3.0;
 
     for (float r = 0.0; r < radius; r++) {
-    
         for (float a = angle; a < angle + 2.0 * 3.14159265359 / float(SECTOR_COUNT); a += 0.1) {
             vec2 offset = vec2(cos(a), sin(a)) * r;
             vec2 coord = uv + offset / resolution;
@@ -35,7 +34,7 @@ void getSectorVarianceAndAverageColor(float angle, float radius, vec2 uv, out ve
 
             float weight = gaussianWeight(length(offset), sigma);
             weightedColorSum += color * weight;
-            weightedSquaredColorSum += color * color * weight * 20.;
+            weightedSquaredColorSum += color * color * weight;
             totalWeight += weight;
         }
     }
