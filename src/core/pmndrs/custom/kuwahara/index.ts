@@ -11,28 +11,32 @@ const fragmentShader = `
 
 uniform float radius;
 
-float random(vec2 c) {
-  return fract(sin(dot(c.xy, vec2(12.9898, 78.233))) * 43758.5453);
-}
-
 float gaussianWeight(float distance, float sigma) {
     return exp(-(distance * distance) / (2.0 * sigma * sigma));
 }
 
-void getSectorVarianceAndAverageColor(float angle, float radius, vec2 uv, out vec3 avgColor, out float variance) {
+float polynomialWeight(float x, float y, float eta, float lambda) {
+    float polyValue = (x + eta) - lambda * (y * y);
+    return max(0.0, polyValue * polyValue);
+}
+
+void getSectorVarianceAndAverageColor(float angle, float radius, out vec3 avgColor, out float variance) {
     vec3 weightedColorSum = vec3(0.0);
     vec3 weightedSquaredColorSum = vec3(0.0);
     float totalWeight = 0.0;
 
+      float eta = 0.1;
+    float lambda = 0.5;
+
     float sigma = radius / 3.0;
 
-    for (float r = 0.0; r < radius; r++) {
-        for (float a = angle; a < angle + 2.0 * 3.14159265359 / float(SECTOR_COUNT); a += 0.1) {
-            vec2 offset = vec2(cos(a), sin(a)) * r;
-            vec2 coord = uv + offset / resolution;
-            vec3 color = texture2D(inputBuffer, coord).rgb;
+    for (float r = 1.0; r <= radius; r += 1.0) {
+        for (float a = -0.392699; a <= 0.392699; a += 0.196349) {
 
-            float weight = gaussianWeight(length(offset), sigma);
+            vec2 sampleOffset = r * vec2(cos(angle + a), sin(angle + a)) / resolution;
+            vec3 color = texture2D(inputBuffer, vUv + sampleOffset).rgb;
+            float weight = polynomialWeight(sampleOffset.x, sampleOffset.y, eta, lambda);
+
             weightedColorSum += color * weight;
             weightedSquaredColorSum += color * color * weight;
             totalWeight += weight;
@@ -40,22 +44,26 @@ void getSectorVarianceAndAverageColor(float angle, float radius, vec2 uv, out ve
     }
 
     avgColor = weightedColorSum / totalWeight;
-    variance = length(weightedSquaredColorSum / totalWeight - avgColor * avgColor);
+    vec3 varianceRes = (weightedSquaredColorSum / totalWeight) - (avgColor * avgColor);
+    variance = dot(varianceRes, vec3(0.299, 0.587, 0.114)); // Convert to luminance
 }
 
 void mainImage(const in vec4 inputColor, const in vec2 uv, out vec4 outputColor) {
-    vec3 finalColor = vec3(0.0);
-    float minVariance = 1e20;
+    vec3 sectorAvgColors[SECTOR_COUNT];
+    float sectorVariances[SECTOR_COUNT];
 
     for (int i = 0; i < SECTOR_COUNT; i++) {
-        float angle = float(i) * 2.0 * 3.14159265359 / float(SECTOR_COUNT);
-        vec3 avgColor;
-        float variance;
-        getSectorVarianceAndAverageColor(angle, radius, uv, avgColor, variance);
+        float angle = float(i) * 6.28318 / float(SECTOR_COUNT); // 2π / SECTOR_COUNT
+        getSectorVarianceAndAverageColor(angle, float(radius), sectorAvgColors[i], sectorVariances[i]);
+    }
 
-        if (variance < minVariance) {
-            minVariance = variance;
-            finalColor = avgColor;
+    float minVariance = sectorVariances[0];
+    vec3 finalColor = sectorAvgColors[0];
+
+    for (int i = 1; i < SECTOR_COUNT; i++) {
+        if (sectorVariances[i] < minVariance) {
+            minVariance = sectorVariances[i];
+            finalColor = sectorAvgColors[i];
         }
     }
 

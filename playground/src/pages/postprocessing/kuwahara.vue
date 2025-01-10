@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Environment, OrbitControls } from '@tresjs/cientos'
+import { Environment, OrbitControls, useGLTF } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
 import { TresLeches, useControls } from '@tresjs/leches'
 import { EffectComposerPmndrs, KuwaharaPmndrs } from '@tresjs/post-processing'
@@ -13,8 +13,10 @@ const gl = {
   multisampling: 8,
 }
 
+const { scene } = await useGLTF('/avocado.glb', { draco: true })
+
 const { radius, blendFunction } = useControls({
-  radius: { value: 1, min: 1, max: 35, step: 0.01 },
+  radius: { value: 15, min: 1, max: 30, step: 1 },
   blendFunction: {
     options: Object.keys(BlendFunction).map(key => ({
       text: key,
@@ -35,15 +37,22 @@ const { radius, blendFunction } = useControls({
       :position="[5, 5, 5]"
       :look-at="[0, 0, 0]"
     />
-    <OrbitControls auto-rotate />
+    <OrbitControls />
 
-    <TresMesh :position="[0, 1, 0]">
-      <TresBoxGeometry :args="[2, 2, 2]" />
-      <TresMeshPhysicalMaterial color="white" :roughness="1" :transmission="0" />
-    </TresMesh>
+    <primitive :position-y="-1.5" :scale="60" :object="scene" />
+
+    <TresDirectionalLight
+      :position="[3, 3, 3]"
+      :intensity="1"
+    />
+
+    <TresDirectionalLight
+      :position="[-3, 3, -3]"
+      :intensity="1"
+    />
 
     <Suspense>
-      <Environment background :blur=".25" preset="modern" />
+      <Environment :blur=".25" preset="shangai" />
     </Suspense>
 
     <Suspense>
