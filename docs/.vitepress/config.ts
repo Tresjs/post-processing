@@ -55,10 +55,12 @@ export default defineConfig({
           { text: 'Outline', link: '/guide/pmndrs/outline' },
           { text: 'Tone Mapping', link: '/guide/pmndrs/tone-mapping' },
           { text: 'Chromatic Aberration', link: '/guide/pmndrs/chromatic-aberration' },
+          { text: 'Sepia', link: '/guide/pmndrs/sepia' },
           { text: 'Scanline', link: '/guide/pmndrs/scanline' },
           { text: 'Pixelation', link: '/guide/pmndrs/pixelation' },
           { text: 'Vignette', link: '/guide/pmndrs/vignette' },
           { text: 'Hue & Saturation', link: '/guide/pmndrs/hue-saturation' },
+          { text: 'Dot Screen', link: '/guide/pmndrs/dot-screen' },
         ],
       },
       {
