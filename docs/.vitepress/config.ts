@@ -59,7 +59,7 @@ export default defineConfig({
           { text: 'Pixelation', link: '/guide/pmndrs/pixelation' },
           { text: 'Vignette', link: '/guide/pmndrs/vignette' },
           { text: 'Hue & Saturation', link: '/guide/pmndrs/hue-saturation' },
-        ],
+        ].sort((a, b) => a.text.localeCompare(b.text, 'en')),
       },
       {
         text: 'Three',
@@ -70,7 +70,7 @@ export default defineConfig({
           { text: 'Pixelation', link: '/guide/three/pixelation' },
           { text: 'SMAA', link: '/guide/three/smaa' },
           { text: 'Unreal Bloom', link: '/guide/three/unreal-bloom' },
-        ],
+        ].sort((a, b) => a.text.localeCompare(b.text, 'en')),
       },
     ],
 
