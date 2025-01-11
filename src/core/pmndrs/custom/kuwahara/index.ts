@@ -18,74 +18,41 @@ float polynomialWeight(float x, float y, float eta, float lambda) {
     return max(0.0, polyValue * polyValue);
 }
 
-void getSectorVarianceAndAverageColor(mat2 anisotropyMat, float angle, float radius, out vec3 avgColor, out float variance) {
+void getSectorVarianceAndAverageColor(float angle, float radius, out vec3 avgColor, out float variance) {
     vec3 weightedColorSum = vec3(0.0);
     vec3 weightedSquaredColorSum = vec3(0.0);
     float totalWeight = 0.0;
 
     float eta = 0.1;
     float lambda = 0.5;
-    float angleStep = 0.196349; // Precompute angle step
-    float halfAngleRange = 0.392699; // Precompute half angle range
+
+    float sigma = radius / 3.0;
 
     for (float r = 1.0; r <= radius; r += 1.0) {
-        float rCosAngle = r * cos(angle);
-        float rSinAngle = r * sin(angle);
-        for (float a = -halfAngleRange; a <= halfAngleRange; a += angleStep) {
-            float cosA = cos(a);
-            float sinA = sin(a);
-            vec2 sampleOffset = vec2(rCosAngle * cosA - rSinAngle * sinA, rCosAngle * sinA + rSinAngle * cosA) / resolution;
-            sampleOffset *= anisotropyMat;
+        for (float a = -0.392699; a <= 0.392699; a += 0.196349) {
 
+            vec2 sampleOffset = r * vec2(cos(angle + a), sin(angle + a)) / resolution;
             vec3 color = texture2D(inputBuffer, vUv + sampleOffset).rgb;
             float weight = polynomialWeight(sampleOffset.x, sampleOffset.y, eta, lambda);
-            
+
             weightedColorSum += color * weight;
             weightedSquaredColorSum += color * color * weight;
             totalWeight += weight;
         }
     }
 
-    // Calculate average color and variance
     avgColor = weightedColorSum / totalWeight;
     vec3 varianceRes = (weightedSquaredColorSum / totalWeight) - (avgColor * avgColor);
     variance = dot(varianceRes, vec3(0.299, 0.587, 0.114)); // Convert to luminance
 }
 
-vec4 getDominantOrientation(vec4 structureTensor) {
-    float Jxx = structureTensor.r; 
-    float Jyy = structureTensor.g; 
-    float Jxy = structureTensor.b; 
-
-    float trace = Jxx + Jyy;
-    float det = Jxx * Jyy - Jxy * Jxy;
-    float lambda1 = 0.5 * (trace + sqrt(trace * trace - 4.0 * det));
-    float lambda2 = 0.5 * (trace - sqrt(trace * trace - 4.0 * det));
-
-    float dominantOrientation = atan(2.0 * Jxy, Jxx - Jyy) / 2.0;
-    return vec4(dominantOrientation, lambda1, lambda2, 0.0);
-}
-
 void mainImage(const in vec4 inputColor, const in vec2 uv, out vec4 outputColor) {
-    vec4 structureTensor = texture2D(inputBuffer, uv);
-
     vec3 sectorAvgColors[SECTOR_COUNT];
     float sectorVariances[SECTOR_COUNT];
 
-    vec4 orientationAndAnisotropy = getDominantOrientation(structureTensor);
-    vec2 orientation = orientationAndAnisotropy.xy;
-
-    float anisotropy = (orientationAndAnisotropy.z - orientationAndAnisotropy.w) / (orientationAndAnisotropy.z + orientationAndAnisotropy.w + 1e-7);
-
-    float alpha = 25.0;
-    float scaleX = alpha / (anisotropy + alpha);
-    float scaleY = (anisotropy + alpha) / alpha;
-
-    mat2 anisotropyMat = mat2(orientation.x, -orientation.y, orientation.y, orientation.x) * mat2(scaleX, 0.0, 0.0, scaleY);
-
     for (int i = 0; i < SECTOR_COUNT; i++) {
-      float angle = float(i) * 6.28318 / float(SECTOR_COUNT); // 2π / SECTOR_COUNT
-      getSectorVarianceAndAverageColor(anisotropyMat, angle, float(radius), sectorAvgColors[i], sectorVariances[i]);
+        float angle = float(i) * 6.28318 / float(SECTOR_COUNT); // 2π / SECTOR_COUNT
+        getSectorVarianceAndAverageColor(angle, float(radius), sectorAvgColors[i], sectorVariances[i]);
     }
 
     float minVariance = sectorVariances[0];
@@ -108,7 +75,7 @@ export class KuwaharaEffect extends Effect {
    *
    * @param {object} [options] - Configuration options for the effect.
    * @param {BlendFunction} [options.blendFunction] - Blend mode.
-   * @param {number} [options.radius] - Intensity of the effect.
+   * @param {number} [options.radius] - Intensity of the barrel distortion (0 to 1).
    *
    */
   constructor({ blendFunction = BlendFunction.NORMAL, radius = 1 } = {}) {
@@ -127,10 +94,10 @@ export class KuwaharaEffect extends Effect {
    */
 
   get radius() {
-    return this.uniforms.get('radius')?.value
+    return this.uniforms.get('radius').value
   }
 
   set radius(value) {
-    this.uniforms.get('radius')!.value = value
+    this.uniforms.get('radius').value = value
   }
 }

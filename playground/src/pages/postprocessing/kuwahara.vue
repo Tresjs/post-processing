@@ -13,7 +13,7 @@ const gl = {
   multisampling: 8,
 }
 
-const { scene } = await useGLTF('/avocado.glb', { draco: true })
+const { scene } = await useGLTF('https://raw.githubusercontent.com/Tresjs/assets/main/models/gltf/cyber-samurai/scene.gltf', { draco: true })
 
 const { radius, blendFunction } = useControls({
   radius: { value: 15, min: 1, max: 30, step: 1 },
@@ -39,7 +39,8 @@ const { radius, blendFunction } = useControls({
     />
     <OrbitControls />
 
-    <primitive :position-y="-1.5" :scale="60" :object="scene" />
+    <primitive :position-y="-1.5" :scale="2" :object="scene" />
+    <!-- <primitive :position-y="-1.5" :scale="60" :object="scene" /> -->
 
     <TresDirectionalLight
       :position="[3, 3, 3]"
