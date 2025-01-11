@@ -1,10 +1,8 @@
+// Adapted into a custom effect (for tresjs post-processing), this shader code is based on Maxime Heckel's article about his research on the Kuwahara effect:
+// https://blog.maximeheckel.com/posts/on-crafting-painterly-shaders/ ———— https://x.com/MaximeHeckel
+
 import { Uniform, Vector2 } from 'three'
 import { BlendFunction, Effect } from 'postprocessing'
-
-/**
- * KuwaharaEffect - A custom effect for applying a barrel distortion
- * with chromatic aberration blur.
- */
 
 const fragmentShader = `
 #define SECTOR_COUNT 8
@@ -27,10 +25,16 @@ void getSectorVarianceAndAverageColor(mat2 anisotropyMat, float angle, float rad
 
     float eta = 0.1;
     float lambda = 0.5;
+    float angleStep = 0.196349; // Precompute angle step
+    float halfAngleRange = 0.392699; // Precompute half angle range
 
     for (float r = 1.0; r <= radius; r += 1.0) {
-        for (float a = -0.392699; a <= 0.392699; a += 0.196349) {
-            vec2 sampleOffset = r * vec2(cos(angle + a), sin(angle + a)) / resolution;
+        float rCosAngle = r * cos(angle);
+        float rSinAngle = r * sin(angle);
+        for (float a = -halfAngleRange; a <= halfAngleRange; a += angleStep) {
+            float cosA = cos(a);
+            float sinA = sin(a);
+            vec2 sampleOffset = vec2(rCosAngle * cosA - rSinAngle * sinA, rCosAngle * sinA + rSinAngle * cosA) / resolution;
             sampleOffset *= anisotropyMat;
 
             vec3 color = texture2D(inputBuffer, vUv + sampleOffset).rgb;
@@ -54,22 +58,12 @@ vec4 getDominantOrientation(vec4 structureTensor) {
     float Jxy = structureTensor.b; 
 
     float trace = Jxx + Jyy;
-    float determinant = Jxx * Jyy - Jxy * Jxy;
+    float det = Jxx * Jyy - Jxy * Jxy;
+    float lambda1 = 0.5 * (trace + sqrt(trace * trace - 4.0 * det));
+    float lambda2 = 0.5 * (trace - sqrt(trace * trace - 4.0 * det));
 
-    float lambda1 = trace * 0.5 + sqrt(trace * trace * 0.25 - determinant);
-    float lambda2 = trace * 0.5 - sqrt(trace * trace * 0.25 - determinant);
-    
-    float jxyStrength = abs(Jxy) / (abs(Jxx) + abs(Jyy) + abs(Jxy) + 1e-7);
-
-    vec2 v;
-    
-    if (jxyStrength > 0.0) {
-        v = normalize(vec2(-Jxy, Jxx - lambda1));
-    } else {
-        v = vec2(0.0, 1.0);
-    }
-
-    return vec4(normalize(v), lambda1, lambda2);
+    float dominantOrientation = atan(2.0 * Jxy, Jxx - Jyy) / 2.0;
+    return vec4(dominantOrientation, lambda1, lambda2, 0.0);
 }
 
 void mainImage(const in vec4 inputColor, const in vec2 uv, out vec4 outputColor) {
@@ -114,7 +108,7 @@ export class KuwaharaEffect extends Effect {
    *
    * @param {object} [options] - Configuration options for the effect.
    * @param {BlendFunction} [options.blendFunction] - Blend mode.
-   * @param {number} [options.radius] - Intensity of the barrel distortion (0 to 1).
+   * @param {number} [options.radius] - Intensity of the effect.
    *
    */
   constructor({ blendFunction = BlendFunction.NORMAL, radius = 1 } = {}) {
@@ -133,10 +127,10 @@ export class KuwaharaEffect extends Effect {
    */
 
   get radius() {
-    return this.uniforms.get('radius').value
+    return this.uniforms.get('radius')?.value
   }
 
   set radius(value) {
-    this.uniforms.get('radius').value = value
+    this.uniforms.get('radius')!.value = value
   }
 }
