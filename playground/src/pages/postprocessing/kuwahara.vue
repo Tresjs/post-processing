@@ -9,14 +9,17 @@ import { NoToneMapping } from 'three'
 import '@tresjs/leches/styles'
 
 const gl = {
+  clearColor: '#3386E0',
   toneMapping: NoToneMapping,
   multisampling: 8,
 }
 
-const { scene } = await useGLTF('https://raw.githubusercontent.com/Tresjs/assets/main/models/gltf/cyber-samurai/scene.gltf', { draco: true })
+const { scene: scenePlant } = await useGLTF('/plant-jar.glb', { draco: true })
+const { scene: sceneAvocado } = await useGLTF('/avocado.glb', { draco: true })
+const { scene: sceneWatermelon } = await useGLTF('/watermelon.glb', { draco: true })
 
 const { radius, blendFunction } = useControls({
-  radius: { value: 15, min: 1, max: 30, step: 1 },
+  radius: { value: 10, min: 1, max: 40, step: 1 },
   blendFunction: {
     options: Object.keys(BlendFunction).map(key => ({
       text: key,
@@ -34,26 +37,23 @@ const { radius, blendFunction } = useControls({
     v-bind="gl"
   >
     <TresPerspectiveCamera
-      :position="[5, 5, 5]"
-      :look-at="[0, 0, 0]"
+      :position="[0, 5, 8.5]"
     />
-    <OrbitControls />
+    <OrbitControls :target="[0, 1, 0]" />
 
-    <primitive :position-y="-1.5" :scale="2" :object="scene" />
-    <!-- <primitive :position-y="-1.5" :scale="60" :object="scene" /> -->
-
-    <TresDirectionalLight
-      :position="[3, 3, 3]"
-      :intensity="1"
-    />
+    <primitive :rotation-y="Math.PI / -2" :position-y="-.2" :scale="2" :object="scenePlant" />
+    <primitive :position-x="3.5" :position-y="-.75" :scale="50" :object="sceneAvocado" />
+    <primitive :position-x="-4.25" :position-y="1" :scale="25" :object="sceneWatermelon" />
 
     <TresDirectionalLight
-      :position="[-3, 3, -3]"
-      :intensity="1"
+      :position="[5, 10, 5]"
+      :intensity="5"
     />
+
+    <TresAmbientLight :intensity="1.25" />
 
     <Suspense>
-      <Environment :blur=".25" preset="shangai" />
+      <Environment :blur=".25" preset="snow" />
     </Suspense>
 
     <Suspense>
