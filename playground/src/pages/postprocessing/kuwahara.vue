@@ -15,7 +15,7 @@ const gl = {
 }
 
 const { scene: scenePlant } = await useGLTF('/plant-jar.glb', { draco: true })
-const { scene: sceneAvocado } = await useGLTF('/avocado.glb', { draco: true })
+const { scene: sceneAvocado } = await useGLTF('/source.glb', { draco: true })
 const { scene: sceneWatermelon } = await useGLTF('/watermelon.glb', { draco: true })
 
 const { radius, blendFunction } = useControls({
@@ -41,13 +41,13 @@ const { radius, blendFunction } = useControls({
     />
     <OrbitControls :target="[0, 1, 0]" />
 
-    <primitive :rotation-y="Math.PI / -2" :position-y="-.2" :scale="2" :object="scenePlant" />
+    <!-- <primitive :rotation-y="Math.PI / -2" :position-y="-.2" :scale="2" :object="scenePlant" /> -->
     <primitive :position-x="3.5" :position-y="-.75" :scale="50" :object="sceneAvocado" />
-    <primitive :position-x="-4.25" :position-y="1" :scale="25" :object="sceneWatermelon" />
+    <!-- <primitive :position-x="-5" :position-y="1" :scale="25" :object="sceneWatermelon" /> -->
 
     <TresDirectionalLight
       :position="[5, 10, 5]"
-      :intensity="5"
+      :intensity="2"
     />
 
     <TresAmbientLight :intensity="1.25" />
