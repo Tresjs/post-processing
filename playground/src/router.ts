@@ -33,16 +33,21 @@ export const threeRoutes = [
 
 export const postProcessingRoutes = [
   makeRoute('Outline', '🔲', false),
+  makeRoute('Tone Mapping', '🎨', false),
   makeRoute('Glitch', '📺', false),
   makeRoute('Depth of Field', '📷', false),
   makeRoute('Hue & Saturation', '📷', false),
+  makeRoute('Tilt Shift', '🔍', false),
+  makeRoute('Dot Screen', '🔘', false),
   makeRoute('Pixelation', '👾', false),
   makeRoute('Bloom', '🌼', false),
   makeRoute('Noise', '📟', false),
   makeRoute('Chromatic Aberration', '🌈', false),
-  makeRoute('Shock Wave', '🌊', false),
+  makeRoute('Sepia', '🌅', false),
   makeRoute('Scanline', '📺', false),
+  makeRoute('Shock Wave', '🌊', false),
   makeRoute('Vignette', '🕶️', false),
+  makeRoute('Barrel blur', '🌀', false),
   makeRoute('On-demand', '🔄', false),
 ]
 
