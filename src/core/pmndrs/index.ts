@@ -9,10 +9,17 @@ import NoisePmndrs, { type NoisePmndrsProps } from './NoisePmndrs.vue'
 import OutlinePmndrs, { type OutlinePmndrsProps } from './OutlinePmndrs.vue'
 import PixelationPmndrs, { type PixelationPmndrsProps } from './PixelationPmndrs.vue'
 import VignettePmndrs, { type VignettePmndrsProps } from './VignettePmndrs.vue'
-import ChromaticAberrationPmndrs, { type ChromaticAberrationPmndrsProps } from './ChromaticAberration.vue'
+import BarrelBlurPmndrs, { type BarrelBlurPmndrsProps } from './BarrelBlurPmndrs.vue'
+import ToneMappingPmndrs, { type ToneMappingPmndrsProps } from './ToneMappingPmndrs.vue'
+import ChromaticAberrationPmndrs, { type ChromaticAberrationPmndrsProps } from './ChromaticAberrationPmndrs.vue'
 import HueSaturationPmndrs, { type HueSaturationPmndrsProps } from './HueSaturationPmndrs.vue'
 import ScanlinePmndrs, { type ScanlinePmndrsProps } from './ScanlinePmndrs.vue'
 import LensDistortionPmndrs, { type LensDistortionPmndrsProps } from './LensDistortionPmndrs.vue'
+import ShockWavePmndrs, { type ShockWavePmndrsProps } from './ShockWavePmndrs.vue'
+import DepthPickingPassPmndrs, { type DepthPickingPassPmndrsProps } from './DepthPickingPassPmndrs.vue'
+import TiltShiftPmndrs, { type TiltShiftPmndrsProps } from './TiltShiftPmndrs.vue'
+import DotScreenPmndrs, { type DotScreenPmndrsProps } from './DotScreenPmndrs.vue'
+import SepiaPmndrs, { type SepiaPmndrsProps } from './SepiaPmndrs.vue'
 
 export {
   BloomPmndrs,
@@ -24,10 +31,19 @@ export {
   PixelationPmndrs,
   useEffectPmndrs,
   VignettePmndrs,
+  BarrelBlurPmndrs,
+  HueSaturationPmndrs,
+  ScanlinePmndrs,
+  ToneMappingPmndrs,
   ChromaticAberrationPmndrs,
   HueSaturationPmndrs,
   ScanlinePmndrs,
   LensDistortionPmndrs,
+  ShockWavePmndrs,
+  DepthPickingPassPmndrs,
+  TiltShiftPmndrs,
+  DotScreenPmndrs,
+  SepiaPmndrs,
 
   BloomPmndrsProps,
   DepthOfFieldPmndrsProps,
@@ -37,8 +53,15 @@ export {
   OutlinePmndrsProps,
   PixelationPmndrsProps,
   VignettePmndrsProps,
+  BarrelBlurPmndrsProps,
+  ToneMappingPmndrsProps,
   ChromaticAberrationPmndrsProps,
   HueSaturationPmndrsProps,
   ScanlinePmndrsProps,
   LensDistortionPmndrsProps,
+  ShockWavePmndrsProps,
+  DepthPickingPassPmndrsProps,
+  TiltShiftPmndrsProps,
+  DotScreenPmndrsProps,
+  SepiaPmndrsProps,
 }
