@@ -51,6 +51,7 @@ export default defineConfig({
           { text: 'Barrel blur', link: '/guide/pmndrs/barrel-blur' },
           { text: 'Bloom', link: '/guide/pmndrs/bloom' },
           { text: 'Chromatic Aberration', link: '/guide/pmndrs/chromatic-aberration' },
+          { text: 'Linocut', link: '/guide/pmndrs/linocut' },
           { text: 'Depth of Field', link: '/guide/pmndrs/depth-of-field' },
           { text: 'Dot Screen', link: '/guide/pmndrs/dot-screen' },
           { text: 'Glitch', link: '/guide/pmndrs/glitch' },
