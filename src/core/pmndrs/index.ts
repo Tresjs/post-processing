@@ -33,8 +33,6 @@ export {
   useEffectPmndrs,
   VignettePmndrs,
   BarrelBlurPmndrs,
-  HueSaturationPmndrs,
-  ScanlinePmndrs,
   ToneMappingPmndrs,
   ChromaticAberrationPmndrs,
   HueSaturationPmndrs,
