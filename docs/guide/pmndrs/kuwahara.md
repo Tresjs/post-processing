@@ -1,25 +1,24 @@
 # Kuwahara
 
 <DocsDemo>
-  <HueSaturationDemo />
+  <KuwaharaDemo />
 </DocsDemo>
 
-The `HueSaturation` effect is part of the [`postprocessing`](https://pmndrs.github.io/postprocessing/public/docs/class/src/effects/HueSaturationEffect.js~HueSaturationEffect.html) package. It allows you to adjust the hue and saturation of your scene, providing flexibility for color grading and artistic effects.
+The `Kuwahara` effect is part of the [`postprocessing`](https://pmndrs.github.io/postprocessing/public/docs/class/src/effects/KuwaharaEffect.js~KuwaharaEffect.html) package. It allows you to apply a Kuwahara filter to your scene, providing a painterly effect.
 
 ## Usage
 
-The `<HueSaturationPmndrs>` component is straightforward to use and provides customizable options to fine-tune the hue and saturation of your visuals.
+The `<KuwaharaPmndrs>` component is straightforward to use and provides customizable options to fine-tune the Kuwahara effect.
 
 ```vue{2,5-9,26-32}
 <script setup lang="ts">
-import { EffectComposerPmndrs, HueSaturationPmndrs } from '@tresjs/post-processing'
+import { EffectComposerPmndrs, KuwaharaPmndrs } from '@tresjs/post-processing'
 import { BlendFunction } from 'postprocessing'
 
-const effectProps = {
-  saturation: 1,
-  hue: -Math.PI,
-  blendFunction: BlendFunction.SRC,
-}
+const effectProps = reactive({
+  radius: 1,
+  blendFunction: BlendFunction.NORMAL,
+})
 </script>
 
 <template>
@@ -38,7 +37,7 @@ const effectProps = {
 
     <Suspense>
       <EffectComposerPmndrs>
-        <HueSaturationPmndrs
+        <KuwaharaPmndrs
           v-bind="effectProps"
         />
       </EffectComposerPmndrs>
@@ -51,10 +50,9 @@ const effectProps = {
 
 | Prop           | Description                                                                                                                                                                  | Default                  |
 | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------ |
-| **saturation** | The saturation adjustment. A value of `0.0` results in grayscale, while `1.0` leaves saturation unchanged. Range: `[0.0, 1.0]`.                                               | `0.0`                    |
-| **hue**        | The hue adjustment in radians. Values range from `[-π, π]` (or `[0, 2π]` for a full rotation).                                                                               | `0.0`                    |
-| **blendFunction** | Defines how the effect blends with the original scene. See the [`BlendFunction`](https://pmndrs.github.io/postprocessing/public/docs/variable/index.html#static-variable-BlendFunction) options. | `BlendFunction.SRC`      |
+| **radius**     | The intensity of the Kuwahara effect. A value between `0` (no effect) and `1` (maximum effect).                                                                               | `1`                      |
+| **blendFunction** | Defines how the effect blends with the original scene. See the [`BlendFunction`](https://pmndrs.github.io/postprocessing/public/docs/variable/index.html#static-variable-BlendFunction) options. | `BlendFunction.NORMAL`   |
 
 ## Further Reading
 
-For more details, see the [HueSaturation documentation](https://pmndrs.github.io/postprocessing/public/docs/class/src/effects/HueSaturationEffect.js~HueSaturationEffect.html).
+For more details, see the [Kuwahara documentation](https://pmndrs.github.io/postprocessing/public/docs/class/src/effects/KuwaharaEffect.js~KuwaharaEffect.html).

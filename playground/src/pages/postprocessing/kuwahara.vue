@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Environment, OrbitControls, useGLTF } from '@tresjs/cientos'
+import { Environment, OrbitControls } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
 import { TresLeches, useControls } from '@tresjs/leches'
 import { EffectComposerPmndrs, KuwaharaPmndrs } from '@tresjs/post-processing'
@@ -14,16 +14,12 @@ const gl = {
   multisampling: 8,
 }
 
-const { scene: scenePlant } = await useGLTF('/plant-jar.glb', { draco: true })
-const { scene: sceneAvocado } = await useGLTF('/source.glb', { draco: true })
-const { scene: sceneWatermelon } = await useGLTF('/watermelon.glb', { draco: true })
-
 const { radius, blendFunction } = useControls({
   radius: { value: 10, min: 1, max: 40, step: 1 },
   blendFunction: {
-    options: Object.keys(BlendFunction).map(key => ({
+    options: Object.keys(BlendFunction).map((key: string) => ({
       text: key,
-      value: BlendFunction[key],
+      value: BlendFunction[key as keyof typeof BlendFunction],
     })),
     value: BlendFunction.NORMAL,
   },
@@ -37,23 +33,19 @@ const { radius, blendFunction } = useControls({
     v-bind="gl"
   >
     <TresPerspectiveCamera
-      :position="[0, 5, 8.5]"
+      :position="[0, 5, 12.5]"
     />
-    <OrbitControls :target="[0, 1, 0]" />
-
-    <!-- <primitive :rotation-y="Math.PI / -2" :position-y="-.2" :scale="2" :object="scenePlant" /> -->
-    <primitive :position-x="3.5" :position-y="-.75" :scale="50" :object="sceneAvocado" />
-    <!-- <primitive :position-x="-5" :position-y="1" :scale="25" :object="sceneWatermelon" /> -->
-
-    <TresDirectionalLight
-      :position="[5, 10, 5]"
-      :intensity="2"
-    />
+    <OrbitControls auto-rotate />
 
     <TresAmbientLight :intensity="1.25" />
 
+    <TresMesh :position-y="0">
+      <TresBoxGeometry :args="[4, 4, 4]" />
+      <TresMeshPhysicalMaterial color="white" :reflectivity="1" :roughness="0" :metalness="1.0" :clearcoat="1.0" />
+    </TresMesh>
+
     <Suspense>
-      <Environment :blur=".25" preset="snow" />
+      <Environment background :blur="0" preset="snow" />
     </Suspense>
 
     <Suspense>

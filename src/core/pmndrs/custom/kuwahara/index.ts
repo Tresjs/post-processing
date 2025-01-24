@@ -1,7 +1,7 @@
 // Adapted into a custom effect (for tresjs post-processing), this shader code is based on Maxime Heckel's article about his research on the Kuwahara effect:
 // https://blog.maximeheckel.com/posts/on-crafting-painterly-shaders/ ———— https://x.com/MaximeHeckel
 
-import { Uniform, Vector2 } from 'three'
+import { Uniform } from 'three'
 import { BlendFunction, Effect } from 'postprocessing'
 
 const fragmentShader = `
