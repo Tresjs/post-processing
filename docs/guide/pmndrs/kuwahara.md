@@ -6,6 +6,8 @@
 
 The `Kuwahara` effect is part of the [`postprocessing`](https://pmndrs.github.io/postprocessing/public/docs/class/src/effects/KuwaharaEffect.js~KuwaharaEffect.html) package. It allows you to apply a Kuwahara filter to your scene, providing a painterly effect.
 
+The Kuwahara effect smooths out an image while keeping the edges sharp. It splits the image into small parts, checks each part for differences, and uses the part with the least differences. This makes the image look like a painting, reducing noise but keeping important details.
+
 ## Usage
 
 The `<KuwaharaPmndrs>` component is straightforward to use and provides customizable options to fine-tune the Kuwahara effect.
@@ -55,4 +57,4 @@ const effectProps = reactive({
 
 ## Further Reading
 
-For more details, see the [Kuwahara documentation](https://pmndrs.github.io/postprocessing/public/docs/class/src/effects/KuwaharaEffect.js~KuwaharaEffect.html).
+Inspired by and based on the post [On Crafting Painterly Shaders](https://blog.maximeheckel.com/posts/on-crafting-painterly-shaders/).
