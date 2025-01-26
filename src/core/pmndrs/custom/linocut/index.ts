@@ -1,6 +1,5 @@
 import { Uniform, Vector2 } from 'three'
 import { BlendFunction, Effect } from 'postprocessing'
-import type { LinocutPmndrsProps } from '../../LinocutPmndrs.vue'
 
 /**
  * LinocutEffect - A custom effect for applying a linocut shader effect.
