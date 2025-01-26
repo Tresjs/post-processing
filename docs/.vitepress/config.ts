@@ -58,7 +58,7 @@ export default defineConfig({
           { text: 'Hue & Saturation', link: '/guide/pmndrs/hue-saturation' },
           { text: 'Lens Distortion', link: '/guide/pmndrs/lens-distortion' },
           { text: 'Noise', link: '/guide/pmndrs/noise' },
-          { text: 'Outline', link: '/guide/pmndrs/outline' }, 
+          { text: 'Outline', link: '/guide/pmndrs/outline' },
           { text: 'Pixelation', link: '/guide/pmndrs/pixelation' },
           { text: 'Scanline', link: '/guide/pmndrs/scanline' },
           { text: 'Sepia', link: '/guide/pmndrs/sepia' },
