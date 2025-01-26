@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { Environment, OrbitControls } from '@tresjs/cientos'
+import { ContactShadows, Environment, OrbitControls, useGLTF } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
 import { TresLeches, useControls } from '@tresjs/leches'
 import { EffectComposerPmndrs, KuwaharaPmndrs } from '@tresjs/post-processing'
 import { BlendFunction } from 'postprocessing'
 import { NoToneMapping } from 'three'
+import { reactive, watch } from 'vue'
 
 import '@tresjs/leches/styles'
 
@@ -14,15 +15,20 @@ const gl = {
   multisampling: 8,
 }
 
-const { radius, blendFunction } = useControls({
-  radius: { value: 5, min: 1, max: 8, step: 1 },
-  blendFunction: {
-    options: Object.keys(BlendFunction).map((key: string) => ({
-      text: key,
-      value: BlendFunction[key as keyof typeof BlendFunction],
-    })),
-    value: BlendFunction.NORMAL,
-  },
+const { scene: scenePlantJar } = await useGLTF('https://raw.githubusercontent.com/Tresjs/assets/main/models/gltf/kuwahara-effect/plant-jar/plant-jar.glb', { draco: true })
+const { scene: sceneWatermelon } = await useGLTF('https://raw.githubusercontent.com/Tresjs/assets/main/models/gltf/kuwahara-effect/watermelon/watermelon_fruit.glb', { draco: true })
+
+const effectProps = reactive({
+  blendFunction: BlendFunction.NORMAL,
+})
+
+const { enabled, radius } = useControls({
+  enabled: true,
+  radius: { value: 10, min: 1, max: 15, step: 1 },
+})
+
+watch(enabled.value, () => {
+  effectProps.blendFunction = enabled.value.value ? BlendFunction.NORMAL : BlendFunction.SKIP
 })
 </script>
 
@@ -33,22 +39,39 @@ const { radius, blendFunction } = useControls({
     v-bind="gl"
   >
     <TresPerspectiveCamera
-      :position="[0, 5, 12.5]"
+      :position="[0, 6.5, 15]"
     />
-    <OrbitControls auto-rotate />
 
-    <TresMesh :position-y="0">
-      <TresBoxGeometry :args="[6, 6, 6]" />
-      <TresMeshPhysicalMaterial color="white" :reflectivity="1" :roughness="0.0" :metalness="1.0" :clearcoat="1.0" />
-    </TresMesh>
+    <OrbitControls />
+
+    <TresAmbientLight :intensity="1" />
+
+    <TresDirectionalLight />
+
+    <primitive :position-x="-3" :position-y="-3.5" :scale="5" :object="scenePlantJar" />
+    <primitive :position-x="4" :scale="20" :object="sceneWatermelon" />
+
+    <ContactShadows
+      :opacity=".25"
+      :position-y="-3.85"
+      :scale="20"
+      :blur=".65"
+    />
+
+    <ContactShadows
+      :opacity=".5"
+      :position-y="-3.85"
+      :scale="20"
+      :blur=".65"
+    />
 
     <Suspense>
-      <Environment background :blur="0.2" preset="snow" />
+      <Environment :blur="0.2" preset="snow" />
     </Suspense>
 
     <Suspense>
       <EffectComposerPmndrs>
-        <KuwaharaPmndrs :blendFunction="Number(blendFunction.value)" :radius="radius.value" />
+        <KuwaharaPmndrs :blendFunction="effectProps.blendFunction" :radius="radius.value" />
       </EffectComposerPmndrs>
     </Suspense>
   </TresCanvas>

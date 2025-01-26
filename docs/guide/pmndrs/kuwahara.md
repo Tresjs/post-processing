@@ -1,4 +1,4 @@
-# Kuwahara
+# Kuwahara (Watercolor Painting)
 
 <DocsDemo>
   <KuwaharaDemo />
@@ -12,7 +12,7 @@ The Kuwahara effect smooths out an image while keeping the edges sharp. It split
 
 The `<KuwaharaPmndrs>` component is straightforward to use and provides customizable options to fine-tune the Kuwahara effect.
 
-```vue{2,5-9,26-32}
+```vue{2,5-8,25-31}
 <script setup lang="ts">
 import { EffectComposerPmndrs, KuwaharaPmndrs } from '@tresjs/post-processing'
 import { BlendFunction } from 'postprocessing'
@@ -34,7 +34,7 @@ const effectProps = reactive({
 
     <TresMesh :position="[0, 1, 0]">
       <TresBoxGeometry :args="[2, 2, 2]" />
-      <TresMeshPhysicalMaterial color="white" />
+      <TresMeshPhysicalMaterial color="green" />
     </TresMesh>
 
     <Suspense>
