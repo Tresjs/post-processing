@@ -31,7 +31,7 @@ makePropWatchers(
   [
     [() => props.blendFunction, 'blendMode.blendFunction'],
     [() => props.radius, 'radius'],
-  ], 
+  ],
   effect,
   () => new KuwaharaEffect(),
 )
