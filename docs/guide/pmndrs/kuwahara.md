@@ -61,6 +61,8 @@ const effectProps = reactive({
 It is normal to experience a drastic drop in FPS when you significantly increase the `radius` in the Kuwahara effect. This is because a higher `radius` increases the number of calculations performed for each pixel, which can be very costly in terms of performance. If you decide to have a higher radius due to aesthetic constraints or other reasons, the `sectorCount` value has been integrated to counteract the frame drop.
 
 The `sectorCount` value in the shader determines the number of sectors used to calculate the variance and average color in the Kuwahara effect. It divides the space around each pixel into several sectors to perform these calculations. A higher number of sectors can improve the quality of the effect but also increases the computational cost. Therefore, the `sectorCount` value helps find a good compromise between rendering quality and performance.
+
+Therefore, you should reduce the `sectorCount` value if you decide to increase the `radius` and you experience frame drops.
 :::
 
 ## Further Reading
