@@ -1,13 +1,23 @@
-// Adapted into a custom effect (for tresjs post-processing), this shader code is based on Maxime Heckel's article about his research on the Kuwahara effect:
-// https://blog.maximeheckel.com/posts/on-crafting-painterly-shaders/ ———— https://x.com/MaximeHeckel
+// Adapted into a custom effect (for tresjs post-processing)
+// This shader code is based on Maxime Heckel's article
+// About his research on the Kuwahara effect:
+// https://blog.maximeheckel.com/posts/on-crafting-painterly-shaders/
+
+/**
+ * The `MAX_SECTOR_COUNT` is set to 8 to balance between performance and quality.
+ * Increasing the number of sectors beyond 8 would significantly increase the computational cost without providing
+ * a proportional improvement in the visual quality of the effect. Therefore, 8 is chosen as a practical upper limit
+ * to ensure the effect remains performant while still delivering high-quality results.
+ */
 
 import { Uniform } from 'three'
 import { BlendFunction, Effect } from 'postprocessing'
 
 const fragmentShader = `
-#define SECTOR_COUNT 8
-
 uniform float radius;
+uniform int sectorCount;
+
+const int MAX_SECTOR_COUNT = 8;
 
 float polynomialWeight(float x, float y, float eta, float lambda) {
     float polyValue = (x + eta) - lambda * (y * y);
@@ -68,8 +78,8 @@ vec4 getDominantOrientation(vec4 structureTensor) {
 void mainImage(const in vec4 inputColor, const in vec2 uv, out vec4 outputColor) {
     vec4 structureTensor = texture2D(inputBuffer, uv);
 
-    vec3 sectorAvgColors[SECTOR_COUNT];
-    float sectorVariances[SECTOR_COUNT];
+    vec3 sectorAvgColors[MAX_SECTOR_COUNT];
+    float sectorVariances[MAX_SECTOR_COUNT];
 
     vec4 orientationAndAnisotropy = getDominantOrientation(structureTensor);
     vec2 orientation = orientationAndAnisotropy.xy;
@@ -82,15 +92,15 @@ void mainImage(const in vec4 inputColor, const in vec2 uv, out vec4 outputColor)
 
     mat2 anisotropyMat = mat2(orientation.x, -orientation.y, orientation.y, orientation.x) * mat2(scaleX, 0.0, 0.0, scaleY);
 
-    for (int i = 0; i < SECTOR_COUNT; i++) {
-      float angle = float(i) * 6.28318 / float(SECTOR_COUNT); // 2π / SECTOR_COUNT
+    for (int i = 0; i < sectorCount; i++) {
+      float angle = float(i) * 6.28318 / float(sectorCount); // 2π / sectorCount
       getSectorVarianceAndAverageColor(anisotropyMat, angle, float(radius), sectorAvgColors[i], sectorVariances[i]);
     }
 
     float minVariance = sectorVariances[0];
     vec3 finalColor = sectorAvgColors[0];
 
-    for (int i = 1; i < SECTOR_COUNT; i++) {
+    for (int i = 1; i < sectorCount; i++) {
         if (sectorVariances[i] < minVariance) {
             minVariance = sectorVariances[i];
             finalColor = sectorAvgColors[i];
@@ -108,13 +118,15 @@ export class KuwaharaEffect extends Effect {
    * @param {object} [options] - Configuration options for the effect.
    * @param {BlendFunction} [options.blendFunction] - Blend mode.
    * @param {number} [options.radius] - Intensity of the effect.
+   * @param {number} [options.sectorCount] - Number of sectors.
    *
    */
-  constructor({ blendFunction = BlendFunction.NORMAL, radius = 1 } = {}) {
+  constructor({ blendFunction = BlendFunction.NORMAL, radius = 1, sectorCount = 4 } = {}) {
     super('KuwaharaEffect', fragmentShader, {
       blendFunction,
       uniforms: new Map([
         ['radius', new Uniform(radius)],
+        ['sectorCount', new Uniform(sectorCount)],
       ]),
     })
   }
@@ -131,5 +143,18 @@ export class KuwaharaEffect extends Effect {
 
   set radius(value) {
     this.uniforms.get('radius')!.value = value
+  }
+
+  /**
+   * The sector count.
+   *
+   * @type {number}
+   */
+  get sectorCount() {
+    return this.uniforms.get('sectorCount')?.value
+  }
+
+  set sectorCount(value) {
+    this.uniforms.get('sectorCount')!.value = value
   }
 }

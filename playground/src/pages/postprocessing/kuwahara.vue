@@ -14,8 +14,9 @@ const gl = {
   multisampling: 8,
 }
 
-const { radius, blendFunction } = useControls({
+const { radius, blendFunction, sectorCount } = useControls({
   radius: { value: 10, min: 1, max: 40, step: 1 },
+  sectorCount: { value: 4, min: 1, max: 8, step: 1 },
   blendFunction: {
     options: Object.keys(BlendFunction).map((key: string) => ({
       text: key,
@@ -50,7 +51,7 @@ const { radius, blendFunction } = useControls({
 
     <Suspense>
       <EffectComposerPmndrs>
-        <KuwaharaPmndrs :blendFunction="Number(blendFunction.value)" :radius="radius.value" />
+        <KuwaharaPmndrs :blendFunction="Number(blendFunction.value)" :radius="radius.value" :sectorCount="sectorCount.value" />
       </EffectComposerPmndrs>
     </Suspense>
   </TresCanvas>

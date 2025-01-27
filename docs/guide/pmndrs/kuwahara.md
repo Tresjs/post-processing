@@ -12,7 +12,7 @@ The Kuwahara effect smooths out an image while keeping the edges sharp. It split
 
 The `<KuwaharaPmndrs>` component is straightforward to use and provides customizable options to fine-tune the Kuwahara effect.
 
-```vue{2,5-8,25-31}
+```vue{2,5-9,26-32}
 <script setup lang="ts">
 import { EffectComposerPmndrs, KuwaharaPmndrs } from '@tresjs/post-processing'
 import { BlendFunction } from 'postprocessing'
@@ -20,6 +20,7 @@ import { BlendFunction } from 'postprocessing'
 const effectProps = reactive({
   radius: 1,
   blendFunction: BlendFunction.NORMAL,
+  sectorCount: 4,
 })
 </script>
 
@@ -48,12 +49,19 @@ const effectProps = reactive({
 </template>
 ```
 
+::: warning
+It is normal to experience a drastic drop in FPS when you significantly increase the `radius` in the Kuwahara effect. This is because a higher `radius` increases the number of calculations performed for each pixel, which can be very costly in terms of performance.
+
+The `sectorCount` value in the shader determines the number of sectors used to calculate the variance and average color in the Kuwahara effect. It divides the space around each pixel into several sectors to perform these calculations. A higher number of sectors can improve the quality of the effect but also increases the computational cost. Therefore, the `sectorCount` value helps find a good compromise between rendering quality and performance.
+:::
+
 ## Props
 
 | Prop           | Description                                                                                                                                                                  | Default                  |
 | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------ |
 | **radius**     | The intensity of the Kuwahara effect. A value between `0` (no effect) and `1` (maximum effect).                                                                               | `1`                      |
 | **blendFunction** | Defines how the effect blends with the original scene. See the [`BlendFunction`](https://pmndrs.github.io/postprocessing/public/docs/variable/index.html#static-variable-BlendFunction) options. | `BlendFunction.NORMAL`   |
+| **sectorCount** | The number of sectors used in the Kuwahara filter. Higher values can improve the quality of the effect but may reduce performance. <br> The maximum value is `8`. <br> *It is preferable that the value is an **Integer***. | `4`                      |
 
 ## Further Reading
 

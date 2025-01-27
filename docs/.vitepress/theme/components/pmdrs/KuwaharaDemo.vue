@@ -22,9 +22,10 @@ const effectProps = reactive({
   blendFunction: BlendFunction.NORMAL,
 })
 
-const { enabled, radius } = useControls({
+const { enabled, radius, sectorCount } = useControls({
   enabled: true,
   radius: { value: 10, min: 1, max: 15, step: 1 },
+  sectorCount: { value: 4, min: 1, max: 8, step: 1 },
 })
 
 watch(enabled.value, () => {
@@ -71,7 +72,7 @@ watch(enabled.value, () => {
 
     <Suspense>
       <EffectComposerPmndrs>
-        <KuwaharaPmndrs :blendFunction="effectProps.blendFunction" :radius="radius.value" />
+        <KuwaharaPmndrs :blendFunction="effectProps.blendFunction" :radius="radius.value" :sectorCount="sectorCount.value" />
       </EffectComposerPmndrs>
     </Suspense>
   </TresCanvas>
