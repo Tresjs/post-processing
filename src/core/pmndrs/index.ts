@@ -14,6 +14,7 @@ import ToneMappingPmndrs, { type ToneMappingPmndrsProps } from './ToneMappingPmn
 import ChromaticAberrationPmndrs, { type ChromaticAberrationPmndrsProps } from './ChromaticAberrationPmndrs.vue'
 import HueSaturationPmndrs, { type HueSaturationPmndrsProps } from './HueSaturationPmndrs.vue'
 import ScanlinePmndrs, { type ScanlinePmndrsProps } from './ScanlinePmndrs.vue'
+import KuwaharaPmndrs, { type KuwaharaPmndrsProps } from './KuwaharaPmndrs.vue'
 import ColorAveragePmndrs, { type ColorAveragePmndrsProps } from './ColorAveragePmndrs.vue'
 import LensDistortionPmndrs, { type LensDistortionPmndrsProps } from './LensDistortionPmndrs.vue'
 import ShockWavePmndrs, { type ShockWavePmndrsProps } from './ShockWavePmndrs.vue'
@@ -34,10 +35,11 @@ export {
   useEffectPmndrs,
   VignettePmndrs,
   BarrelBlurPmndrs,
+  HueSaturationPmndrs,
   ToneMappingPmndrs,
   ChromaticAberrationPmndrs,
-  HueSaturationPmndrs,
   ScanlinePmndrs,
+  KuwaharaPmndrs,
   ColorAveragePmndrs,
   LensDistortionPmndrs,
   ShockWavePmndrs,
@@ -46,7 +48,6 @@ export {
   DotScreenPmndrs,
   SepiaPmndrs,
   LinocutPmndrs,
-
   BloomPmndrsProps,
   DepthOfFieldPmndrsProps,
   EffectComposerPmndrsProps,
@@ -60,6 +61,7 @@ export {
   ChromaticAberrationPmndrsProps,
   HueSaturationPmndrsProps,
   ScanlinePmndrsProps,
+  KuwaharaPmndrsProps,
   ColorAveragePmndrsProps,
   LensDistortionPmndrsProps,
   ShockWavePmndrsProps,

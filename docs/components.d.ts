@@ -21,6 +21,7 @@ declare module 'vue' {
     HalftoneThreeDemo: typeof import('./.vitepress/theme/components/three/HalftoneThreeDemo.vue')['default']
     HueSaturation: typeof import('./.vitepress/theme/components/pmdrs/HueSaturationDemo.vue')['default']
     HueSaturationDemo: typeof import('./.vitepress/theme/components/pmdrs/HueSaturationDemo.vue')['default']
+    KuwaharaDemo: typeof import('./.vitepress/theme/components/pmdrs/KuwaharaDemo.vue')['default']
     LensDistortionDemo: typeof import('./.vitepress/theme/components/pmdrs/LensDistortionDemo.vue')['default']
     LinocutDemo: typeof import('./.vitepress/theme/components/pmdrs/LinocutDemo.vue')['default']
     LoveVueThreeJS: typeof import('./.vitepress/theme/components/LoveVueThreeJS.vue')['default']
