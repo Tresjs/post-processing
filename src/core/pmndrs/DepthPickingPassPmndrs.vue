@@ -2,7 +2,7 @@
 import type { DepthPackingStrategies } from 'three'
 import type { DepthCopyMode } from 'postprocessing'
 import { DepthPickingPass } from 'postprocessing'
-import { inject, nextTick, onUnmounted, shallowRef, watchEffect } from 'vue'
+import { inject, nextTick, onUnmounted, watchEffect } from 'vue'
 import { effectComposerInjectionKey } from './EffectComposerPmndrs.vue'
 
 export interface DepthPickingPassPmndrsProps {
