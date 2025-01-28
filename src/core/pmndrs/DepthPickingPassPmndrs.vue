@@ -22,19 +22,19 @@ export interface DepthPickingPassPmndrsProps {
 const props = defineProps<DepthPickingPassPmndrsProps>()
 const composer = inject(effectComposerInjectionKey)
 
-const pass = shallowRef(new DepthPickingPass(props))
+const pass = new DepthPickingPass(props)
 
 const unwatch = watchEffect(() => {
   if (!composer?.value) { return }
   nextTick(() => unwatch())
-  composer.value.addPass(pass.value)
+  composer.value.addPass(pass)
 })
 
 onUnmounted(() => {
-  if (!composer?.value || !pass.value) { return }
+  if (!composer?.value || !pass) { return }
 
-  composer?.value?.removePass(pass.value)
-  pass.value.dispose()
+  composer?.value?.removePass(pass)
+  pass.dispose()
 })
 
 defineExpose({ pass })
