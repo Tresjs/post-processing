@@ -65,11 +65,11 @@ const { blendFunction, offset, rotation, focusArea, feather } = useControls({
     <Suspense>
       <EffectComposerPmndrs>
         <TiltShiftPmndrs
-          :blendFunction="Number(blendFunction.value)"
-          :offset="offset.value"
-          :rotation="rotation.value"
-          :focusArea="focusArea.value"
-          :feather="feather.value"
+          :blendFunction="Number(blendFunction)"
+          :offset="offset"
+          :rotation="rotation"
+          :focusArea="focusArea"
+          :feather="feather"
         />
       </EffectComposerPmndrs>
     </Suspense>

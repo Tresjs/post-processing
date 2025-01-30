@@ -39,7 +39,7 @@ const { blendFunction, opacity } = useControls({
 
 function onUpdateTimeline(e) {
   const progress = 1 - e.progress()
-  opacity.value.value = progress
+  opacity.value = progress
 }
 
 watch(meshRef, () => {
@@ -85,7 +85,7 @@ onUnmounted(() => {
 
     <Suspense>
       <EffectComposerPmndrs>
-        <ColorAveragePmndrs :blendFunction="Number(blendFunction.value)" :opacity="opacity.value" />
+        <ColorAveragePmndrs :blendFunction="Number(blendFunction)" :opacity="opacity" />
       </EffectComposerPmndrs>
     </Suspense>
   </TresCanvas>

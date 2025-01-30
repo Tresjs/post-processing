@@ -60,6 +60,7 @@
     "postprocessing": "^6.36.6"
   },
   "devDependencies": {
+    "@tresjs/leches": "https://pkg.pr.new/@tresjs/leches@9ad0cd3",
     "@release-it/conventional-changelog": "^10.0.0",
     "@tresjs/core": "^4.3.2",
     "@tresjs/eslint-config": "^1.4.0",

@@ -7,6 +7,8 @@ import { DepthPickingPassPmndrs, EffectComposerPmndrs, ShockWavePmndrs } from '@
 import { useMouse, useWindowSize } from '@vueuse/core'
 import { computed, ref } from 'vue'
 
+// TODO: The requested module ————— does not provide an export named 'DepthPickingPassPmndrs'
+
 import '@tresjs/leches/styles'
 
 const gl = {
@@ -99,7 +101,7 @@ function triggerShockWave() {
     <Suspense>
       <EffectComposerPmndrs ref="effectComposerRef">
         <DepthPickingPassPmndrs ref="depthPickingPassRef" />
-        <ShockWavePmndrs ref="shockWaveEffect" :position="mousePosition" :amplitude="amplitude.value" :waveSize="waveSize.value" :speed="speed.value" :maxRadius="maxRadius.value" />
+        <ShockWavePmndrs ref="shockWaveEffect" :position="mousePosition" :amplitude="amplitude" :waveSize="waveSize" :speed="speed" :maxRadius="maxRadius" />
       </EffectComposerPmndrs>
     </Suspense>
   </TresCanvas>

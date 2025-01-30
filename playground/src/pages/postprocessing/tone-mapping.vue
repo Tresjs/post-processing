@@ -40,6 +40,7 @@ const { blendFunction, resolution, mode } = useControls({
     value: BlendFunction.OVERLAY,
   },
 })
+
 </script>
 
 <template>
@@ -70,7 +71,7 @@ const { blendFunction, resolution, mode } = useControls({
 
     <Suspense>
       <EffectComposerPmndrs>
-        <ToneMappingPmndrs :mode="Number(mode.value)" :resolution="Number(resolution.value)" :blendFunction="Number(blendFunction.value)" />
+        <ToneMappingPmndrs :mode="Number(mode)" :resolution="Number(resolution)" :blendFunction="Number(blendFunction)" />
       </EffectComposerPmndrs>
     </Suspense>
   </TresCanvas>

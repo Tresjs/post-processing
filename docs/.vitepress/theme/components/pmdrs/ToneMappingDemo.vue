@@ -45,7 +45,7 @@ onUnmounted(() => {
 
   <TresCanvas
     v-bind="gl"
-    :toneMappingExposure="toneMappingExposure.value"
+    :toneMappingExposure="toneMappingExposure"
   >
     <TresPerspectiveCamera
       :position="[6.5, 6.5, 6.5]"
@@ -66,7 +66,7 @@ onUnmounted(() => {
 
     <Suspense>
       <EffectComposerPmndrs>
-        <ToneMappingPmndrs :mode="Number(mode.value)" />
+        <ToneMappingPmndrs :mode="Number(mode)" />
       </EffectComposerPmndrs>
     </Suspense>
   </TresCanvas>

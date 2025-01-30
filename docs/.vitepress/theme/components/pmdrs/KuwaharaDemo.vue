@@ -28,8 +28,8 @@ const { enabled, radius, sectorCount } = useControls({
   sectorCount: { value: 4, min: 1, max: 8, step: 1 },
 })
 
-watch(enabled.value, () => {
-  effectProps.blendFunction = enabled.value.value ? BlendFunction.NORMAL : BlendFunction.SKIP
+watch(enabled, () => {
+  effectProps.blendFunction = enabled.value ? BlendFunction.NORMAL : BlendFunction.SKIP
 })
 </script>
 
@@ -72,7 +72,7 @@ watch(enabled.value, () => {
 
     <Suspense>
       <EffectComposerPmndrs>
-        <KuwaharaPmndrs :blendFunction="effectProps.blendFunction" :radius="radius.value" :sectorCount="sectorCount.value" />
+        <KuwaharaPmndrs :blendFunction="effectProps.blendFunction" :radius="radius" :sectorCount="sectorCount" />
       </EffectComposerPmndrs>
     </Suspense>
   </TresCanvas>

@@ -56,7 +56,7 @@ const { amount, offsetX, offsetY, blendFunction } = useControls({
 
     <Suspense>
       <EffectComposerPmndrs>
-        <BarrelBlurPmndrs :amount="amount.value" :offset="[offsetX.value, offsetY.value]" :blendFunction="Number(blendFunction.value)" />
+        <BarrelBlurPmndrs :amount="amount" :offset="[offsetX, offsetY]" :blendFunction="Number(blendFunction)" />
       </EffectComposerPmndrs>
     </Suspense>
   </TresCanvas>

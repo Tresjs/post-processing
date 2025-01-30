@@ -141,8 +141,8 @@ function getActiveDuration() {
   // Note that the speed affects how quickly the shock wave radius increases over time, but not the total duration of the emit explode.
 
   // Retrieve the values dynamically
-  const radiusMax = maxRadius.value.value
-  const wave = waveSize.value.value
+  const radiusMax = maxRadius.value
+  const wave = waveSize.value
 
   // Duration formula: 2 * maxRadius + 3 * waveSize
   const duration = 2 * radiusMax + 3 * wave
@@ -196,7 +196,7 @@ onUnmounted(() => {
     <Suspense>
       <EffectComposerPmndrs>
         <DepthPickingPassPmndrs ref="depthPickingPassRef" />
-        <ShockWavePmndrs ref="shockWaveEffectRef" :position="mousePosition" :amplitude="amplitude.value" :waveSize="waveSize.value" :speed="speed.value" :maxRadius="maxRadius.value" />
+        <ShockWavePmndrs ref="shockWaveEffectRef" :position="mousePosition" :amplitude="amplitude" :waveSize="waveSize" :speed="speed" :maxRadius="maxRadius" />
       </EffectComposerPmndrs>
     </Suspense>
   </TresCanvas>
