@@ -40,7 +40,6 @@ const { blendFunction, resolution, mode } = useControls({
     value: BlendFunction.OVERLAY,
   },
 })
-
 </script>
 
 <template>

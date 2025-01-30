@@ -28,7 +28,6 @@ const { blendFunction } = useControls({
     value: BlendFunction.SCREEN,
   },
 })
-
 </script>
 
 <template>
