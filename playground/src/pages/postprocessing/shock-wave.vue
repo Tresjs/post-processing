@@ -7,8 +7,6 @@ import { DepthPickingPassPmndrs, EffectComposerPmndrs, ShockWavePmndrs } from '@
 import { useMouse, useWindowSize } from '@vueuse/core'
 import { computed, ref } from 'vue'
 
-// TODO: The requested module ————— does not provide an export named 'DepthPickingPassPmndrs'
-
 import '@tresjs/leches/styles'
 
 const gl = {

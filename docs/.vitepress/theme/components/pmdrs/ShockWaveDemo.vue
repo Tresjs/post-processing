@@ -8,8 +8,6 @@ import { DepthPickingPassPmndrs, EffectComposerPmndrs, ShockWavePmndrs } from '@
 import { useElementBounding, useMouse, useParentElement } from '@vueuse/core'
 import { gsap } from 'gsap'
 
-// TODO: The requested module ————— does not provide an export named 'DepthPickingPassPmndrs'
-
 import '@tresjs/leches/styles'
 
 const gl = {
