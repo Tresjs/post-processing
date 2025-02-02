@@ -52,6 +52,7 @@ export const postProcessingRoutes = [
   makeRoute('Shock Wave', '🌊', false),
   makeRoute('Vignette', '🕶️', false),
   makeRoute('Barrel blur', '🌀', false),
+  makeRoute('FishEye', '👁️', false),
   makeRoute('On-demand', '🔄', false),
 ]
 
