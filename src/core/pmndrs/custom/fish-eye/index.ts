@@ -2,8 +2,7 @@ import { Uniform, Vector2 } from 'three'
 import { BlendFunction, Effect } from 'postprocessing'
 
 /**
- * FishEyeEffect - A custom effect for applying a barrel distortion
- * with chromatic aberration blur.
+ * FishEyeEffect - A custom effect for applying a fish-eye distortion
  */
 
 export class FishEyeEffect extends Effect {
@@ -24,13 +23,13 @@ export class FishEyeEffect extends Effect {
       uniform float scale;
 
       void mainUv(inout vec2 uv) {
-          vec2 vMapping = uv * 2.0 - 1.0;
-          vMapping.x = vMapping.x + ((pow(vMapping.y, 2.0) / scale) * vMapping.x / scale) * -lensF.x;
-          vMapping.y = vMapping.y + ((pow(vMapping.x, 2.0) / scale) * vMapping.y / scale) * -lensF.y;
-          vMapping = vMapping * lensS;
-          vMapping = vMapping / scale * 0.5 + 0.5;
+          vec2 newUv = uv * 2.0 - 1.0;
+          newUv.x = newUv.x + ((pow(newUv.y, 2.0) / scale) * newUv.x / scale) * -lensF.x;
+          newUv.y = newUv.y + ((pow(newUv.x, 2.0) / scale) * newUv.y / scale) * -lensF.y;
+          newUv = newUv * lensS;
+          newUv = newUv / scale * 0.5 + 0.5;
 
-          uv = vMapping;
+          uv = newUv;
       }
 
       void mainImage(const in vec4 inputColor, const in vec2 uv, out vec4 outputColor) {
@@ -39,9 +38,9 @@ export class FishEyeEffect extends Effect {
       `, {
       blendFunction,
       uniforms: new Map<string, Uniform<number | Vector2>>([
-        ['lensS', new Uniform(lensS)], // Uniform controlling the lens scale
-        ['lensF', new Uniform(lensF)], // Uniform controlling the lens factor
-        ['scale', new Uniform(scale)], // Uniform controlling the scale
+        ['lensS', new Uniform(lensS)],
+        ['lensF', new Uniform(lensF)],
+        ['scale', new Uniform(scale)],
       ]),
     })
   }

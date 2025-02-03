@@ -15,24 +15,7 @@ const gl = {
   envMapIntensity: 10,
 }
 
-const neonColors = [
-  '#FF00FF', // Magenta
-  '#00FFFF', // Cyan
-  '#00FF00', // Lime
-  '#FFFF00', // Yellow
-  '#FF0000', // Red
-  '#FF1493', // Deep Pink
-  '#7FFF00', // Chartreuse
-  '#FF4500', // Orange Red
-  '#8A2BE2', // Blue Violet
-  '#00FF7F', // Spring Green
-  '#FFD700', // Gold
-  '#FF69B4', // Hot Pink
-  '#ADFF2F', // Green Yellow
-  '#FF6347', // Tomato
-  '#40E0D0', // Turquoise
-  '#EE82EE', // Violet
-]
+// Note: The variables [lensSX, lensSY], [lensFX, lensFY] are not used as vectors in useControls because the 'step' key is not yet available.
 
 const { blendFunction, lensSX, lensSY, lensFX, lensFY, scale } = useControls({
   blendFunction: {
@@ -57,25 +40,39 @@ const { blendFunction, lensSX, lensSY, lensFX, lensFY, scale } = useControls({
     v-bind="gl"
   >
     <TresPerspectiveCamera
-      :position="[0, 6.5, 6.5]"
+      :position="[0, 6.5, 7.5]"
       :look-at="[0, 0, 0]"
     />
     <OrbitControls auto-rotate />
 
-    <TresAmbientLight :intensity="1" />
+    <TresMesh :position="[5, 0, 0]">
+      <TresBoxGeometry :args="[1.65, 1.65, 1.65]" />
+      <TresMeshNormalMaterial />
+    </TresMesh>
 
-    <template v-for="(color, index) in neonColors" :key="index">
-      <TresMesh :position="[index % 4 * 2 - 3, 0, Math.floor(index / 4) * 2 - 3]">
-        <TresBoxGeometry :args="[2, 2, 2]" />
-        <TresMeshStandardMaterial :color="color" :roughness=".5" :metalness="1" />
-      </TresMesh>
-    </template>
+    <TresMesh :position="[0, 0, 0]">
+      <TresBoxGeometry :args="[1.65, 1.65, 1.65]" />
+      <TresMeshNormalMaterial />
+    </TresMesh>
+
+    <TresMesh :position="[-5, 0, 0]">
+      <TresBoxGeometry :args="[1.65, 1.65, 1.65]" />
+      <TresMeshNormalMaterial />
+    </TresMesh>
+
+    <TresMesh :position="[0, 0, -5]">
+      <TresBoxGeometry :args="[1.65, 1.65, 1.65]" />
+      <TresMeshNormalMaterial />
+    </TresMesh>
+
+    <TresMesh :position="[0, 0, 5]">
+      <TresBoxGeometry :args="[1.65, 1.65, 1.65]" />
+      <TresMeshNormalMaterial />
+    </TresMesh>
 
     <Suspense>
-      <Environment background :blur="0" preset="shangai" />
+      <Environment background preset="shangai" />
     </Suspense>
-
-    <TresDirectionalLight color="white" />
 
     <ContactShadows
       :opacity=".65"
