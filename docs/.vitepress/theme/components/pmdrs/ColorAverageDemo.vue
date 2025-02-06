@@ -63,30 +63,31 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <TresLeches style="left: initial;right:10px; top:10px;" />
+  <div class="aspect-16/9">
+    <TresCanvas
+      v-bind="gl"
+    >
+      <TresPerspectiveCamera
+        :position="[5, 2, 15]"
+        :look-at="[0, 0, 0]"
+      />
+      <OrbitControls auto-rotate />
 
-  <TresCanvas
-    v-bind="gl"
-  >
-    <TresPerspectiveCamera
-      :position="[5, 2, 15]"
-      :look-at="[0, 0, 0]"
-    />
-    <OrbitControls auto-rotate />
+      <TresMesh ref="meshRef" :position="[0, 3.5, 0]">
+        <TresBoxGeometry :args="[2, 2, 2]" />
+        <TresMeshPhysicalMaterial color="#8B0000" :roughness=".25" />
+      </TresMesh>
 
-    <TresMesh ref="meshRef" :position="[0, 3.5, 0]">
-      <TresBoxGeometry :args="[2, 2, 2]" />
-      <TresMeshPhysicalMaterial color="#8B0000" :roughness=".25" />
-    </TresMesh>
+      <Suspense>
+        <Environment background preset="shangai" />
+      </Suspense>
 
-    <Suspense>
-      <Environment background preset="shangai" />
-    </Suspense>
-
-    <Suspense>
-      <EffectComposerPmndrs>
-        <ColorAveragePmndrs :blendFunction="Number(blendFunction)" :opacity="opacity" />
-      </EffectComposerPmndrs>
-    </Suspense>
-  </TresCanvas>
+      <Suspense>
+        <EffectComposerPmndrs>
+          <ColorAveragePmndrs :blendFunction="Number(blendFunction)" :opacity="opacity" />
+        </EffectComposerPmndrs>
+      </Suspense>
+    </TresCanvas>
+  </div>
+  <TresLeches :float="false" />
 </template>
