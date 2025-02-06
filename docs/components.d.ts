@@ -12,7 +12,6 @@ declare module 'vue' {
     BloomDemo: typeof import('./.vitepress/theme/components/pmdrs/BloomDemo.vue')['default']
     ChromaticAberrationDemo: typeof import('./.vitepress/theme/components/pmdrs/ChromaticAberrationDemo.vue')['default']
     ColorAverageDemo: typeof import('./.vitepress/theme/components/pmdrs/ColorAverageDemo.vue')['default']
-    copy: typeof import('./.vitepress/theme/components/DocsDemoGUI.vue')['default']
     DepthOfFieldDemo: typeof import('./.vitepress/theme/components/pmdrs/DepthOfFieldDemo.vue')['default']
     DocsDemo: typeof import('./.vitepress/theme/components/DocsDemo.vue')['default']
     DocsDemoGUI: typeof import('./.vitepress/theme/components/DocsDemoGUI.vue')['default']
