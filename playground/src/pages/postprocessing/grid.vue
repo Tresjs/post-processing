@@ -4,7 +4,7 @@ import { TresCanvas } from '@tresjs/core'
 import { TresLeches, useControls } from '@tresjs/leches'
 import { NoToneMapping } from 'three'
 import { BlendFunction } from 'postprocessing'
-import { EffectComposerPmndrs, SepiaPmndrs } from '@tresjs/post-processing'
+import { EffectComposerPmndrs, GridPmndrs } from '@tresjs/post-processing'
 
 import '@tresjs/leches/styles'
 
@@ -14,15 +14,16 @@ const gl = {
   multisampling: 8,
 }
 
-const { intensity, blendFunction } = useControls({
-  intensity: { value: 2.0, step: 0.1, max: 5.0 },
+const { blendFunction, scale, lineWidth } = useControls({
   blendFunction: {
     options: Object.keys(BlendFunction).map(key => ({
       text: key,
-      value: BlendFunction[key],
+      value: BlendFunction[key as keyof typeof BlendFunction],
     })),
-    value: BlendFunction.NORMAL,
+    value: BlendFunction.OVERLAY,
   },
+  scale: { value: 0.25, step: 0.01, min: 0.0, max: 2.0 },
+  lineWidth: { value: 0.1, step: 0.01, max: 2.0 },
 })
 </script>
 
@@ -54,7 +55,11 @@ const { intensity, blendFunction } = useControls({
 
     <Suspense>
       <EffectComposerPmndrs>
-        <SepiaPmndrs :intensity="intensity" :blendFunction="Number(blendFunction)" />
+        <GridPmndrs
+          :blendFunction="Number(blendFunction)"
+          :scale="scale"
+          :lineWidth="lineWidth"
+        />
       </EffectComposerPmndrs>
     </Suspense>
   </TresCanvas>

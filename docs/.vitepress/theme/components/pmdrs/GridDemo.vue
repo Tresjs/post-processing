@@ -3,8 +3,8 @@ import { ContactShadows, Environment, OrbitControls } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
 import { TresLeches, useControls } from '@tresjs/leches'
 import { NoToneMapping } from 'three'
-import { EffectComposerPmndrs, SepiaPmndrs } from '@tresjs/post-processing'
 import { BlendFunction } from 'postprocessing'
+import { EffectComposerPmndrs, GridPmndrs } from '@tresjs/post-processing'
 
 import '@tresjs/leches/styles'
 
@@ -14,15 +14,16 @@ const gl = {
   multisampling: 8,
 }
 
-const { intensity, blendFunction } = useControls({
-  intensity: { value: 1.0, step: 0.1, max: 5.0 },
+const { blendFunction, scale, lineWidth } = useControls({
   blendFunction: {
     options: Object.keys(BlendFunction).map(key => ({
       text: key,
-      value: BlendFunction[key],
+      value: BlendFunction[key as keyof typeof BlendFunction],
     })),
-    value: BlendFunction.NORMAL,
+    value: BlendFunction.OVERLAY,
   },
+  scale: { value: 0.25, step: 0.01, min: 0.0, max: 2.0 },
+  lineWidth: { value: 0.1, step: 0.01, max: 2.0 },
 })
 </script>
 
@@ -31,10 +32,7 @@ const { intensity, blendFunction } = useControls({
     <TresCanvas
       v-bind="gl"
     >
-      <TresPerspectiveCamera
-        :position="[5, 5, 5]"
-        :look-at="[0, 0, 0]"
-      />
+      <TresPerspectiveCamera :position="[5, 5, 5]" />
       <OrbitControls auto-rotate />
 
       <TresMesh :position="[0, .5, 0]">
@@ -53,11 +51,14 @@ const { intensity, blendFunction } = useControls({
 
       <Suspense>
         <EffectComposerPmndrs>
-          <SepiaPmndrs :intensity="intensity" :blendFunction="Number(blendFunction)" />
+          <GridPmndrs
+            :blendFunction="Number(blendFunction)"
+            :scale="scale"
+            :lineWidth="lineWidth"
+          />
         </EffectComposerPmndrs>
       </Suspense>
     </TresCanvas>
   </div>
-
   <TresLeches :float="false" />
 </template>
