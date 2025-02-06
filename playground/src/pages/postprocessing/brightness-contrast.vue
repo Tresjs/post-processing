@@ -4,7 +4,7 @@ import { TresCanvas } from '@tresjs/core'
 import { TresLeches, useControls } from '@tresjs/leches'
 import { NoToneMapping } from 'three'
 import { BlendFunction } from 'postprocessing'
-import { EffectComposerPmndrs, SepiaPmndrs } from '@tresjs/post-processing'
+import { BrightnessContrastPmndrs, EffectComposerPmndrs } from '@tresjs/post-processing'
 
 import '@tresjs/leches/styles'
 
@@ -14,14 +14,15 @@ const gl = {
   multisampling: 8,
 }
 
-const { intensity, blendFunction } = useControls({
-  intensity: { value: 2.0, step: 0.1, max: 5.0 },
+const { brightness, contrast, blendFunction } = useControls({
+  brightness: { value: 0.25, step: 0.01, min: -1, max: 1 },
+  contrast: { value: -0.5, step: 0.01, min: -1, max: 1 },
   blendFunction: {
-    options: Object.keys(BlendFunction).map(key => ({
+    options: Object.keys(BlendFunction).map((key: string) => ({
       text: key,
-      value: BlendFunction[key],
+      value: BlendFunction[key as keyof typeof BlendFunction],
     })),
-    value: BlendFunction.NORMAL,
+    value: Number(BlendFunction.SRC),
   },
 })
 </script>
@@ -49,12 +50,16 @@ const { intensity, blendFunction } = useControls({
     />
 
     <Suspense>
-      <Environment background :blur=".5" preset="snow" />
+      <Environment background preset="shangai" />
     </Suspense>
 
     <Suspense>
       <EffectComposerPmndrs>
-        <SepiaPmndrs :intensity="intensity" :blendFunction="Number(blendFunction)" />
+        <BrightnessContrastPmndrs
+          :blendFunction="Number(blendFunction)"
+          :brightness="brightness"
+          :contrast="contrast"
+        />
       </EffectComposerPmndrs>
     </Suspense>
   </TresCanvas>

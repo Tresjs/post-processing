@@ -3,7 +3,7 @@ import { ContactShadows, Environment, OrbitControls } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
 import { TresLeches, useControls } from '@tresjs/leches'
 import { NoToneMapping } from 'three'
-import { EffectComposerPmndrs, SepiaPmndrs } from '@tresjs/post-processing'
+import { BrightnessContrastPmndrs, EffectComposerPmndrs } from '@tresjs/post-processing'
 import { BlendFunction } from 'postprocessing'
 
 import '@tresjs/leches/styles'
@@ -14,14 +14,15 @@ const gl = {
   multisampling: 8,
 }
 
-const { intensity, blendFunction } = useControls({
-  intensity: { value: 1.0, step: 0.1, max: 5.0 },
+const { brightness, contrast, blendFunction } = useControls({
+  brightness: { value: 0.25, step: 0.01, min: -1, max: 1 },
+  contrast: { value: -0.5, step: 0.01, min: -1, max: 1 },
   blendFunction: {
     options: Object.keys(BlendFunction).map(key => ({
       text: key,
       value: BlendFunction[key],
     })),
-    value: BlendFunction.NORMAL,
+    value: BlendFunction.SRC,
   },
 })
 </script>
@@ -31,10 +32,7 @@ const { intensity, blendFunction } = useControls({
     <TresCanvas
       v-bind="gl"
     >
-      <TresPerspectiveCamera
-        :position="[5, 5, 5]"
-        :look-at="[0, 0, 0]"
-      />
+      <TresPerspectiveCamera :position="[5, 5, 5]" />
       <OrbitControls auto-rotate />
 
       <TresMesh :position="[0, .5, 0]">
@@ -48,16 +46,19 @@ const { intensity, blendFunction } = useControls({
       />
 
       <Suspense>
-        <Environment background :blur=".5" preset="snow" />
+        <Environment background preset="sunset" />
       </Suspense>
 
       <Suspense>
         <EffectComposerPmndrs>
-          <SepiaPmndrs :intensity="intensity" :blendFunction="Number(blendFunction)" />
+          <BrightnessContrastPmndrs
+            :brightness="brightness"
+            :contrast="contrast"
+            :blendFunction="Number(blendFunction)"
+          />
         </EffectComposerPmndrs>
       </Suspense>
     </TresCanvas>
   </div>
-
   <TresLeches :float="false" />
 </template>
