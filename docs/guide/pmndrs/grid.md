@@ -1,8 +1,8 @@
 # Grid
 
-<DocsDemo>
+<DocsDemoGUI>
   <GridDemo />
-</DocsDemo>
+</DocsDemoGUI>
 
 <details>
   <summary>Demo code</summary>
@@ -17,7 +17,7 @@ It renders a grid that can be scaled or adjusted to achieve a variety of visual 
 
 The `<GridPmndrs>` component is easy to use and provides customizable options to suit different visual styles.
 
-```vue{2,9-13,27-31}
+```vue{2,9-13,25-29}
 <script setup lang="ts">
 import { EffectComposerPmndrs, GridPmndrs } from '@tresjs/post-processing/pmndrs'
 
@@ -34,9 +34,7 @@ const effectProps = {
 </script>
 
 <template>
-  <TresCanvas
-    v-bind="gl"
-  >
+  <TresCanvas v-bind="gl">
     <TresPerspectiveCamera />
 
     <TresMesh :position="[0, .5, 0]">
