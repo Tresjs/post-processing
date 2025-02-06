@@ -29,7 +29,7 @@ const { amount, offsetX, offsetY, blendFunction } = useControls({
 </script>
 
 <template>
-  <TresLeches style="left: initial;right:10px; top:10px;" />
+  <TresLeches :float="false" />
 
   <TresCanvas
     v-bind="gl"
