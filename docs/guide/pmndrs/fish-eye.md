@@ -1,8 +1,8 @@
 # Fish Eye
 
-<DocsDemo>
+<DocsDemoGUI>
   <FishEyeDemo />
-</DocsDemo>
+</DocsDemoGUI>
 
 <details>
   <summary>Demo code</summary>

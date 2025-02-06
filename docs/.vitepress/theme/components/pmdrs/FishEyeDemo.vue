@@ -70,67 +70,68 @@ watch(enabled, () => {
 </script>
 
 <template>
-  <TresLeches style="left: initial;right:10px; top:10px;" />
-
-  <TresCanvas
-    v-bind="gl"
-  >
-    <TresPerspectiveCamera
-      :position="[5, 5, 5]"
-    />
-    <OrbitControls :target="[0, .5, 0]" auto-rotate :maxPolarAngle="Math.PI / 2" />
-
-    <Suspense>
-      <Environment preset="snow" />
-    </Suspense>
-
-    <TresAmbientLight :intensity=".5" />
-
-    <TresMesh :rotation-x="-Math.PI / 2">
-      <TresPlaneGeometry :args="[15, 15]" />
-      <TresMeshPhysicalMaterial
-        :metalness=".5"
-        :roughness=".85"
-      />
-    </TresMesh>
-
-    <TresMesh>
-      <TresSphereGeometry :args="[7.5, 32, 32]" />
-      <TresMeshPhysicalMaterial
-        :metalness=".5"
-        :roughness=".25"
-        :side="BackSide"
-      />
-    </TresMesh>
-
-    <RoundedBox
-      v-for="(positionX, index) in [-1.75, 1.75]"
-      :key="index"
-      :position="positionX"
-      :position-y="1.05"
-      :args="[2, 2, 2, 2, 0.25]"
+  <div class="aspect-16/9">
+    <TresCanvas
+      v-bind="gl"
     >
-      <TresMeshPhysicalMaterial
-        :metalness="0.5"
-        :roughness=".3"
+      <TresPerspectiveCamera
+        :position="[5, 5, 5]"
       />
-    </RoundedBox>
+      <OrbitControls :target="[0, .5, 0]" auto-rotate :maxPolarAngle="Math.PI / 2" />
 
-    <Precipitation
-      :randomness="3"
-      :speed="1"
-      :count="2500"
-    />
+      <Suspense>
+        <Environment preset="snow" />
+      </Suspense>
 
-    <Suspense>
-      <EffectComposerPmndrs>
-        <FishEyePmndrs
-          :blendFunction="localBlendFunction"
-          :lensS="[lensSX, lensSY]"
-          :lensF="[lensFX, lensFY]"
-          :scale="scale"
+      <TresAmbientLight :intensity=".5" />
+
+      <TresMesh :rotation-x="-Math.PI / 2">
+        <TresPlaneGeometry :args="[15, 15]" />
+        <TresMeshPhysicalMaterial
+          :metalness=".5"
+          :roughness=".85"
         />
-      </EffectComposerPmndrs>
-    </Suspense>
-  </TresCanvas>
+      </TresMesh>
+
+      <TresMesh>
+        <TresSphereGeometry :args="[7.5, 32, 32]" />
+        <TresMeshPhysicalMaterial
+          :metalness=".5"
+          :roughness=".25"
+          :side="BackSide"
+        />
+      </TresMesh>
+
+      <RoundedBox
+        v-for="(positionX, index) in [-1.75, 1.75]"
+        :key="index"
+        :position="positionX"
+        :position-y="1.05"
+        :args="[2, 2, 2, 2, 0.25]"
+      >
+        <TresMeshPhysicalMaterial
+          :metalness="0.5"
+          :roughness=".3"
+        />
+      </RoundedBox>
+
+      <Precipitation
+        :randomness="3"
+        :speed="1"
+        :count="2500"
+      />
+
+      <Suspense>
+        <EffectComposerPmndrs>
+          <FishEyePmndrs
+            :blendFunction="localBlendFunction"
+            :lensS="[lensSX, lensSY]"
+            :lensF="[lensFX, lensFY]"
+            :scale="scale"
+          />
+        </EffectComposerPmndrs>
+      </Suspense>
+    </TresCanvas>
+  </div>
+  <TresLeches :float="false" />
 </template>
