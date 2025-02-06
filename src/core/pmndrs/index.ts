@@ -23,6 +23,7 @@ import DotScreenPmndrs, { type DotScreenPmndrsProps } from './DotScreenPmndrs.vu
 import SepiaPmndrs, { type SepiaPmndrsProps } from './SepiaPmndrs.vue'
 import LinocutPmndrs, { type LinocutPmndrsProps } from './LinocutPmndrs.vue'
 import DepthPickingPassPmndrs, { type DepthPickingPassPmndrsProps } from './DepthPickingPassPmndrs.vue'
+import FishEyePmndrs, { type FishEyePmndrsProps } from './FishEyePmndrs.vue'
 
 export {
   BloomPmndrs,
@@ -48,6 +49,7 @@ export {
   SepiaPmndrs,
   LinocutPmndrs,
   DepthPickingPassPmndrs,
+  FishEyePmndrs,
   BloomPmndrsProps,
   DepthOfFieldPmndrsProps,
   EffectComposerPmndrsProps,
@@ -70,4 +72,5 @@ export {
   SepiaPmndrsProps,
   LinocutPmndrsProps,
   DepthPickingPassPmndrsProps,
+  FishEyePmndrsProps,
 }
