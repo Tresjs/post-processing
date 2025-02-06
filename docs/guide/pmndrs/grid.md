@@ -57,7 +57,7 @@ const effectProps = {
 
 | Prop          | Description                                                         | Default                     |
 | ------------- | ------------------------------------------------------------------- | --------------------------- |
-| blendFunction | Defines how the effect blends with the original scene.             | `BlendFunction.OVERLAY`        |
+| blendFunction | Defines how the effect blends with the original scene. See the [`BlendFunction`](https://pmndrs.github.io/postprocessing/public/docs/variable/index.html#static-variable-BlendFunction) options.             | `BlendFunction.OVERLAY`        |
 | scale         | The grid scale, which can be used to adjust the spacing effect.     | `1.0`                       |
 | lineWidth     | The width of the lines in the grid pattern.                                | `1.0`                       |
 
