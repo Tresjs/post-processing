@@ -57,7 +57,7 @@ const effectProps = {
 
 | Prop          | Description                                                   | Default                     |
 | ------------- | ------------------------------------------------------------- | --------------------------- |
-| blendFunction | Defines how the effect blends with the original scene. See the [`BlendFunction`](https://pmndrs.github.io/postprocessing/public/docs/variable/index.html#static-variable-BlendFunction)       | `BlendFunction.SRC`      |
+| blendFunction | Defines how the effect blends with the original scene. See the [`BlendFunction`](https://pmndrs.github.io/postprocessing/public/docs/variable/index.html#static-variable-BlendFunction) options.       | `BlendFunction.SRC`      |
 | brightness    | The brightness factor, where 0 means no change.  <br> Range: `[-1.0, 1.0]`                 | `0`                         |
 | contrast      | The contrast factor, where 0 means no change. <br> Range: `[-1.0, 1.0]`                   | `0`                         |
 
