@@ -1,8 +1,8 @@
 # Brightness & Contrast
 
-<DocsDemo>
+<DocsDemoGUI>
   <BrightnessContrastDemo />
-</DocsDemo>
+</DocsDemoGUI>
 
 <details>
   <summary>Demo code</summary>

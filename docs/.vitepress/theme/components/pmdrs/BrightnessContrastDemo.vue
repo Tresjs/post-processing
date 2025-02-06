@@ -28,36 +28,37 @@ const { brightness, contrast, blendFunction } = useControls({
 </script>
 
 <template>
-  <TresLeches style="left: initial;right:10px; top:10px;" />
+  <div class="aspect-16/9">
+    <TresCanvas
+      v-bind="gl"
+    >
+      <TresPerspectiveCamera :position="[5, 5, 5]" />
+      <OrbitControls auto-rotate />
 
-  <TresCanvas
-    v-bind="gl"
-  >
-    <TresPerspectiveCamera :position="[5, 5, 5]" />
-    <OrbitControls auto-rotate />
+      <TresMesh :position="[0, .5, 0]">
+        <TresBoxGeometry :args="[2, 2, 2]" />
+        <TresMeshPhysicalMaterial color="black" :roughness=".25" />
+      </TresMesh>
 
-    <TresMesh :position="[0, .5, 0]">
-      <TresBoxGeometry :args="[2, 2, 2]" />
-      <TresMeshPhysicalMaterial color="black" :roughness=".25" />
-    </TresMesh>
+      <ContactShadows
+        :opacity="1"
+        :position-y="-.5"
+      />
 
-    <ContactShadows
-      :opacity="1"
-      :position-y="-.5"
-    />
+      <Suspense>
+        <Environment background preset="sunset" />
+      </Suspense>
 
-    <Suspense>
-      <Environment background preset="sunset" />
-    </Suspense>
-
-    <Suspense>
-      <EffectComposerPmndrs>
-        <BrightnessContrastPmndrs
-          :brightness="brightness"
-          :contrast="contrast"
-          :blendFunction="Number(blendFunction)"
-        />
-      </EffectComposerPmndrs>
-    </Suspense>
-  </TresCanvas>
+      <Suspense>
+        <EffectComposerPmndrs>
+          <BrightnessContrastPmndrs
+            :brightness="brightness"
+            :contrast="contrast"
+            :blendFunction="Number(blendFunction)"
+          />
+        </EffectComposerPmndrs>
+      </Suspense>
+    </TresCanvas>
+  </div>
+  <TresLeches :float="false" />
 </template>
