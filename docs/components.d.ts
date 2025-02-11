@@ -20,6 +20,7 @@ declare module 'vue' {
     Ducky: typeof import('./.vitepress/theme/components/Ducky.vue')['default']
     GlitchDemo: typeof import('./.vitepress/theme/components/pmdrs/GlitchDemo.vue')['default']
     GlitchThreeDemo: typeof import('./.vitepress/theme/components/three/GlitchThreeDemo.vue')['default']
+    GodRaysDemo: typeof import('./.vitepress/theme/components/pmdrs/GodRaysDemo.vue')['default']
     HalftoneThreeDemo: typeof import('./.vitepress/theme/components/three/HalftoneThreeDemo.vue')['default']
     HueSaturation: typeof import('./.vitepress/theme/components/pmdrs/HueSaturationDemo.vue')['default']
     HueSaturationDemo: typeof import('./.vitepress/theme/components/pmdrs/HueSaturationDemo.vue')['default']
