@@ -10,14 +10,13 @@ The `Scanline` effect is part of the [`postprocessing`](https://pmndrs.github.io
 
 The `<ScanlinePmndrs>` component is easy to use and provides customizable options to achieve the desired visual appearance.
 
-```vue{2,10-15,27-33}
+```vue{2,9-14,25-31}
 <script setup lang="ts">
 import { EffectComposerPmndrs, ScanlinePmndrs } from '@tresjs/post-processing/pmndrs'
 import { BlendFunction } from 'postprocessing'
 
 const gl = {
   toneMapping: NoToneMapping,
-  multisampling: 8,
 }
 
 const effectProps = {
@@ -34,7 +33,6 @@ const effectProps = {
   >
     <TresPerspectiveCamera
       :position="[5, 5, 5]"
-      :look-at="[0, 0, 0]"
     />
 
     <Suspense>

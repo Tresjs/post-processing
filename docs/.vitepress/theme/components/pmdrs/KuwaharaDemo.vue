@@ -12,7 +12,10 @@ import '@tresjs/leches/styles'
 const gl = {
   clearColor: '#3386E0',
   toneMapping: NoToneMapping,
-  multisampling: 8,
+}
+
+const glComposer = {
+  multisampling: 4,
 }
 
 const { scene: scenePlantJar } = await useGLTF('https://raw.githubusercontent.com/Tresjs/assets/main/models/gltf/kuwahara-effect/plant-jar/plant-jar.glb', { draco: true })
@@ -71,7 +74,7 @@ watch(enabled.value, () => {
     </Suspense>
 
     <Suspense>
-      <EffectComposerPmndrs>
+      <EffectComposerPmndrs v-bind="glComposer">
         <KuwaharaPmndrs :blendFunction="effectProps.blendFunction" :radius="radius.value" :sectorCount="sectorCount.value" />
       </EffectComposerPmndrs>
     </Suspense>

@@ -26,7 +26,7 @@ You can use various Tres.js events such as `click`, `pointer-enter`, etc., to tr
 
 Here is an example of how to use events to trigger the shockwave effect:
 
-```vue{2,3,13-15,17-18,20-21,23-24,26-28,30-36,45,50-58}
+```vue{2,3,12-14,16-17,19-20,22-23,25-27,29-35,43,48-56}
 <script setup lang="ts">
 import { EffectComposerPmndrs, ShockWavePmndrs } from '@tresjs/post-processing'
 import { useMouse, useWindowSize } from '@vueuse/core'
@@ -36,7 +36,6 @@ import { TresCanvas } from '@tresjs/core'
 
 const gl = {
   toneMapping: NoToneMapping,
-  multisampling: 8,
 }
 
 const effectProps = {
@@ -69,7 +68,6 @@ function triggerShockWave() {
   <TresCanvas v-bind="gl">
     <TresPerspectiveCamera
       :position="[5, 5, 5]"
-      :look-at="[0, 0, 0]"
     />
     <TresMesh @click="triggerShockWave">
       <TresBoxGeometry />
@@ -105,7 +103,6 @@ import { TresCanvas } from '@tresjs/core'
 
 const gl = {
   toneMapping: NoToneMapping,
-  multisampling: 8,
 }
 
 const effectProps = {

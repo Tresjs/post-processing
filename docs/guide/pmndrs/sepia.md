@@ -10,15 +10,13 @@ The `Sepia` effect is part of the [`postprocessing`](https://pmndrs.github.io/po
 
 The `<SepiaPmndrs>` component is easy to use and provides customizable options to suit different visual styles.
 
-```vue{2,36-40}
+```vue{2,33-37}
 <script setup lang="ts">
 import { EffectComposerPmndrs, SepiaPmndrs } from '@tresjs/post-processing/pmndrs'
 
 const gl = {
   toneMapping: NoToneMapping,
-  multisampling: 8,
 }
-
 </script>
 
 <template>
@@ -27,7 +25,6 @@ const gl = {
   >
     <TresPerspectiveCamera
       :position="[5, 5, 5]"
-      :look-at="[0, 0, 0]"
     />
 
     <OrbitControls auto-rotate />

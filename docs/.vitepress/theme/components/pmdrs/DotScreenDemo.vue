@@ -12,7 +12,10 @@ import '@tresjs/leches/styles'
 const gl = {
   clearColor: '#ffffff',
   toneMapping: NoToneMapping,
-  multisampling: 8,
+}
+
+const glComposer = {
+  multisampling: 4,
 }
 
 const { angle, scale, blendFunction } = useControls({
@@ -54,7 +57,7 @@ const { scene } = await useGLTF('https://raw.githubusercontent.com/Tresjs/assets
     </Suspense>
 
     <Suspense>
-      <EffectComposerPmndrs>
+      <EffectComposerPmndrs v-bind="glComposer">
         <DotScreenPmndrs :blendFunction="Number(blendFunction.value)" :angle="angle.value" :scale="scale.value" />
       </EffectComposerPmndrs>
     </Suspense>
