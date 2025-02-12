@@ -10,7 +10,7 @@ The `DotScreen` effect is part of the [`postprocessing`](https://pmndrs.github.i
 
 The `<DotScreenPmndrs>` component is straightforward to use and provides customizable options to fine-tune the dot screen effect.
 
-```vue{4,13-16,42-46}
+```vue{4,12-15,40-44}
 <script setup lang="ts">
 import { ContactShadows, Environment, OrbitControls, useGLTF } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
@@ -20,7 +20,6 @@ import { NoToneMapping } from 'three'
 const gl = {
   clearColor: '#ffffff',
   toneMapping: NoToneMapping,
-  multisampling: 8,
 }
 
 const effectProps = reactive({
@@ -37,7 +36,6 @@ const { scene } = await useGLTF('https://raw.githubusercontent.com/Tresjs/assets
   >
     <TresPerspectiveCamera
       :position="[0, 1, 7.5]"
-      :look-at="[0, 0, 0]"
     />
     <OrbitControls />
 

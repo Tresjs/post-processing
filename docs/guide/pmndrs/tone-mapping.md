@@ -14,7 +14,7 @@ If the colors in your scene look incorrect after adding the EffectComposer, it m
 
 The `<ToneMappingPmndrs>` component is easy to set up and comes with multiple tone mapping modes to suit different visual requirements. Below is an example of how to use it in a Vue application.
 
-```vue{2,4,7-8,32-36}
+```vue{2,4,7-8,30-34}
 <script setup lang="ts">
 import { EffectComposerPmndrs, ToneMappingPmndrs } from '@tresjs/post-processing/pmndrs'
 import { onUnmounted, shallowRef } from 'vue'
@@ -23,7 +23,6 @@ import { ToneMappingMode } from 'postprocessing'
 const gl = {
   toneMappingExposure: 1,
   toneMapping: NoToneMapping,
-  multisampling: 8,
 }
 
 const modelRef = shallowRef(null)
@@ -41,7 +40,6 @@ onUnmounted(() => {
   >
     <TresPerspectiveCamera
       :position="[5, 5, 5]"
-      :look-at="[0, 0, 0]"
     />
 
     <primitive ref="modelRef" :object="model" />

@@ -10,7 +10,7 @@ The `LensDistortion` effect is part of the [`postprocessing`](https://pmndrs.git
 
 The `<LensDistortionPmndrs>` component is straightforward to use and provides customizable options to fine-tune the distortion effect of your visuals.
 
-```vue{3,12-17,52-56}
+```vue{3,11-16,51-55}
 <script setup lang="ts">
 import { Vector2 } from 'three'
 import { EffectComposerPmndrs, LensDistortionPmndrs } from '@tresjs/post-processing'
@@ -19,7 +19,6 @@ import { TresCanvas, useTexture } from '@tresjs/core'
 
 const gl = {
   toneMapping: NoToneMapping,
-  multisampling: 8,
 }
 
 const effectProps = {

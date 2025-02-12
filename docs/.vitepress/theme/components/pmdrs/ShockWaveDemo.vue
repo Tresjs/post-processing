@@ -13,7 +13,10 @@ import '@tresjs/leches/styles'
 const gl = {
   clearColor: '#8D404A',
   toneMapping: NoToneMapping,
-  multisampling: 8,
+}
+
+const glComposer = {
+  multisampling: 4,
 }
 
 const shockWaveEffectRef = shallowRef(null)
@@ -194,7 +197,7 @@ onUnmounted(() => {
     </Suspense>
 
     <Suspense>
-      <EffectComposerPmndrs>
+      <EffectComposerPmndrs v-bind="glComposer">
         <DepthPickingPassPmndrs ref="depthPickingPassRef" />
         <ShockWavePmndrs ref="shockWaveEffectRef" :position="mousePosition" :amplitude="amplitude.value" :waveSize="waveSize.value" :speed="speed.value" :maxRadius="maxRadius.value" />
       </EffectComposerPmndrs>

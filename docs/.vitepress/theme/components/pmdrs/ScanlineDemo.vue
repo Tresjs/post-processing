@@ -11,7 +11,10 @@ import '@tresjs/leches/styles'
 const gl = {
   clearColor: '#000000',
   toneMapping: NoToneMapping,
-  multisampling: 8,
+}
+
+const glComposer = {
+  multisampling: 4,
 }
 
 const { blendFunction, opacity, density, scrollSpeed } = useControls({
@@ -61,7 +64,7 @@ const { blendFunction, opacity, density, scrollSpeed } = useControls({
     <Stars />
 
     <Suspense>
-      <EffectComposerPmndrs>
+      <EffectComposerPmndrs v-bind="glComposer">
         <ScanlinePmndrs :density="density.value" :opacity="opacity.value" :scrollSpeed="scrollSpeed.value" :blendFunction="Number(blendFunction.value)" />
       </EffectComposerPmndrs>
     </Suspense>

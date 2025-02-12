@@ -10,7 +10,7 @@ The `Linocut` effect is a custom shader effect inspired by traditional linocut a
 
 The `<LinocutPmndrs>` component is straightforward to use and provides customizable options to fine-tune the linocut effect.
 
-```vue{4,12-18,38-42}
+```vue{4,11-17,36-40}
 <script setup lang="ts">
 import { TresCanvas } from '@tresjs/core'
 import { Environment, OrbitControls } from '@tresjs/cientos'
@@ -19,7 +19,6 @@ import { EffectComposerPmndrs, LinocutPmndrs } from '@tresjs/post-processing'
 const gl = {
   clearColor: '#4f4f4f',
   toneMapping: NoToneMapping,
-  multisampling: 8,
 }
 
 const effectProps = reactive({
@@ -35,7 +34,6 @@ const effectProps = reactive({
   <TresCanvas v-bind="gl">
     <TresPerspectiveCamera
       :position="[0, 6.5, 6.5]"
-      :look-at="[0, 0, 0]"
     />
     <OrbitControls auto-rotate />
 

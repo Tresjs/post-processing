@@ -10,7 +10,7 @@ The `ColorAverage` effect is part of the [`postprocessing`](https://pmndrs.githu
 
 The `<ColorAveragePmndrs>` component is easy to use and provides customizable options to suit different visual styles.
 
-```vue{6,15-18,40-44}
+```vue{6,14-17,38-42}
 <script setup lang="ts">
 import { Environment, OrbitControls } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
@@ -21,7 +21,6 @@ import { ColorAveragePmndrs, EffectComposerPmndrs } from '@tresjs/post-processin
 const gl = {
   clearColor: '#ffffff',
   toneMapping: NoToneMapping,
-  multisampling: 8,
   envMapIntensity: 10,
 }
 
@@ -37,7 +36,6 @@ const effectProps = reactive({
   >
     <TresPerspectiveCamera
       :position="[5, 2, 15]"
-      :look-at="[0, 0, 0]"
     />
     <OrbitControls auto-rotate />
 

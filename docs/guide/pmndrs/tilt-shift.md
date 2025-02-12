@@ -10,7 +10,7 @@ The `TiltShift` effect is part of the [`postprocessing`](https://pmndrs.github.i
 
 The `<TiltShiftPmndrs>` component is straightforward to use and provides customizable options to fine-tune the tilt-shift effect.
 
-```vue{3,21-24,49-53}
+```vue{3,20-23,48-52}
 <script setup lang="ts">
 import { Environment, OrbitControls } from '@tresjs/cientos'
 import { EffectComposerPmndrs, TiltShiftPmndrs } from '@tresjs/post-processing'
@@ -28,7 +28,6 @@ const colors = [
 
 const gl = {
   toneMapping: NoToneMapping,
-  multisampling: 8,
 }
 
 const effectProps = {

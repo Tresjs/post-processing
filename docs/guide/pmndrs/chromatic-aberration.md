@@ -10,26 +10,22 @@ The `ChromaticAberration` effect is part of the [`postprocessing`](https://pmndr
 
 The `<ChromaticAberrationPmndrs>` component is easy to use and provides customizable options to suit different visual styles.
 
-```vue{2,38-46}
+```vue{2,34-42}
 <script setup lang="ts">
 import { EffectComposerPmndrs, ChromaticAberrationPmndrs } from '@tresjs/post-processing/pmndrs'
 import { Vector2 } from 'three'
 
 const gl = {
   toneMapping: NoToneMapping,
-  multisampling: 8,
 }
 
 const offset = new Vector2(0.07, 0.07)
 </script>
 
 <template>
-  <TresCanvas
-    v-bind="gl"
-  >
+  <TresCanvas v-bind="gl">
     <TresPerspectiveCamera
       :position="[5, 5, 5]"
-      :look-at="[0, 0, 0]"
     />
 
     <template
