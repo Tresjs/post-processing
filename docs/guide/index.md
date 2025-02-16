@@ -46,10 +46,13 @@ You can import post-processing effects from both pmndrs and native Three.js. All
 <template>
   <TresCanvas shadows alpha>
     <TresPerspectiveCamera :args="[45," 1, 0.1, 1000] />
-    <EffectComposer>
-      <UnrealBloom />
-      <Glitch />
-    </EffectComposer>
+
+    <Suspense>
+      <EffectComposer>
+        <UnrealBloom />
+        <Glitch />
+      </EffectComposer>
+    </Suspense>
   </TresCanvas>
 </template>
 ```
@@ -66,10 +69,13 @@ You can also use Pmndrs `postprocessing` effects, but you need to use the `Effec
 <template>
   <TresCanvas shadows alpha>
     <TresPerspectiveCamera :args="[45," 1, 0.1, 1000] />
-    <EffectComposerPmndrs>
-      <BloomPmndrs />
-      <GlitchPmndrs />
-    </EffectComposerPmndrs>
+
+    <Suspense>
+      <EffectComposerPmndrs>
+        <BloomPmndrs />
+        <GlitchPmndrs />
+      </EffectComposerPmndrs>
+    </Suspense>
   </TresCanvas>
 </template>
 ```
