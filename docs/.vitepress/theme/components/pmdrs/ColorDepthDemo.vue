@@ -56,8 +56,6 @@ watch(meshsArray, () => {
       }
     })
   })
-
-  console.log('hfsdfhdhfsjdf', meshsArray.value)
 })
 
 onUnmounted(() => {
