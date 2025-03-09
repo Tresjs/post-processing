@@ -21,7 +21,7 @@ const { blendFunction, resolution, mode } = useControls({
   mode: {
     options: Object.keys(ToneMappingMode).map(key => ({
       text: key,
-      value: ToneMappingMode[key],
+      value: ToneMappingMode[key as keyof typeof ToneMappingMode],
     })),
     value: ToneMappingMode.AGX,
   },
@@ -38,7 +38,7 @@ const { blendFunction, resolution, mode } = useControls({
   blendFunction: {
     options: Object.keys(BlendFunction).map(key => ({
       text: key,
-      value: BlendFunction[key],
+      value: BlendFunction[key as keyof typeof BlendFunction],
     })),
     value: BlendFunction.OVERLAY,
   },
@@ -73,7 +73,7 @@ const { blendFunction, resolution, mode } = useControls({
 
     <Suspense>
       <EffectComposerPmndrs v-bind="glComposer">
-        <ToneMappingPmndrs :mode="Number(mode.value)" :resolution="Number(resolution.value)" :blendFunction="Number(blendFunction.value)" />
+        <ToneMappingPmndrs :mode="Number(mode)" :resolution="Number(resolution)" :blendFunction="Number(blendFunction)" />
       </EffectComposerPmndrs>
     </Suspense>
   </TresCanvas>

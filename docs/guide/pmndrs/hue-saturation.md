@@ -1,8 +1,8 @@
 # Hue & Saturation
 
-<DocsDemo>
+<DocsDemoGUI>
   <HueSaturationDemo />
-</DocsDemo>
+</DocsDemoGUI>
 
 <details>
   <summary>Demo code</summary>

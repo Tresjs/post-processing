@@ -1,8 +1,8 @@
 # Linocut
 
-<DocsDemo>
+<DocsDemoGUI>
   <LinocutDemo />
-</DocsDemo>
+</DocsDemoGUI>
 
 <details>
   <summary>Demo code</summary>

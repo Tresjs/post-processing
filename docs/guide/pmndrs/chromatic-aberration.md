@@ -1,8 +1,8 @@
 # Chromatic Aberration
 
-<DocsDemo>
+<DocsDemoGUI>
   <ChromaticAberrationDemo />
-</DocsDemo>
+</DocsDemoGUI>
 
 <details>
   <summary>Demo code</summary>

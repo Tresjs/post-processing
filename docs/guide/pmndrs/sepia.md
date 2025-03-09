@@ -1,8 +1,8 @@
 # Sepia
 
-<DocsDemo>
+<DocsDemoGUI>
   <SepiaDemo />
-</DocsDemo>
+</DocsDemoGUI>
 
 <details>
   <summary>Demo code</summary>

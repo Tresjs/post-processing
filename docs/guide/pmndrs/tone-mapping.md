@@ -1,8 +1,8 @@
 # ToneMapping
 
-<DocsDemo>
+<DocsDemoGUI>
   <ToneMappingDemo />
-</DocsDemo>
+</DocsDemoGUI>
 
 <details>
   <summary>Demo code</summary>

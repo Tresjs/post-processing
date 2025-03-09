@@ -25,7 +25,7 @@ const { blendFunction, opacity, density, scrollSpeed } = useControls({
   blendFunction: {
     options: Object.keys(BlendFunction).map(key => ({
       text: key,
-      value: BlendFunction[key],
+      value: BlendFunction[key as keyof typeof BlendFunction],
     })),
     value: BlendFunction.OVERLAY,
   },
@@ -58,7 +58,7 @@ const { blendFunction, opacity, density, scrollSpeed } = useControls({
 
     <Suspense>
       <EffectComposerPmndrs v-bind="glComposer">
-        <ScanlinePmndrs :density="density.value" :opacity="opacity.value" :scrollSpeed="scrollSpeed.value" :blendFunction="Number(blendFunction.value)" />
+        <ScanlinePmndrs :density="density" :opacity="opacity" :scrollSpeed="scrollSpeed" :blendFunction="Number(blendFunction)" />
       </EffectComposerPmndrs>
     </Suspense>
   </TresCanvas>

@@ -1,8 +1,8 @@
 # Lens Distortion
 
-<DocsDemo>
+<DocsDemoGUI>
   <LensDistortionDemo />
-</DocsDemo>
+</DocsDemoGUI>
 
 <details>
   <summary>Demo code</summary>

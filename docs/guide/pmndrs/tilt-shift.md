@@ -1,8 +1,8 @@
 # Tilt Shift
 
-<DocsDemo>
+<DocsDemoGUI>
   <TiltShiftDemo />
-</DocsDemo>
+</DocsDemoGUI>
 
 <details>
   <summary>Demo code</summary>

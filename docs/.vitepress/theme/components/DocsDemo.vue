@@ -4,8 +4,7 @@
 <template>
   <ClientOnly>
     <div
-      class="relative"
-      style="aspect-ratio: 16/9; height: auto; margin: 2rem 0; border-radius: 8px; overflow:hidden;"
+      class="relative aspect-16/9 my-8 rounded-lg overflow-hidden shadow-lg"
     >
       <Suspense>
         <slot></slot>

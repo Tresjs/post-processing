@@ -22,7 +22,7 @@ const { intensity, blendFunction } = useControls({
   blendFunction: {
     options: Object.keys(BlendFunction).map(key => ({
       text: key,
-      value: BlendFunction[key],
+      value: BlendFunction[key as keyof typeof BlendFunction],
     })),
     value: BlendFunction.NORMAL,
   },
@@ -57,7 +57,7 @@ const { intensity, blendFunction } = useControls({
 
     <Suspense>
       <EffectComposerPmndrs v-bind="glComposer">
-        <SepiaPmndrs :intensity="intensity.value" :blendFunction="Number(blendFunction.value)" />
+        <SepiaPmndrs :intensity="intensity" :blendFunction="Number(blendFunction)" />
       </EffectComposerPmndrs>
     </Suspense>
   </TresCanvas>

@@ -1,8 +1,8 @@
 # Scanline
 
-<DocsDemo>
+<DocsDemoGUI>
   <ScanlineDemo />
-</DocsDemo>
+</DocsDemoGUI>
 
 <details>
   <summary>Demo code</summary>

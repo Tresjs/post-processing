@@ -1,8 +1,8 @@
 # Color Average
 
-<DocsDemo>
+<DocsDemoGUI>
   <ColorAverageDemo />
-</DocsDemo>
+</DocsDemoGUI>
 
 <details>
   <summary>Demo code</summary>

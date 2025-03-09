@@ -22,7 +22,7 @@ const { blendFunction, opacity } = useControls({
   blendFunction: {
     options: Object.keys(BlendFunction).map(key => ({
       text: key,
-      value: BlendFunction[key],
+      value: BlendFunction[key as keyof typeof BlendFunction],
     })),
     value: BlendFunction.NORMAL,
   },
@@ -62,7 +62,7 @@ const { blendFunction, opacity } = useControls({
 
     <Suspense>
       <EffectComposerPmndrs v-bind="glComposer">
-        <ColorAveragePmndrs :blendFunction="Number(blendFunction.value)" :opacity="opacity.value" />
+        <ColorAveragePmndrs :blendFunction="Number(blendFunction)" :opacity="opacity" />
       </EffectComposerPmndrs>
     </Suspense>
   </TresCanvas>

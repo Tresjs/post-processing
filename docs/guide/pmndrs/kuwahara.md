@@ -1,8 +1,8 @@
 # Kuwahara (Watercolor Painting)
 
-<DocsDemo>
+<DocsDemoGUI>
   <KuwaharaDemo />
-</DocsDemo>
+</DocsDemoGUI>
 
 <details>
   <summary>Demo code</summary>

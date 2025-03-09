@@ -1,8 +1,8 @@
 # Dot Screen
 
-<DocsDemo>
+<DocsDemoGUI>
   <DotScreenDemo />
-</DocsDemo>
+</DocsDemoGUI>
 
 <details>
   <summary>Demo code</summary>

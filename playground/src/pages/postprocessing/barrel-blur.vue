@@ -87,7 +87,7 @@ const { blendFunction, amount, offsetX, offsetY } = useControls({
 
     <Suspense>
       <EffectComposerPmndrs v-bind="glComposer">
-        <BarrelBlurPmndrs :amount="amount.value" :offset="[offsetX.value, offsetY.value]" :blendFunction="Number(blendFunction.value)" />
+        <BarrelBlurPmndrs :amount="amount" :offset="[offsetX, offsetY]" :blendFunction="Number(blendFunction)" />
       </EffectComposerPmndrs>
     </Suspense>
   </TresCanvas>

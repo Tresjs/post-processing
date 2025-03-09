@@ -102,7 +102,7 @@ function triggerShockWave() {
     <Suspense>
       <EffectComposerPmndrs ref="effectComposerRef" v-bind="glComposer">
         <DepthPickingPassPmndrs ref="depthPickingPassRef" />
-        <ShockWavePmndrs ref="shockWaveEffect" :position="mousePosition" :amplitude="amplitude.value" :waveSize="waveSize.value" :speed="speed.value" :maxRadius="maxRadius.value" />
+        <ShockWavePmndrs ref="shockWaveEffect" :position="mousePosition" :amplitude="amplitude" :waveSize="waveSize" :speed="speed" :maxRadius="maxRadius" />
       </EffectComposerPmndrs>
     </Suspense>
   </TresCanvas>

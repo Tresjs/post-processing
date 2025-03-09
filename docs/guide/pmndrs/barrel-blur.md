@@ -1,8 +1,8 @@
 # Barrel Blur
 
-<DocsDemo>
+<DocsDemoGUI>
   <BarrelBlurDemo />
-</DocsDemo>
+</DocsDemoGUI>
 
 <details>
   <summary>Demo code</summary>

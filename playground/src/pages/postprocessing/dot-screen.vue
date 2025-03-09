@@ -22,7 +22,7 @@ const { angle, scale, blendFunction } = useControls({
   blendFunction: {
     options: Object.keys(BlendFunction).map(key => ({
       text: key,
-      value: BlendFunction[key],
+      value: BlendFunction[key as keyof typeof BlendFunction],
     })),
     value: BlendFunction.NORMAL,
   },
@@ -52,7 +52,7 @@ const { angle, scale, blendFunction } = useControls({
 
     <Suspense>
       <EffectComposerPmndrs v-bind="glComposer">
-        <DotScreenPmndrs :blendFunction="Number(blendFunction.value)" :angle="angle.value" :scale="scale.value" />
+        <DotScreenPmndrs :blendFunction="Number(blendFunction)" :angle="angle" :scale="scale" />
       </EffectComposerPmndrs>
     </Suspense>
   </TresCanvas>
