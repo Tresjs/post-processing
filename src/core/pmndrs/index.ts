@@ -24,6 +24,7 @@ import SepiaPmndrs, { type SepiaPmndrsProps } from './SepiaPmndrs.vue'
 import LinocutPmndrs, { type LinocutPmndrsProps } from './LinocutPmndrs.vue'
 import DepthPickingPassPmndrs, { type DepthPickingPassPmndrsProps } from './DepthPickingPassPmndrs.vue'
 import FishEyePmndrs, { type FishEyePmndrsProps } from './FishEyePmndrs.vue'
+import BrightnessContrastPmndrs, { type BrightnessContrastPmndrsProps } from './BrightnessContrastPmndrs.vue'
 
 export {
   BloomPmndrs,
@@ -50,6 +51,7 @@ export {
   LinocutPmndrs,
   DepthPickingPassPmndrs,
   FishEyePmndrs,
+  BrightnessContrastPmndrs,
   BloomPmndrsProps,
   DepthOfFieldPmndrsProps,
   EffectComposerPmndrsProps,
@@ -73,4 +75,5 @@ export {
   LinocutPmndrsProps,
   DepthPickingPassPmndrsProps,
   FishEyePmndrsProps,
+  BrightnessContrastPmndrsProps,
 }
