@@ -21,14 +21,14 @@ const { blur, kernelSize, resolutionX, resolutionY, resolutionScale, opacity, bl
   blendFunction: {
     options: Object.keys(BlendFunction).map(key => ({
       text: key,
-      value: BlendFunction[key],
+      value: BlendFunction[key as keyof typeof BlendFunction],
     })),
     value: BlendFunction.SCREEN,
   },
   kernelSize: {
     options: Object.keys(KernelSize).map(key => ({
       text: key,
-      value: KernelSize[key],
+      value: KernelSize[key as keyof typeof KernelSize],
     })),
     value: KernelSize.SMALL,
   },
