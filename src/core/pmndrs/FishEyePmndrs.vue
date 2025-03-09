@@ -4,6 +4,7 @@ import { Vector2 } from 'three'
 import { FishEyeEffect } from './custom/fish-eye/index'
 import { makePropWatchers } from '../../util/prop'
 import { useEffectPmndrs } from './composables/useEffectPmndrs'
+import { computed } from 'vue'
 
 export interface FishEyePmndrsProps {
   /**
@@ -33,12 +34,20 @@ export interface FishEyePmndrsProps {
 
 const props = defineProps<FishEyePmndrsProps>()
 
+const computedLensS = computed(() =>
+  Array.isArray(props.lensS) ? new Vector2(...props.lensS) : props.lensS,
+)
+const computedLensF = computed(() =>
+  Array.isArray(props.lensF) ? new Vector2(...props.lensF) : props.lensF,
+)
+
 const { pass, effect } = useEffectPmndrs(
-  () => new FishEyeEffect({
-    ...props,
-    lensS: Array.isArray(props.lensS) ? new Vector2(...props.lensS) : props.lensS,
-    lensF: Array.isArray(props.lensF) ? new Vector2(...props.lensF) : props.lensF,
-  }),
+  () =>
+    new FishEyeEffect({
+      ...props,
+      lensS: computedLensS.value,
+      lensF: computedLensF.value,
+    }),
   props,
 )
 
@@ -47,8 +56,8 @@ defineExpose({ pass, effect })
 makePropWatchers(
   [
     [() => props.blendFunction, 'blendMode.blendFunction'],
-    [() => props.lensS, 'lensS'],
-    [() => props.lensF, 'lensF'],
+    [() => computedLensS.value, 'lensS'],
+    [() => computedLensF.value, 'lensF'],
     [() => props.scale, 'scale'],
   ],
   effect,
