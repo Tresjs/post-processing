@@ -39,10 +39,6 @@ export interface OutlinePmndrsProps {
    * The number of samples used for multisample antialiasing. Requires WebGL 2.
    */
   multisampling?: number
-
-  /**
-   * The blend function. Use `BlendFunction.ALPHA` for dark outlines.
-   */
   blendFunction?: BlendFunction
   patternTexture?: Texture
   resolutionScale?: number
@@ -69,24 +65,38 @@ type OutlineEffectParameters = NonNullable<
 >
 
 const { camera, scene } = useTresContext()
-const params: OutlineEffectParameters = {
-  blur: props.blur,
-  xRay: props.xRay,
-  kernelSize: props.kernelSize,
-  pulseSpeed: props.pulseSpeed,
-  resolutionX: props.resolutionX,
-  resolutionY: props.resolutionY,
-  patternScale: props.patternScale,
-  edgeStrength: props.edgeStrength,
-  blendFunction: props.blendFunction,
-  multisampling: props.multisampling,
-  patternTexture: props.patternTexture,
-  resolutionScale: props.resolutionScale,
-  hiddenEdgeColor: colorToNumber(props.hiddenEdgeColor),
-  visibleEdgeColor: colorToNumber(props.visibleEdgeColor),
-}
 
-const { pass, effect } = useEffectPmndrs(() => new OutlineEffect(scene.value, camera.value, params), props)
+const { pass, effect } = useEffectPmndrs(
+  () => {
+    const params: OutlineEffectParameters = {
+      blur: props.blur,
+      xRay: props.xRay,
+      kernelSize: props.kernelSize,
+      pulseSpeed: props.pulseSpeed,
+      resolutionX: props.resolutionX,
+      resolutionY: props.resolutionY,
+      patternScale: props.patternScale,
+      edgeStrength: props.edgeStrength,
+      blendFunction: props.blendFunction,
+      multisampling: props.multisampling,
+      patternTexture: props.patternTexture,
+      resolutionScale: props.resolutionScale,
+      hiddenEdgeColor: colorToNumber(props.hiddenEdgeColor),
+      visibleEdgeColor: colorToNumber(props.visibleEdgeColor),
+    }
+    console.log('params', params)
+    const effect = new OutlineEffect(scene.value, camera.value, params)
+    return effect
+  },
+  props,
+  [
+    'resolutionX',
+    'resolutionY',
+    'blendFunction',
+    'patternTexture',
+    'resolutionScale',
+  ],
+)
 
 defineExpose({ pass, effect })
 

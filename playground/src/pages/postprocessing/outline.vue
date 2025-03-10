@@ -4,16 +4,15 @@ import { OrbitControls } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
 import { TresLeches, useControls } from '@tresjs/leches'
 import { EffectComposerPmndrs, OutlinePmndrs } from '@tresjs/post-processing'
-import { KernelSize } from 'postprocessing'
+import { BlendFunction, KernelSize } from 'postprocessing'
 import { NoToneMapping } from 'three'
 
 import { ref } from 'vue'
 import '@tresjs/leches/styles'
 
 const gl = {
-  clearColor: '#4ADE80',
   toneMapping: NoToneMapping,
-  multisampling: 8,
+
 }
 
 const outlinedObjects = ref<Object3D[]>([])
@@ -23,7 +22,8 @@ const toggleMeshSelectionState = ({ object }: Intersection) => {
   else { outlinedObjects.value = [...outlinedObjects.value, object] }
 }
 
-const { edgeStrength, pulseSpeed, visibleEdgeColor, blur, kernelSize } = useControls({
+const { clearColor, edgeStrength, pulseSpeed, visibleEdgeColor, blur, kernelSize, blendMode } = useControls({
+  clearColor: '#4F4F4F',
   edgeStrength: {
     value: 2000,
     min: 0,
@@ -36,21 +36,42 @@ const { edgeStrength, pulseSpeed, visibleEdgeColor, blur, kernelSize } = useCont
     max: 2,
     step: 0.01,
   },
-  visibleEdgeColor: '#ffffff',
-  blur: false,
+  visibleEdgeColor: '#FFFF00',
+  blur: true,
   kernelSize: {
     value: 3,
     min: KernelSize.VERY_SMALL,
     max: KernelSize.VERY_LARGE,
     step: 1,
   },
+  blendMode: {
+    value: BlendFunction.SKIP,
+    options: Object.entries(BlendFunction).map(([key, value]) => ({ text: key, value })),
+  },
+})
+
+const numericalBlendFunction = computed(() => {
+  return Number(blendMode.value)
+})
+
+console.log(BlendFunction)
+
+const sphereRef = ref<Object3D>()
+const outlineRef = ref<OutlinePmndrs>()
+
+watchEffect(() => {
+  console.log(outlineRef.value)
+})
+
+watch(sphereRef, (sphere) => {
+  outlinedObjects.value = [sphere]
 })
 </script>
 
 <template>
   <TresLeches />
   <TresCanvas
-    v-bind="gl"
+    :clear-color="clearColor"
     render-mode="on-demand"
   >
     <TresPerspectiveCamera
@@ -58,6 +79,13 @@ const { edgeStrength, pulseSpeed, visibleEdgeColor, blur, kernelSize } = useCont
       :look-at="[2, 2, 2]"
     />
     <OrbitControls />
+    <TresMesh
+      ref="sphereRef"
+      :position="[0, 0, 2]"
+    >
+      <TresSphereGeometry :args="[1, 32, 32]" />
+      <TresMeshNormalMaterial />
+    </TresMesh>
     <template
       v-for="i in 5"
       :key="i"
@@ -79,12 +107,14 @@ const { edgeStrength, pulseSpeed, visibleEdgeColor, blur, kernelSize } = useCont
     <Suspense>
       <EffectComposerPmndrs>
         <OutlinePmndrs
+          ref="outlineRef"
           :outlined-objects="outlinedObjects"
-          :blur="blur.value"
-          :edge-strength="edgeStrength.value"
-          :pulse-speed="pulseSpeed.value"
-          :visible-edge-color="visibleEdgeColor.value"
-          :kernel-size="kernelSize.value"
+          :blur="blur"
+          :edge-strength="edgeStrength"
+          :pulse-speed="pulseSpeed"
+          :visible-edge-color="visibleEdgeColor"
+          :kernel-size="kernelSize"
+          :blend-function="numericalBlendFunction"
         />
       </EffectComposerPmndrs>
     </Suspense>
