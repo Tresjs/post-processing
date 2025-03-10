@@ -11,7 +11,10 @@ import '@tresjs/leches/styles'
 const gl = {
   clearColor: '#3386E0',
   toneMapping: NoToneMapping,
-  multisampling: 8,
+}
+
+const glComposer = {
+  multisampling: 4,
 }
 
 const { radius, blendFunction, sectorCount } = useControls({
@@ -50,8 +53,8 @@ const { radius, blendFunction, sectorCount } = useControls({
     </Suspense>
 
     <Suspense>
-      <EffectComposerPmndrs>
-        <KuwaharaPmndrs :blendFunction="Number(blendFunction.value)" :radius="radius.value" :sectorCount="sectorCount.value" />
+      <EffectComposerPmndrs v-bind="glComposer">
+        <KuwaharaPmndrs :blendFunction="Number(blendFunction)" :radius="radius" :sectorCount="sectorCount" />
       </EffectComposerPmndrs>
     </Suspense>
   </TresCanvas>

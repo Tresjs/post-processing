@@ -11,8 +11,11 @@ import '@tresjs/leches/styles'
 const gl = {
   clearColor: '#ffffff',
   toneMapping: NoToneMapping,
-  multisampling: 8,
   envMapIntensity: 10,
+}
+
+const glComposer = {
+  multisampling: 4,
 }
 
 const neonColors = [
@@ -83,8 +86,8 @@ const { blendFunction, amount, offsetX, offsetY } = useControls({
     />
 
     <Suspense>
-      <EffectComposerPmndrs>
-        <BarrelBlurPmndrs :amount="amount.value" :offset="[offsetX.value, offsetY.value]" :blendFunction="Number(blendFunction.value)" />
+      <EffectComposerPmndrs v-bind="glComposer">
+        <BarrelBlurPmndrs :amount="amount" :offset="[offsetX, offsetY]" :blendFunction="Number(blendFunction)" />
       </EffectComposerPmndrs>
     </Suspense>
   </TresCanvas>

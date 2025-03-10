@@ -11,8 +11,11 @@ import '@tresjs/leches/styles'
 const gl = {
   clearColor: '#00ff00',
   toneMapping: NoToneMapping,
-  multisampling: 8,
   envMapIntensity: 10,
+}
+
+const glComposer = {
+  multisampling: 4,
 }
 
 const { blendFunction, scale, noiseScale, centerX, centerY, rotation } = useControls({
@@ -61,13 +64,13 @@ const { blendFunction, scale, noiseScale, centerX, centerY, rotation } = useCont
     />
 
     <Suspense>
-      <EffectComposerPmndrs>
+      <EffectComposerPmndrs v-bind="glComposer">
         <LinocutPmndrs
-          :scale="scale.value"
-          :noiseScale="noiseScale.value"
-          :center="[centerX.value, centerY.value]"
-          :rotation="rotation.value"
-          :blendFunction="Number(blendFunction.value)"
+          :scale="scale"
+          :noiseScale="noiseScale"
+          :center="[centerX, centerY]"
+          :rotation="rotation"
+          :blendFunction="Number(blendFunction)"
         />
       </EffectComposerPmndrs>
     </Suspense>

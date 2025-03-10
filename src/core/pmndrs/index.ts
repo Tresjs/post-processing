@@ -23,6 +23,11 @@ import DotScreenPmndrs, { type DotScreenPmndrsProps } from './DotScreenPmndrs.vu
 import SepiaPmndrs, { type SepiaPmndrsProps } from './SepiaPmndrs.vue'
 import LinocutPmndrs, { type LinocutPmndrsProps } from './LinocutPmndrs.vue'
 import DepthPickingPassPmndrs, { type DepthPickingPassPmndrsProps } from './DepthPickingPassPmndrs.vue'
+import GodRaysPmndrs, { type GodRaysPmndrsProps } from './GodRaysPmndrs.vue'
+import ColorDepthPmndrs, { type ColorDepthPmndrsProps } from './ColorDepthPmndrs.vue'
+import GridPmndrs, { type GridPmndrsProps } from './GridPmndrs.vue'
+import FishEyePmndrs, { type FishEyePmndrsProps } from './FishEyePmndrs.vue'
+import BrightnessContrastPmndrs, { type BrightnessContrastPmndrsProps } from './BrightnessContrastPmndrs.vue'
 
 export {
   BloomPmndrs,
@@ -48,6 +53,11 @@ export {
   SepiaPmndrs,
   LinocutPmndrs,
   DepthPickingPassPmndrs,
+  GodRaysPmndrs,
+  ColorDepthPmndrs,
+  GridPmndrs,
+  FishEyePmndrs,
+  BrightnessContrastPmndrs,
   BloomPmndrsProps,
   DepthOfFieldPmndrsProps,
   EffectComposerPmndrsProps,
@@ -70,4 +80,9 @@ export {
   SepiaPmndrsProps,
   LinocutPmndrsProps,
   DepthPickingPassPmndrsProps,
+  GodRaysPmndrsProps,
+  ColorDepthPmndrsProps,
+  GridPmndrsProps,
+  FishEyePmndrsProps,
+  BrightnessContrastPmndrsProps,
 }
