@@ -13,14 +13,14 @@ importers:
         version: 12.5.0(typescript@5.7.3)
       postprocessing:
         specifier: ^6.36.6
-        version: 6.36.6(three@0.173.0)
+        version: 6.36.6(three@0.174.0)
     devDependencies:
       '@release-it/conventional-changelog':
         specifier: ^10.0.0
         version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.12.0)(typescript@5.7.3))
       '@tresjs/core':
         specifier: ^4.3.2
-        version: 4.3.2(three@0.173.0)(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))
+        version: 4.3.2(three@0.174.0)(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))
       '@tresjs/eslint-config':
         specifier: ^1.4.0
         version: 1.4.0(@typescript-eslint/utils@8.22.0(eslint@9.19.0(jiti@2.4.2))(typescript@5.7.3))(@vue/compiler-sfc@3.5.13)(eslint@9.19.0(jiti@2.4.2))(typescript@5.7.3)
@@ -28,8 +28,8 @@ importers:
         specifier: https://pkg.pr.new/@tresjs/leches@9ad0cd3
         version: https://pkg.pr.new/@tresjs/leches@9ad0cd3(rollup@4.32.1)(typescript@5.7.3)(unocss@65.4.3(postcss@8.5.1)(rollup@4.32.1)(vite@6.0.11(@types/node@22.12.0)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0))(vue@3.5.13(typescript@5.7.3)))(vue@3.5.13(typescript@5.7.3))
       '@types/three':
-        specifier: ^0.172.0
-        version: 0.172.0
+        specifier: ^0.174.0
+        version: 0.174.0
       '@unocss/core':
         specifier: ^65.4.3
         version: 65.4.3
@@ -58,8 +58,8 @@ importers:
         specifier: ^5.14.0
         version: 5.14.0(rollup@4.32.1)
       three:
-        specifier: ^0.173.0
-        version: 0.173.0
+        specifier: ^0.174.0
+        version: 0.174.0
       typescript:
         specifier: ^5.7.3
         version: 5.7.3
@@ -92,10 +92,10 @@ importers:
     dependencies:
       '@tresjs/cientos':
         specifier: ^4.1.0
-        version: 4.1.0(@tresjs/core@4.3.2(three@0.173.0)(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3)))(@types/three@0.172.0)(three@0.173.0)(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))
+        version: 4.1.0(@tresjs/core@4.3.2(three@0.174.0)(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3)))(@types/three@0.174.0)(three@0.174.0)(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))
       '@tresjs/core':
         specifier: ^4.3.2
-        version: 4.3.2(three@0.173.0)(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))
+        version: 4.3.2(three@0.174.0)(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))
       '@tresjs/post-processing':
         specifier: workspace:^
         version: link:..
@@ -105,7 +105,7 @@ importers:
     devDependencies:
       unocss:
         specifier: ^65.4.3
-        version: 65.4.3(postcss@8.5.1)(rollup@4.32.1)(vite@6.0.11(@types/node@22.12.0)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0))(vue@3.5.13(typescript@5.7.3))
+        version: 65.4.3(postcss@8.5.1)(rollup@4.32.1)(vite@5.4.14(@types/node@22.12.0))(vue@3.5.13(typescript@5.7.3))
       unplugin-vue-components:
         specifier: ^28.0.0
         version: 28.0.0(@babel/parser@7.26.7)(@nuxt/kit@3.15.4(rollup@4.32.1))(rollup@4.32.1)(vue@3.5.13(typescript@5.7.3))
@@ -120,10 +120,10 @@ importers:
     dependencies:
       '@tresjs/cientos':
         specifier: ^4.1.0
-        version: 4.1.0(@tresjs/core@4.3.2(three@0.173.0)(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3)))(@types/three@0.172.0)(three@0.173.0)(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))
+        version: 4.1.0(@tresjs/core@4.3.2(three@0.174.0)(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3)))(@types/three@0.174.0)(three@0.174.0)(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))
       '@tresjs/core':
         specifier: 4.3.2
-        version: 4.3.2(three@0.173.0)(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))
+        version: 4.3.2(three@0.174.0)(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))
       '@tresjs/post-processing':
         specifier: workspace:*
         version: link:..
@@ -132,8 +132,8 @@ importers:
         version: 4.5.0(vue@3.5.13(typescript@5.7.3))
     devDependencies:
       '@types/three':
-        specifier: ^0.172.0
-        version: 0.172.0
+        specifier: ^0.174.0
+        version: 0.174.0
       unplugin-auto-import:
         specifier: ^19.0.0
         version: 19.0.0(@nuxt/kit@3.15.4(rollup@4.32.1))(@vueuse/core@12.5.0(typescript@5.7.3))(rollup@4.32.1)
@@ -1383,8 +1383,8 @@ packages:
   '@types/stats.js@0.17.3':
     resolution: {integrity: sha512-pXNfAD3KHOdif9EQXZ9deK82HVNaXP5ZIF5RP2QG6OQFNTaY2YIetfrE9t528vEreGQvEPRDDc8muaoYeK0SxQ==}
 
-  '@types/three@0.172.0':
-    resolution: {integrity: sha512-LrUtP3FEG26Zg5WiF0nbg8VoXiKokBLTcqM2iLvM9vzcfEiYmmBAPGdBgV0OYx9fvWlY3R/3ERTZcD9X5sc0NA==}
+  '@types/three@0.174.0':
+    resolution: {integrity: sha512-De/+vZnfg2aVWNiuy1Ldu+n2ydgw1osinmiZTAn0necE++eOfsygL8JpZgFjR2uHmAPo89MkxBj3JJ+2BMe+Uw==}
 
   '@types/unist@3.0.3':
     resolution: {integrity: sha512-ko/gIFJRv177XgZsZcBwnqJN5x/Gien8qNOn0D5bQU/zAzVf9Zt3BlcUiLqhV9y4ARk0GbT3tnUiPNgnTXzc/Q==}
@@ -4032,8 +4032,8 @@ packages:
     peerDependencies:
       three: '>=0.128.0'
 
-  three@0.173.0:
-    resolution: {integrity: sha512-AUwVmViIEUgBwxJJ7stnF0NkPpZxx1aZ6WiAbQ/Qq61h6I9UR4grXtZDmO8mnlaNORhHnIBlXJ1uBxILEKuVyw==}
+  three@0.174.0:
+    resolution: {integrity: sha512-p+WG3W6Ov74alh3geCMkGK9NWuT62ee21cV3jEnun201zodVF4tCE5aZa2U122/mkLRmhJJUQmLLW1BH00uQJQ==}
 
   through2@0.6.5:
     resolution: {integrity: sha512-RkK/CCESdTKQZHdmKICijdKKsCRVHs5KsLZ6pACAmF/1GPUQhonHSXWNERctxEp7RmvjdNbZTL5z9V7nSCXKcg==}
@@ -5609,16 +5609,16 @@ snapshots:
 
   '@tootallnate/quickjs-emscripten@0.23.0': {}
 
-  '@tresjs/cientos@4.1.0(@tresjs/core@4.3.2(three@0.173.0)(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3)))(@types/three@0.172.0)(three@0.173.0)(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))':
+  '@tresjs/cientos@4.1.0(@tresjs/core@4.3.2(three@0.174.0)(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3)))(@types/three@0.174.0)(three@0.174.0)(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))':
     dependencies:
-      '@tresjs/core': 4.3.2(three@0.173.0)(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))
+      '@tresjs/core': 4.3.2(three@0.174.0)(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))
       '@vueuse/core': 12.5.0(typescript@5.7.3)
-      camera-controls: 2.9.0(three@0.173.0)
-      stats-gl: 2.4.2(@types/three@0.172.0)(three@0.173.0)
+      camera-controls: 2.9.0(three@0.174.0)
+      stats-gl: 2.4.2(@types/three@0.174.0)(three@0.174.0)
       stats.js: 0.17.0
-      three: 0.173.0
-      three-custom-shader-material: 5.4.0(three@0.173.0)
-      three-stdlib: 2.35.12(three@0.173.0)
+      three: 0.174.0
+      three-custom-shader-material: 5.4.0(three@0.174.0)
+      three-stdlib: 2.35.12(three@0.174.0)
       vue: 3.5.13(typescript@5.7.3)
     transitivePeerDependencies:
       - '@react-three/fiber'
@@ -5626,12 +5626,12 @@ snapshots:
       - react
       - typescript
 
-  '@tresjs/core@4.3.2(three@0.173.0)(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))':
+  '@tresjs/core@4.3.2(three@0.174.0)(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))':
     dependencies:
       '@alvarosabu/utils': 3.2.0
       '@vue/devtools-api': 6.6.4
       '@vueuse/core': 12.5.0(typescript@5.7.3)
-      three: 0.173.0
+      three: 0.174.0
       vue: 3.5.13(typescript@5.7.3)
     transitivePeerDependencies:
       - typescript
@@ -5728,7 +5728,7 @@ snapshots:
 
   '@types/stats.js@0.17.3': {}
 
-  '@types/three@0.172.0':
+  '@types/three@0.174.0':
     dependencies:
       '@tweenjs/tween.js': 23.1.3
       '@types/stats.js': 0.17.3
@@ -5821,6 +5821,18 @@ snapshots:
       eslint-visitor-keys: 4.2.0
 
   '@ungap/structured-clone@1.3.0': {}
+
+  '@unocss/astro@65.4.3(rollup@4.32.1)(vite@5.4.14(@types/node@22.12.0))(vue@3.5.13(typescript@5.7.3))':
+    dependencies:
+      '@unocss/core': 65.4.3
+      '@unocss/reset': 65.4.3
+      '@unocss/vite': 65.4.3(rollup@4.32.1)(vite@5.4.14(@types/node@22.12.0))(vue@3.5.13(typescript@5.7.3))
+    optionalDependencies:
+      vite: 5.4.14(@types/node@22.12.0)
+    transitivePeerDependencies:
+      - rollup
+      - supports-color
+      - vue
 
   '@unocss/astro@65.4.3(rollup@4.32.1)(vite@6.0.11(@types/node@22.12.0)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0))(vue@3.5.13(typescript@5.7.3))':
     dependencies:
@@ -5973,6 +5985,22 @@ snapshots:
   '@unocss/transformer-variant-group@65.4.3':
     dependencies:
       '@unocss/core': 65.4.3
+
+  '@unocss/vite@65.4.3(rollup@4.32.1)(vite@5.4.14(@types/node@22.12.0))(vue@3.5.13(typescript@5.7.3))':
+    dependencies:
+      '@ampproject/remapping': 2.3.0
+      '@rollup/pluginutils': 5.1.4(rollup@4.32.1)
+      '@unocss/config': 65.4.3
+      '@unocss/core': 65.4.3
+      '@unocss/inspector': 65.4.3(vue@3.5.13(typescript@5.7.3))
+      chokidar: 3.6.0
+      magic-string: 0.30.17
+      tinyglobby: 0.2.10
+      vite: 5.4.14(@types/node@22.12.0)
+    transitivePeerDependencies:
+      - rollup
+      - supports-color
+      - vue
 
   '@unocss/vite@65.4.3(rollup@4.32.1)(vite@6.0.11(@types/node@22.12.0)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0))(vue@3.5.13(typescript@5.7.3))':
     dependencies:
@@ -6365,9 +6393,9 @@ snapshots:
 
   camelcase@8.0.0: {}
 
-  camera-controls@2.9.0(three@0.173.0):
+  camera-controls@2.9.0(three@0.174.0):
     dependencies:
-      three: 0.173.0
+      three: 0.174.0
 
   caniuse-lite@1.0.30001696: {}
 
@@ -8373,9 +8401,9 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
-  postprocessing@6.36.6(three@0.173.0):
+  postprocessing@6.36.6(three@0.174.0):
     dependencies:
-      three: 0.173.0
+      three: 0.174.0
 
   potpack@1.0.2: {}
 
@@ -8739,10 +8767,10 @@ snapshots:
 
   stable-hash@0.0.4: {}
 
-  stats-gl@2.4.2(@types/three@0.172.0)(three@0.173.0):
+  stats-gl@2.4.2(@types/three@0.174.0)(three@0.174.0):
     dependencies:
-      '@types/three': 0.172.0
-      three: 0.173.0
+      '@types/three': 0.174.0
+      three: 0.174.0
 
   stats.js@0.17.0: {}
 
@@ -8859,15 +8887,15 @@ snapshots:
       yallist: 4.0.0
     optional: true
 
-  three-custom-shader-material@5.4.0(three@0.173.0):
+  three-custom-shader-material@5.4.0(three@0.174.0):
     dependencies:
       glsl-token-functions: 1.0.1
       glsl-token-string: 1.0.1
       glsl-tokenizer: 2.1.5
       object-hash: 3.0.0
-      three: 0.173.0
+      three: 0.174.0
 
-  three-stdlib@2.35.12(three@0.173.0):
+  three-stdlib@2.35.12(three@0.174.0):
     dependencies:
       '@types/draco3d': 1.4.10
       '@types/offscreencanvas': 2019.7.3
@@ -8875,9 +8903,9 @@ snapshots:
       draco3d: 1.5.7
       fflate: 0.6.10
       potpack: 1.0.2
-      three: 0.173.0
+      three: 0.174.0
 
-  three@0.173.0: {}
+  three@0.174.0: {}
 
   through2@0.6.5:
     dependencies:
@@ -9043,6 +9071,33 @@ snapshots:
     dependencies:
       '@unocss/preset-mini': 0.56.5
       unocss: 65.4.3(postcss@8.5.1)(rollup@4.32.1)(vite@6.0.11(@types/node@22.12.0)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0))(vue@3.5.13(typescript@5.7.3))
+
+  unocss@65.4.3(postcss@8.5.1)(rollup@4.32.1)(vite@5.4.14(@types/node@22.12.0))(vue@3.5.13(typescript@5.7.3)):
+    dependencies:
+      '@unocss/astro': 65.4.3(rollup@4.32.1)(vite@5.4.14(@types/node@22.12.0))(vue@3.5.13(typescript@5.7.3))
+      '@unocss/cli': 65.4.3(rollup@4.32.1)
+      '@unocss/core': 65.4.3
+      '@unocss/postcss': 65.4.3(postcss@8.5.1)
+      '@unocss/preset-attributify': 65.4.3
+      '@unocss/preset-icons': 65.4.3
+      '@unocss/preset-mini': 65.4.3
+      '@unocss/preset-tagify': 65.4.3
+      '@unocss/preset-typography': 65.4.3
+      '@unocss/preset-uno': 65.4.3
+      '@unocss/preset-web-fonts': 65.4.3
+      '@unocss/preset-wind': 65.4.3
+      '@unocss/transformer-attributify-jsx': 65.4.3
+      '@unocss/transformer-compile-class': 65.4.3
+      '@unocss/transformer-directives': 65.4.3
+      '@unocss/transformer-variant-group': 65.4.3
+      '@unocss/vite': 65.4.3(rollup@4.32.1)(vite@5.4.14(@types/node@22.12.0))(vue@3.5.13(typescript@5.7.3))
+    optionalDependencies:
+      vite: 5.4.14(@types/node@22.12.0)
+    transitivePeerDependencies:
+      - postcss
+      - rollup
+      - supports-color
+      - vue
 
   unocss@65.4.3(postcss@8.5.1)(rollup@4.32.1)(vite@6.0.11(@types/node@22.12.0)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0))(vue@3.5.13(typescript@5.7.3)):
     dependencies:

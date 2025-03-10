@@ -15,7 +15,7 @@
     "vue-router": "^4.5.0"
   },
   "devDependencies": {
-    "@types/three": "^0.172.0",
+    "@types/three": "^0.174.0",
     "unplugin-auto-import": "^19.0.0",
     "unplugin-vue-components": "^28.0.0",
     "vite-plugin-qrcode": "^0.2.4"
