@@ -84,7 +84,6 @@ const { pass, effect } = useEffectPmndrs(
       hiddenEdgeColor: colorToNumber(props.hiddenEdgeColor),
       visibleEdgeColor: colorToNumber(props.visibleEdgeColor),
     }
-    console.log('params', params)
     const effect = new OutlineEffect(scene.value, camera.value, params)
     return effect
   },

@@ -5,14 +5,8 @@ import { TresCanvas } from '@tresjs/core'
 import { TresLeches, useControls } from '@tresjs/leches'
 import { EffectComposerPmndrs, OutlinePmndrs } from '@tresjs/post-processing'
 import { BlendFunction, KernelSize } from 'postprocessing'
-import { NoToneMapping } from 'three'
-
-import { ref } from 'vue'
+import { computed, ref, watch, watchEffect } from 'vue'
 import '@tresjs/leches/styles'
-
-const gl = {
-  toneMapping: NoToneMapping,
-}
 
 const glComposer = {
   multisampling: 4,
@@ -57,12 +51,11 @@ const numericalBlendFunction = computed(() => {
   return Number(blendMode.value)
 })
 
-console.log(BlendFunction)
-
 const sphereRef = ref<Object3D>()
-const outlineRef = ref<OutlinePmndrs>()
+const outlineRef = ref<InstanceType<typeof OutlinePmndrs>>()
 
 watchEffect(() => {
+  // eslint-disable-next-line no-console
   console.log(outlineRef.value)
 })
 
