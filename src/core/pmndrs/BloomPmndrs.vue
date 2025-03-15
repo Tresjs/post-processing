@@ -67,7 +67,7 @@ const props = withDefaults(
   },
 )
 
-const { pass, effect } = useEffectPmndrs(() => new BloomEffect(props), props)
+const { pass, effect } = useEffectPmndrs(() => new BloomEffect(props), props, ['mipmapBlur'])
 
 defineExpose({ pass, effect })
 

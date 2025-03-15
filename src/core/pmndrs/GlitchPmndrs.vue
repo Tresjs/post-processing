@@ -57,7 +57,7 @@ export interface GlitchPmndrsProps {
 <script setup lang="ts">
 const props = defineProps<GlitchPmndrsProps>()
 
-const { pass, effect } = useEffectPmndrs(() => new GlitchEffect(props), props)
+const { pass, effect } = useEffectPmndrs(() => new GlitchEffect(props), props, ['dtSize'])
 defineExpose({ pass, effect })
 
 const { onBeforeRender } = useLoop()
