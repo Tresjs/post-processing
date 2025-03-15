@@ -82,10 +82,6 @@ const { pass, effect } = useEffectPmndrs(
     },
   ),
   props,
-  [
-    'patternTexture',
-    'resolutionScale',
-  ],
 )
 
 defineExpose({ pass, effect })
@@ -107,10 +103,6 @@ const normalizedColors = computed(() => ({
 
 makePropWatchers(
   [
-    /* some properties are not updated because of different reasons:
-        patternTexture - different type in constructor and in setter
-        resolutionScale - has no setter in OutlineEffect
-      */
     [() => props.blendFunction, 'blendMode.blendFunction'],
     [() => props.blur, 'blur'],
     [() => props.xRay, 'xRay'],
@@ -121,6 +113,8 @@ makePropWatchers(
     [() => props.multisampling, 'multisampling'],
     [() => props.resolutionX, 'resolution.width'],
     [() => props.resolutionY, 'resolution.height'],
+    [() => props.patternTexture, 'patternTexture'],
+    [() => props.resolutionScale, 'resolution.scale'],
     [() => normalizedColors.value.hiddenEdgeColor, 'hiddenEdgeColor'],
     [() => normalizedColors.value.visibleEdgeColor, 'visibleEdgeColor'],
   ],

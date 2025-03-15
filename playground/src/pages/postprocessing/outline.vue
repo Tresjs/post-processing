@@ -19,7 +19,7 @@ const toggleMeshSelectionState = ({ object }: Intersection) => {
   else { outlinedObjects.value = [...outlinedObjects.value, object] }
 }
 
-const { clearColor, edgeStrength, pulseSpeed, visibleEdgeColor, blur, kernelSize, blendMode, resolutionX, resolutionY } = useControls({
+const { clearColor, edgeStrength, pulseSpeed, visibleEdgeColor, blur, kernelSize, blendMode, resolutionX, resolutionY, resolutionScale } = useControls({
   clearColor: '#4F4F4F',
   edgeStrength: {
     value: 2000,
@@ -57,6 +57,13 @@ const { clearColor, edgeStrength, pulseSpeed, visibleEdgeColor, blur, kernelSize
     max: 1920,
     step: 1,
   },
+  resolutionScale: {
+    value: 1,
+    min: 0,
+    max: 1,
+    step: 0.01,
+  },
+
 })
 
 const numericalBlendFunction = computed(() => {
@@ -125,6 +132,7 @@ watch(sphereRef, (sphere) => {
           :blend-function="numericalBlendFunction"
           :resolution-x="resolutionX"
           :resolution-y="resolutionY"
+          :resolution-scale="resolutionScale"
         />
       </EffectComposerPmndrs>
     </Suspense>
