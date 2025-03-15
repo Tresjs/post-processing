@@ -3,7 +3,7 @@ import type { Intersection, Object3D } from 'three'
 import { OrbitControls } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
 import { TresLeches, useControls } from '@tresjs/leches'
-import { EffectComposerPmndrs, OutlinePmndrs } from '@tresjs/post-processing'
+import { EffectComposerPmndrs, OutlinePmndrs, PixelationPmndrs } from '@tresjs/post-processing'
 import { BlendFunction, KernelSize } from 'postprocessing'
 import { computed, ref, watch, watchEffect } from 'vue'
 import '@tresjs/leches/styles'
@@ -42,7 +42,7 @@ const { clearColor, edgeStrength, pulseSpeed, visibleEdgeColor, blur, kernelSize
     step: 1,
   },
   blendMode: {
-    value: BlendFunction.SKIP,
+    value: BlendFunction.ADD,
     options: Object.entries(BlendFunction).map(([key, value]) => ({ text: key, value })),
   },
 })

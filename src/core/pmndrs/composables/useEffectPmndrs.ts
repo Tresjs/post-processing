@@ -5,13 +5,13 @@ import { EffectPass } from 'postprocessing'
 import { inject, nextTick, onUnmounted, shallowRef, watch, watchEffect } from 'vue'
 import { effectComposerInjectionKey } from '../EffectComposerPmndrs.vue'
 
-export const useEffectPmndrs = <T extends Effect>(
+export const useEffectPmndrs = <T extends Effect, D extends Record<PropertyKey, any>>(
   newEffectFunction: () => T,
-  passDependencies: Reactive<object>,
+  passDependencies: Reactive<D>,
   /**
-   * Props that require effect recreation when changed
+   * fields in passDependencies that require effect recreation when changed
    */
-  recreateOnPropsChange?: string[],
+  dependencyFieldsTriggeringRecreation?: (keyof D)[],
 ): {
   pass: ShallowRef<EffectPass | null>
   effect: ShallowRef<T | null>
@@ -22,17 +22,20 @@ export const useEffectPmndrs = <T extends Effect>(
 
   const { scene, camera, invalidate } = useTresContext()
 
-  if (passDependencies) {
-    watch(passDependencies, () => invalidate())
-  }
+  watch(passDependencies, () => invalidate())
 
   // Watch for changes in props that require effect recreation
-  if (recreateOnPropsChange) {
+  if (dependencyFieldsTriggeringRecreation) {
     watch(
-      () => recreateOnPropsChange.map(prop => (passDependencies as Record<string, any>)[prop]),
+      () => dependencyFieldsTriggeringRecreation.map(field => passDependencies[field]),
       () => {
+        if (!composer?.value) { return }
+        const index = composer.value?.passes.findIndex(p => p === pass.value)
+
+        if (!~index) { return }
+
         removePass()
-        createEffect()
+        createEffect(index)
       },
     )
   }
@@ -49,13 +52,13 @@ export const useEffectPmndrs = <T extends Effect>(
     pass.value?.dispose()
   }
 
-  function createEffect() {
+  function createEffect(index?: number) {
     if (!camera.value || !composer?.value || !scene.value) { return }
 
     effect.value = newEffectFunction()
     pass.value = new EffectPass(camera.value, effect.value)
 
-    composer.value.addPass(pass.value)
+    composer.value.addPass(pass.value, index)
   }
 
   // Initial effect creation
