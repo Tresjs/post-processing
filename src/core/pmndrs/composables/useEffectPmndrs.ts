@@ -5,18 +5,21 @@ import { EffectPass } from 'postprocessing'
 import { inject, nextTick, onUnmounted, shallowRef, watch, watchEffect } from 'vue'
 import { effectComposerInjectionKey } from '../EffectComposerPmndrs.vue'
 
+/**
+ * @param newEffectFunction - A function that returns a new effect instance.
+ * @param passDependencies - A reactive object that the pass depends on (usually props). Changes to this object will trigger re-rendering.
+ * @param dependencyFieldsTriggeringRecreation - fields in passDependencies that require effect recreation when changed
+ */
 export const useEffectPmndrs = <T extends Effect, D extends Record<PropertyKey, any>>(
   newEffectFunction: () => T,
   passDependencies: Reactive<D>,
-  /**
-   * fields in passDependencies that require effect recreation when changed
-   */
   dependencyFieldsTriggeringRecreation?: (keyof D)[],
 ): {
   pass: ShallowRef<EffectPass | null>
   effect: ShallowRef<T | null>
 } => {
   const composer = inject(effectComposerInjectionKey)
+
   const pass = shallowRef<EffectPass | null>(null) as ShallowRef<EffectPass | null>
   const effect = shallowRef<T | null>(null) as ShallowRef<T | null>
 
