@@ -57,18 +57,13 @@ const props = withDefaults(
 const colorToNumber = (color: TresColor | undefined) =>
   color !== undefined ? normalizeColor(color).getHex() : undefined
 
-type OutlineEffectParameters = NonNullable<
-  Exclude<
-    ConstructorParameters<typeof OutlineEffect>[2],
-    'width' | 'height' // excluded, because those are deprecated in postprocessing's OutlineEffect
-  >
->
-
 const { camera, scene } = useTresContext()
 
 const { pass, effect } = useEffectPmndrs(
-  () => {
-    const params: OutlineEffectParameters = {
+  () => new OutlineEffect(
+    scene.value,
+    camera.value,
+    {
       blur: props.blur,
       xRay: props.xRay,
       kernelSize: props.kernelSize,
@@ -83,10 +78,9 @@ const { pass, effect } = useEffectPmndrs(
       resolutionScale: props.resolutionScale,
       hiddenEdgeColor: colorToNumber(props.hiddenEdgeColor),
       visibleEdgeColor: colorToNumber(props.visibleEdgeColor),
-    }
-    const effect = new OutlineEffect(scene.value, camera.value, params)
-    return effect
-  },
+      // width and height are explicitly omitted, because they are deprecated in postprocessing's OutlineEffect
+    },
+  ),
   props,
   [
     'resolutionX',
