@@ -78,14 +78,14 @@ watchEffect(() => {
 })
 
 makePropWatchersUsingAllProps(
-  omit(props, ['active', 'mode', 'blendFunction']),
+  omit(props, ['active', 'blendFunction']),
   effect,
   () => new GlitchEffect(),
 )
 
 makePropWatchers(
   [
-    [() => props.blendFunction, 'blendMode.blendFunction'], // TODO check if mode and active work now
+    [() => props.blendFunction, 'blendMode.blendFunction'],
   ],
   effect,
   () => new GlitchEffect(),
