@@ -24,6 +24,21 @@ export const useEffectPmndrs = <T extends Effect, D extends Record<PropertyKey, 
 
   watch(passDependencies, () => invalidate())
 
+  const removePass = () => {
+    if (pass.value) { composer?.value?.removePass(pass.value) }
+    effect.value?.dispose()
+    pass.value?.dispose()
+  }
+
+  const createEffect = (index?: number) => {
+    if (!camera.value || !composer?.value || !scene.value) { return }
+
+    effect.value = newEffectFunction()
+    pass.value = new EffectPass(camera.value, effect.value)
+
+    composer.value.addPass(pass.value, index)
+  }
+
   // Watch for changes in props that require effect recreation
   if (dependencyFieldsTriggeringRecreation) {
     watch(
@@ -45,21 +60,6 @@ export const useEffectPmndrs = <T extends Effect, D extends Record<PropertyKey, 
 
     effect.value.mainCamera = camera.value
   })
-
-  function removePass() {
-    if (pass.value) { composer?.value?.removePass(pass.value) }
-    effect.value?.dispose()
-    pass.value?.dispose()
-  }
-
-  function createEffect(index?: number) {
-    if (!camera.value || !composer?.value || !scene.value) { return }
-
-    effect.value = newEffectFunction()
-    pass.value = new EffectPass(camera.value, effect.value)
-
-    composer.value.addPass(pass.value, index)
-  }
 
   // Initial effect creation
   const unwatch = watchEffect(() => {
