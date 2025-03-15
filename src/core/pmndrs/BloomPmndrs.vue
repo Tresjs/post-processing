@@ -6,7 +6,7 @@ import { makePropWatchers } from '../../util/prop'
 
 export interface BloomPmndrsProps {
   /**
-   * The blend function of this effect. This prop is not reactive.
+   * The blend function of this effect.
    * @default BlendFunction.SCREEN
    * @type {BlendFunction}
    * @memberof BloomPmndrsProps
@@ -73,7 +73,6 @@ defineExpose({ pass, effect })
 
 makePropWatchers(
   [
-    // blendFunction is not updated, because it has no setter in BloomEffect
     [() => props.blendFunction, 'blendMode.blendFunction'],
     [() => props.intensity, 'intensity'],
     [() => props.kernelSize, 'kernelSize'],

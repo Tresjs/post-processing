@@ -5,7 +5,7 @@ import { useLoop } from '@tresjs/core'
 import { GlitchEffect, GlitchMode } from 'postprocessing'
 import { watchEffect } from 'vue'
 import { omit } from '../../util/object'
-import { makePropWatchersUsingAllProps } from '../../util/prop'
+import { makePropWatchers, makePropWatchersUsingAllProps } from '../../util/prop'
 import { useEffectPmndrs } from './composables/useEffectPmndrs'
 
 export interface GlitchPmndrsProps {
@@ -79,6 +79,14 @@ watchEffect(() => {
 
 makePropWatchersUsingAllProps(
   omit(props, ['active', 'mode', 'blendFunction']),
+  effect,
+  () => new GlitchEffect(),
+)
+
+makePropWatchers(
+  [
+    [() => props.blendFunction, 'blendMode.blendFunction'], // TODO check if mode and active work now
+  ],
   effect,
   () => new GlitchEffect(),
 )
