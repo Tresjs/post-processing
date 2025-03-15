@@ -1,8 +1,8 @@
 <script lang="ts">
 import type { BlendFunction, KernelSize } from 'postprocessing'
 import { BloomEffect } from 'postprocessing'
-import { makePropWatchers } from '../../util/prop'
 import { useEffectPmndrs } from './composables/useEffectPmndrs'
+import { makePropWatchers } from '../../util/prop'
 
 export interface BloomPmndrsProps {
   /**
@@ -74,6 +74,7 @@ defineExpose({ pass, effect })
 makePropWatchers(
   [
     // blendFunction is not updated, because it has no setter in BloomEffect
+    [() => props.blendFunction, 'blendMode.blendFunction'],
     [() => props.intensity, 'intensity'],
     [() => props.kernelSize, 'kernelSize'],
     [() => props.luminanceSmoothing, 'luminanceMaterial.smoothing'],

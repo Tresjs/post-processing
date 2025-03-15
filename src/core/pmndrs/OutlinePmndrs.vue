@@ -85,7 +85,6 @@ const { pass, effect } = useEffectPmndrs(
   [
     'resolutionX',
     'resolutionY',
-    'blendFunction',
     'patternTexture',
     'resolutionScale',
   ],
@@ -113,10 +112,10 @@ makePropWatchers(
     /* some properties are not updated because of different reasons:
         resolutionX - has no setter in OutlineEffect
         resolutionY - has no setter in OutlineEffect
-        blendFunction - has no setter in OutlineEffect
         patternTexture - different type in constructor and in setter
         resolutionScale - has no setter in OutlineEffect
       */
+    [() => props.blendFunction, 'blendMode.blendFunction'],
     [() => props.blur, 'blur'],
     [() => props.xRay, 'xRay'],
     [() => props.pulseSpeed, 'pulseSpeed'],
