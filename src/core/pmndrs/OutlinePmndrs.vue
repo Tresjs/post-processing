@@ -83,8 +83,6 @@ const { pass, effect } = useEffectPmndrs(
   ),
   props,
   [
-    'resolutionX',
-    'resolutionY',
     'patternTexture',
     'resolutionScale',
   ],
@@ -110,8 +108,6 @@ const normalizedColors = computed(() => ({
 makePropWatchers(
   [
     /* some properties are not updated because of different reasons:
-        resolutionX - has no setter in OutlineEffect
-        resolutionY - has no setter in OutlineEffect
         patternTexture - different type in constructor and in setter
         resolutionScale - has no setter in OutlineEffect
       */
@@ -123,6 +119,8 @@ makePropWatchers(
     [() => props.edgeStrength, 'edgeStrength'],
     [() => props.patternScale, 'patternScale'],
     [() => props.multisampling, 'multisampling'],
+    [() => props.resolutionX, 'resolution.width'],
+    [() => props.resolutionY, 'resolution.height'],
     [() => normalizedColors.value.hiddenEdgeColor, 'hiddenEdgeColor'],
     [() => normalizedColors.value.visibleEdgeColor, 'visibleEdgeColor'],
   ],

@@ -22,6 +22,7 @@ export const makePropWatcher = <T, E>(
 ) => watch(propGetter, (newValue) => {
   if (!target.value) { return }
 
+  console.log(propertyPath, newValue)
   if (newValue === undefined) {
     const plainObject = newPlainObjectFunction()
 
