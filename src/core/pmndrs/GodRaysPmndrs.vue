@@ -84,13 +84,11 @@ const props = defineProps<GodRaysPmndrsProps>()
 
 const { camera } = useTresContext()
 
-const dummyLightSource = new Mesh(
-  new SphereGeometry(0.00001),
-  new MeshBasicMaterial({ visible: false }),
-)
-
 const resolvedLightSource = computed(() =>
-  props.lightSource ?? dummyLightSource,
+  props.lightSource ?? new Mesh(
+    new SphereGeometry(0.00001),
+    new MeshBasicMaterial({ visible: false }),
+  ),
 )
 
 const { pass, effect } = useEffectPmndrs(
@@ -112,8 +110,8 @@ makePropWatchers(
     [() => props.resolutionScale, 'resolution.scale'],
     [() => props.resolutionX, 'resolution.width'],
     [() => props.resolutionY, 'resolution.height'],
-    [() => props.kernelSize, 'kernelSize'],
-    [() => props.blur, 'blur'],
+    [() => props.kernelSize, 'blurPass.kernelSize'],
+    [() => props.blur, 'blurPass.enabled'],
   ],
   effect,
   () => new GodRaysEffect(),
