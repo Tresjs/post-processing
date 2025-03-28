@@ -4,7 +4,7 @@ import { GodRaysEffect } from 'postprocessing'
 import { makePropWatchers } from '../../util/prop'
 import { useEffectPmndrs } from './composables/useEffectPmndrs'
 import { useTresContext } from '@tresjs/core'
-import { ref, shallowRef, toRaw, watch } from 'vue'
+import { toRaw, watch } from 'vue'
 import type { Mesh, Points } from 'three'
 
 export interface GodRaysPmndrsProps {
