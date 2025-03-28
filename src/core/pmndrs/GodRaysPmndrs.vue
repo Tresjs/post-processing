@@ -5,7 +5,8 @@ import { makePropWatchers } from '../../util/prop'
 import { useEffectPmndrs } from './composables/useEffectPmndrs'
 import { useTresContext } from '@tresjs/core'
 import { toRaw, watch } from 'vue'
-import type { Mesh, Points } from 'three'
+import type { Points } from 'three'
+import { Mesh, MeshBasicMaterial, SphereGeometry } from 'three'
 
 export interface GodRaysPmndrsProps {
   /**
@@ -80,13 +81,16 @@ export interface GodRaysPmndrsProps {
 }
 
 const props = defineProps<GodRaysPmndrsProps>()
+
 const { camera } = useTresContext()
 
+const dummyMesh = new Mesh(
+  new SphereGeometry(0.00001),
+  new MeshBasicMaterial({ visible: false }),
+)
+
 const { pass, effect } = useEffectPmndrs(
-  () => {
-    if (!props.lightSource) { throw new Error('lightSource is required for GodRaysEffect creation') }
-    return new GodRaysEffect(camera.value, toRaw(props.lightSource), props)
-  },
+  () => new GodRaysEffect(camera.value, dummyMesh, props),
   props,
 )
 
@@ -111,15 +115,30 @@ makePropWatchers(
   () => new GodRaysEffect(),
 )
 
-watch(() => props.opacity, (val) => {
-  if (effect.value && val !== undefined) {
-    effect.value.blendMode.setOpacity(val)
-  }
-})
+watch(
+  [() => props.lightSource, effect],
+  () => {
+    if (props.lightSource && effect.value) {
+      effect.value.lightSource = toRaw(props.lightSource)
+    }
+  },
+  { immediate: true },
+)
 
-watch(() => props.lightSource, (val) => {
-  if (effect.value && val) {
-    effect.value.lightSource = toRaw(val)
-  }
-})
+watch(
+  [() => props.opacity],
+  () => {
+    if (props.opacity !== undefined) {
+      effect.value?.blendMode.setOpacity(props.opacity)
+    }
+    else {
+      const plainEffect = new GodRaysEffect(camera.value, toRaw(props.lightSource))
+      effect.value?.blendMode.setOpacity(plainEffect.blendMode.getOpacity())
+      plainEffect.dispose()
+    }
+  },
+  {
+    immediate: true,
+  },
+)
 </script>
