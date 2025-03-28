@@ -16,7 +16,7 @@ export interface GodRaysPmndrsProps {
   /**
    * The light source. Must not write depth and has to be flagged as transparent.
    */
-  lightSource?: Mesh | Points
+  lightSource?: Mesh | Points | null
 
   /**
    * The opacity of the God Rays.
@@ -84,7 +84,7 @@ const props = defineProps<GodRaysPmndrsProps>()
 const { camera } = useTresContext()
 
 const { pass, effect } = useEffectPmndrs(
-  () => new GodRaysEffect(camera.value, toRaw(props.lightSource), props),
+  () => new GodRaysEffect(camera.value, toRaw(props.lightSource) || undefined, props),
   props,
 )
 
@@ -116,9 +116,21 @@ watch(
       effect.value?.blendMode.setOpacity(props.opacity)
     }
     else {
-      const plainEffect = new GodRaysEffect(camera.value, toRaw(props.lightSource))
+      const plainEffect = new GodRaysEffect(camera.value, props.lightSource ? toRaw(props.lightSource) : undefined)
       effect.value?.blendMode.setOpacity(plainEffect.blendMode.getOpacity())
       plainEffect.dispose()
+    }
+  },
+  {
+    immediate: true,
+  },
+)
+
+watch(
+  [() => props.lightSource, effect],
+  () => {
+    if (effect.value && props.lightSource) {
+      effect.value.lightSource = toRaw(props.lightSource)
     }
   },
   {
