@@ -4,7 +4,7 @@ import { GodRaysEffect } from 'postprocessing'
 import { makePropWatchers } from '../../util/prop'
 import { useEffectPmndrs } from './composables/useEffectPmndrs'
 import { useTresContext } from '@tresjs/core'
-import { toRaw, watch } from 'vue'
+import { computed, toRaw, watch } from 'vue'
 import type { Points } from 'three'
 import { Mesh, MeshBasicMaterial, SphereGeometry } from 'three'
 
@@ -84,13 +84,17 @@ const props = defineProps<GodRaysPmndrsProps>()
 
 const { camera } = useTresContext()
 
-const resolvedLightSource = props.lightSource ?? new Mesh(
+const dummyLightSource = new Mesh(
   new SphereGeometry(0.00001),
   new MeshBasicMaterial({ visible: false }),
 )
 
+const resolvedLightSource = computed(() =>
+  props.lightSource ?? dummyLightSource,
+)
+
 const { pass, effect } = useEffectPmndrs(
-  () => new GodRaysEffect(camera.value, resolvedLightSource, props),
+  () => new GodRaysEffect(camera.value, resolvedLightSource.value, props),
   props,
 )
 
@@ -119,9 +123,7 @@ watch(
   [() => props.lightSource, effect],
   () => {
     if (effect.value) {
-      effect.value.lightSource = props.lightSource
-        ? toRaw(props.lightSource)
-        : resolvedLightSource
+      effect.value.lightSource = toRaw(resolvedLightSource.value)
     }
   },
   { immediate: true },
@@ -136,7 +138,7 @@ watch(
     else {
       const plainEffect = new GodRaysEffect(
         camera.value,
-        props.lightSource ? toRaw(props.lightSource) : resolvedLightSource,
+        toRaw(resolvedLightSource.value),
       )
       effect.value?.blendMode.setOpacity(plainEffect.blendMode.getOpacity())
       plainEffect.dispose()
