@@ -16,13 +16,20 @@ const gl = {
   toneMapping: NoToneMapping,
 }
 
-const { blendFunction, wireframe, boxColor } = useControls({
+const { autoRotateSpeed, autoRotate, blendFunction, wireframe, boxColor } = useControls({
   blendFunction: {
     options: Object.keys(BlendFunction).map(key => ({
       text: key,
       value: BlendFunction[key as keyof typeof BlendFunction],
     })),
     value: BlendFunction.SRC,
+  },
+  autoRotate: true,
+  autoRotateSpeed: {
+    value: 1,
+    min: 0,
+    max: 10,
+    step: 0.1,
   },
   boxColor: '#ffffff',
   wireframe: false,
@@ -45,10 +52,10 @@ const onChange = (e: { object: PerspectiveCamera }) => {
   <div ref="wrapperRef" class="aspect-16/9 relative h-full">
     <TresCanvas
       v-bind="gl"
-      class="playground-fxaa-canvas-left"
+      class="doc-fxaa-canvas-left"
     >
       <TresPerspectiveCamera :position="[0, 2.5, 3]" />
-      <OrbitControls :domElement="wrapperRef" auto-rotate :auto-rotate-speed=".35" :target="[0, 0.25, 0]" @change="onChange" />
+      <OrbitControls :domElement="wrapperRef" :auto-rotate="autoRotate" :auto-rotate-speed="autoRotateSpeed" :target="[0, 0.25, 0]" @change="onChange" />
 
       <TresMesh :position="[0, .5, 0]">
         <TresBoxGeometry :args="[2, 2, 2]" />
@@ -56,11 +63,11 @@ const onChange = (e: { object: PerspectiveCamera }) => {
       </TresMesh>
     </TresCanvas>
 
-    <div class="playground-fxaa-divider"></div>
+    <div class="doc-fxaa-divider"></div>
 
     <TresCanvas
       v-bind="gl"
-      class="playground-fxaa-canvas-right"
+      class="doc-fxaa-canvas-right"
     >
       <TresPerspectiveCamera ref="cameraRef" :position="[0, 2.5, 3]" />
 
@@ -86,7 +93,7 @@ const onChange = (e: { object: PerspectiveCamera }) => {
 </template>
 
 <style scoped>
-.playground-fxaa-canvas-left {
+.doc-fxaa-canvas-left {
   position: absolute !important;
   inset: 0;
   z-index: 1;
@@ -94,7 +101,7 @@ const onChange = (e: { object: PerspectiveCamera }) => {
   -webkit-clip-path: inset(0 50% 0 0);
 }
 
-.playground-fxaa-canvas-right {
+.doc-fxaa-canvas-right {
   position: absolute !important;
   inset: 0;
   z-index: 2;
@@ -103,7 +110,7 @@ const onChange = (e: { object: PerspectiveCamera }) => {
   -webkit-clip-path: inset(0 0 0 50%);
 }
 
-.playground-fxaa-divider {
+.doc-fxaa-divider {
   position: absolute;
   top: 0;
   bottom: 0;

@@ -11,7 +11,7 @@
 </details>
 
 The `FXAAEffect` effect is part of the [`postprocessing`](https://pmndrs.github.io/postprocessing/public/docs/class/src/effects/FXAAEffect.js~FXAAEffect.html) package.
-FXAA offers a performance-friendly anti-aliasing solution, smoothing jagged edges while maintaining good speed. However, the quality can be only modest, sometimes resulting in a slightly blurry appearance.
+FXAA offers a performance-optimized anti-aliasing solution that smooths jagged edges while maintaining excellent performance. However, its quality may be modest at times, occasionally resulting in a slightly blurred appearance.
 
   <a href="https://x.com/Miamiamia0103/status/1490355292487487494" target="_blank" class="flex flex-col gap-[7.5px] items-center justify-center">
     <img src="https://pbs.twimg.com/media/FK7MziPWUAYdHfu?format=jpg&name=large" alt="@Miamiamia0103 illustration" class="w-4/5">
