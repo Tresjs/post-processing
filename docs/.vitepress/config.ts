@@ -89,7 +89,7 @@ export default defineConfig({
       {
         text: 'Advanced',
         items: [
-          { text: 'Custom', link: '/guide/advanced/you-might-not-need-post-processing' },
+          { text: 'You might not need this module', link: '/guide/advanced/you-might-not-need-post-processing' },
         ],
       },
     ],
