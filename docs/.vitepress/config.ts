@@ -86,6 +86,12 @@ export default defineConfig({
           { text: 'Unreal Bloom', link: '/guide/three/unreal-bloom' },
         ].sort((a, b) => a.text.localeCompare(b.text)),
       },
+      {
+        text: 'Advanced',
+        items: [
+          { text: 'Custom', link: '/guide/advanced/you-might-not-need-post-processing' },
+        ],
+      },
     ],
 
     socialLinks: [
