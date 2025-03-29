@@ -16,7 +16,7 @@ const gl = {
   toneMapping: NoToneMapping,
 }
 
-const { autoRotateSpeed, autoRotate, blendFunction, wireframe, boxColor } = useControls({
+const { autoRotateSpeed, blendFunction, wireframe, boxColor, opacity, samples, minEdgeThreshold, maxEdgeThreshold, subpixelQuality } = useControls({
   blendFunction: {
     options: Object.keys(BlendFunction).map(key => ({
       text: key,
@@ -24,7 +24,30 @@ const { autoRotateSpeed, autoRotate, blendFunction, wireframe, boxColor } = useC
     })),
     value: BlendFunction.SRC,
   },
-  autoRotate: true,
+  samples: {
+    value: 12,
+    min: 0,
+    max: 32,
+    step: 1,
+  },
+  minEdgeThreshold: {
+    value: 0.0312,
+    min: 0,
+    max: 1,
+    step: 0.001,
+  },
+  maxEdgeThreshold: {
+    value: 0.125,
+    min: 0,
+    max: 1,
+    step: 0.001,
+  },
+  subpixelQuality: {
+    value: 0.75,
+    min: 0,
+    max: 1,
+    step: 0.01,
+  },
   autoRotateSpeed: {
     value: 1,
     min: 0,
@@ -33,6 +56,12 @@ const { autoRotateSpeed, autoRotate, blendFunction, wireframe, boxColor } = useC
   },
   boxColor: '#ffffff',
   wireframe: false,
+  opacity: {
+    value: 1,
+    min: 0,
+    max: 1,
+    step: 0.01,
+  },
 })
 
 const wrapperRef = ref<HTMLElement | undefined>(undefined)
@@ -54,8 +83,8 @@ const onChange = (e: { object: PerspectiveCamera }) => {
       v-bind="gl"
       class="doc-fxaa-canvas-left"
     >
-      <TresPerspectiveCamera :position="[0, 2.5, 3]" />
-      <OrbitControls :domElement="wrapperRef" :auto-rotate="autoRotate" :auto-rotate-speed="autoRotateSpeed" :target="[0, 0.25, 0]" @change="onChange" />
+      <TresPerspectiveCamera :position="[0, 2, 3.5]" />
+      <OrbitControls :domElement="wrapperRef" auto-rotate :auto-rotate-speed="autoRotateSpeed" :target="[0, 0.25, 0]" @change="onChange" />
 
       <TresMesh :position="[0, .5, 0]">
         <TresBoxGeometry :args="[2, 2, 2]" />
@@ -69,7 +98,7 @@ const onChange = (e: { object: PerspectiveCamera }) => {
       v-bind="gl"
       class="doc-fxaa-canvas-right"
     >
-      <TresPerspectiveCamera ref="cameraRef" :position="[0, 2.5, 3]" />
+      <TresPerspectiveCamera ref="cameraRef" :position="[0, 2, 3.5]" />
 
       <TresMesh :position="[0, .5, 0]">
         <TresBoxGeometry :args="[2, 2, 2]" />
@@ -80,13 +109,18 @@ const onChange = (e: { object: PerspectiveCamera }) => {
         <EffectComposerPmndrs>
           <FXAAPmndrs
             :blendFunction="Number(blendFunction)"
+            :opacity="opacity"
+            :samples="samples"
+            :maxEdgeThreshold="maxEdgeThreshold"
+            :minEdgeThreshold="minEdgeThreshold"
+            :subpixelQuality="subpixelQuality"
           />
         </EffectComposerPmndrs>
       </Suspense>
     </TresCanvas>
 
-    <p class="doc-fxaa-info doc-fxaa-info-left text-l font-semibold">⬅️ No FXAA</p>
-    <p class="doc-fxaa-info doc-fxaa-info-right text-l font-semibold">With FXAA ➡️</p>
+    <p class="doc-fxaa-info doc-fxaa-info-left text-xs font-semibold">⬅️ No FXAA</p>
+    <p class="doc-fxaa-info doc-fxaa-info-right text-xs font-semibold">With FXAA ➡️</p>
   </div>
 
   <TresLeches :float="false" />
@@ -124,7 +158,7 @@ const onChange = (e: { object: PerspectiveCamera }) => {
 .doc-fxaa-info {
   position: absolute;
   bottom: 0;
-  padding: 0.65rem 0.85rem;
+  padding: 0.45rem 0.75rem;
   margin: 0;
   text-align: center;
   color: #fff;

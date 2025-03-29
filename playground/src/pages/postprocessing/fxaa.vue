@@ -16,9 +16,10 @@ const gl = {
   toneMapping: NoToneMapping,
 }
 
+const wrapperRef = ref<HTMLElement | undefined>(undefined)
 const cameraRef = ref<PerspectiveCamera | null>(null)
 
-const { blendFunction } = useControls({
+const { blendFunction, autoRotateSpeed, opacity, samples, minEdgeThreshold, maxEdgeThreshold, subpixelQuality } = useControls({
   blendFunction: {
     options: Object.keys(BlendFunction).map(key => ({
       text: key,
@@ -26,9 +27,43 @@ const { blendFunction } = useControls({
     })),
     value: BlendFunction.SRC,
   },
+  autoRotateSpeed: {
+    value: 0.5,
+    min: 0,
+    max: 10,
+    step: 0.1,
+  },
+  opacity: {
+    value: 1,
+    min: 0,
+    max: 1,
+    step: 0.01,
+  },
+  samples: {
+    value: 12,
+    min: 0,
+    max: 32,
+    step: 1,
+  },
+  minEdgeThreshold: {
+    value: 0.0312,
+    min: 0,
+    max: 1,
+    step: 0.001,
+  },
+  maxEdgeThreshold: {
+    value: 0.125,
+    min: 0,
+    max: 1,
+    step: 0.001,
+  },
+  subpixelQuality: {
+    value: 0.75,
+    min: 0,
+    max: 1,
+    step: 0.01,
+  },
 })
-
-const documentEl = document.documentElement
 
 const onChange = (e: { object: PerspectiveCamera }) => {
   if (!cameraRef.value) { return }
@@ -43,42 +78,57 @@ const onChange = (e: { object: PerspectiveCamera }) => {
 <template>
   <TresLeches />
 
-  <TresCanvas
-    v-bind="gl"
-    class="playground-fxaa-canvas-left"
-    window-size
-  >
-    <TresPerspectiveCamera :position="[0, 2.5, 3.5]" />
-    <OrbitControls :domElement="documentEl" auto-rotate :auto-rotate-speed=".35" :target="[0, 0.25, 0]" @change="onChange" />
+  <div ref="wrapperRef" class="h-[100%] w-[100%] relative">
+    <p class="playground-fxaa-infos text-xl absolute">Left: No FXAA — Right: FXAA</p>
 
-    <TresMesh :position="[0, 0.5, 0]">
-      <TresBoxGeometry :args="[2, 2, 2]" />
-      <TresMeshBasicMaterial color="#ffffff" />
-    </TresMesh>
-  </TresCanvas>
+    <TresCanvas
+      v-bind="gl"
+      class="playground-fxaa-canvas-left"
+      window-size
+    >
+      <TresPerspectiveCamera :position="[0, 2.5, 3.5]" />
+      <OrbitControls
+        auto-rotate
+        :domElement="wrapperRef"
+        :auto-rotate-speed="autoRotateSpeed"
+        :target="[0, 0.25, 0]"
+        @change="onChange"
+      />
 
-  <TresCanvas
-    v-bind="gl"
-    class="playground-fxaa-canvas-right"
-    window-size
-  >
-    <TresPerspectiveCamera ref="cameraRef" :position="[0, 2.5, 3.5]" />
+      <TresMesh :position="[0, 0.5, 0]">
+        <TresBoxGeometry :args="[2, 2, 2]" />
+        <TresMeshBasicMaterial color="#ffffff" />
+      </TresMesh>
+    </TresCanvas>
 
-    <TresMesh :position="[0, 0.5, 0]">
-      <TresBoxGeometry :args="[2, 2, 2]" />
-      <TresMeshBasicMaterial color="#ffffff" />
-    </TresMesh>
+    <TresCanvas
+      v-bind="gl"
+      class="playground-fxaa-canvas-right"
+      window-size
+    >
+      <TresPerspectiveCamera ref="cameraRef" :position="[0, 2.5, 3.5]" />
 
-    <Suspense>
-      <EffectComposerPmndrs :multisampling="0">
-        <FXAAPmndrs :blendFunction="Number(blendFunction)" />
-      </EffectComposerPmndrs>
-    </Suspense>
-  </TresCanvas>
+      <TresMesh :position="[0, 0.5, 0]">
+        <TresBoxGeometry :args="[2, 2, 2]" />
+        <TresMeshBasicMaterial color="#ffffff" />
+      </TresMesh>
 
-  <div class="playground-fxaa-divider"></div>
+      <Suspense>
+        <EffectComposerPmndrs :multisampling="0">
+          <FXAAPmndrs
+            :blendFunction="Number(blendFunction)"
+            :opacity="opacity"
+            :samples="samples"
+            :maxEdgeThreshold="maxEdgeThreshold"
+            :minEdgeThreshold="minEdgeThreshold"
+            :subpixelQuality="subpixelQuality"
+          />
+        </EffectComposerPmndrs>
+      </Suspense>
+    </TresCanvas>
 
-  <p class="playground-fxaa-infos text-xl absolute w-[100%]">Left: No FXAA — Right: FXAA</p>
+    <div class="playground-fxaa-divider"></div>
+  </div>
 </template>
 
 <style scoped>
@@ -112,10 +162,13 @@ const onChange = (e: { object: PerspectiveCamera }) => {
 
 .playground-fxaa-infos {
   margin: 0 auto;
+  width: calc(100% - 2rem);
   padding: 1rem;
   text-align: center;
   color: #fff;
   background: rgba(0, 0, 0, 0.65);
   z-index: 5;
+  top: 0;
+  left: 0;
 }
 </style>
