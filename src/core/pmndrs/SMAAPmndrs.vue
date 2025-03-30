@@ -91,8 +91,9 @@ const createDebugPass = (type: 'edges' | 'weights') => {
   const texture = type === 'edges' ? effect.value.edgesTexture : effect.value.weightsTexture
   const pass = new EffectPass(camera.value, effect.value, new TextureEffect({ texture }))
   pass.renderToScreen = false
-  pass.enabled = false
-  pass.fullscreenMaterial.encodeOutput = false
+  pass.enabled = false;
+
+  (pass.fullscreenMaterial as any /* fix for broken type in postprocessing */).encodeOutput = false
 
   return pass
 }
