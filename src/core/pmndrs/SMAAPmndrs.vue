@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script lang="ts">
 import type { BlendFunction, EdgeDetectionMode, PredicationMode, SMAAPreset } from 'postprocessing'
 import { EffectPass, SMAAEffect, TextureEffect } from 'postprocessing'
 import { makePropWatchers } from '../../util/prop'
@@ -6,6 +6,12 @@ import { useEffectPmndrs } from './composables/useEffectPmndrs'
 import { inject, watch } from 'vue'
 import { useTresContext } from '@tresjs/core'
 import { effectComposerInjectionKey } from './EffectComposerPmndrs.vue'
+
+export const DEBUG_MODE = {
+  OFF: 0,
+  EDGES: 1,
+  WEIGHTS: 2,
+} as const
 
 export interface SMAAPmndrsProps {
   /**
@@ -36,9 +42,11 @@ export interface SMAAPmndrsProps {
    * - 1: EDGES
    * - 2: WEIGHTS
    */
-  debug?: number
+  debug?: typeof DEBUG_MODE[keyof typeof DEBUG_MODE]
 }
+</script>
 
+<script lang="ts" setup>
 const props = defineProps<SMAAPmndrsProps>()
 
 const { pass, effect } = useEffectPmndrs(() => new SMAAEffect(props), props)
@@ -127,9 +135,9 @@ const manageDebugPass = (pass: EffectPass | null, active: boolean) => {
 const updateDebugMode = (mode: number) => {
   if (!pass.value) { return }
 
-  const mainActive = mode === 0
-  const edgesActive = mode === 1
-  const weightsActive = mode === 2
+  const mainActive = mode === DEBUG_MODE.OFF
+  const edgesActive = mode === DEBUG_MODE.EDGES
+  const weightsActive = mode === DEBUG_MODE.WEIGHTS
 
   pass.value.enabled = mainActive
   pass.value.renderToScreen = mainActive
