@@ -8,12 +8,35 @@ import { useTresContext } from '@tresjs/core'
 import { effectComposerInjectionKey } from './EffectComposerPmndrs.vue'
 
 export interface SMAAPmndrsProps {
+  /**
+   * The blend function.
+   */
   blendFunction?: BlendFunction
+  /**
+   * The opacity of the effect.
+   */
   opacity?: number
+  /**
+   * The preset configuration for SMAA (Subpixel Morphological Antialiasing).
+   */
   preset?: SMAAPreset
+  /**
+   * The mode used for edge detection.
+   */
   edgeDetectionMode?: EdgeDetectionMode
+  /**
+   * The mode used for predication to improve edge detection.
+   */
   predicationMode?: PredicationMode
-  debug?: number // 0: OFF, 1: EDGES, 2: WEIGHTS
+  /**
+   * The debug mode for visualizing the effect.
+   *
+   * OPTIONS:
+   * - 0: OFF
+   * - 1: EDGES
+   * - 2: WEIGHTS
+   */
+  debug?: number
 }
 
 const props = defineProps<SMAAPmndrsProps>()
