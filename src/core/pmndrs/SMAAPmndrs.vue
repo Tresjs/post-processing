@@ -13,7 +13,7 @@ export interface SMAAPmndrsProps {
   preset?: SMAAPreset
   edgeDetectionMode?: EdgeDetectionMode
   predicationMode?: PredicationMode
-  debug?: number // 0: normal, 1: edges, 2: weights
+  debug?: number // 0: OFF, 1: EDGES, 2: WEIGHTS
 }
 
 const props = defineProps<SMAAPmndrsProps>()
@@ -23,6 +23,8 @@ const { camera } = useTresContext()
 const composer = inject(effectComposerInjectionKey)
 
 defineExpose({ pass, effect })
+
+const defaultSMAAEffect = new SMAAEffect()
 
 makePropWatchers(
   [
@@ -43,9 +45,7 @@ watch(
       effect.value.blendMode.setOpacity(props.opacity)
     }
     else {
-      const plainEffect = new SMAAEffect()
-      effect.value.blendMode.setOpacity(plainEffect.blendMode.getOpacity())
-      plainEffect.dispose()
+      effect.value.blendMode.setOpacity(defaultSMAAEffect.blendMode.getOpacity())
     }
   },
   { immediate: true },
@@ -78,13 +78,15 @@ const ensureDebugPass = (type: 'edges' | 'weights') => {
   if (type === 'edges' && !smaaEdgesDebugPass) {
     smaaEdgesDebugPass = createDebugPass('edges')
   }
-  if (type === 'weights' && !smaaWeightsDebugPass) {
+  else if (type === 'weights' && !smaaWeightsDebugPass) {
     smaaWeightsDebugPass = createDebugPass('weights')
   }
 }
 
 const manageDebugPass = (pass: EffectPass | null, active: boolean) => {
   if (!pass || !composer?.value) { return }
+
+  if (pass.enabled === active) { return }
 
   pass.enabled = active
   pass.renderToScreen = active

@@ -3,9 +3,9 @@ import { TresCanvas } from '@tresjs/core'
 import { OrbitControls } from '@tresjs/cientos'
 import { TresLeches, useControls } from '@tresjs/leches'
 import { NoToneMapping } from 'three'
-import { BlendFunction, EdgeDetectionMode, PredicationMode, SMAAPreset } from 'postprocessing'
+import { BlendFunction } from 'postprocessing'
 import { ref } from 'vue'
-import { EffectComposerPmndrs, SMAAPmndrs } from '@tresjs/post-processing'
+import { EffectComposerPmndrs, FXAAPmndrs } from '@tresjs/post-processing'
 import type { PerspectiveCamera } from 'three'
 
 import '@tresjs/leches/styles'
@@ -19,48 +19,13 @@ const gl = {
 const wrapperRef = ref<HTMLElement | undefined>(undefined)
 const cameraRef = ref<PerspectiveCamera | null>(null)
 
-const { blendFunction, debug, autoRotateSpeed, opacity, preset, wireframe, predicationMode, edgeDetectionMode } = useControls({
+const { blendFunction, autoRotateSpeed, opacity, samples, minEdgeThreshold, maxEdgeThreshold, subpixelQuality } = useControls({
   blendFunction: {
     options: Object.keys(BlendFunction).map(key => ({
       text: key,
       value: BlendFunction[key as keyof typeof BlendFunction],
     })),
-    value: BlendFunction.NORMAL,
-  },
-  debug: {
-    options: [
-      { text: 'OFF', value: 0 },
-      { text: 'Edges', value: 1 },
-      { text: 'Weights', value: 2 },
-    ],
-    value: 0,
-  },
-  preset: {
-    options: Object.keys(SMAAPreset).map(key => ({
-      text: key,
-      value: SMAAPreset[key as keyof typeof SMAAPreset],
-    })),
-    value: SMAAPreset.MEDIUM,
-  },
-  predicationMode: {
-    options: Object.keys(PredicationMode).map(key => ({
-      text: key,
-      value: PredicationMode[key as keyof typeof PredicationMode],
-    })),
-    value: PredicationMode.DISABLED,
-  },
-  edgeDetectionMode: {
-    options: Object.keys(EdgeDetectionMode).map(key => ({
-      text: key,
-      value: EdgeDetectionMode[key as keyof typeof EdgeDetectionMode],
-    })),
-    value: EdgeDetectionMode.COLOR,
-  },
-  opacity: {
-    value: 1,
-    min: 0,
-    max: 1,
-    step: 0.01,
+    value: BlendFunction.SRC,
   },
   autoRotateSpeed: {
     value: 0.5,
@@ -68,7 +33,36 @@ const { blendFunction, debug, autoRotateSpeed, opacity, preset, wireframe, predi
     max: 10,
     step: 0.1,
   },
-  wireframe: false,
+  opacity: {
+    value: 1,
+    min: 0,
+    max: 1,
+    step: 0.01,
+  },
+  samples: {
+    value: 12,
+    min: 0,
+    max: 32,
+    step: 1,
+  },
+  minEdgeThreshold: {
+    value: 0.0312,
+    min: 0,
+    max: 1,
+    step: 0.001,
+  },
+  maxEdgeThreshold: {
+    value: 0.125,
+    min: 0,
+    max: 1,
+    step: 0.001,
+  },
+  subpixelQuality: {
+    value: 0.75,
+    min: 0,
+    max: 1,
+    step: 0.01,
+  },
 })
 
 const onChange = (e: { object: PerspectiveCamera }) => {
@@ -85,11 +79,11 @@ const onChange = (e: { object: PerspectiveCamera }) => {
   <TresLeches />
 
   <div ref="wrapperRef" class="h-[100%] w-[100%] relative">
-    <p class="playground-smaa-infos text-xl absolute">Left: No SMAA — Right: SMAA</p>
+    <p class="playground-fxaa-infos text-xl absolute">Left: No FXAA — Right: FXAA</p>
 
     <TresCanvas
       v-bind="gl"
-      class="playground-smaa-canvas-left"
+      class="playground-fxaa-canvas-left"
       window-size
     >
       <TresPerspectiveCamera :position="[0, 2.5, 3.5]" />
@@ -103,42 +97,42 @@ const onChange = (e: { object: PerspectiveCamera }) => {
 
       <TresMesh :position="[0, 0.5, 0]">
         <TresBoxGeometry :args="[2, 2, 2]" />
-        <TresMeshBasicMaterial color="#ffffff" :wireframe="wireframe" />
+        <TresMeshBasicMaterial color="#ffffff" />
       </TresMesh>
     </TresCanvas>
 
     <TresCanvas
       v-bind="gl"
-      class="playground-smaa-canvas-right"
+      class="playground-fxaa-canvas-right"
       window-size
     >
       <TresPerspectiveCamera ref="cameraRef" :position="[0, 2.5, 3.5]" />
 
       <TresMesh :position="[0, 0.5, 0]">
         <TresBoxGeometry :args="[2, 2, 2]" />
-        <TresMeshBasicMaterial color="#ffffff" :wireframe="wireframe" />
+        <TresMeshBasicMaterial color="#ffffff" />
       </TresMesh>
 
       <Suspense>
-        <EffectComposerPmndrs>
-          <SMAAPmndrs
-            :debug="Number(debug)"
-            :blendFunction="blendFunction"
+        <EffectComposerPmndrs :multisampling="0">
+          <FXAAPmndrs
+            :blendFunction="Number(blendFunction)"
             :opacity="opacity"
-            :preset="preset"
-            :predicationMode="predicationMode"
-            :edgeDetectionMode="edgeDetectionMode"
+            :samples="samples"
+            :maxEdgeThreshold="maxEdgeThreshold"
+            :minEdgeThreshold="minEdgeThreshold"
+            :subpixelQuality="subpixelQuality"
           />
         </EffectComposerPmndrs>
       </Suspense>
     </TresCanvas>
 
-    <div class="playground-smaa-divider"></div>
+    <div class="playground-fxaa-divider"></div>
   </div>
 </template>
 
 <style scoped>
-.playground-smaa-canvas-left {
+.playground-fxaa-canvas-left {
   position: absolute;
   inset: 0;
   z-index: 1;
@@ -146,7 +140,7 @@ const onChange = (e: { object: PerspectiveCamera }) => {
   -webkit-clip-path: inset(0 50% 0 0);
 }
 
-.playground-smaa-canvas-right {
+.playground-fxaa-canvas-right {
   position: absolute;
   inset: 0;
   z-index: 2;
@@ -155,7 +149,7 @@ const onChange = (e: { object: PerspectiveCamera }) => {
   -webkit-clip-path: inset(0 0 0 50%);
 }
 
-.playground-smaa-divider {
+.playground-fxaa-divider {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -166,7 +160,7 @@ const onChange = (e: { object: PerspectiveCamera }) => {
   pointer-events: none;
 }
 
-.playground-smaa-infos {
+.playground-fxaa-infos {
   margin: 0 auto;
   width: calc(100% - 2rem);
   padding: 1rem;
