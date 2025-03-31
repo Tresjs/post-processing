@@ -41,7 +41,7 @@ export interface ASCIIPmndrsProps {
 
 const props = defineProps<ASCIIPmndrsProps>()
 
-const plainEffect = new ASCIITexture()
+const plainEffect = new ASCIIEffect()
 
 const { pass, effect } = useEffectPmndrs(() => new ASCIIEffect(), props)
 

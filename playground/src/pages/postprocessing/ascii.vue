@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ContactShadows, Environment, OrbitControls } from '@tresjs/cientos'
+import { Environment, OrbitControls } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
 import { TresLeches, useControls } from '@tresjs/leches'
 import { NoToneMapping } from 'three'
-import { ASCIITexture, BlendFunction } from 'postprocessing'
+import { BlendFunction } from 'postprocessing'
 import { ASCIIPmndrs, EffectComposerPmndrs } from '@tresjs/post-processing'
 
 import '@tresjs/leches/styles'
@@ -27,11 +27,11 @@ const { enabled, blendFunction, opacity, cellSize, inverted, color, useSceneColo
   useSceneColor: false,
   color: '#ffffff',
   inverted: false,
-  characters: { value: '@#8&$%*o!;.', label: 'Characters' },
-  font: { value: 'Arial', label: 'Font' },
-  fontSize: { value: 54, step: 1, min: 10, max: 100, label: 'Font Size' },
-  size: { value: 1024, step: 128, min: 256, max: 2048, label: 'Texture Size' },
-  cellCount: { value: 16, step: 1, min: 4, max: 64, label: 'Cell Count' },
+  characters: { value: '@#8&$%*o!;.' },
+  font: { value: 'Arial' },
+  fontSize: { value: 54, step: 1, min: 10, max: 100 },
+  size: { value: 1024, step: 128, min: 256, max: 2048, label: 'textureSize' },
+  cellCount: { value: 16, step: 1, min: 4, max: 64 },
 })
 </script>
 
