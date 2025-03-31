@@ -6,6 +6,8 @@ import { useEffectPmndrs } from './composables/useEffectPmndrs'
 import { onUnmounted, watch } from 'vue'
 import type { Color } from 'three'
 
+type ASCIITextureOptions = ConstructorParameters<typeof ASCIITexture>[0]
+
 export interface ASCIIPmndrsProps {
   /**
    * The blend function.
@@ -33,17 +35,19 @@ export interface ASCIIPmndrsProps {
    */
   useSceneColor?: boolean
   /**
-   * The ASCII texture to use or a custom configuration for it.
+   * The ASCII texture options to use for creating an ASCIITexture instance.
    * https://pmndrs.github.io/postprocessing/public/docs/class/src/textures/ASCIITexture.js~ASCIITexture.html
    */
-  asciiTexture?: ASCIITexture
+  asciiTexture?: ASCIITextureOptions
 }
 
 const props = defineProps<ASCIIPmndrsProps>()
 
 const plainEffect = new ASCIIEffect()
 
-const { pass, effect } = useEffectPmndrs(() => new ASCIIEffect(), props)
+const { asciiTexture, ...asciiEffectProps } = props
+
+const { pass, effect } = useEffectPmndrs(() => new ASCIIEffect(asciiEffectProps), props)
 
 defineExpose({ pass, effect })
 
@@ -108,6 +112,16 @@ watch(
       : plainEffect.asciiTexture
 
     effect.value.asciiTexture = texture
+  },
+  { immediate: true },
+)
+
+watch(
+  [effect, () => props.blendFunction],
+  () => {
+    if (!effect.value) { return }
+
+    effect.value.blendMode.blendFunction = props.blendFunction ? Number(props.blendFunction) : Number(plainEffect.blendMode.blendFunction)
   },
   { immediate: true },
 )
