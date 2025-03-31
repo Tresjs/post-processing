@@ -53,6 +53,7 @@ export const postProcessingRoutes = [
   makeRoute('Color Depth', '🔳', false),
   makeRoute('Grid', '#️⃣', false),
   makeRoute('ASCII', '🔡', false),
+  makeRoute('SMAA', '📐', false),
   makeRoute('FXAA', '📐', false),
   makeRoute('Shock Wave', '🌊', false),
   makeRoute('Brightness Contrast', '🔆', false),
