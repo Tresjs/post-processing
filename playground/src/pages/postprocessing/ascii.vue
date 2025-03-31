@@ -3,7 +3,7 @@ import { ContactShadows, Environment, OrbitControls } from '@tresjs/cientos'
 import { TresCanvas } from '@tresjs/core'
 import { TresLeches, useControls } from '@tresjs/leches'
 import { NoToneMapping } from 'three'
-import { BlendFunction } from 'postprocessing'
+import { ASCIITexture, BlendFunction } from 'postprocessing'
 import { ASCIIPmndrs, EffectComposerPmndrs } from '@tresjs/post-processing'
 
 import '@tresjs/leches/styles'
@@ -11,22 +11,27 @@ import '@tresjs/leches/styles'
 const gl = {
   clearColor: '#ffffff',
   toneMapping: NoToneMapping,
-  multisampling: 8,
 }
 
-const { blendFunction, opacity, cellSize, inverted, color, useSceneColor } = useControls({
+const { enabled, blendFunction, opacity, cellSize, inverted, color, useSceneColor, characters, font, fontSize, size, cellCount } = useControls({
+  enabled: true,
   blendFunction: {
     options: Object.keys(BlendFunction).map(key => ({
       text: key,
       value: BlendFunction[key as keyof typeof BlendFunction],
     })),
-    value: BlendFunction.OVERLAY,
+    value: BlendFunction.NORMAL,
   },
   opacity: { value: 1, step: 0.1, min: 0.0, max: 1.0 },
   cellSize: { value: 12, step: 1, min: 2, max: 64 },
   useSceneColor: false,
-  color: '#ff0000',
+  color: '#ffffff',
   inverted: false,
+  characters: { value: '@#8&$%*o!;.', label: 'Characters' },
+  font: { value: 'Arial', label: 'Font' },
+  fontSize: { value: 54, step: 1, min: 10, max: 100, label: 'Font Size' },
+  size: { value: 1024, step: 128, min: 256, max: 2048, label: 'Texture Size' },
+  cellCount: { value: 16, step: 1, min: 4, max: 64, label: 'Cell Count' },
 })
 </script>
 
@@ -37,34 +42,36 @@ const { blendFunction, opacity, cellSize, inverted, color, useSceneColor } = use
     v-bind="gl"
   >
     <TresPerspectiveCamera
-      :position="[5, 5, 5]"
+      :position="[5, 6.5, 7.5]"
       :look-at="[0, 0, 0]"
     />
     <OrbitControls auto-rotate />
 
     <TresMesh :position="[0, .5, 0]">
       <TresBoxGeometry :args="[2, 2, 2]" />
-      <TresMeshPhysicalMaterial color="black" :roughness=".25" />
+      <TresMeshPhysicalMaterial color="white" />
     </TresMesh>
 
-    <ContactShadows
-      :opacity="1"
-      :position-y="-.5"
-    />
-
     <Suspense>
-      <Environment background :blur=".5" preset="night" />
+      <Environment background preset="dawn" />
     </Suspense>
 
     <Suspense>
       <EffectComposerPmndrs>
         <ASCIIPmndrs
-          :blendFunction="Number(blendFunction)"
+          :blendFunction="enabled ? Number(blendFunction) : Number(BlendFunction.SKIP)"
           :opacity="opacity"
           :cellSize="cellSize"
           :inverted="inverted"
           :color="color"
           :useSceneColor="useSceneColor"
+          :asciiTexture="{
+            characters,
+            font,
+            fontSize,
+            size,
+            cellCount,
+          }"
         />
       </EffectComposerPmndrs>
     </Suspense>

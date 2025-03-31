@@ -1,13 +1,10 @@
 <script lang="ts" setup>
 import type { BlendFunction } from 'postprocessing'
-import { ASCIIEffect } from 'postprocessing'
+import { ASCIIEffect, ASCIITexture } from 'postprocessing'
 import { makePropWatchers } from '../../util/prop'
 import { useEffectPmndrs } from './composables/useEffectPmndrs'
-import { watch } from 'vue'
+import { onUnmounted, watch } from 'vue'
 import type { Color } from 'three'
-
-// TODO: ADD PROPS:
-// - asciiTexture: (ASCIITexture)
 
 export interface ASCIIPmndrsProps {
   /**
@@ -32,22 +29,33 @@ export interface ASCIIPmndrsProps {
   color?: Color | string | number | null
   /**
    * Controls whether the effect should use the scene color.
+   * If `true`, it overrides the `color` props.
    */
   useSceneColor?: boolean
+  /**
+   * The ASCII texture to use or a custom configuration for it.
+   * https://pmndrs.github.io/postprocessing/public/docs/class/src/textures/ASCIITexture.js~ASCIITexture.html
+   */
+  asciiTexture?: ASCIITexture
 }
 
 const props = defineProps<ASCIIPmndrsProps>()
 
-const { pass, effect } = useEffectPmndrs(() => new ASCIIEffect(props), props)
+const plainEffect = new ASCIITexture()
+
+const { pass, effect } = useEffectPmndrs(() => new ASCIIEffect(), props)
 
 defineExpose({ pass, effect })
+
+onUnmounted(() => {
+  plainEffect.dispose()
+})
 
 makePropWatchers(
   [
     [() => props.blendFunction, 'blendMode.blendFunction'],
     [() => props.cellSize, 'cellSize'],
     [() => props.inverted, 'inverted'],
-    [() => props.color, 'color'],
   ],
   effect,
   () => new ASCIIEffect(),
@@ -61,10 +69,8 @@ watch(
     if (props.useSceneColor) {
       effect.value.color = null
     }
-    else if (!props.useSceneColor) {
-      const plainEffect = new ASCIIEffect()
-      effect.value.color = props.color ? props.color : plainEffect.color
-      plainEffect.dispose()
+    else {
+      effect.value.color = props.color ?? plainEffect.color
     }
   },
   { immediate: true },
@@ -75,14 +81,33 @@ watch(
   () => {
     if (!effect.value) { return }
 
-    if (props.opacity !== undefined) {
-      effect.value?.blendMode.setOpacity(props.opacity)
+    effect.value.blendMode.setOpacity(props.opacity ?? plainEffect.blendMode.getOpacity())
+  },
+  { immediate: true },
+)
+
+watch(
+  [effect, () => props.color],
+  () => {
+    if (!effect.value) { return }
+
+    if (!props.useSceneColor) {
+      effect.value.color = props.color ?? null
     }
-    else {
-      const plainEffect = new ASCIIEffect()
-      effect.value?.blendMode.setOpacity(plainEffect.blendMode.getOpacity())
-      plainEffect.dispose()
-    }
+  },
+  { immediate: true },
+)
+
+watch(
+  [effect, () => props.asciiTexture],
+  () => {
+    if (!effect.value) { return }
+
+    const texture = props.asciiTexture
+      ? new ASCIITexture(props.asciiTexture)
+      : plainEffect.asciiTexture
+
+    effect.value.asciiTexture = texture
   },
   { immediate: true },
 )
