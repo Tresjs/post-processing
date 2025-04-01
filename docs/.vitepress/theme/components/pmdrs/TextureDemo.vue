@@ -77,16 +77,6 @@ const { blendFunction, rotation, opacity } = useControls({
 watch(rotation, () => {
   texture.rotation = rotation.value
 })
-
-// watch(
-//   () => textureEffectRef.value?.effect,
-//   () => {
-//     if (!textureEffectRef.value?.effect) { return}
-
-//     use setTextureSwizzleRGBA() from TextureEffect (https://pmndrs.github.io/postprocessing/public/docs/file/src/effects/TextureEffect.js.html#lineNumber192)
-//     textureEffectRef.value?.effect.setTextureSwizzleRGBA()
-//   },
-// )
 </script>
 
 <template>

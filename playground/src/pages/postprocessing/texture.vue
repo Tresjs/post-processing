@@ -51,7 +51,7 @@ watch(rotation, () => {
   texture.rotation = rotation.value
 })
 
-// watch(
+// Example of using TextureEffect's setTextureSwizzleRGBA function
 //   () => textureEffectRef.value?.effect,
 //   () => {
 //     if (!textureEffectRef.value?.effect) { return}
