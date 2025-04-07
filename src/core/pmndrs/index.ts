@@ -31,6 +31,7 @@ import BrightnessContrastPmndrs, { type BrightnessContrastPmndrsProps } from './
 import SMAAPmndrs, { type SMAAPmndrsProps } from './SMAAPmndrs.vue'
 import FXAAPmndrs, { type FXAAPmndrsProps } from './FXAAPmndrs.vue'
 import TexturePmndrs, { type TexturePmndrsProps } from './TexturePmndrs.vue'
+import ASCIIPmndrs, { type ASCIIPmndrsProps } from './ASCIIPmndrs.vue'
 
 export {
   BloomPmndrs,
@@ -64,6 +65,7 @@ export {
   SMAAPmndrs,
   FXAAPmndrs,
   TexturePmndrs,
+  ASCIIPmndrs,
   BloomPmndrsProps,
   DepthOfFieldPmndrsProps,
   EffectComposerPmndrsProps,
@@ -94,4 +96,5 @@ export {
   SMAAPmndrsProps,
   FXAAPmndrsProps,
   TexturePmndrsProps,
+  ASCIIPmndrsProps,
 }
