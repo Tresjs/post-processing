@@ -7,6 +7,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    ASCIIDemo: typeof import('./.vitepress/theme/components/pmdrs/ASCIIDemo.vue')['default']
     BarrelBlurDemo: typeof import('./.vitepress/theme/components/pmdrs/BarrelBlurDemo.vue')['default']
     BlenderCube: typeof import('./.vitepress/theme/components/BlenderCube.vue')['default']
     BloomDemo: typeof import('./.vitepress/theme/components/pmdrs/BloomDemo.vue')['default']
@@ -21,6 +22,7 @@ declare module 'vue' {
     DotScreenDemo: typeof import('./.vitepress/theme/components/pmdrs/DotScreenDemo.vue')['default']
     Ducky: typeof import('./.vitepress/theme/components/Ducky.vue')['default']
     FishEyeDemo: typeof import('./.vitepress/theme/components/pmdrs/FishEyeDemo.vue')['default']
+    FXAADemo: typeof import('./.vitepress/theme/components/pmdrs/FXAADemo.vue')['default']
     GlitchDemo: typeof import('./.vitepress/theme/components/pmdrs/GlitchDemo.vue')['default']
     GlitchThreeDemo: typeof import('./.vitepress/theme/components/three/GlitchThreeDemo.vue')['default']
     GodRaysDemo: typeof import('./.vitepress/theme/components/pmdrs/GodRaysDemo.vue')['default']
@@ -39,7 +41,9 @@ declare module 'vue' {
     ScanlineDemo: typeof import('./.vitepress/theme/components/pmdrs/ScanlineDemo.vue')['default']
     SepiaDemo: typeof import('./.vitepress/theme/components/pmdrs/SepiaDemo.vue')['default']
     ShockWaveDemo: typeof import('./.vitepress/theme/components/pmdrs/ShockWaveDemo.vue')['default']
+    SMAADemo: typeof import('./.vitepress/theme/components/pmdrs/SMAADemo.vue')['default']
     SMAAThreeDemo: typeof import('./.vitepress/theme/components/three/SMAAThreeDemo.vue')['default']
+    TextureDemo: typeof import('./.vitepress/theme/components/pmdrs/TextureDemo.vue')['default']
     TiltShiftDemo: typeof import('./.vitepress/theme/components/pmdrs/TiltShiftDemo.vue')['default']
     ToneMappingDemo: typeof import('./.vitepress/theme/components/pmdrs/ToneMappingDemo.vue')['default']
     UnrealBloomThreeDemo: typeof import('./.vitepress/theme/components/three/UnrealBloomThreeDemo.vue')['default']
