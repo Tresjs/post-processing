@@ -72,4 +72,4 @@ const effectProps = {
 | subpixelQuality | The subpixel blend quality. Range: `[0.0, 1.0]`.             | `0.75`        |
 
 ## Further Reading
-For more details, see the [FXAAEffectEffect documentation](https://pmndrs.github.io/postprocessing/public/docs/class/src/effects/FXAAEffect.js~FXAAEffect.html)
+For more details, see the [FXAAEffect documentation](https://pmndrs.github.io/postprocessing/public/docs/class/src/effects/FXAAEffect.js~FXAAEffect.html)
