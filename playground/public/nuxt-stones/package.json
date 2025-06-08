@@ -9,7 +9,7 @@
     "preview": "vitepress preview"
   },
   "dependencies": {
-    "@tresjs/cientos": "^3.0.1",
+    "@tresjs/cientos": "^4.0.0",
     "@tresjs/core": "^3.2.2",
     "@tresjs/post-processing": "workspace:^",
     "gsap": "^3.11.5"
