@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useGLTF } from '@tresjs/cientos'
 import type { TresObject } from '@tresjs/core'
-import { computed, shallowRef, watchEffect } from 'vue'
+import { computed, shallowRef } from 'vue'
 
 const { nodes } = useGLTF(
   'https://raw.githubusercontent.com/Tresjs/assets/main/models/gltf/blender-cube.glb',
