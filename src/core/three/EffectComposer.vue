@@ -24,11 +24,11 @@ provide(effectComposerInjectionKey, effectComposer)
 
 defineExpose({ composer: effectComposer })
 
-const { renderer, sizes, scene, camera, render: renderCtx } = useTresContext()
+const { renderer, sizes, scene, camera } = useTresContext()
 
 const initEffectComposer = () => {
   effectComposer.value?.dispose()
-  effectComposer.value = new EffectComposer(renderer.value)
+  effectComposer.value = new EffectComposer(renderer.instance)
 }
 watchEffect(initEffectComposer)
 
@@ -47,8 +47,8 @@ watchEffect(() => {
 
 if (!props.withoutRenderPass) {
   watchEffect(() => {
-    if (camera.value && scene.value && effectComposer.value) {
-      effectComposer.value.addPass(new RenderPass(scene.value, camera.value))
+    if (camera.activeCamera.value && scene.value && effectComposer.value) {
+      effectComposer.value.addPass(new RenderPass(scene.value, camera.activeCamera.value))
     }
   })
 }
@@ -56,13 +56,13 @@ if (!props.withoutRenderPass) {
 const { render } = useLoop()
 
 render(() => {
-  if (renderCtx.frames.value > 0 && effectComposer.value && props.enabled) {
+  if (renderer.frames.value > 0 && effectComposer.value && props.enabled) {
     effectComposer.value.render()
   }
-
-  renderCtx.frames.value = renderCtx.mode.value === 'always'
+  // TODO: expose render mode
+  renderer.frames.value = renderer.mode === 'always'
     ? 1
-    : Math.max(0, renderCtx.frames.value - 1)
+    : Math.max(0, renderer.frames.value - 1)
 })
 
 onUnmounted(() => {
