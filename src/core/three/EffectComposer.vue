@@ -55,14 +55,11 @@ if (!props.withoutRenderPass) {
 
 const { render } = useLoop()
 
-render(() => {
-  if (renderer.frames.value > 0 && effectComposer.value && props.enabled) {
+render((notifySuccess) => {
+  if (effectComposer.value && props.enabled) {
     effectComposer.value.render()
+    notifySuccess()
   }
-  // TODO: expose render mode
-  renderer.frames.value = renderer.mode === 'always'
-    ? 1
-    : Math.max(0, renderer.frames.value - 1)
 })
 
 onUnmounted(() => {

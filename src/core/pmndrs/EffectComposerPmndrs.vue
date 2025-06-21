@@ -107,19 +107,16 @@ watch(() => [sizes.width.value, sizes.height.value], ([width, height]) => {
 
 const { render } = useLoop()
 
-render(() => {
-  if (props.enabled && renderer.instance && effectComposer.value && sizes.width.value && sizes.height.value && renderer.frames.value > 0) {
+render((notifySuccess) => {
+  if (props.enabled && renderer.instance && effectComposer.value && sizes.width.value && sizes.height.value) {
     const currentAutoClear = renderer.instance.autoClear
     renderer.instance.autoClear = props.autoClear
     if (props.stencilBuffer && !props.autoClear) { renderer.instance.clearStencil() }
     effectComposer.value.render()
     emit('render', effectComposer.value)
     renderer.instance.autoClear = currentAutoClear
+    notifySuccess()
   }
-
-  renderer.frames.value = renderer.mode === 'always'
-    ? 1
-    : Math.max(0, renderer.frames.value - 1)
 })
 
 onUnmounted(() => {

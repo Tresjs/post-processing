@@ -63,7 +63,7 @@
   },
   "devDependencies": {
     "@release-it/conventional-changelog": "^10.0.0",
-    "@tresjs/core": "5.0.0-next.3",
+    "@tresjs/core": "5.0.0-next.5",
     "@tresjs/eslint-config": "^1.4.0",
     "@tresjs/leches": "https://pkg.pr.new/@tresjs/leches@9ad0cd3",
     "@types/three": "^0.172.0",
