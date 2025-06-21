@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { EffectComposer } from 'postprocessing'
 import type { InjectionKey, ShallowRef } from 'vue'
-import { useLoop, useTresContext } from '@tresjs/core'
+import { useTresContext } from '@tresjs/core'
 import { DepthDownsamplingPass, EffectComposer as EffectComposerImpl, NormalPass, RenderPass } from 'postprocessing'
 
 import { HalfFloatType } from 'three'
@@ -105,9 +105,7 @@ watch(() => [sizes.width.value, sizes.height.value], ([width, height]) => {
   immediate: true,
 })
 
-const { render } = useLoop()
-
-render((notifySuccess) => {
+renderer.replaceRenderFunction((notifySuccess) => {
   if (props.enabled && renderer.instance && effectComposer.value && sizes.width.value && sizes.height.value) {
     const currentAutoClear = renderer.instance.autoClear
     renderer.instance.autoClear = props.autoClear
