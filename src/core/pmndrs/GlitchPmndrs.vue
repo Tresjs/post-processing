@@ -63,7 +63,7 @@ defineExpose({ pass, effect })
 const { invalidate } = useTres()
 
 const { onBeforeRender } = useLoop()
-onBeforeRender((/* { invalidate } */) => invalidate())
+onBeforeRender(() => invalidate())
 
 watchEffect(() => {
   const getMode = () => {
