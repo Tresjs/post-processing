@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@tresjs/cientos": "5.0.0-next.2",
-    "@tresjs/core": "5.0.0-next.5",
+    "@tresjs/core": "https://pkg.pr.new/@tresjs/core@a5468fc",
     "@tresjs/post-processing": "workspace:*",
     "vue-router": "^4.5.0"
   },

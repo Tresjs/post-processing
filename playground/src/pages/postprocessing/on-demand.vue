@@ -15,7 +15,7 @@ function onRender() {
 const canvas = ref<InstanceType<typeof TresCanvas>>()
 
 function onControlChange() {
-  canvas.value?.context?.invalidate()
+  canvas.value?.context?.renderer.invalidate()
 }
 </script>
 

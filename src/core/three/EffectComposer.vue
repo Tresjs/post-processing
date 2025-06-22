@@ -1,5 +1,5 @@
 <script lang="ts">
-import { useLoop, useTresContext } from '@tresjs/core'
+import { useTresContext } from '@tresjs/core'
 import { useDevicePixelRatio } from '@vueuse/core'
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
@@ -53,9 +53,7 @@ if (!props.withoutRenderPass) {
   })
 }
 
-const { render } = useLoop()
-
-render((notifySuccess) => {
+renderer.replaceRenderFunction((notifySuccess) => {
   if (effectComposer.value && props.enabled) {
     effectComposer.value.render()
     notifySuccess()
