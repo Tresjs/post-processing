@@ -52,7 +52,7 @@
     "docs:preview": "vitepress preview"
   },
   "peerDependencies": {
-    "@tresjs/core": ">=4.0",
+    "@tresjs/core": ">=5.0",
     "three": ">=0.169",
     "vue": ">=3.4"
   },

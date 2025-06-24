@@ -91,11 +91,11 @@ importers:
   docs:
     dependencies:
       '@tresjs/cientos':
-        specifier: ^4.1.0
-        version: 4.3.1(@tresjs/core@4.3.6(three@0.173.0)(typescript@5.8.3)(vue@3.5.17(typescript@5.8.3)))(@types/three@0.172.0)(three@0.173.0)(typescript@5.8.3)(vue@3.5.17(typescript@5.8.3))
+        specifier: 5.0.0-next.2
+        version: 5.0.0-next.2(@tresjs/core@5.0.0-next.3(three@0.173.0)(typescript@5.8.3)(vue@3.5.17(typescript@5.8.3)))(@types/three@0.172.0)(three@0.173.0)(typescript@5.8.3)(vue@3.5.17(typescript@5.8.3))
       '@tresjs/core':
-        specifier: ^4.3.2
-        version: 4.3.6(three@0.173.0)(typescript@5.8.3)(vue@3.5.17(typescript@5.8.3))
+        specifier: 5.0.0-next.3
+        version: 5.0.0-next.3(three@0.173.0)(typescript@5.8.3)(vue@3.5.17(typescript@5.8.3))
       '@tresjs/post-processing':
         specifier: workspace:^
         version: link:..
@@ -1202,8 +1202,8 @@ packages:
   '@tootallnate/quickjs-emscripten@0.23.0':
     resolution: {integrity: sha512-C5Mc6rdnsaJDjO3UpGW/CQTHtCKaYlScZTly4JIu97Jxo/odCiH0ITnDXSJPTOrEKk/ycSZ0AOgTmkDtkOsvIA==}
 
-  '@tresjs/cientos@4.3.1':
-    resolution: {integrity: sha512-3qp6lEtMrFdhxDuASP1Sz/hEi8+xcEpM6Vd6uDJysCh4uRAzyJLlBSbPoR7gVjN12wrhwJIF1AfYEFz/Vhz5ZQ==}
+  '@tresjs/cientos@5.0.0-next.2':
+    resolution: {integrity: sha512-e0u0gkPGYlj5sNNwM9BrRxxVU6Gz44oj9cFljC/2aS2AhewkNOjL5dzaJZo/s08K3L8N8DPuvGUSYEdU8hyx+g==}
     peerDependencies:
       '@tresjs/core': '>=4.2.1'
       three: '>=0.133'
@@ -1216,8 +1216,8 @@ packages:
       three: '>=0.133'
       vue: '>=3.3'
 
-  '@tresjs/core@4.3.6':
-    resolution: {integrity: sha512-CCk4+jwbiTl7Hj3REZqweglUQQdA3cF29TqJ4dEWunaBPyfsAGLTlJExK5lGIS10ptJkr8DqPvHQT41iTIb0Yg==}
+  '@tresjs/core@5.0.0-next.3':
+    resolution: {integrity: sha512-YuCnowKeVF1C9/lHJRkSoZN45Zy4N7saO2n2YJbaLVrzN4cBlonuDyH9qyAm9mgGQ1HZ8vIsDN6t/ANQ2iNXZw==}
     peerDependencies:
       three: '>=0.133'
       vue: '>=3.4'
@@ -5536,9 +5536,9 @@ snapshots:
 
   '@tootallnate/quickjs-emscripten@0.23.0': {}
 
-  '@tresjs/cientos@4.3.1(@tresjs/core@4.3.6(three@0.173.0)(typescript@5.8.3)(vue@3.5.17(typescript@5.8.3)))(@types/three@0.172.0)(three@0.173.0)(typescript@5.8.3)(vue@3.5.17(typescript@5.8.3))':
+  '@tresjs/cientos@5.0.0-next.2(@tresjs/core@5.0.0-next.3(three@0.173.0)(typescript@5.8.3)(vue@3.5.17(typescript@5.8.3)))(@types/three@0.172.0)(three@0.173.0)(typescript@5.8.3)(vue@3.5.17(typescript@5.8.3))':
     dependencies:
-      '@tresjs/core': 4.3.6(three@0.173.0)(typescript@5.8.3)(vue@3.5.17(typescript@5.8.3))
+      '@tresjs/core': 5.0.0-next.3(three@0.173.0)(typescript@5.8.3)(vue@3.5.17(typescript@5.8.3))
       '@vueuse/core': 12.8.2(typescript@5.8.3)
       camera-controls: 2.10.1(three@0.173.0)
       stats-gl: 2.4.2(@types/three@0.172.0)(three@0.173.0)
@@ -5570,10 +5570,11 @@ snapshots:
       - react
       - typescript
 
-  '@tresjs/core@4.3.6(three@0.173.0)(typescript@5.8.3)(vue@3.5.17(typescript@5.8.3))':
+  '@tresjs/core@5.0.0-next.3(three@0.173.0)(typescript@5.8.3)(vue@3.5.17(typescript@5.8.3))':
     dependencies:
       '@alvarosabu/utils': 3.2.0
-      '@vue/devtools-api': 6.6.4
+      '@pmndrs/pointer-events': 6.6.17
+      '@vue/devtools-api': 7.7.7
       '@vueuse/core': 12.8.2(typescript@5.8.3)
       three: 0.173.0
       vue: 3.5.17(typescript@5.8.3)
