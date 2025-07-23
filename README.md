@@ -25,10 +25,6 @@ pnpm i @tresjs/post-processing
 
 Checkout the [docs](https://post-processing.tresjs.org/)
 
-## Demos
-
-- [Stackblitz Collection](https://stackblitz.com/@alvarosabu/collections/tresjs)
-
 ## Contributing
 
 We are open to contributions, please read the [contributing guide](https://github.com/Tresjs/tres/blob/main/CONTRIBUTING.md) to get started.
